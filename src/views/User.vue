@@ -2,9 +2,8 @@
   <div style="padding: 10px">
     <!--    功能区域-->
     <div style="margin: 10px 0">
-      <el-button type="primary" @click="add">新增</el-button>
-      <el-upload
-        action="http://localhost:9090/user/import"
+      <!-- <el-upload
+        action="http://api/user/import"
         :on-success="handleUploadSuccess"
         :show-file-list="false"
         :limit="1"
@@ -13,7 +12,7 @@
       >
         <el-button type="primary">导入</el-button>
       </el-upload>
-      <el-button type="primary" @click="exportUser">导出</el-button>
+      <el-button type="primary" @click="exportUser">导出</el-button> -->
     </div>
 
     <!--    搜索区域-->
@@ -24,6 +23,9 @@
         style="width: 20%"
         clearable
       ></el-input>
+      <el-button style="margin-left: 5px" type="primary" @click="add"
+        >新增</el-button
+      >
       <el-button type="primary" style="margin-left: 5px" @click="load"
         >查询</el-button
       >
@@ -36,15 +38,23 @@
       style="width: 100%"
     >
       <el-table-column prop="id" label="ID" sortable> </el-table-column>
-      <el-table-column prop="username" label="用户名"> </el-table-column>
-      <el-table-column prop="nickName" label="姓名"> </el-table-column>
-      <el-table-column prop="age" label="年龄"> </el-table-column>
-      <el-table-column prop="sex" label="性别"> </el-table-column>
+      <el-table-column label="性别">
+        <template #default="scope">
+          <span v-if="scope.row.gender === 1">男</span>
+          <span v-if="scope.row.gender === 0">女</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="email" label="邮箱"> </el-table-column>
+
+      <el-table-column prop="name" label="姓名"> </el-table-column>
+      <!-- <el-table-column prop="age" label="年龄"> </el-table-column> -->
 
       <el-table-column label="角色">
         <template #default="scope">
-          <span v-if="scope.row.role === 1">管理员</span>
-          <span v-if="scope.row.role === 2">普通用户</span>
+          <span v-if="scope.row.role === 0">游客</span>
+          <span v-if="scope.row.role === 1">学生</span>
+          <span v-if="scope.row.role === 2">老师</span>
+          <span v-if="scope.row.role === 3">管理员</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="260">
@@ -96,13 +106,13 @@
         <el-form-item label="姓名">
           <el-input v-model="form.nickName" style="width: 80%"></el-input>
         </el-form-item>
-        <el-form-item label="年龄">
+        <!-- <el-form-item label="年龄">
           <el-input v-model="form.age" style="width: 80%"></el-input>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="性别">
-          <el-radio v-model="form.sex" label="男">男</el-radio>
-          <el-radio v-model="form.sex" label="女">女</el-radio>
-          <el-radio v-model="form.sex" label="未知">未知</el-radio>
+          <el-radio v-model="form.gender" label="男">男</el-radio>
+          <el-radio v-model="form.gender" label="女">女</el-radio>
+          <el-radio v-model="form.gender" label="未知">未知</el-radio>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -146,7 +156,7 @@ export default {
     load() {
       this.loading = true;
       request
-        .get("/user", {
+        .get("/user/all", {
           params: {
             pageNum: this.currentPage,
             pageSize: this.pageSize,
@@ -154,20 +164,21 @@ export default {
           },
         })
         .then((res) => {
+          console.log(res);
           this.loading = false;
           this.tableData = res.data.records;
           this.total = res.data.total;
         });
     },
     handleUploadSuccess(res) {
-      if (res.code === "0") {
+      if (res.status === 200) {
         this.$message.success("导入成功");
         this.load();
       }
     },
     exportUser() {
       location.href =
-        "http://" + window.server.filesUploadUrl + ":9090/user/export";
+        "http://" + window.server.filesUploadUrl + ":8181/user/export";
     },
     add() {
       this.dialogVisible = true; // 显示弹窗
@@ -177,8 +188,8 @@ export default {
       if (this.form.id) {
         // 更新
         request.put("/user", this.form).then((res) => {
-          console.log(res);
-          if (res.code === "0") {
+          // console.log(res);
+          if (res.status === 200) {
             this.$message({
               type: "success",
               message: "更新成功",
@@ -196,7 +207,7 @@ export default {
         // 新增
         request.post("/user", this.form).then((res) => {
           console.log(res);
-          if (res.code === "0") {
+          if (res.status === 200) {
             this.$message({
               type: "success",
               message: "新增成功",
@@ -220,7 +231,7 @@ export default {
     handleDelete(id) {
       console.log(id);
       request.delete("/user/" + id).then((res) => {
-        if (res.code === "0") {
+        if (res.status === 200) {
           this.$message({
             type: "success",
             message: "删除成功",

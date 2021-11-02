@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card style="width: 40%; margin: 10px">
+    <el-card style="width: 35%; margin: 10% 25%">
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item style="text-align: center" label-width="0">
           <el-upload
@@ -14,14 +14,14 @@
           </el-upload>
         </el-form-item>
         <el-form-item label="邮箱">
-          <el-input v-model="form.username" disabled></el-input>
+          <el-input style="" v-model="form.username" disabled></el-input>
         </el-form-item>
-        <el-form-item label="昵称">
+        <el-form-item label="姓名">
           <el-input v-model="form.nickName"></el-input>
         </el-form-item>
 
         <el-form-item label="性别">
-          <el-input v-model="form.gender"></el-input>
+          <el-input v-model="form.gender">{{}}</el-input>
         </el-form-item>
 
         <el-form-item label="密码">
@@ -42,6 +42,7 @@ export default {
   name: "Person",
   data() {
     return {
+      // tx: "上传头像",
       newAvatarUrl: "",
       form: {
         username: "",
@@ -68,7 +69,7 @@ export default {
       this.form.avatarUrl = url;
       request.put("/user", this.form).then((res) => {
         console.log(res);
-        if (res.code === "0") {
+        if (res.status === 200) {
           this.$message({
             type: "success",
             message: "更新成功",
@@ -80,6 +81,7 @@ export default {
           this.$message({
             type: "error",
             message: res.msg,
+            // message: "保存失败",
           });
         }
       });
@@ -89,6 +91,15 @@ export default {
 </script>
 
 <style>
+/* .el-card {
+  min-width: 380px;
+  margin-right: 20px;
+  transition: all 0.5s;
+}
+.el-card:hover {
+  margin-top: -5px;
+} */
+
 .avatar-uploader .el-upload {
   border: 1px dashed #d9d9d9;
   border-radius: 6px;

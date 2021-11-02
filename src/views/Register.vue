@@ -35,7 +35,7 @@
             <el-input
               prefix-icon="el-icon-key"
               v-model="form.code"
-              style="width: 75%;"
+              style="width: 75%"
               placeholder="请输入验证码"
             ></el-input>
             <el-button style="margin-left: 15px" type="primary" @click="getCode"
@@ -86,6 +86,7 @@ export default {
     //     alert("邮箱格式不正确");
     //   }
     // },
+
     getCode() {
       // var regEmail = /^[A-Za-z1-9]+([-_.][A-Za-z1-9]+)*@([A-Za-z1-9]+[-.])+[A-Za-z]{2,5}$/;
       // var _this = this;

@@ -154,11 +154,49 @@ export default {
           editor = new E("#div1");
 
           // 配置 server 接口地址
-          editor.config.uploadImgServer =
-            "http://" +
-            window.server.filesUploadUrl +
-            ":8181/files/editor/upload";
+          editor.config.uploadImgServer = "/api/files/editor/upload";
+          // "http://" +
+          // window.server.filesUploadUrl +
+          // ":8181/files/editor/upload";
           editor.config.uploadFileName = "file"; // 设置上传参数名称
+
+          editor.config.uploadImgHooks = {
+            // // 上传图片之前
+            // before: function(xhr) {
+            //   console.log(xhr);
+
+            //   // 可阻止图片上传;
+            //   return {
+            //     prevent: false,
+            //     msg: "错误信息",
+            //   };
+            // },
+            // // 图片上传并返回了结果，图片插入已成功
+            // success: function(xhr) {
+            //   console.log("success", xhr);
+            // },
+            // // 图片上传并返回了结果，但图片插入时出错了
+            // fail: function(xhr, editor, resData) {
+            //   console.log("fail", resData);
+            // },
+            // // 上传图片出错，一般为 http 请求的错误
+            // error: function(xhr, editor, resData) {
+            //   console.log("error", xhr, resData);
+            // },
+            // // 上传图片超时
+            // timeout: function(xhr) {
+            //   console.log("timeout");
+            // },
+            // 图片上传并返回了结果，想要自己把图片插入到编辑器中
+            // 例如服务器端返回的不是 { errno: 0, data: [...] } 这种格式，可使用 customInsert
+            customInsert: function (insertImgFn, result) {
+              // result 即服务端返回的接口
+              console.log("customInsert", result);
+
+              // insertImgFn 可把图片插入到编辑器，传入图片 src ，执行函数即可
+              insertImgFn("/api" + result.data[0].url);
+            },
+          };
           editor.create();
         }
 
@@ -172,7 +210,7 @@ export default {
         // 更新
         request.put("/news", this.form).then((res) => {
           console.log(res);
-          if (res.code === "0") {
+          if (res.status === 200) {
             this.$message({
               type: "success",
               message: "更新成功",
@@ -194,7 +232,7 @@ export default {
 
         request.post("/news", this.form).then((res) => {
           console.log(res);
-          if (res.code === "0") {
+          if (res.status === 200) {
             this.$message({
               type: "success",
               message: "新增成功",
@@ -217,13 +255,12 @@ export default {
 
       this.$nextTick(() => {
         // 关联弹窗里面的div，new一个 editor对象
-        // 关联弹窗里面的div，new一个 editor对象
         if (!editor) {
           editor = new E("#div1");
-
           // 配置 server 接口地址
-          editor.config.uploadImgServer =
-            "http://192.168.4.71:8181/files/editor/upload";
+          editor.config.uploadImgServer = "/api/files/editor/upload";
+          // "http://" + window.server.filesUploadUrl + "/files/editor/upload";
+          // console.log(editor.config.uploadImgServe);
           editor.config.uploadFileName = "file"; // 设置上传参数名称
           editor.create();
         }
@@ -234,7 +271,7 @@ export default {
     handleDelete(id) {
       console.log(id);
       request.delete("/news/" + id).then((res) => {
-        if (res.code === "0") {
+        if (res.status === 200) {
           this.$message({
             type: "success",
             message: "删除成功",

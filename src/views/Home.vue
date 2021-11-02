@@ -1,12 +1,4 @@
-<template>
-  <div style="padding: 10px">
-    <el-card>
-      <div>动态</div>
-
-      <div>注意事项</div>
-    </el-card>
-  </div>
-</template>
+<template> </template>
 
 <script>
 import request from "@/utils/request";
@@ -19,4 +11,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style type="text/css"></style>

@@ -34,8 +34,10 @@
           </div>
         </el-form-item>
         <el-form-item>
-          <el-radio v-model="form.role" :label="1">管理员</el-radio>
-          <el-radio v-model="form.role" :label="2">普通用户</el-radio>
+          <el-radio v-model="form.role" :label="3">管理员</el-radio>
+          <el-radio v-model="form.role" :label="2">审核员</el-radio>
+          <el-radio v-model="form.role" :label="[0, 1]">普通用户</el-radio>
+
           <!--          <el-button @click="resetForm('ruleForm')" >重置</el-button>-->
         </el-form-item>
         <el-form-item>
@@ -100,6 +102,7 @@ export default {
             this.$message.error("验证码错误");
             return;
           }
+
           request
             .post("/user/login", {
               email: this.form.username,
