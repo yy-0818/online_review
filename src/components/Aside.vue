@@ -15,7 +15,11 @@
 
       <!-- <el-menu-item index="/message">在线留言</el-menu-item> -->
 
-      <el-submenu index="1" v-if="user.role == [2, 3]">
+      <el-menu-item index="/see" v-if="user.role === 3 || user.role === 2"
+        >审核论文</el-menu-item
+      >
+
+      <el-submenu index="1" v-if="user.role === 3 || user.role === 2">
         <template #title>系统管理</template>
         <el-menu-item index="/user">用户管理</el-menu-item>
       </el-submenu>

@@ -57,6 +57,11 @@
           <span v-if="scope.row.role === 3">管理员</span>
         </template>
       </el-table-column>
+      <el-table-column label="方向">
+        <template #default="scope">
+          <span v-if="scope.row.directionId === 2">数值模拟与云计算应用</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" width="260">
         <template #default="scope">
           <el-button
@@ -155,6 +160,7 @@ export default {
     // },
     load() {
       this.loading = true;
+
       request
         .get("/user/all", {
           params: {
@@ -176,9 +182,11 @@ export default {
         this.load();
       }
     },
-    exportUser() {
+    expoer() {
       location.href =
-        "http://" + window.server.filesUploadUrl + ":8181/user/export";
+        // "http://" + window.server.filesUploadUrl + ":8181/user/export";
+        // "/api" + "/files/editor/upload";
+        "";
     },
     add() {
       this.dialogVisible = true; // 显示弹窗

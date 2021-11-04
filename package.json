@@ -1,7 +1,9 @@
 {
-  "name": "springboot-vue-demo",
+  "name": "paper_review_system",
   "version": "0.1.0",
   "private": true,
+  "description": "Online manuscript review system",
+  "author": "you<534764132@gmail.com>",
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build"

@@ -1,9 +1,4 @@
-<template>
-    <el-card>
-
-    </el-card>
-
-</template>
+<template> </template>
 
 <script>
 import request from "@/utils/request";
