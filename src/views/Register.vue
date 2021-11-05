@@ -1,60 +1,67 @@
 <template>
-  <div style="width: 100%; height: 100vh; overflow: hidden">
+  <div
+    style="width: 100%; height: 100vh; overflow: hidden;background: linear-gradient(90deg,#be8dd8,#763ab6);"
+  >
     <div style="width: 400px; margin: 100px auto">
-      <div style="font-size: 30px; text-align: center; padding: 30px 0">
-        欢迎注册
-      </div>
-      <el-form ref="form" :model="form" size="normal" :rules="rules">
-        <el-form-item prop="username">
-          <el-input
-            prefix-icon="el-icon-user-solid"
-            v-model="form.username"
-            placeholder="请输入用户名(邮箱)"
-          ></el-input>
-        </el-form-item>
-
-        <el-form-item prop="password">
-          <el-input
-            prefix-icon="el-icon-lock"
-            v-model="form.password"
-            show-password
-            placeholder="请输入密码"
-          ></el-input>
-        </el-form-item>
-        <el-form-item prop="confirm">
-          <el-input
-            prefix-icon="el-icon-lock"
-            v-model="form.confirm"
-            show-password
-            placeholder="请再输入密码"
-          ></el-input>
-        </el-form-item>
-
-        <el-form-item prop="code">
-          <div style="display: flex">
+      <el-card>
+        <div style="font-size: 30px; text-align: center; padding: 30px 0">
+          欢迎注册
+        </div>
+        <el-form ref="form" :model="form" size="normal" :rules="rules">
+          <el-form-item prop="username">
             <el-input
-              prefix-icon="el-icon-key"
-              v-model="form.code"
-              style="width: 75%"
-              placeholder="请输入验证码"
+              prefix-icon="el-icon-user-solid"
+              v-model="form.username"
+              placeholder="请输入用户名(邮箱)"
             ></el-input>
-            <el-button style="margin-left: 15px" type="primary" @click="getCode"
-              >获取验证码</el-button
-            >
-          </div>
-        </el-form-item>
+          </el-form-item>
 
-        <el-form-item>
-          <el-button style="width: 100%" type="primary" @click="register"
-            >注册</el-button
-          >
-          <el-form-item
-            ><el-button type="text" @click="$router.push('/login')"
-              >返回登录 >>
-            </el-button></el-form-item
-          >
-        </el-form-item>
-      </el-form>
+          <el-form-item prop="password">
+            <el-input
+              prefix-icon="el-icon-lock"
+              v-model="form.password"
+              show-password
+              placeholder="请输入密码"
+            ></el-input>
+          </el-form-item>
+          <el-form-item prop="confirm">
+            <el-input
+              prefix-icon="el-icon-lock"
+              v-model="form.confirm"
+              show-password
+              placeholder="请再输入密码"
+            ></el-input>
+          </el-form-item>
+
+          <el-form-item prop="code">
+            <div style="display: flex">
+              <el-input
+                prefix-icon="el-icon-key"
+                v-model="form.code"
+                style="width: 75%"
+                placeholder="请输入验证码"
+              ></el-input>
+              <el-button
+                style="margin-left: 15px"
+                type="primary"
+                @click="getCode"
+                >获取验证码</el-button
+              >
+            </div>
+          </el-form-item>
+
+          <el-form-item>
+            <el-button style="width: 100%" type="primary" @click="register"
+              >注册</el-button
+            >
+            <el-form-item
+              ><el-button type="text" @click="$router.push('/login')"
+                >返回登录 >>
+              </el-button></el-form-item
+            >
+          </el-form-item>
+        </el-form>
+      </el-card>
     </div>
   </div>
 </template>
@@ -156,4 +163,13 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.el-card {
+  min-width: 380px;
+  margin-right: 20px;
+  transition: all 0.5s;
+}
+.el-card:hover {
+  margin-top: -5px;
+}
+</style>

@@ -44,11 +44,7 @@
             <!--          <el-button @click="resetForm('ruleForm')" >重置</el-button>-->
           </el-form-item>
           <el-form-item>
-            <el-button
-              style="width: 100%"
-              type="primary"
-              :loading="true"
-              @click="login"
+            <el-button style="width: 100%" type="primary" @click="login"
               >登 录</el-button
             >
           </el-form-item>
@@ -65,7 +61,7 @@
 
 <script>
 import request from "@/utils/request";
-
+// import Img from "@/assets/img/fc.png";
 // import Loading from "@/components/loading";
 import ValidCode from "@/components/ValidCode";
 

@@ -23,9 +23,9 @@
         style="width: 20%"
         clearable
       ></el-input>
-      <el-button style="margin-left: 5px" type="primary" @click="add"
+      <!-- <el-button style="margin-left: 5px" type="primary" @click="add"
         >新增</el-button
-      >
+      > -->
       <el-button type="primary" style="margin-left: 5px" @click="load"
         >查询</el-button
       >
@@ -59,7 +59,12 @@
       </el-table-column>
       <el-table-column label="方向">
         <template #default="scope">
+          <span v-if="scope.row.directionId === 1">区域风险评估与研究</span>
           <span v-if="scope.row.directionId === 2">数值模拟与云计算应用</span>
+          <span v-if="scope.row.directionId === 3">模型试验与现场研究</span>
+          <span v-if="scope.row.directionId === 4">监测预警系统设计与开发</span>
+          <span v-if="scope.row.directionId === 5">算法模型研究</span>
+          <span v-if="scope.row.directionId === 6">智能装备研发及应用</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="260">
@@ -266,3 +271,5 @@ export default {
   },
 };
 </script>
+
+<style scoped></style>
