@@ -1,10 +1,8 @@
 <template>
-  <div
-    style="width: 100%; height: 100vh; overflow: hidden;background: linear-gradient(90deg,#be8dd8,#763ab6);"
-  >
+  <div class="af">
     <div style="width: 400px; margin: 100px auto">
       <el-card>
-        <div style="font-size: 30px; text-align: center; padding: 30px 0">
+        <div id="todoapp">
           欢迎注册
         </div>
         <el-form ref="form" :model="form" size="normal" :rules="rules">
@@ -171,5 +169,20 @@ export default {
 }
 .el-card:hover {
   margin-top: -5px;
+}
+
+.af {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(90deg, #8dbed6, #2918c0);
+}
+
+#todoapp {
+  font-size: 60px "华文行楷";
+  text-align: center;
+  font: 50px "华文行楷";
+  color: #4d4d4d;
+  padding: 30px 0;
 }
 </style>

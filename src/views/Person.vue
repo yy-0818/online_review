@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card class="el-card">
+    <el-card class="el-card" shadow="hover">
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item style="text-align: center" label-width="0">
           <el-upload
@@ -24,6 +24,15 @@
           <el-input class="el-form-item-d" v-model="form.name"></el-input>
         </el-form-item>
 
+        <el-form-item label="密码">
+          <el-input
+            class="el-form-item-d"
+            v-model="form.password"
+            show-password
+            placeholder="修改密码"
+          ></el-input>
+        </el-form-item>
+
         <el-form-item label="性别">
           <!--                    <el-input v-model="form.gender"></el-input>-->
           <el-select v-model="form.gender">
@@ -35,15 +44,6 @@
             >
             </el-option>
           </el-select>
-        </el-form-item>
-
-        <el-form-item label="密码">
-          <el-input
-            class="el-form-item-d"
-            v-model="form.password"
-            show-password
-            placeholder="修改密码"
-          ></el-input>
         </el-form-item>
       </el-form>
       <div style="text-align: center">
@@ -60,8 +60,7 @@ export default {
   name: "Person",
   data() {
     return {
-      // tx: "上传头像",
-      newAvatarUrl: "",
+      newAvatarUrl: "", // tx: "上传头像",
       form: {
         username: "",
         nickname: "",
@@ -120,7 +119,7 @@ export default {
   margin: 10% 30%;
 }
 .el-form-item-d {
-  width: 200px;
+  /* width: 200px; */
 }
 
 .avatar-uploader .el-upload {

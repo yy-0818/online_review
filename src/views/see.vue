@@ -44,7 +44,7 @@
             size="mini"
             type="success"
             plain
-            @click="showBooks(scope.row.bookList)"
+            @click="handlePreviewOpen(scope.row)"
             >预览</el-button
           >
           <el-button
@@ -101,11 +101,24 @@
         </span>
       </template>
     </el-dialog>
+
+    <!-- 预览弹框 -->
+    <el-dialog
+            class="previewDialog"
+            title="预览"
+            :visible.sync="previewVisible"
+            :fullscreen="true"
+            :before-close="handlePreviewClose"
+    >
+      <iframe class="el-iframe" :src="previewIframeUrl" frameborder="0"></iframe>
+    </el-dialog>
+
   </div>
 </template>
 
 <script>
 import request from "@/utils/request";
+import base64 from "../utils/base64";
 
 export default {
   name: "Home",
@@ -122,6 +135,9 @@ export default {
       total: 0,
       tableData: [],
       // bookList: [],
+
+      previewVisible: false,
+      previewIframeUrl: ""
     };
   },
   created() {
@@ -237,8 +253,33 @@ export default {
       this.currentPage = pageNum;
       this.load();
     },
+    handlePreviewOpen(row) {
+      if (data.file) {
+        this.previewVisible = true;
+        this.previewIframeUrl =
+                "http://8.136.96.167:8012/onlinePreview?url=" + encodeURIComponent(base64.encode(data.url));
+      } else {
+        this.$message("暂无链接");
+      }
+    },
+    handlePreviewClose() {
+      this.previewVisible = false
+    }
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+  .el-iframe {
+    width: 100%;
+    height: 100%;
+    background-color: #f2f2f2;
+  }
+
+  /* /deep/  在scoped中 可以更改外部样式 */
+  .previewDialog /deep/ .el-dialog__body {
+    height: 90%;
+    padding: 0;
+  }
+</style>

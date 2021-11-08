@@ -41,7 +41,7 @@
           :body-style="{ padding: '0px' }"
           shadow="hover"
         >
-          <img src="../assets/img/fc.png" class="image" />
+          <img src="../assets/img/rl.png" class="image" />
           <div style="padding: 14px;">
             <a
               href="https://api.idocv.com/view/bWhilgw?type=imgall"
@@ -66,7 +66,7 @@
           :body-style="{ padding: '0px' }"
           shadow="hover"
         >
-          <img src="../assets/img/fc.png" class="image" />
+          <img src="../assets/img/hh.png" class="image" />
           <div style="padding: 14px;">
             <span>园翁莫把秋荷折，因与游鱼盖夕阳宋。</span>
             <div class="bottom clearfix">
@@ -77,7 +77,19 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-row> </el-row>
+    <el-row style="margin-top: 10px;">
+      <el-card class="box-card" shadow="hover">
+        <template #header>
+          <div class="card-header">
+            <span style="  font-size: 20px;">入站详情</span>
+            <!-- <el-button class="button" type="text">操作按钮</el-button> -->
+          </div>
+        </template>
+        <div v-for="o in 4" :key="o" class="text item">
+          {{ " " + o }}
+        </div>
+      </el-card>
+    </el-row>
   </div>
 </template>
 
@@ -98,6 +110,7 @@ export default {
 .el-card {
   min-width: 380px;
   margin-right: 20px;
+  margin-top: 10px;
   transition: all 0.5s;
 }
 .el-card:hover {
@@ -137,5 +150,25 @@ export default {
 
 .clearfix:after {
   clear: both;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text {
+  font-size: 15px;
+}
+
+.item {
+  margin-top: 10px;
+  margin-bottom: 18px;
+}
+
+.box-card {
+  /* margin-top: 20x; */
+  width: 568px;
 }
 </style>

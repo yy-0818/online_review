@@ -32,7 +32,7 @@
       <!--          label="ID"-->
 
       <!--      >-->
-      <!--      </el-table-column>-->
+      <el-table-column prop="id" label="ID" sortable> </el-table-column>
       <el-table-column prop="time" label="时间" sortable> </el-table-column>
       <el-table-column prop="title" label="标题"> </el-table-column>
       <el-table-column prop="author" label="作者"> </el-table-column>
@@ -189,7 +189,7 @@ export default {
             // },
             // 图片上传并返回了结果，想要自己把图片插入到编辑器中
             // 例如服务器端返回的不是 { errno: 0, data: [...] } 这种格式，可使用 customInsert
-            customInsert: function (insertImgFn, result) {
+            customInsert: function(insertImgFn, result) {
               // result 即服务端返回的接口
               console.log("customInsert", result);
 

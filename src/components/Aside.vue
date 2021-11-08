@@ -5,23 +5,32 @@
       :default-active="path"
       router
     >
-      <el-menu-item index="/home">主页</el-menu-item>
+      <el-menu-item index="/home" class="el-menu-item-h">主页</el-menu-item>
 
-      <el-menu-item index="/paper">论文上传</el-menu-item>
+      <el-menu-item index="/paper" class="el-menu-item-h"
+        >论文上传</el-menu-item
+      >
 
-      <el-menu-item index="/news">资源分享</el-menu-item>
+      <el-menu-item index="/news" class="el-menu-item-h">资源分享</el-menu-item>
 
-      <!-- <el-menu-item index="/im">聊天室</el-menu-item> -->
+      <!-- <el-menu-item index="/im" class="el-menu-item-h">聊天室</el-menu-item> -->
 
-      <!-- <el-menu-item index="/message">在线留言</el-menu-item> -->
+      <!-- <el-menu-item index="/message" class="el-menu-item-h">在线留言</el-menu-item> -->
 
-      <el-menu-item index="/see" v-if="user.role === 3 || user.role === 2"
+      <el-menu-item
+        index="/see"
+        class="el-menu-item-h"
+        v-if="user.role === 3 || user.role === 2"
         >审核论文</el-menu-item
       >
 
       <el-submenu index="1" v-if="user.role === 3 || user.role === 2">
-        <template #title>系统管理</template>
-        <el-menu-item index="/user">用户管理</el-menu-item>
+        <template #title>
+          <span class="el-menu-item-h">系统管理</span>
+        </template>
+        <el-menu-item index="/user" class="el-menu-item-h"
+          >用户管理</el-menu-item
+        >
       </el-submenu>
     </el-menu>
   </div>
@@ -52,4 +61,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.el-menu-item-h {
+  font-size: 18px;
+}
+</style>

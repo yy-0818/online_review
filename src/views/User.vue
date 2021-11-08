@@ -48,7 +48,6 @@
 
       <el-table-column prop="name" label="姓名"> </el-table-column>
       <!-- <el-table-column prop="age" label="年龄"> </el-table-column> -->
-
       <el-table-column label="角色">
         <template #default="scope">
           <span v-if="scope.row.role === 0">游客</span>
@@ -73,7 +72,7 @@
             size="mini"
             type="success"
             plain
-            @click="showBooks(scope.row.bookList)"
+            @click="showBooks(scope.row.see)"
             >查看上传论文</el-button
           >
           <el-button

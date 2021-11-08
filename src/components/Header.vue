@@ -3,7 +3,7 @@
     style="height: 50px; line-height: 50px; border-bottom: 1px solid #ccc; display: flex"
   >
     <div
-      style="width: 500px; padding-left: 15px; font-weight: bold; color: dodgerblue;font-size: 20px"
+      style="width: 500px; padding-left: 15px; font-weight: bold; color: dodgerblue;font-size: 25px"
     >
       在线审稿系统(OMRS)
     </div>

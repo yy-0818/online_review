@@ -1,67 +1,147 @@
 <template>
-  <div>
-    <div class="header">上传文件</div>
-
-    <div class="content">
+  <el-row style="margin: 10px 12px 12px 24px;">
+    <el-card class="box-card" shadow="hover">
+      <template #header>
+        <div class="card-header">
+          <span style="  font-size: 20px;">论文详情</span>
+        </div>
+      </template>
       <div>
-        <el-upload
-          drag
-          class="upload-demo"
-          ref="upload"
-          :limit="limitNum"
-          action="/admin/index/import"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          accept=".xls, .xlsx"
-          :file-list="fileList"
-          :on-change="fileChange"
-          :auto-upload="false"
-          :on-exceed="exceedFile"
-          :on-success="handleSuccess"
-          :on-error="handleError"
-        >
-          <i class="el-icon-upload"></i>
+        <el-form ref="form" :model="form">
+          <el-form-item label="标题(中)">
+            <el-input class="el-form-item-d" v-model="form.title"></el-input>
+          </el-form-item>
+          <el-form-item label="标题(英)">
+            <el-input class="el-form-item-d" v-model="form.titleS"></el-input>
+          </el-form-item>
+          <el-form-item label="关键词(中)">
+            <el-input class="el-form-item-d" v-model="form.keyword"></el-input>
+          </el-form-item>
+          <el-form-item label="关键词(英)">
+            <el-input class="el-form-item-d" v-model="form.keywordS"></el-input>
+          </el-form-item>
+          <el-form-item label="摘要(中)">
+            <el-input class="el-form-item-d" v-model="form.summary"></el-input>
+          </el-form-item>
+          <el-form-item label="摘要(英)">
+            <el-input class="el-form-item-d" v-model="form.summaryS"></el-input>
+          </el-form-item>
 
-          <div class="el-upload__text">
-            将Order文件拖到此处，或
-
-            <em>点击上传</em>
+          <el-form-item label="研究方向">
+            <el-select v-model="form.directionId">
+              <el-option
+                v-for="item in directionIdOptions"
+                :key="item.value"
+                :label="item.name"
+                :value="item.id"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <div style="text-align: center">
+            <el-button type="primary" @click="save">上传</el-button>
           </div>
+        </el-form>
+      </div>
+    </el-card>
+  </el-row>
+  <el-row>
+    <el-card style="margin: 10px 12px 12px 24px;display: flex;" shadow="hover">
+      <div>
+        <div class="header">上传文件</div>
 
-          <div class="el-upload__tip">
-            只能上传xls与xlsx文件，且不超过10M
+        <div class="content">
+          <div>
+            <el-upload
+              drag
+              ref="upload"
+              class="upload-demo"
+              :limit="limitNum"
+              action="/api/files/upload"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              accept=".pdf, .doc,.docx"
+              :file-list="fileList"
+              :on-change="fileChange"
+              :auto-upload="false"
+              :on-exceed="exceedFile"
+              :on-success="handleSuccess"
+              :on-error="handleError"
+            >
+              <i class="el-icon-upload"></i>
+
+              <div class="el-upload__text">
+                将Order文件拖到此处，或
+
+                <em>点击上传</em>
+              </div>
+
+              <div class="el-upload__tip">
+                只能上传PFD与Word文件，且不超过15M
+              </div>
+            </el-upload>
+
+            <br />
+
+            <div
+              style="display: flex;justify-content: center;align-items: center;"
+            >
+              <el-button
+                size="small"
+                type="primary"
+                :disabled="isBtn"
+                @click="submitUpload"
+                plain
+                >立即上传<i class="el-icon-upload el-icon--right"></i
+              ></el-button>
+
+              <el-button size="small" plain> 取消 </el-button>
+            </div>
           </div>
-        </el-upload>
-
-        <br />
-
-        <div style="display: flex;justify-content: center;align-items: center;">
-          <el-button
-            size="small"
-            type="primary"
-            :disabled="isBtn"
-            @click="submitUpload"
-            >立即上传</el-button
-          >
-
-          <el-button size="small">取消</el-button>
         </div>
       </div>
-    </div>
-  </div>
+    </el-card>
+  </el-row>
 </template>
 
 <script>
+import request from "@/utils/request";
+
 export default {
   data() {
     return {
+      directionIdOptions: [],
+      form: {
+        title: "",
+        titleS: "",
+        keyowrd: "",
+        keyowrdS: "",
+        summary: "",
+        summaryS: "",
+        url: "",
+      },
       limitNum: 1, // 上传excell时，同时允许上传的最大数
-
       fileList: [],
-
       length: 0, //当前上传文件个数
-
       isBtn: false, //控制上传按钮能否点击
+      rules: {
+        title: [{ required: true, message: "请输入标题(中)", trigger: "blur" }],
+        titleS: [
+          { required: true, message: "请输入标题(英)", trigger: "blur" },
+        ],
+        keyowrd: [
+          { required: true, message: "请输关键词(中)", trigger: "blur" },
+        ],
+        keyowrdS: [
+          { required: true, message: "请输入关键词(英)", trigger: "blur" },
+        ],
+        summary: [
+          { required: true, message: "请输入摘要(中)", trigger: "blur" },
+        ],
+        summaryS: [
+          { required: true, message: "请输入摘要(英)", trigger: "blur" },
+        ],
+      },
     };
   },
 
@@ -71,6 +151,7 @@ export default {
 
   mounted() {
     this.$store.state.adminleftnavnum = "0"; //设置左侧导航2-2 active
+    this.getDirections();
   },
 
   methods: {
@@ -109,14 +190,37 @@ export default {
 
     handleSuccess(res, file, fileList) {
       this.$message.success("文件上传成功");
+      this.form.url = file.response.data;
+      console.log(file.response.data);
 
-      this.$router.push({ path: "/order" });
+      // this.$router.push({ path: "/order" });
     }, // 文件上传失败时的钩子
 
     handleError(err, file, fileList) {
       this.$message.error("文件上传失败");
 
       this.isBtn = false;
+    },
+    getDirections() {
+      request.get("/direction").then((res) => {
+        console.log(res.data);
+        this.directionIdOptions = res.data;
+      });
+    },
+
+    getUserId() {
+      let userJson = sessionStorage.getItem("user");
+      if (!userJson) {
+        return;
+      }
+      return JSON.parse(userJson).id;
+    },
+    save() {
+      console.log(this.form);
+      request.post("/paper/save", this.form).then((res) => {
+        this.form.uoloaderId = this.getUserId();
+        console.log(res.data);
+      });
     },
   },
 };
@@ -125,12 +229,12 @@ export default {
 <style scoped>
 .header {
   /* width: 100%; */
-  padding: 20px;
-  /* margin-bottom: 40px; */
+  padding: 60px;
+  margin-bottom: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 30px;
+  font-size: 32px;
   color: #652c11;
   letter-spacing: 2px;
 }
@@ -140,4 +244,17 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
+.el-form-item-d {
+  min-width: 300px;
+}
+
+/* .el-card {
+  min-width: 380px;
+  margin-right: 20px;
+  transition: all 0.5s;
+}
+.el-card:hover {
+  margin-top: -5px;
+} */
 </style>
