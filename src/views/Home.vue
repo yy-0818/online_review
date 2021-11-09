@@ -16,7 +16,7 @@
 
           <div style="padding: 14px;">
             <a
-              href="https://api.idocv.com/view/lNoZBQw?type=html "
+              href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovLzguMTM2Ljk2LjE2Nzo4MDEyL2RlbW8vUGFwZXIgZm9ybWF0IChwcmVsaW1pbmFyeSBkcmFmdCkuZG9jeA%3D%3D&officePreviewType=pdf"
               target="_blank"
               ><span>Paper format (preliminary draft) </span></a
             >
@@ -41,10 +41,10 @@
           :body-style="{ padding: '0px' }"
           shadow="hover"
         >
-          <img src="../assets/img/rl.png" class="image" />
+          <img src="../assets/img/rl.png" class="image"  alt=""/>
           <div style="padding: 14px;">
             <a
-              href="https://api.idocv.com/view/bWhilgw?type=imgall"
+              href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovLzguMTM2Ljk2LjE2Nzo4MDEyL2RlbW8vRXhwbGFuYXRpb24uZG9jeA%3D%3D&officePreviewType=pdf"
               target="_blank"
               ><span>Explanation </span></a
             >

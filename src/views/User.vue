@@ -72,7 +72,7 @@
             size="mini"
             type="success"
             plain
-            @click="showBooks(scope.row.see)"
+            @click="showBooks(scope.row)"
             >查看上传论文</el-button
           >
           <el-button

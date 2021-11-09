@@ -7,28 +7,28 @@
         </div>
       </template>
       <div>
-        <el-form ref="form" :model="form">
-          <el-form-item label="标题(中)">
-            <el-input class="el-form-item-d" v-model="form.title"></el-input>
+        <el-form ref="formPaper" :model="formPaper" :rules="rulesPaper">
+          <el-form-item label="标题(中)"  prop="title">
+            <el-input class="el-form-item-d" v-model="formPaper.title"></el-input>
           </el-form-item>
-          <el-form-item label="标题(英)">
-            <el-input class="el-form-item-d" v-model="form.titleS"></el-input>
+          <el-form-item label="标题(英)" prop="titleS">
+            <el-input class="el-form-item-d" v-model="formPaper.titleS" ></el-input>
           </el-form-item>
-          <el-form-item label="关键词(中)">
-            <el-input class="el-form-item-d" v-model="form.keyword"></el-input>
+          <el-form-item label="关键词(中)"  prop="keyword">
+            <el-input class="el-form-item-d" v-model="formPaper.keyword"></el-input>
           </el-form-item>
-          <el-form-item label="关键词(英)">
-            <el-input class="el-form-item-d" v-model="form.keywordS"></el-input>
+          <el-form-item label="关键词(英)" prop="keywordS">
+            <el-input class="el-form-item-d" v-model="formPaper.keywordS" ></el-input>
           </el-form-item>
-          <el-form-item label="摘要(中)">
-            <el-input class="el-form-item-d" v-model="form.summary"></el-input>
+          <el-form-item label="摘要(中)" prop="summary">
+            <el-input class="el-form-item-d" v-model="formPaper.summary" ></el-input>
           </el-form-item>
-          <el-form-item label="摘要(英)">
-            <el-input class="el-form-item-d" v-model="form.summaryS"></el-input>
+          <el-form-item label="摘要(英)" prop="summaryS">
+            <el-input class="el-form-item-d" v-model="formPaper.summaryS" ></el-input>
           </el-form-item>
 
-          <el-form-item label="研究方向">
-            <el-select v-model="form.directionId">
+          <el-form-item label="研究方向" prop="directionId">
+            <el-select v-model="formPaper.directionId" >
               <el-option
                 v-for="item in directionIdOptions"
                 :key="item.value"
@@ -38,8 +38,20 @@
               </el-option>
             </el-select>
           </el-form-item>
+          <el-form-item label="指导老师" prop="reviewerId">
+            <el-select v-model="formPaper.reviewerId" >
+              <el-option
+                      v-for="item in reviewerIdOptions"
+                      :key="item.value"
+                      :label="item.name"
+                      :value="item.id"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
           <div style="text-align: center">
             <el-button type="primary" @click="save">上传</el-button>
+            <el-button @click="resetForm">重置</el-button>
           </div>
         </el-form>
       </div>
@@ -105,34 +117,38 @@
 </template>
 
 <script>
-import request from "@/utils/request";
+import request from '@/utils/request';
 
 export default {
   data() {
     return {
       directionIdOptions: [],
-      form: {
+      reviewerIdOptions: [],
+      formPaper: {
         title: "",
         titleS: "",
-        keyowrd: "",
-        keyowrdS: "",
+        keyword: "",
+        keywordS: "",
         summary: "",
         summaryS: "",
         url: "",
+        directionId:'',
+        reviewerId: '',
+
       },
-      limitNum: 1, // 上传excell时，同时允许上传的最大数
+      limitNum: 1, // 上传excel时，同时允许上传的最大数
       fileList: [],
       length: 0, //当前上传文件个数
       isBtn: false, //控制上传按钮能否点击
-      rules: {
+      rulesPaper: {
         title: [{ required: true, message: "请输入标题(中)", trigger: "blur" }],
         titleS: [
           { required: true, message: "请输入标题(英)", trigger: "blur" },
         ],
-        keyowrd: [
+        keyword: [
           { required: true, message: "请输关键词(中)", trigger: "blur" },
         ],
-        keyowrdS: [
+        keywordS: [
           { required: true, message: "请输入关键词(英)", trigger: "blur" },
         ],
         summary: [
@@ -203,7 +219,7 @@ export default {
     },
     getDirections() {
       request.get("/direction").then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.directionIdOptions = res.data;
       });
     },
@@ -216,12 +232,37 @@ export default {
       return JSON.parse(userJson).id;
     },
     save() {
-      console.log(this.form);
-      request.post("/paper/save", this.form).then((res) => {
-        this.form.uoloaderId = this.getUserId();
-        console.log(res.data);
-      });
+      this.$refs["formPaper"].validate(valid=>{
+        console.log(valid);
+        if(valid) {
+          console.log(this.formPaper);
+          request.post("/paper/save", this.formPaper).then((res) => {
+            this.formPaper.uoloaderId = this.getUserId();
+            console.log(res);
+            if (res.data === 'OK') {
+              this.$message({
+                type: "success",
+                message: "上传成功",
+              });
+            }else {
+              console.log(res);
+              this.$message({
+                type: "error",
+                message: res.msg,
+              })
+              return false
+              ;
+            }
+          }).catch(error=>{
+            console.log(error);
+          });
+        }
+      })
+
     },
+    resetForm() {
+      this.$refs["formPaper"].resetFields()
+    }
   },
 };
 </script>
