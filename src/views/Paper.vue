@@ -21,14 +21,14 @@
             <el-input class="el-form-item-d" v-model="formPaper.keywordS" ></el-input>
           </el-form-item>
           <el-form-item label="摘要(中)" prop="summary">
-            <el-input class="el-form-item-d" v-model="formPaper.summary" ></el-input>
+            <el-input type="textarea" class="el-form-item-d" v-model="formPaper.summary" ></el-input>
           </el-form-item>
           <el-form-item label="摘要(英)" prop="summaryS">
-            <el-input class="el-form-item-d" v-model="formPaper.summaryS" ></el-input>
+            <el-input type="textarea" class="el-form-item-d" v-model="formPaper.summaryS" ></el-input>
           </el-form-item>
 
           <el-form-item label="研究方向" prop="directionId">
-            <el-select v-model="formPaper.directionId" >
+            <el-select v-model="formPaper.directionId" :change="filterReviewer(formPaper.directionId)">
               <el-option
                 v-for="item in directionIdOptions"
                 :key="item.value"
@@ -124,6 +124,7 @@ export default {
     return {
       directionIdOptions: [],
       reviewerIdOptions: [],
+      reviewerList:[],
       formPaper: {
         title: "",
         titleS: "",
@@ -168,6 +169,8 @@ export default {
   mounted() {
     this.$store.state.adminleftnavnum = "0"; //设置左侧导航2-2 active
     this.getDirections();
+    this.getReviewers()
+    // this.load();
   },
 
   methods: {
@@ -219,11 +222,24 @@ export default {
     },
     getDirections() {
       request.get("/direction").then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         this.directionIdOptions = res.data;
       });
     },
+    getReviewers() {
+      request.get("/user/identity/2").then(res => {
+        console.log(res.data);
+        this.reviewerList = res.data
+      })
+    }
+    ,
 
+    filterReviewer(directionId) {
+      this.formPaper.reviewerId = null
+      console.log(directionId);
+      this.reviewerIdOptions =  this.reviewerList.filter(element => {return element.directionId === directionId})
+      console.log(this.reviewerIdOptions);
+    },
     getUserId() {
       let userJson = sessionStorage.getItem("user");
       if (!userJson) {

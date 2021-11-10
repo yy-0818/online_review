@@ -29,7 +29,7 @@
       <!--          <span v-if="scope.row.gender === 0">女</span>-->
       <!--        </template>-->
       <!--      </el-table-column>-->
-      <el-table-column prop="email" label="邮箱"></el-table-column>
+      <!--      <el-table-column prop="email" label="邮箱"></el-table-column>-->
 
       <el-table-column prop="name" label="姓名"></el-table-column>
 
@@ -46,7 +46,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="state" label="状态"> </el-table-column>
+      <el-table-column prop="state" label="状态"></el-table-column>
 
       <el-table-column label="操作" width="260">
         <template #default="scope">
@@ -57,6 +57,7 @@
             @click="previewOpen(scope.row)"
             >预览
           </el-button>
+
           <el-button
             size="mini"
             type="primary"
@@ -114,10 +115,10 @@
 
     <!-- 预览弹框 -->
     <el-dialog
-      class="previewDialog"
+      custom-class="previewDialog"
       title="预览"
-      v-model="previewOpen"
       :fullscreen="true"
+      v-model="previewVisible"
       :before-close="previewClose"
     >
       <iframe class="el-iframe" :src="previewFileUrl" frameborder="0"></iframe>
@@ -167,7 +168,7 @@ export default {
       this.loading = true;
 
       request
-        .get("/user/all", {
+        .get("/paper/all", {
           params: {
             pageNum: this.currentPage,
             pageSize: this.pageSize,
@@ -187,7 +188,7 @@ export default {
     //     this.load();
     //   }
     // },
-    expoer() {
+    expoert() {
       location.href =
         // "http://" + window.server.filesUploadUrl + ":8181/user/export";
         // "/api" + "/files/editor/upload";
@@ -271,14 +272,20 @@ export default {
     // 预览事件
     previewOpen(data) {
       // console.log(data.file);
-      if (data.file) {
+      if (data.url) {
         this.previewVisible = true;
         this.previewFileUrl =
           "http://8.136.96.167:8012/onlinePreview?url=" +
-          encodeURIComponent(encode(data.url));
+          encodeURIComponent(encode(data.url)) +
+          "&officePreviewType=pdf";
+        // this.previewFileUrl =
+        //   "https://view.officeapps.live.com/op/view.aspx?src=" + data.url;
+        console.log(this.previewFileUrl);
+        console.log(this.previewVisible);
       } else {
         this.$message("暂无链接");
       }
+      s;
     },
     previewClose() {
       this.previewVisible = false;
@@ -287,16 +294,17 @@ export default {
 };
 </script>
 
-<style scoped>
-/*    .el-iframe {*/
-/*        width: 100%;*/
-/*        height: 100%;*/
-/*        background-color: #f2f2f2;*/
-/*    }*/
+<style>
+.el-iframe {
+  width: 100%;
+  height: 100%;
+  background-color: #f2f2f2;
+}
 
-/*    !* /deep/  在scoped中 可以更改外部样式 *!*/
-/*    .previewDialog /deep/ .el-dialog__body {*/
-/*        height: 90%;*/
-/*        padding: 0;*/
-/*    }*/
+/* /deep/  在scoped中 可以更改外部样式 */
+.previewDialog .el-dialog__body {
+  /*width: 100%;*/
+  height: 90%;
+  padding: 0;
+}
 </style>
