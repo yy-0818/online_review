@@ -8,48 +8,109 @@
       </template>
       <div>
         <el-form ref="formPaper" :model="formPaper" :rules="rulesPaper">
-          <el-form-item label="标题(中)"  prop="title">
-            <el-input class="el-form-item-d" v-model="formPaper.title"></el-input>
-          </el-form-item>
-          <el-form-item label="标题(英)" prop="titleS">
-            <el-input class="el-form-item-d" v-model="formPaper.titleS" ></el-input>
-          </el-form-item>
-          <el-form-item label="关键词(中)"  prop="keyword">
-            <el-input class="el-form-item-d" v-model="formPaper.keyword"></el-input>
-          </el-form-item>
-          <el-form-item label="关键词(英)" prop="keywordS">
-            <el-input class="el-form-item-d" v-model="formPaper.keywordS" ></el-input>
-          </el-form-item>
-          <el-form-item label="摘要(中)" prop="summary">
-            <el-input type="textarea" class="el-form-item-d" v-model="formPaper.summary" ></el-input>
-          </el-form-item>
-          <el-form-item label="摘要(英)" prop="summaryS">
-            <el-input type="textarea" class="el-form-item-d" v-model="formPaper.summaryS" ></el-input>
-          </el-form-item>
+          <el-row>
+            <el-form-item
+              class="el-form-item-a"
+              label="标&ensp;题&ensp;(中)"
+              prop="title"
+            >
+              <el-input
+                class="el-form-item-d"
+                v-model="formPaper.title"
+              ></el-input>
+            </el-form-item>
 
-          <el-form-item label="研究方向" prop="directionId">
-            <el-select v-model="formPaper.directionId" :change="filterReviewer(formPaper.directionId)">
-              <el-option
-                v-for="item in directionIdOptions"
-                :key="item.value"
-                :label="item.name"
-                :value="item.id"
+            <el-form-item
+              class="el-form-item-a"
+              label="标&ensp;题&ensp;(英)"
+              prop="titleS"
+            >
+              <el-input
+                class="el-form-item-d"
+                v-model="formPaper.titleS"
+              ></el-input>
+            </el-form-item>
+
+            <el-form-item
+              class="el-form-item-a"
+              label="关键词(中)"
+              prop="keyword"
+            >
+              <el-input
+                class="el-form-item-d"
+                v-model="formPaper.keyword"
+              ></el-input>
+            </el-form-item>
+
+            <el-form-item
+              class="el-form-item-a"
+              label="关键词(英)"
+              prop="keywordS"
+            >
+              <el-input
+                class="el-form-item-d"
+                v-model="formPaper.keywordS"
+              ></el-input>
+            </el-form-item>
+
+            <el-form-item
+              class="el-form-item-a"
+              label="摘&ensp;要&ensp;(中)"
+              prop="summary"
+            >
+              <el-input
+                type="textarea"
+                class="el-form-item-d"
+                v-model="formPaper.summary"
+              ></el-input>
+            </el-form-item>
+            <el-form-item
+              class="el-form-item-a"
+              label="摘&ensp;要&ensp;(英)"
+              prop="summaryS"
+            >
+              <el-input
+                type="textarea"
+                class="el-form-item-d"
+                v-model="formPaper.summaryS"
+              ></el-input>
+            </el-form-item>
+
+            <el-form-item
+              class="el-form-item-a1"
+              label="研究方向"
+              prop="directionId"
+            >
+              <el-select
+                v-model="formPaper.directionId"
+                :change="filterReviewer(formPaper.directionId)"
               >
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="指导老师" prop="reviewerId">
-            <el-select v-model="formPaper.reviewerId" >
-              <el-option
-                      v-for="item in reviewerIdOptions"
-                      :key="item.value"
-                      :label="item.name"
-                      :value="item.id"
-              >
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <div style="text-align: center">
+                <el-option
+                  v-for="item in directionIdOptions"
+                  :key="item.value"
+                  :label="item.name"
+                  :value="item.id"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item
+              class="el-form-item-a2"
+              label="指导老师"
+              prop="reviewerId"
+            >
+              <el-select v-model="formPaper.reviewerId">
+                <el-option
+                  v-for="item in reviewerIdOptions"
+                  :key="item.value"
+                  :label="item.name"
+                  :value="item.id"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-row>
+          <div style="text-align: center;margin-top: 30px;">
             <el-button type="primary" @click="save">上传</el-button>
             <el-button @click="resetForm">重置</el-button>
           </div>
@@ -117,14 +178,14 @@
 </template>
 
 <script>
-import request from '@/utils/request';
+import request from "@/utils/request";
 
 export default {
   data() {
     return {
       directionIdOptions: [],
       reviewerIdOptions: [],
-      reviewerList:[],
+      reviewerList: [],
       formPaper: {
         title: "",
         titleS: "",
@@ -133,9 +194,8 @@ export default {
         summary: "",
         summaryS: "",
         url: "",
-        directionId:'',
-        reviewerId: '',
-
+        directionId: "",
+        reviewerId: "",
       },
       limitNum: 1, // 上传excel时，同时允许上传的最大数
       fileList: [],
@@ -158,6 +218,12 @@ export default {
         summaryS: [
           { required: true, message: "请输入摘要(英)", trigger: "blur" },
         ],
+        directionId: [
+          { required: true, message: "请选择方向", trigger: "blur" },
+        ],
+        reviewerId: [
+          { required: true, message: "请选择老师", trigger: "blur" },
+        ],
       },
     };
   },
@@ -169,7 +235,7 @@ export default {
   mounted() {
     this.$store.state.adminleftnavnum = "0"; //设置左侧导航2-2 active
     this.getDirections();
-    this.getReviewers()
+    this.getReviewers();
     // this.load();
   },
 
@@ -227,17 +293,17 @@ export default {
       });
     },
     getReviewers() {
-      request.get("/user/identity/2").then(res => {
+      request.get("/user/identity/2").then((res) => {
         console.log(res.data);
-        this.reviewerList = res.data
-      })
-    }
-    ,
-
+        this.reviewerList = res.data;
+      });
+    },
     filterReviewer(directionId) {
-      this.formPaper.reviewerId = null
+      this.formPaper.reviewerId = null;
       console.log(directionId);
-      this.reviewerIdOptions =  this.reviewerList.filter(element => {return element.directionId === directionId})
+      this.reviewerIdOptions = this.reviewerList.filter((element) => {
+        return element.directionId === directionId;
+      });
       console.log(this.reviewerIdOptions);
     },
     getUserId() {
@@ -248,37 +314,38 @@ export default {
       return JSON.parse(userJson).id;
     },
     save() {
-      this.$refs["formPaper"].validate(valid=>{
+      this.$refs["formPaper"].validate((valid) => {
         console.log(valid);
-        if(valid) {
+        if (valid) {
           console.log(this.formPaper);
-          request.post("/paper/save", this.formPaper).then((res) => {
-            this.formPaper.uoloaderId = this.getUserId();
-            console.log(res);
-            if (res.data === 'OK') {
-              this.$message({
-                type: "success",
-                message: "上传成功",
-              });
-            }else {
+          request
+            .post("/paper/save", this.formPaper)
+            .then((res) => {
+              this.formPaper.uoloaderId = this.getUserId();
               console.log(res);
-              this.$message({
-                type: "error",
-                message: res.msg,
-              })
-              return false
-              ;
-            }
-          }).catch(error=>{
-            console.log(error);
-          });
+              if (res.data === "OK") {
+                this.$message({
+                  type: "success",
+                  message: "上传成功",
+                });
+              } else {
+                console.log(res);
+                this.$message({
+                  type: "error",
+                  message: res.msg,
+                });
+                return false;
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         }
-      })
-
+      });
     },
     resetForm() {
-      this.$refs["formPaper"].resetFields()
-    }
+      this.$refs["formPaper"].resetFields();
+    },
   },
 };
 </script>
@@ -302,8 +369,21 @@ export default {
   align-items: center;
 }
 
+.el-form-item-a {
+  margin-top: 30px;
+}
+.el-form-item-a1 {
+  margin-top: 30px;
+  padding-left: 10px;
+}
+.el-form-item-a2 {
+  margin-top: 30px;
+  padding-left: 110px;
+}
+
 .el-form-item-d {
   min-width: 300px;
+  /* margin-top: 30px; */
 }
 
 /* .el-card {

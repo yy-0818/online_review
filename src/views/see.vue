@@ -46,7 +46,13 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="state" label="状态"></el-table-column>
+      <el-table-column prop="state" label="状态">
+        <template #default="scope">
+          <span v-if="scope.row.directionId === 0">未通过</span>
+          <span v-if="scope.row.directionId === 1">为审核</span>
+          <span v-if="scope.row.directionId === 2">已通过</span>
+        </template>
+      </el-table-column>
 
       <el-table-column label="操作" width="260">
         <template #default="scope">

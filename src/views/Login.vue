@@ -34,13 +34,12 @@
               <ValidCode style="margin-left: 8px" @input="createValidCode" />
             </div>
           </el-form-item>
-<!--          <el-form-item prop="role">-->
-<!--            <el-radio v-model="form.role" :label="3">管理员</el-radio>-->
-<!--            <el-radio v-model="form.role" :label="2">审核员</el-radio>-->
-<!--            <el-radio v-model="form.role" :label="1">普通用户</el-radio>-->
-
-<!--&lt;!&ndash;                      <el-button @click="resetForm('ruleForm')" >重置</el-button>&ndash;&gt;-->
-<!--          </el-form-item>-->
+          <el-form-item prop="role">
+            <el-radio v-model="form.role" :label="3">管理员</el-radio>
+            <el-radio v-model="form.role" :label="2">审核员</el-radio>
+            <el-radio v-model="form.role" :label="1">普通用户</el-radio>
+            <!-- <el-button @click="resetForm('ruleForm')">重置</el-button> -->
+          </el-form-item>
           <el-form-item>
             <el-button style="width: 100%" type="primary" @click="login"
               >登 录</el-button
@@ -80,6 +79,7 @@ export default {
       rules: {
         username: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
         password: [{ required: true, message: "请输入密码", trigger: "blur" }],
+        role: [{ required: true, message: "请选择身份", trigger: "blur" }],
       },
       validCode: "",
     };
