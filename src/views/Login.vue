@@ -1,5 +1,5 @@
 <template>
-  <div class="af" v-loading="loading">
+  <div class="af">
     <!-- <img src="../assets/img/fc.png" alt="fj" /> -->
     <div style="width: 400px; margin: 100px auto">
       <el-card>
@@ -7,10 +7,10 @@
           欢迎登录
         </div>
         <el-form ref="form" :model="form" size="normal" :rules="rules">
-          <el-form-item prop="username">
+          <el-form-item prop="email">
             <el-input
               prefix-icon="el-icon-user-solid"
-              v-model="form.username"
+              v-model="form.email"
               placeholder="请输入用户名(邮箱)"
             ></el-input>
           </el-form-item>
@@ -38,7 +38,6 @@
             <el-radio v-model="form.role" :label="3">管理员</el-radio>
             <el-radio v-model="form.role" :label="2">审核员</el-radio>
             <el-radio v-model="form.role" :label="1">普通用户</el-radio>
-            <!-- <el-button @click="resetForm('ruleForm')">重置</el-button> -->
           </el-form-item>
           <el-form-item>
             <el-button style="width: 100%" type="primary" @click="login"
@@ -48,8 +47,14 @@
           <el-form-item
             ><el-button type="text" @click="$router.push('/register')"
               >前往注册 >>
-            </el-button></el-form-item
-          >
+            </el-button>
+            <el-button
+              style="padding-left:30vh"
+              type="text"
+              @click="resetForm('form')"
+              >重置</el-button
+            >
+          </el-form-item>
         </el-form>
       </el-card>
     </div>
@@ -58,26 +63,24 @@
 
 <script>
 import request from "@/utils/request";
-// import Img from "@/assets/img/fc.png";
-// import Loading from "@/components/loading";
+
 import ValidCode from "@/components/ValidCode";
 
 export default {
   name: "Login",
   components: {
-    // Loading,
     ValidCode,
   },
   data() {
     return {
-      form: { role: "", username: "", password: "" },
+      form: { role: "", email: "", password: "" },
       // ruleForm: {
       // username: "lunaticzy9527@gmail.com",
       // password: "123",
       //   email: '',
       // },
       rules: {
-        username: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
+        email: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
         password: [{ required: true, message: "请输入密码", trigger: "blur" }],
         role: [{ required: true, message: "请选择身份", trigger: "blur" }],
       },
@@ -108,7 +111,7 @@ export default {
 
           request
             .post("/user/login", {
-              email: this.form.username,
+              email: this.form.email,
               password: this.form.password,
             })
             .then((res) => {
@@ -130,9 +133,9 @@ export default {
         }
       });
     },
-    // resetForm(formName) {
-    //   this.$refs[formName].resetFields()
-    // },
+    resetForm(form) {
+      this.$refs[form].resetFields();
+    },
   },
 };
 </script>

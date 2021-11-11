@@ -48,9 +48,10 @@
 
       <el-table-column prop="state" label="状态">
         <template #default="scope">
-          <span v-if="scope.row.directionId === 0">未通过</span>
-          <span v-if="scope.row.directionId === 1">为审核</span>
-          <span v-if="scope.row.directionId === 2">已通过</span>
+          <span v-if="scope.row.directionId === 0">未审核</span>
+          <span v-if="scope.row.directionId === 1">初审核通过</span>
+          <span v-if="scope.row.directionId === 2">初审未通过</span>
+          <span v-if="scope.row.directionId === 3">通过</span>
         </template>
       </el-table-column>
 
@@ -279,10 +280,11 @@ export default {
     previewOpen(data) {
       // console.log(data.file);
       if (data.url) {
+        console.log(data.url);
         this.previewVisible = true;
         this.previewFileUrl =
           "http://8.136.96.167:8012/onlinePreview?url=" +
-          encodeURIComponent(encode(data.url)) +
+          encodeURIComponent(encode("http://49.234.51.220:12345" + data.url)) +
           "&officePreviewType=pdf";
         // this.previewFileUrl =
         //   "https://view.officeapps.live.com/op/view.aspx?src=" + data.url;

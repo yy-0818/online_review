@@ -10,7 +10,9 @@
             :on-success="handleAvatarSuccess"
           >
             <img v-if="newAvatarUrl" :src="newAvatarUrl" class="avatar" />
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            <img v-else :src="'/api' + form.avatarUrl" class="avatar" />
+
+            <!-- <i v-else class="el-icon-plus avatar-uploader-icon"></i> -->
           </el-upload>
         </el-form-item>
         <el-form-item label="邮箱">
@@ -62,8 +64,9 @@ export default {
     return {
       newAvatarUrl: "", // tx: "上传头像",
       form: {
-        username: "",
-        nickname: "",
+        id: "",
+        emali: "",
+        name: "",
         gender: 0,
         password: "",
         avatarUrl: "",
@@ -86,9 +89,11 @@ export default {
       // this.update()
     },
     update() {
-      let url = this.newAvatarUrl.replace("/api", "");
-      console.log(url);
-      this.form.avatarUrl = url;
+      if (this.newAvatarUrl !== "") {
+        let url = this.newAvatarUrl.replace("/api", "");
+        console.log(url);
+        this.form.avatarUrl = url;
+      }
       request.put("/user", this.form).then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -96,6 +101,7 @@ export default {
             type: "success",
             message: "更新成功",
           });
+          this.form.password = "";
           sessionStorage.setItem("user", JSON.stringify(this.form));
           // 触发Layout更新用户信息
           this.$emit("userInfo");
@@ -119,7 +125,8 @@ export default {
   margin: 10% 30%;
 }
 .el-form-item-d {
-  /* width: 200px; */
+  width: 200px;
+  width: 80%;
 }
 
 .avatar-uploader .el-upload {

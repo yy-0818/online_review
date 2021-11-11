@@ -55,7 +55,13 @@
             <el-form-item
               ><el-button type="text" @click="$router.push('/login')"
                 >返回登录 >>
-              </el-button></el-form-item
+              </el-button>
+              <el-button
+                style="padding-left:30vh"
+                type="text"
+                @click="resetForm('form')"
+                >重置</el-button
+              ></el-form-item
             >
           </el-form-item>
         </el-form>
@@ -156,6 +162,9 @@ export default {
             });
         }
       });
+    },
+    resetForm(form) {
+      this.$refs[form].resetFields();
     },
   },
 };

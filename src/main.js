@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import ElementPlus from "element-plus";
 import "element-plus/lib/theme-chalk/index.css";
+import Plugin from "v-fit-columns";
 // import 'dayjs/locale/zh-cn'
 // import locale from 'element-plus/lib/locale/lang/zh-cn'
 // import * as echarts from "echarts";
@@ -11,6 +12,7 @@ import "element-plus/lib/theme-chalk/index.css";
 import "@/assets/css/global.css";
 
 const app = createApp(App)
+  .use(Plugin)
   .use(store)
   .use(router)
   .use(ElementPlus, { size: "small" })

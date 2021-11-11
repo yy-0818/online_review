@@ -30,70 +30,88 @@
         >查询</el-button
       >
     </div>
-    <el-table
-      v-loading="loading"
-      :data="tableData"
-      border
-      stripe
-      style="width: 100%"
-    >
-      <el-table-column prop="id" label="ID" sortable> </el-table-column>
-      <el-table-column label="性别">
-        <template #default="scope">
-          <span v-if="scope.row.gender === 1">男</span>
-          <span v-if="scope.row.gender === 0">女</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="email" label="邮箱"> </el-table-column>
+    <div>
+      <el-table
+        v-fit-columns
+        v-loading="loading"
+        :data="tableData"
+        border
+        stripe
+        tooltip-effect="light"
+        style="width: 100%"
+      >
+        <el-table-column prop="id" label="ID" sortable> </el-table-column>
+        <el-table-column prop="name" label="姓名"> </el-table-column>
+        <el-table-column label="性别">
+          <template #default="scope">
+            <span v-if="scope.row.gender === 1">男</span>
+            <span v-if="scope.row.gender === 0">女</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="email" label="邮箱"> </el-table-column>
 
-      <el-table-column prop="name" label="姓名"> </el-table-column>
-      <!-- <el-table-column prop="age" label="年龄"> </el-table-column> -->
-      <el-table-column label="角色">
-        <template #default="scope">
-          <span v-if="scope.row.role === 0">游客</span>
-          <span v-if="scope.row.role === 1">学生</span>
-          <span v-if="scope.row.role === 2">老师</span>
-          <span v-if="scope.row.role === 3">管理员</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="方向">
-        <template #default="scope">
-          <span v-if="scope.row.directionId === 1">区域风险评估与研究</span>
-          <span v-if="scope.row.directionId === 2">数值模拟与云计算应用</span>
-          <span v-if="scope.row.directionId === 3">模型试验与现场研究</span>
-          <span v-if="scope.row.directionId === 4">监测预警系统设计与开发</span>
-          <span v-if="scope.row.directionId === 5">算法模型研究</span>
-          <span v-if="scope.row.directionId === 6">智能装备研发及应用</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" width="260">
-        <template #default="scope">
-          <el-button
-            size="mini"
-            type="success"
-            plain
-            @click="showBooks(scope.row)"
-            >查看上传论文</el-button
-          >
-          <el-button
-            size="mini"
-            type="primary"
-            plain
-            @click="handleEdit(scope.row)"
-            >编辑</el-button
-          >
-          <el-popconfirm
-            title="确定删除吗？"
-            @confirm="handleDelete(scope.row.id)"
-          >
-            <template #reference>
-              <el-button size="mini" type="danger">删除</el-button>
-            </template>
-          </el-popconfirm>
-        </template>
-      </el-table-column>
-    </el-table>
+        <!-- <el-table-column prop="age" label="年龄"> </el-table-column> -->
+        <el-table-column label="角色">
+          <template #default="scope">
+            <span v-if="scope.row.role === 0">游客</span>
+            <span v-if="scope.row.role === 1">学生</span>
+            <span v-if="scope.row.role === 2">老师</span>
+            <span v-if="scope.row.role === 3">管理员</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="title" label="题目"> </el-table-column>
+        <el-table-column label="方向">
+          <template #default="scope">
+            <span v-if="scope.row.directionId === 1">区域风险评估与研究</span>
+            <span v-if="scope.row.directionId === 2">数值模拟与云计算应用</span>
+            <span v-if="scope.row.directionId === 3">模型试验与现场研究</span>
+            <span v-if="scope.row.directionId === 4"
+              >监测预警系统设计与开发</span
+            >
+            <span v-if="scope.row.directionId === 5">算法模型研究</span>
+            <span v-if="scope.row.directionId === 6">智能装备研发及应用</span>
+          </template>
+        </el-table-column>
 
+        <el-table-column prop="state" label="状态">
+          <template #default="scope">
+            <span v-if="scope.row.directionId === 0">未审核</span>
+            <span v-if="scope.row.directionId === 1">初审核通过</span>
+            <span v-if="scope.row.directionId === 2" style="color: red"
+              >初审未通过</span
+            >
+            <span v-if="scope.row.directionId === 3">通过</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="操作" width="260">
+          <template #default="scope">
+            <el-button
+              size="mini"
+              type="success"
+              plain
+              @click="showBooks(scope.row)"
+              >查看上传论文</el-button
+            >
+            <el-button
+              size="mini"
+              type="primary"
+              plain
+              @click="handleEdit(scope.row)"
+              >编辑</el-button
+            >
+            <el-popconfirm
+              title="确定删除吗？"
+              @confirm="handleDelete(scope.row.id)"
+            >
+              <template #reference>
+                <el-button size="mini" type="danger">删除</el-button>
+              </template>
+            </el-popconfirm>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
     <div style="margin: 10px 0">
       <el-pagination
         @size-change="handleSizeChange"
@@ -115,9 +133,7 @@
         <el-form-item label="姓名">
           <el-input v-model="form.nickName" style="width: 80%"></el-input>
         </el-form-item>
-        <!-- <el-form-item label="年龄">
-          <el-input v-model="form.age" style="width: 80%"></el-input>
-        </el-form-item> -->
+
         <el-form-item label="性别">
           <el-radio v-model="form.gender" label="男">男</el-radio>
           <el-radio v-model="form.gender" label="女">女</el-radio>
@@ -136,6 +152,7 @@
 
 <script>
 import request from "@/utils/request";
+// import Plugin from "@/v-fit-columns";
 
 export default {
   name: "Home",
@@ -271,4 +288,24 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+/* 边框 */
+.el-table--border,
+.el-table--group {
+  border-color: rgb(214, 214, 214) !important;
+}
+.el-table--border:after,
+.el-table--group:after,
+.el-table:before {
+  background-color: rgb(214, 214, 214) !important;
+}
+.el-table td,
+.el-table--border th,
+.el-table th.is-leaf {
+  border-bottom-color: rgb(214, 214, 214) !important;
+}
+.el-table--border td,
+.el-table--border th {
+  border-right-color: rgb(214, 214, 214) !important;
+}
+</style>

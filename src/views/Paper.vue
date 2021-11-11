@@ -130,7 +130,7 @@
               ref="upload"
               class="upload-demo"
               :limit="limitNum"
-              action="/api/files/upload"
+              action="http://49.234.51.220:12345/files/upload"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
               accept=".pdf, .doc,.docx"
@@ -150,7 +150,7 @@
               </div>
 
               <div class="el-upload__tip">
-                只能上传PFD与Word文件，且不超过15M
+                只能上传PFD与Word文件，且不超过10M
               </div>
             </el-upload>
 
@@ -228,12 +228,12 @@ export default {
     };
   },
 
-  created() {
-    this.$store.state.adminleftnavnum = "0"; //设置左侧导航2-2 active
-  },
+  // created() {
+  //   this.$store.state.adminleftnavnum = "0"; //设置左侧导航2-2 active
+  // },
 
   mounted() {
-    this.$store.state.adminleftnavnum = "0"; //设置左侧导航2-2 active
+    // this.$store.state.adminleftnavnum = "0"; //设置左侧导航2-2 active
     this.getDirections();
     this.getReviewers();
     // this.load();
@@ -259,7 +259,7 @@ export default {
     },
 
     handlePreview(file) {
-      // console.log(file,111);
+      console.log(file, 111);
     }, // 文件状态改变时的钩子
 
     fileChange(file, fileList) {
@@ -274,12 +274,11 @@ export default {
     }, // 文件上传成功时的钩子
 
     handleSuccess(res, file, fileList) {
-      this.$message.success("文件上传成功");
-      this.form.url = file.response.data;
+      this.formPaper.url = file.response.data;
       console.log(file.response.data);
 
-      // this.$router.push({ path: "/order" });
-    }, // 文件上传失败时的钩子
+      this.$message.success("文件上传成功");
+    },
 
     handleError(err, file, fileList) {
       this.$message.error("文件上传失败");
@@ -288,23 +287,22 @@ export default {
     },
     getDirections() {
       request.get("/direction").then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.directionIdOptions = res.data;
       });
     },
     getReviewers() {
       request.get("/user/identity/2").then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.reviewerList = res.data;
       });
     },
     filterReviewer(directionId) {
       this.formPaper.reviewerId = null;
-      console.log(directionId);
+      // console.log(directionId);
       this.reviewerIdOptions = this.reviewerList.filter((element) => {
         return element.directionId === directionId;
       });
-      console.log(this.reviewerIdOptions);
     },
     getUserId() {
       let userJson = sessionStorage.getItem("user");
