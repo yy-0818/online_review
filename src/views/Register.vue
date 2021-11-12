@@ -6,10 +6,10 @@
           欢迎注册
         </div>
         <el-form ref="form" :model="form" size="normal" :rules="rules">
-          <el-form-item prop="username">
+          <el-form-item prop="email">
             <el-input
               prefix-icon="el-icon-user-solid"
-              v-model="form.username"
+              v-model="form.email"
               placeholder="请输入用户名(邮箱)"
             ></el-input>
           </el-form-item>
@@ -43,7 +43,9 @@
                 style="margin-left: 15px"
                 type="primary"
                 @click="getCode"
-                >获取验证码</el-button
+                :class="{ 'disabled-style': getCodeBtnDisable }"
+                :disabled="getCodeBtnDisable"
+                >{{ codeBtnWord }} ></el-button
               >
             </div>
           </el-form-item>
@@ -72,50 +74,69 @@
 
 <script>
 import request from "@/utils/request";
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   name: "Register",
   data() {
     return {
-      form: { username: "", password: "", confirm: "", code: "" },
+      form: { email: "", password: "", confirm: "", code: "" },
       rules: {
-        username: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
+        email: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
         password: [{ required: true, message: "请输入密码", trigger: "blur" }],
         confirm: [{ required: true, message: "请确认密码", trigger: "blur" }],
         code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
       },
+      codeBtnWord: "获取验证码", // 获取验证码按钮文字
+      waitTime: 61, // 获取验证码按钮失效时间
     };
   },
   methods: {
     //邮箱验证
     // sendEmail() {
     //   var regEmail = /^[A-Za-z1-9]+([-_.][A-Za-z1-9]+)*@([A-Za-z1-9]+[-.])+[A-Za-z]{2,5}$/;
-    //   if (this.username == "") {
+    //   if (this.email == "") {
     //     alert("请输入邮箱");
-    //   } else if (!regEmail.test(this.username)) {
+    //   } else if (!regEmail.test(this.email)) {
     //     alert("邮箱格式不正确");
     //   }
     // },
+    computed: {
+      emailNumberStyle() {
+        let reg = /^[A-Za-z1-9]+([-_.][A-Za-z1-9]+)*@([A-Za-z1-9]+[-.])+[A-Za-z]{2,5}$/;
+        if (!reg.test(this.form.email)) {
+          return false;
+        }
+      },
+      // 控制获取验证码按钮是否可点击
+      getCodeBtnDisable: {
+        get() {
+          if (this.waitTime == 61) {
+            if (this.form.emai) {
+              return false;
+            }
+            return true;
+          }
+          return true;
+        },
+        // 注意：因为计算属性本身没有set方法，不支持在方法中进行修改，而下面我要进行这个操作，所以需要手动添加
+        set() {},
+      },
+    },
 
     getCode() {
-      // var regEmail = /^[A-Za-z1-9]+([-_.][A-Za-z1-9]+)*@([A-Za-z1-9]+[-.])+[A-Za-z]{2,5}$/;
-      // var _this = this;
-      // console.log(_this.$store.state);
-      // this.axios
-      //   .post(`/sendEmail?email=${this.from.username}`)
-      // .then(() => {
       request
         .post(`/api/sendEmail`, {
-          email: this.form.username,
+          email: this.form.email,
         })
         .then((response) => {
-          console.log(response);
-          if (response.status !== 200) {
-            console.log();
+          // console.log(response);
+          if (response.status == 200) {
+            // console.log();
             this.$message({
-              type: "error",
-              message: response.msg + ", " + response.data,
+              type: "success",
+              // message: response.msg + ", " + response.data,
+              message: "验证码已发送，请稍候...",
             });
           }
         })
@@ -125,6 +146,22 @@ export default {
             message: "请求超时，请检查网络连接",
           });
         });
+
+      let that = this;
+      that.waitTime--;
+      that.getCodeBtnDisable = true;
+      this.codeBtnWord = `${this.waitTime}s 后重新获取`;
+      let timer = setInterval(function() {
+        if (that.waitTime > 1) {
+          that.waitTime--;
+          that.codeBtnWord = `${that.waitTime}s 后重新获取`;
+        } else {
+          clearInterval(timer);
+          that.codeBtnWord = "获取验证码";
+          that.getCodeBtnDisable = false;
+          that.waitTime = 61;
+        }
+      }, 1000);
     },
     goBack() {
       this.$router.push("/register"); // 这里写上你要跳转的页面
@@ -141,7 +178,7 @@ export default {
         if (valid) {
           request
             .post("/user/register", {
-              email: this.form.username,
+              email: this.form.email,
               password: this.form.password,
               code: this.form.code,
             })
@@ -193,5 +230,10 @@ export default {
   font: 50px "华文行楷";
   color: #4d4d4d;
   padding: 30px 0;
+}
+
+.el-button.disabled-style {
+  background-color: #eeeeee;
+  color: #cccccc;
 }
 </style>

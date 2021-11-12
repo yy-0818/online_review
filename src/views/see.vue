@@ -293,10 +293,10 @@ export default {
       } else {
         this.$message("暂无链接");
       }
-      s;
     },
     previewClose() {
       this.previewVisible = false;
+      this.previewFileUrl = "";
     },
   },
 };
