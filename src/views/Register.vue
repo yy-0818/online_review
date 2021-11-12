@@ -102,11 +102,12 @@ export default {
     //   }
     // },
     computed: {
-      emailNumberStyle() {
+      emailStyle() {
         let reg = /^[A-Za-z1-9]+([-_.][A-Za-z1-9]+)*@([A-Za-z1-9]+[-.])+[A-Za-z]{2,5}$/;
         if (!reg.test(this.form.email)) {
           return false;
         }
+        return true;
       },
       // 控制获取验证码按钮是否可点击
       getCodeBtnDisable: {

@@ -23,9 +23,9 @@
         style="width: 20%"
         clearable
       ></el-input>
-      <!-- <el-button style="margin-left: 5px" type="primary" @click="add"
+      <el-button style="margin-left: 5px" type="primary" @click="add"
         >新增</el-button
-      > -->
+      >
       <el-button type="primary" style="margin-left: 5px" @click="load"
         >查询</el-button
       >
@@ -75,24 +75,28 @@
 
         <el-table-column prop="state" label="状态">
           <template #default="scope">
-            <span v-if="scope.row.directionId === 0">未审核</span>
-            <span v-if="scope.row.directionId === 1">初审核通过</span>
-            <span v-if="scope.row.directionId === 2" style="color: red"
+            <span v-if="scope.row.state === 0" style="color:#9a9b9c"
+              >未审核</span
+            >
+            <span v-if="scope.row.state === 1" style="color:#E6A23C"
+              >初审核通过</span
+            >
+            <span v-if="scope.row.state === 2" style="color:#F56C6C"
               >初审未通过</span
             >
-            <span v-if="scope.row.directionId === 3">通过</span>
+            <span v-if="scope.row.state === 3" style="color:#67C23A">通过</span>
           </template>
         </el-table-column>
 
-        <el-table-column label="操作" width="260">
+        <el-table-column label="操作" width="150">
           <template #default="scope">
-            <el-button
+            <!-- <el-button
               size="mini"
               type="success"
               plain
               @click="showBooks(scope.row)"
               >查看上传论文</el-button
-            >
+            > -->
             <el-button
               size="mini"
               type="primary"
@@ -162,13 +166,11 @@ export default {
       loading: true,
       form: {},
       dialogVisible: false, // 弹窗
-      // bookVis: false,
       search: "",
       currentPage: 1,
       pageSize: 10,
       total: 0,
       tableData: [],
-      // bookList: [],
     };
   },
   created() {
@@ -235,7 +237,7 @@ export default {
       } else {
         // 新增
         request.post("/user", this.form).then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.status === 200) {
             this.$message({
               type: "success",

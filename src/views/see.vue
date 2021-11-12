@@ -16,6 +16,7 @@
       </el-button>
     </div>
     <el-table
+      v-fit-columns
       v-loading="loading"
       :data="tableData"
       border
@@ -29,9 +30,9 @@
       <!--          <span v-if="scope.row.gender === 0">女</span>-->
       <!--        </template>-->
       <!--      </el-table-column>-->
-      <!--      <el-table-column prop="email" label="邮箱"></el-table-column>-->
+      <!-- <el-table-column prop="email" label="邮箱"></el-table-column> -->
 
-      <el-table-column prop="name" label="姓名"></el-table-column>
+      <!-- <el-table-column prop="name" label="姓名"> </el-table-column> -->
 
       <el-table-column prop="title" label="题目"></el-table-column>
 
@@ -48,10 +49,14 @@
 
       <el-table-column prop="state" label="状态">
         <template #default="scope">
-          <span v-if="scope.row.directionId === 0">未审核</span>
-          <span v-if="scope.row.directionId === 1">初审核通过</span>
-          <span v-if="scope.row.directionId === 2">初审未通过</span>
-          <span v-if="scope.row.directionId === 3">通过</span>
+          <span v-if="scope.row.state === 0" style="color:#909399">未审核</span>
+          <span v-if="scope.row.state === 1" style="color:#E6A23C"
+            >初审核通过</span
+          >
+          <span v-if="scope.row.state === 2" style="color:#F56C6C"
+            >初审未通过</span
+          >
+          <span v-if="scope.row.state === 3" style="color:#67C23A">通过</span>
         </template>
       </el-table-column>
 
@@ -97,19 +102,44 @@
       </el-pagination>
     </div>
 
-    <el-dialog title="提示" v-model="dialogVisible" width="30%">
-      <el-form :model="form" label-width="120px">
-        <el-form-item label="用户名">
-          <el-input v-model="form.email" style="width: 80%"></el-input>
+    <!-- 论文批语弹窗  -->
+    <el-dialog title="编辑" v-model="dialogVisible" width="40%">
+      <el-form ref="form" :model="form" label-width="100px">
+        <el-form-item label="备注内容：">
+          <el-input
+            type="textarea"
+            autosize
+            placeholder="请输入内容"
+            v-model="textarea"
+          >
+          </el-input>
         </el-form-item>
-        <el-form-item label="姓名">
-          <el-input v-model="form.name" style="width: 80%"></el-input>
+        <el-form-item label="修改意见：">
+          <el-input
+            type="textarea"
+            autosize
+            placeholder="请输入内容"
+            v-model="textarea"
+          >
+          </el-input>
         </el-form-item>
-
-        <el-form-item label="性别">
-          <el-radio v-model="form.gender" label="男">男</el-radio>
-          <el-radio v-model="form.gender" label="女">女</el-radio>
-          <el-radio v-model="form.gender" label="未知">未知</el-radio>
+        <el-form-item label="退回原因：">
+          <el-input
+            type="textarea"
+            autosize
+            placeholder="请输入内容"
+            v-model="textarea"
+          >
+          </el-input>
+        </el-form-item>
+        <el-form-item label="退回原因：">
+          <el-input
+            type="textarea"
+            autosize
+            placeholder="请输入内容"
+            v-model="textarea"
+          >
+          </el-input>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -152,13 +182,13 @@ export default {
         direction: "",
       },
       dialogVisible: false, // 弹窗
-      // bookVis: false,
+
       search: "",
       currentPage: 1,
       pageSize: 10,
       total: 0,
       tableData: [],
-      // bookList: [],
+
       previewFileUrl: "",
       previewVisible: false,
     };
@@ -167,10 +197,6 @@ export default {
     this.load();
   },
   methods: {
-    // showBooks(books) {
-    //   this.bookList = books;
-    //   this.bookVis = true;
-    // },
     load() {
       this.loading = true;
 
@@ -239,7 +265,7 @@ export default {
     //       message: res.msg,
     //     });
     //   }
-    //
+
     //   this.load(); // 刷新表格的数据
     //   this.dialogVisible = false; // 关闭弹窗
     // });
@@ -251,7 +277,7 @@ export default {
     },
     handleDelete(id) {
       console.log(id);
-      request.delete("/user/" + id).then((res) => {
+      request.delete("/paper/" + id).then((res) => {
         if (res.status === 200) {
           this.$message({
             type: "success",
@@ -302,7 +328,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .el-iframe {
   width: 100%;
   height: 100%;
