@@ -1,8 +1,9 @@
 <template>
-  <div style="padding: 10px">
-    <!--    功能区域-->
-    <div style="margin: 10px 0">
-      <!-- <el-upload
+  <el-scrollbar>
+    <div style="padding: 10px" class="flex-content">
+      <!--    功能区域-->
+      <div style="margin: 10px 0">
+        <!-- <el-upload
         action="http://api/user/import"
         :on-success="handleUploadSuccess"
         :show-file-list="false"
@@ -13,149 +14,154 @@
         <el-button type="primary">导入</el-button>
       </el-upload>
       <el-button type="primary" @click="exportUser">导出</el-button> -->
+      </div>
+
+      <!--    搜索区域-->
+      <div style="margin: 10px 0">
+        <el-input
+          v-model="search"
+          placeholder="请输入关键字"
+          style="width: 20%"
+          clearable
+        ></el-input>
+        <el-button style="margin-left: 5px" type="primary" @click="add"
+          >新增</el-button
+        >
+        <el-button type="primary" style="margin-left: 5px" @click="load"
+          >查询</el-button
+        >
+      </div>
+      <div>
+        <el-table
+          v-fit-columns
+          v-loading="loading"
+          :data="tableData"
+          border
+          stripe
+          tooltip-effect="light"
+          style="width: 100%"
+        >
+          <el-table-column prop="id" label="ID" sortable> </el-table-column>
+          <el-table-column prop="name" label="姓名"> </el-table-column>
+          <el-table-column label="性别">
+            <template #default="scope">
+              <span v-if="scope.row.gender === 1">男</span>
+              <span v-if="scope.row.gender === 0">女</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="email" label="邮箱"> </el-table-column>
+
+          <!-- <el-table-column prop="age" label="年龄"> </el-table-column> -->
+          <el-table-column label="角色">
+            <template #default="scope">
+              <span v-if="scope.row.role === 0">游客</span>
+              <span v-if="scope.row.role === 1">学生</span>
+              <span v-if="scope.row.role === 2">老师</span>
+              <span v-if="scope.row.role === 3">管理员</span>
+            </template>
+          </el-table-column>
+          <!-- <el-table-column prop="title" label="题目"> </el-table-column> -->
+          <el-table-column label="方向">
+            <template #default="scope">
+              <span v-if="scope.row.directionId === 1">区域风险评估与研究</span>
+              <span v-if="scope.row.directionId === 2"
+                >数值模拟与云计算应用</span
+              >
+              <span v-if="scope.row.directionId === 3">模型试验与现场研究</span>
+              <span v-if="scope.row.directionId === 4"
+                >监测预警系统设计与开发</span
+              >
+              <span v-if="scope.row.directionId === 5">算法模型研究</span>
+              <span v-if="scope.row.directionId === 6">智能装备研发及应用</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column prop="state" label="状态">
+            <template #default="scope">
+              <span v-if="scope.row.state === 0" style="color:#9a9b9c"
+                >未审核</span
+              >
+              <span v-if="scope.row.state === 1" style="color:#E6A23C"
+                >初审核通过</span
+              >
+              <span v-if="scope.row.state === 2" style="color:#F56C6C"
+                >初审未通过</span
+              >
+              <span v-if="scope.row.state === 3" style="color:#67C23A"
+                >通过</span
+              >
+            </template>
+          </el-table-column>
+
+          <el-table-column label="操作" width="150">
+            <template #default="scope">
+              <!-- <el-button
+                size="mini"
+                type="success"
+                plain
+                @click="showBooks(scope.row)"
+                >查看上传论文</el-button
+              > -->
+              <el-button
+                size="mini"
+                type="primary"
+                plain
+                @click="handleEdit(scope.row)"
+                >编辑</el-button
+              >
+              <el-popconfirm
+                title="确定删除吗？"
+                @confirm="handleDelete(scope.row.id)"
+              >
+                <template #reference>
+                  <el-button size="mini" type="danger">删除</el-button>
+                </template>
+              </el-popconfirm>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+      <div style="margin: 10px 0">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-sizes="[10, 15, 20]"
+          :page-size="pageSize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total"
+        >
+        </el-pagination>
+      </div>
+
+      <el-dialog title="提示" v-model="dialogVisible" width="30%">
+        <el-form :model="form" label-width="120px">
+          <el-form-item label="用户名">
+            <el-input
+              v-model="form.email"
+              style="width: 80%"
+              disabled
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="姓名">
+            <el-input v-model="form.Name" style="width: 80%"></el-input>
+          </el-form-item>
+
+          <el-form-item label="性别">
+            <el-radio v-model="form.gender" label="男">男</el-radio>
+            <el-radio v-model="form.gender" label="女">女</el-radio>
+            <el-radio v-model="form.gender" label="未知">未知</el-radio>
+          </el-form-item>
+        </el-form>
+        <template #footer>
+          <span class="dialog-footer">
+            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="save">确 定</el-button>
+          </span>
+        </template>
+      </el-dialog>
     </div>
-
-    <!--    搜索区域-->
-    <div style="margin: 10px 0">
-      <el-input
-        v-model="search"
-        placeholder="请输入关键字"
-        style="width: 20%"
-        clearable
-      ></el-input>
-      <el-button style="margin-left: 5px" type="primary" @click="add"
-        >新增</el-button
-      >
-      <el-button type="primary" style="margin-left: 5px" @click="load"
-        >查询</el-button
-      >
-    </div>
-    <div>
-      <el-table
-        v-fit-columns
-        v-loading="loading"
-        :data="tableData"
-        border
-        stripe
-        tooltip-effect="light"
-        style="width: 100%"
-      >
-        <el-table-column prop="id" label="ID" sortable> </el-table-column>
-        <el-table-column prop="name" label="姓名"> </el-table-column>
-        <el-table-column label="性别">
-          <template #default="scope">
-            <span v-if="scope.row.gender === 1">男</span>
-            <span v-if="scope.row.gender === 0">女</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="email" label="邮箱"> </el-table-column>
-
-        <!-- <el-table-column prop="age" label="年龄"> </el-table-column> -->
-        <el-table-column label="角色">
-          <template #default="scope">
-            <span v-if="scope.row.role === 0">游客</span>
-            <span v-if="scope.row.role === 1">学生</span>
-            <span v-if="scope.row.role === 2">老师</span>
-            <span v-if="scope.row.role === 3">管理员</span>
-          </template>
-        </el-table-column>
-        <!-- <el-table-column prop="title" label="题目"> </el-table-column> -->
-        <el-table-column label="方向">
-          <template #default="scope">
-            <span v-if="scope.row.directionId === 1">区域风险评估与研究</span>
-            <span v-if="scope.row.directionId === 2">数值模拟与云计算应用</span>
-            <span v-if="scope.row.directionId === 3">模型试验与现场研究</span>
-            <span v-if="scope.row.directionId === 4"
-              >监测预警系统设计与开发</span
-            >
-            <span v-if="scope.row.directionId === 5">算法模型研究</span>
-            <span v-if="scope.row.directionId === 6">智能装备研发及应用</span>
-          </template>
-        </el-table-column>
-
-        <el-table-column prop="state" label="状态">
-          <template #default="scope">
-            <span v-if="scope.row.state === 0" style="color:#9a9b9c"
-              >未审核</span
-            >
-            <span v-if="scope.row.state === 1" style="color:#E6A23C"
-              >初审核通过</span
-            >
-            <span v-if="scope.row.state === 2" style="color:#F56C6C"
-              >初审未通过</span
-            >
-            <span v-if="scope.row.state === 3" style="color:#67C23A">通过</span>
-          </template>
-        </el-table-column>
-
-        <el-table-column label="操作" width="150">
-          <template #default="scope">
-            <!-- <el-button
-              size="mini"
-              type="success"
-              plain
-              @click="showBooks(scope.row)"
-              >查看上传论文</el-button
-            > -->
-            <el-button
-              size="mini"
-              type="primary"
-              plain
-              @click="handleEdit(scope.row)"
-              >编辑</el-button
-            >
-            <el-popconfirm
-              title="确定删除吗？"
-              @confirm="handleDelete(scope.row.id)"
-            >
-              <template #reference>
-                <el-button size="mini" type="danger">删除</el-button>
-              </template>
-            </el-popconfirm>
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
-    <div style="margin: 10px 0">
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-sizes="[5, 10, 20]"
-        :page-size="pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="total"
-      >
-      </el-pagination>
-    </div>
-
-    <el-dialog title="提示" v-model="dialogVisible" width="30%">
-      <el-form :model="form" label-width="120px">
-        <el-form-item label="用户名">
-          <el-input
-            v-model="form.username"
-            style="width: 80%"
-            disabled
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="姓名">
-          <el-input v-model="form.nickName" style="width: 80%"></el-input>
-        </el-form-item>
-
-        <el-form-item label="性别">
-          <el-radio v-model="form.gender" label="男">男</el-radio>
-          <el-radio v-model="form.gender" label="女">女</el-radio>
-          <el-radio v-model="form.gender" label="未知">未知</el-radio>
-        </el-form-item>
-      </el-form>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="save">确 定</el-button>
-        </span>
-      </template>
-    </el-dialog>
-  </div>
+  </el-scrollbar>
 </template>
 
 <script>

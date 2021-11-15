@@ -16,12 +16,30 @@
       <!-- <el-menu-item index="/im" class="el-menu-item-h">聊天室</el-menu-item> -->
       <!-- <el-menu-item index="/message" class="el-menu-item-h">在线留言</el-menu-item> -->
 
-      <el-menu-item
+      <!-- <el-menu-item
         index="/see"
         class="el-menu-item-h"
         v-if="user.role === 3 || user.role === 2"
         >审核论文</el-menu-item
-      >
+      > -->
+
+      <el-submenu index="1" v-if="user.role === 3 || user.role === 2">
+        <template #title>
+          <span class="el-menu-item-h">论文审核</span>
+        </template>
+        <el-menu-item
+          index="/see"
+          class="el-menu-item-h"
+          v-if="user.role === 3 || user.role === 2"
+          >初审</el-menu-item
+        >
+        <!-- <el-menu-item
+          index="/see1"
+          class="el-menu-item-h"
+          v-if="user.role === 3"
+          >终审</el-menu-item
+        > -->
+      </el-submenu>
 
       <el-submenu index="1" v-if="user.role === 3 || user.role === 2">
         <template #title>
