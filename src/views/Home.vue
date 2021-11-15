@@ -16,7 +16,7 @@
 
           <div style="padding: 14px;">
             <a
-              href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovLzguMTM2Ljk2LjE2Nzo4MDEyL2RlbW8vUGFwZXIgZm9ybWF0IChwcmVsaW1pbmFyeSBkcmFmdCkuZG9jeA%3D%3D&officePreviewType=pdf"
+              href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovLzQ5LjIzNC41MS4yMjA6MTIzNDUvZmlsZXMvZGIxMWMyMGIzZTRlNDk4MmJmOTY4YmQyMTcwZGU3NThfUGFwZXIgZm9ybWF0IChwcmVsaW1pbmFyeSBkcmFmdCkuZG9jeA%3D%3D&officePreviewType=pdf"
               target="_blank"
               ><span>Paper format (preliminary draft) </span></a
             >
@@ -41,10 +41,10 @@
           :body-style="{ padding: '0px' }"
           shadow="hover"
         >
-          <img src="../assets/img/rl.png" class="image"  alt=""/>
+          <img src="../assets/img/rl.png" class="image" alt="" />
           <div style="padding: 14px;">
             <a
-              href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovLzguMTM2Ljk2LjE2Nzo4MDEyL2RlbW8vRXhwbGFuYXRpb24uZG9jeA%3D%3D&officePreviewType=pdf"
+              href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovLzQ5LjIzNC41MS4yMjA6MTIzNDUvZmlsZXMvMmUyZDgxYzFmM2U0NGNlY2JkYTg2ZGIzNmUxOTliYWRfRXhwbGFuYXRpb24uZG9jeA%3D%3D&officePreviewType=pdf"
               target="_blank"
               ><span>Explanation </span></a
             >
@@ -76,21 +76,20 @@
           </div>
         </el-card>
       </el-col>
-
     </el-row>
-<!--    <el-row style="margin-top: 10px;">-->
-<!--      <el-card class="box-card" shadow="hover">-->
-<!--        <template #header>-->
-<!--          <div class="card-header">-->
-<!--            <span style="  font-size: 20px;">入站详情</span>-->
-<!--            &lt;!&ndash; <el-button class="button" type="text">操作按钮</el-button> &ndash;&gt;-->
-<!--          </div>-->
-<!--        </template>-->
-<!--        <div v-for="o in 4" :key="o" class="text item">-->
-<!--          {{ " " + o }}-->
-<!--        </div>-->
-<!--      </el-card>-->
-<!--    </el-row>-->
+    <!--    <el-row style="margin-top: 10px;">-->
+    <!--      <el-card class="box-card" shadow="hover">-->
+    <!--        <template #header>-->
+    <!--          <div class="card-header">-->
+    <!--            <span style="  font-size: 20px;">入站详情</span>-->
+    <!--            &lt;!&ndash; <el-button class="button" type="text">操作按钮</el-button> &ndash;&gt;-->
+    <!--          </div>-->
+    <!--        </template>-->
+    <!--        <div v-for="o in 4" :key="o" class="text item">-->
+    <!--          {{ " " + o }}-->
+    <!--        </div>-->
+    <!--      </el-card>-->
+    <!--    </el-row>-->
   </div>
 </template>
 

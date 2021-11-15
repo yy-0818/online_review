@@ -59,7 +59,7 @@
             <span v-if="scope.row.role === 3">管理员</span>
           </template>
         </el-table-column>
-        <el-table-column prop="title" label="题目"> </el-table-column>
+        <!-- <el-table-column prop="title" label="题目"> </el-table-column> -->
         <el-table-column label="方向">
           <template #default="scope">
             <span v-if="scope.row.directionId === 1">区域风险评估与研究</span>
@@ -132,7 +132,11 @@
     <el-dialog title="提示" v-model="dialogVisible" width="30%">
       <el-form :model="form" label-width="120px">
         <el-form-item label="用户名">
-          <el-input v-model="form.username" style="width: 80%"></el-input>
+          <el-input
+            v-model="form.username"
+            style="width: 80%"
+            disabled
+          ></el-input>
         </el-form-item>
         <el-form-item label="姓名">
           <el-input v-model="form.nickName" style="width: 80%"></el-input>

@@ -292,7 +292,7 @@ export default {
       });
     },
     getReviewers() {
-      request.get("/user/identity/2").then((res) => {
+      request.get("/user/identity/3").then((res) => {
         // console.log(res.data);
         this.reviewerList = res.data;
       });
