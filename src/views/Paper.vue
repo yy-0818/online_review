@@ -316,8 +316,16 @@ export default {
       this.$refs["formPaper"].validate((valid) => {
         console.log(valid);
         if (valid) {
-          console.log(this.formPaper);
           this.formPaper.uploaderId = this.getUserId();
+          console.log(this.formPaper);
+
+          if (this.formPaper.url === "") {
+            this.$message({
+              type: "error",
+              message: "未选择文件",
+            });
+            return;
+          }
           request
             .post("/paper/save", this.formPaper)
             .then((res) => {

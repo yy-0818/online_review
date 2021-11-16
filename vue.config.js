@@ -14,6 +14,11 @@ module.exports = {
           //路径重写
           "^/api": "", //选择忽略拦截器里面的单词
         },
+        legLevel: "debug",
+        onProxyReq(proxyReq, req, res) {
+          console.log("------\n\n\n");
+          console.log(proxyReq.path);
+        },
       },
     },
   },

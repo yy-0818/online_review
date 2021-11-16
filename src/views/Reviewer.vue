@@ -20,8 +20,16 @@
       border
       stripe
       style="width: 100%"
+      tooltip-effect="dark"
+      :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
     >
-      <el-table-column prop="id" label="ID" sortable></el-table-column>
+      <el-table-column
+        prop="id"
+        label="ID"
+        sortable
+        width="60"
+        align="center"
+      ></el-table-column>
       <!--      <el-table-column label="性别">-->
       <!--        <template #default="scope">-->
       <!--          <span v-if="scope.row.gender === 1">男</span>-->
@@ -32,9 +40,39 @@
 
       <!-- <el-table-column prop="name" label="姓名"> </el-table-column> -->
 
-      <el-table-column prop="title" label="题目"></el-table-column>
+      <el-table-column
+        prop="title"
+        label="题目"
+        show-overflow-tooltip
+      ></el-table-column>
+      <el-table-column
+        prop="titleS"
+        label="题目(英)"
+        show-overflow-tooltip
+      ></el-table-column>
+      <el-table-column
+        prop="keyword"
+        label="关键词"
+        show-overflow-tooltip
+      ></el-table-column>
+      <el-table-column
+        prop="keywordS"
+        label="关键词(英)"
+        show-overflow-tooltip
+      ></el-table-column>
+      <el-table-column
+        prop="summary"
+        label="摘要"
+        tooltip-effect="light"
+        show-overflow-tooltip
+      ></el-table-column>
+      <el-table-column
+        prop="summaryS"
+        label="摘要(英)"
+        show-overflow-tooltip
+      ></el-table-column>
 
-      <el-table-column label="方向">
+      <el-table-column label="方向" show-overflow-tooltip>
         <template #default="scope">
           <span v-if="scope.row.directionId === 1">区域风险评估与研究</span>
           <span v-if="scope.row.directionId === 2">数值模拟与云计算应用</span>
@@ -44,6 +82,12 @@
           <span v-if="scope.row.directionId === 6">智能装备研发及应用</span>
         </template>
       </el-table-column>
+
+      <el-table-column
+        prop="uploaderName"
+        label="上传人"
+        show-overflow-tooltip
+      ></el-table-column>
 
       <el-table-column prop="state" label="状态">
         <template #default="scope">
@@ -152,11 +196,12 @@
           <el-button @click="dialogVisible = false">取 消</el-button>
           <!-- <el-button type="primary" @click="save">确 定</el-button> -->
           <!-- @confirm="handleDelete(scope.row.id)" -->
-          <el-popconfirm title="确定退回吗？" @confirm="save">
+          <!-- <el-popconfirm title="确定退回吗？" @confirm="save"></el-popconfirm>
             <template #reference>
               <el-button type="primary">确 定</el-button>
             </template>
-          </el-popconfirm>
+          </el-popconfirm> -->
+          <el-button @click="save" type="primary">确定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -186,7 +231,7 @@ export default {
       loading: true,
 
       formdata: {
-        reviewerId: "",
+        id: "",
         content: "",
         opinion: "",
         reason: "",
@@ -250,13 +295,13 @@ export default {
     },
 
     save() {
+      console.log("====================================");
       this.$refs["formdata"].validate((valid) => {
         console.log(valid);
         if (valid) {
           console.log(this.formdata);
-          this.form.reviewerId = this.getUserId();
           request
-            .post("/failMailToUser", this.formdata)
+            .post("/paper/failEmail", this.formdata)
             .then((res) => {
               console.log(res);
               if (res.status === 200) {
@@ -272,42 +317,44 @@ export default {
                 });
                 return false;
               }
-              this.dialogVisible = false; // 关闭弹窗
             })
             .catch((error) => {
               console.log(error);
             });
+
+          this.dialogVisible = false; // 关闭弹窗
+          this.load(); // 刷新表格的数据
         }
       });
-      // this.load(); // 刷新表格的数据
+      this.$refs["formdata"].resetFields();
     },
-
     handleEdit(row) {
-      this.form = JSON.parse(JSON.stringify(row));
+      // this.form = JSON.parse(JSON.stringify(row));
+      this.formdata.id = row.id;
       this.dialogVisible = true;
     },
     handlesave(state) {
       console.log(state);
     },
 
-    handleDelete(id) {
-      console.log(id);
-      request.delete("/paper/" + id).then((res) => {
-        if (res.status === 200) {
-          this.$message({
-            type: "success",
-            message: "删除成功",
-          });
-        } else {
-          this.$message({
-            type: "error",
-            message: res.msg,
-          });
-        }
-        this.load(); // 删除之后重新加载表格的数据
-      });
-      dialogVisible = false; //关闭dialog
-    },
+    // handleDelete(id) {
+    //   console.log(id);
+    //   request.delete("/paper/" + id).then((res) => {
+    //     if (res.status === 200) {
+    //       this.$message({
+    //         type: "success",
+    //         message: "删除成功",
+    //       });
+    //     } else {
+    //       this.$message({
+    //         type: "error",
+    //         message: res.msg,
+    //       });
+    //     }
+    //     this.load(); // 删除之后重新加载表格的数据
+    //   });
+    //   dialogVisible = false; //关闭dialog
+    // },
     handleSizeChange(pageSize) {
       // 改变当前每页的个数触发
       this.pageSize = pageSize;
@@ -336,6 +383,7 @@ export default {
         this.$message("暂无链接");
       }
     },
+
     previewClose() {
       this.previewVisible = false;
       this.previewFileUrl = "";

@@ -1,14 +1,14 @@
 <template>
   <div>
     <!--    头部-->
-    <Header :user="user"/>
+    <Header :user="user" />
 
     <!--    主体-->
     <div style="display: flex">
       <!--      侧边栏-->
       <Aside />
       <!--      内容区域-->
-      <router-view style="flex: 1" @userInfo="refreshUser"/>
+      <router-view style="flex: 1" @userInfo="refreshUser" />
     </div>
   </div>
 </template>
@@ -22,31 +22,29 @@ export default {
   name: "Layout",
   components: {
     Header,
-    Aside
+    Aside,
   },
   data() {
     return {
-      user: {}
-    }
+      user: {},
+    };
   },
   created() {
-    this.refreshUser()
+    this.refreshUser();
   },
   methods: {
     refreshUser() {
       let userJson = sessionStorage.getItem("user");
       if (!userJson) {
-        return
+        return;
       }
-      let userId = JSON.parse(userJson).id
-      request.get("/user/" + userId).then(res => {
-        this.user = res.data
-      })
-    }
-  }
-}
+      let userId = JSON.parse(userJson).id;
+      request.get("/user/" + userId).then((res) => {
+        this.user = res.data;
+      });
+    },
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

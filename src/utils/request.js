@@ -3,7 +3,7 @@ import router from "@/router";
 
 const request = axios.create({
   baseURL: "/api",
-  timeout: 5000,
+  timeout: 60000,
 });
 
 // 请求白名单，如果请求在白名单里面，将不会被拦截校验权限
