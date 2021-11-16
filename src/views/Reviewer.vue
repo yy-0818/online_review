@@ -8,9 +8,7 @@
         style="width: 20%"
         clearable
       ></el-input>
-      <!--      <el-button style="margin-left: 5px" type="primary" @click="add"-->
-      <!--      >新增</el-button-->
-      <!--      >-->
+
       <el-button type="primary" style="margin-left: 5px" @click="load"
         >查询
       </el-button>
@@ -108,41 +106,43 @@
     </div>
 
     <!-- 论文批语弹窗  -->
-    <el-dialog title="编辑" v-model="dialogVisible" width="40%">
-      <el-form ref="form" :model="form" label-width="100px">
-        <el-form-item label="备注内容：">
+    <el-dialog
+      title="编辑"
+      v-model="dialogVisible"
+      :close-on-click-modal="false"
+      width="40%"
+    >
+      <el-form
+        ref="formdata"
+        :model="formdata"
+        :rules="rulesReviewer"
+        label-width="100px"
+      >
+        <el-form-item label="备注内容：" prop="content">
           <el-input
             type="textarea"
             autosize
             placeholder="请输入内容"
-            v-model="textarea"
+            v-model="formdata.content"
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="修改意见：">
+        <el-form-item label="修改意见：" prop="opinion">
           <el-input
             type="textarea"
             autosize
             placeholder="请输入内容"
-            v-model="textarea"
+            v-model="formdata.opinion"
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="退回原因：">
+
+        <el-form-item label="退回原因：" prop="reason">
           <el-input
             type="textarea"
-            autosize
+            :rows="5"
             placeholder="请输入内容"
-            v-model="textarea"
-          >
-          </el-input>
-        </el-form-item>
-        <el-form-item label="退回原因：">
-          <el-input
-            type="textarea"
-            autosize
-            placeholder="请输入内容"
-            v-model="textarea"
+            v-model="formdata.reason"
           >
           </el-input>
         </el-form-item>
@@ -151,12 +151,10 @@
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取 消</el-button>
           <!-- <el-button type="primary" @click="save">确 定</el-button> -->
-          <el-popconfirm
-            title="确定退回吗？"
-            @confirm="handleDelete(scope.row.id)"
-          >
+          <!-- @confirm="handleDelete(scope.row.id)" -->
+          <el-popconfirm title="确定退回吗？" @confirm="save">
             <template #reference>
-              <el-button type="primary" @click="save">确 定</el-button>
+              <el-button type="primary">确 定</el-button>
             </template>
           </el-popconfirm>
         </span>
@@ -186,13 +184,12 @@ export default {
   data() {
     return {
       loading: true,
-      form: {
-        email: "",
-        name: "",
-        gender: "",
-        title: "",
-        state: "",
-        direction: "",
+
+      formdata: {
+        reviewerId: "",
+        content: "",
+        opinion: "",
+        reason: "",
       },
       dialogVisible: false, // 弹窗
 
@@ -204,6 +201,17 @@ export default {
 
       previewFileUrl: "",
       previewVisible: false,
+      rulesReviewer: {
+        content: [
+          { required: true, message: "请输入备注内容", trigger: "blur" },
+        ],
+        opinion: [
+          { required: true, message: "请输入备注内容", trigger: "blur" },
+        ],
+        reason: [
+          { required: true, message: "请输入退回原因", trigger: "blur" },
+        ],
+      },
     };
   },
   created() {
@@ -240,13 +248,38 @@ export default {
         // "/api" + "/files/editor/upload";
         "";
     },
-    add() {
-      this.dialogVisible = true; // 显示弹窗
-      this.form = {}; // 清空表单属性
-    },
+
     save() {
+      this.$refs["formdata"].validate((valid) => {
+        console.log(valid);
+        if (valid) {
+          console.log(this.formdata);
+          this.form.reviewerId = this.getUserId();
+          request
+            .post("/failMailToUser", this.formdata)
+            .then((res) => {
+              console.log(res);
+              if (res.status === 200) {
+                this.$message({
+                  type: "success",
+                  message: "退回成功",
+                });
+              } else {
+                console.log(res);
+                this.$message({
+                  type: "error",
+                  message: res.msg,
+                });
+                return false;
+              }
+              this.dialogVisible = false; // 关闭弹窗
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+      });
       // this.load(); // 刷新表格的数据
-      // this.dialogVisible = false; // 关闭弹窗
     },
 
     handleEdit(row) {
@@ -273,6 +306,7 @@ export default {
         }
         this.load(); // 删除之后重新加载表格的数据
       });
+      dialogVisible = false; //关闭dialog
     },
     handleSizeChange(pageSize) {
       // 改变当前每页的个数触发

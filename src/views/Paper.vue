@@ -187,6 +187,7 @@ export default {
       reviewerIdOptions: [],
       reviewerList: [],
       formPaper: {
+        uploaderId: "",
         title: "",
         titleS: "",
         keyword: "",
@@ -316,10 +317,10 @@ export default {
         console.log(valid);
         if (valid) {
           console.log(this.formPaper);
+          this.formPaper.uploaderId = this.getUserId();
           request
             .post("/paper/save", this.formPaper)
             .then((res) => {
-              this.formPaper.uoloaderId = this.getUserId();
               console.log(res);
               if (res.data === "OK") {
                 this.$message({

@@ -83,8 +83,24 @@ export default {
       form: { email: "", password: "", confirm: "", code: "" },
       rules: {
         email: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
-        password: [{ required: true, message: "请输入密码", trigger: "blur" }],
-        confirm: [{ required: true, message: "请确认密码", trigger: "blur" }],
+        password: [
+          { required: true, message: "请输入密码", trigger: "blur" },
+          {
+            min: 6,
+            max: 12,
+            message: "长度在 6 到 12 个字符",
+            trigger: "blur",
+          },
+        ],
+        confirm: [
+          { required: true, message: "请确认密码", trigger: "blur" },
+          {
+            min: 6,
+            max: 12,
+            message: "长度在 6 到 12 个字符",
+            trigger: "blur",
+          },
+        ],
         code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
       },
       codeBtnWord: "获取验证码", // 获取验证码按钮文字

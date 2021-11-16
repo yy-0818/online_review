@@ -17,7 +17,7 @@
       <!-- <el-menu-item index="/message" class="el-menu-item-h">在线留言</el-menu-item> -->
 
       <!-- <el-menu-item
-        index="/see"
+        index="/Reviewer"
         class="el-menu-item-h"
         v-if="user.role === 3 || user.role === 2"
         >审核论文</el-menu-item
@@ -28,13 +28,13 @@
           <span class="el-menu-item-h">论文审核</span>
         </template>
         <el-menu-item
-          index="/see"
+          index="/Reviewer"
           class="el-menu-item-h"
           v-if="user.role === 3 || user.role === 2"
           >初审</el-menu-item
         >
         <!-- <el-menu-item
-          index="/see1"
+          index="/Reviewer1"
           class="el-menu-item-h"
           v-if="user.role === 3"
           >终审</el-menu-item

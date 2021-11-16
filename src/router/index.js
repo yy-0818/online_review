@@ -47,9 +47,9 @@ const routes = [
         component: () => import("@/views/Message"),
       },
       {
-        path: "see",
-        name: "See",
-        component: () => import("@/views/see"),
+        path: "Reviewer",
+        name: "Reviewer",
+        component: () => import("@/views/Reviewer"),
       },
     ],
   },
