@@ -51,6 +51,11 @@ const routes = [
         name: "Reviewer",
         component: () => import("@/views/Reviewer"),
       },
+      {
+        path: "Reviewer2",
+        name: "Reviewer2",
+        component: () => import("@/views/Reviewer2"),
+      },
     ],
   },
   {

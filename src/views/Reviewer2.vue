@@ -98,9 +98,7 @@
           <span v-if="scope.row.state === 2" style="color:#F56C6C"
             >初审未通过</span
           >
-          <span v-if="scope.row.state === 3" style="color:#67C23A"
-            >终审通过</span
-          >
+          <span v-if="scope.row.state === 3" style="color:#67C23A">通过</span>
         </template>
       </el-table-column>
 
@@ -116,7 +114,7 @@
 
           <el-popconfirm
             title="确定通过吗？"
-            @confirm="handlesave(scope.row.id)"
+            @confirm="handlesave(scope.row.state)"
           >
             <template #reference>
               <el-button size="mini" type="primary" plain>通过</el-button>
@@ -270,7 +268,7 @@ export default {
       this.loading = true;
 
       request
-        .get("/paper/all", {
+        .get("/paper/all/", {
           params: {
             pageNum: this.currentPage,
             pageSize: this.pageSize,
@@ -326,9 +324,9 @@ export default {
             });
 
           this.dialogVisible = false; // 关闭弹窗
+          this.load(); // 刷新表格的数据
         }
       });
-      this.load(); // 刷新表格的数据
       this.$refs["formdata"].resetFields();
     },
     handleEdit(row) {
@@ -336,22 +334,21 @@ export default {
       this.formdata.id = row.id;
       this.dialogVisible = true;
     },
-    handlesave(id) {
-      console.log(id);
-      request.post("/paper/passPrimary/" + id).then((res) => {
+    handlesave() {
+      console.log(this.formdata.state + 1);
+      request.put("/paper/save", this.formdata.state).then((res) => {
         console.log(res);
-        if (res.status == 200) {
+        if (res.status === 200) {
           this.$message({
             type: "success",
-            message: "通过成功",
+            message: "更新成功",
           });
         } else {
           this.$message({
             type: "error",
-            message: res.msg,
+            message: "操作无效，请稍后尝试",
           });
         }
-        this.load();
       });
     },
 

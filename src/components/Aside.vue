@@ -33,12 +33,12 @@
           v-if="user.role === 3 || user.role === 2"
           >初审</el-menu-item
         >
-        <!-- <el-menu-item
-          index="/Reviewer1"
+        <el-menu-item
+          index="/Reviewer2"
           class="el-menu-item-h"
           v-if="user.role === 3"
           >终审</el-menu-item
-        > -->
+        >
       </el-submenu>
 
       <el-submenu index="1" v-if="user.role === 3 || user.role === 2">

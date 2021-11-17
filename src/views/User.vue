@@ -38,10 +38,17 @@
           :data="tableData"
           border
           stripe
-          tooltip-effect="light"
           style="width: 100%"
+          tooltip-effect="dark"
+          :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
         >
-          <el-table-column prop="id" label="ID" sortable> </el-table-column>
+          <el-table-column
+            prop="id"
+            label="ID"
+            sortable
+            width="60"
+            align="center"
+          ></el-table-column>
           <el-table-column prop="name" label="姓名"> </el-table-column>
           <el-table-column label="性别">
             <template #default="scope">
@@ -301,7 +308,7 @@ export default {
 </script>
 
 <style scoped>
-/* 边框 */
+/* 边框
 .el-table--border,
 .el-table--group {
   border-color: rgb(214, 214, 214) !important;
@@ -319,5 +326,5 @@ export default {
 .el-table--border td,
 .el-table--border th {
   border-right-color: rgb(214, 214, 214) !important;
-}
+} */
 </style>

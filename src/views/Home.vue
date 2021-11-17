@@ -23,9 +23,9 @@
 
             <div class="bottom clearfix">
               <time class="time">{{ currentDate }}</time>
-              <!-- <el-button type="text" class="button" 
+              <el-button type="text" @click="open" class="button"
                 >操作按钮</el-button
-              > -->
+              >
             </div>
           </div>
         </el-card>
@@ -50,7 +50,9 @@
             >
             <div class="bottom clearfix">
               <time class="time">{{ currentDate }}</time>
-              <!-- <el-button type="text" class="button">操作按钮</el-button> -->
+              <el-button type="text" @click="open2" class="button"
+                >操作按钮</el-button
+              >
             </div>
           </div>
         </el-card>
@@ -71,7 +73,10 @@
             <span>园翁莫把秋荷折，因与游鱼盖夕阳宋。</span>
             <div class="bottom clearfix">
               <time class="time">{{ currentDate }}</time>
-              <!-- <el-button type="text" class="button">操作按钮</el-button> -->
+
+              <el-button type="text" class="button" @click="open3"
+                >操作按钮</el-button
+              >
             </div>
           </div>
         </el-card>
@@ -95,6 +100,7 @@
 
 <script>
 import request from "@/utils/request";
+import { h } from "@vue/runtime-core";
 
 export default {
   data() {
@@ -102,7 +108,39 @@ export default {
       currentDate: new Date(),
     };
   },
-  methods: {},
+  methods: {
+    open() {
+      this.$notify({
+        title: "温馨提示",
+        message: h(
+          "i",
+          { style: "color: teal" },
+          "这是关于书写论文的相关内容(格式)"
+        ),
+      });
+    },
+    open2() {
+      this.$notify({
+        title: "温馨提示",
+        message: h(
+          "i",
+          { style: "color: teal" },
+          "这是关于书写论文的相关内容(注释)"
+        ),
+      });
+    },
+    open3() {
+      this.$notify({
+        title: "温馨提示",
+        message: h(
+          "i",
+          { style: "color: teal" },
+          "这是什么也不是这是什么也不是这是什么也不是这是什么也不是" +
+            "这是什么也不是这是什么也不是这是什么也不是这是什么也不是"
+        ),
+      });
+    },
+  },
 };
 </script>
 
@@ -118,8 +156,12 @@ export default {
 }
 
 /* .el-row {
-  padding: 12px;
+  padding: 10px;
 } */
+
+.el-button-t {
+  padding-right: 20%;
+}
 
 .time {
   font-size: 13px;
@@ -133,8 +175,8 @@ export default {
 }
 
 .button {
-  padding: 0px;
-  float: right;
+  padding: 0;
+  min-height: auto;
 }
 
 .image {

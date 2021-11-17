@@ -114,6 +114,9 @@
             <el-button type="primary" @click="save">上传</el-button>
             <el-button @click="resetForm">重置</el-button>
           </div>
+          <div class="div-el-button" align="center">
+            <el-button type="text" @click="open">Tip</el-button>
+          </div>
         </el-form>
       </div>
     </el-card>
@@ -179,6 +182,7 @@
 
 <script>
 import request from "@/utils/request";
+import { h } from "vue";
 
 export default {
   data() {
@@ -305,6 +309,16 @@ export default {
         return element.directionId === directionId;
       });
     },
+    open() {
+      this.$notify({
+        title: "温馨提示",
+        message: h(
+          "i",
+          { style: "color: teal" },
+          "这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案"
+        ),
+      });
+    },
     getUserId() {
       let userJson = sessionStorage.getItem("user");
       if (!userJson) {
@@ -391,6 +405,11 @@ export default {
 .el-form-item-d {
   min-width: 300px;
   /* margin-top: 30px; */
+}
+
+.div-el-button {
+  /* align-content: center; */
+  padding: 22px;
 }
 
 /* .el-card {
