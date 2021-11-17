@@ -16,9 +16,9 @@
       <el-button type="primary" style="margin-left: 8px" @click="add"
         >新增</el-button
       >
-      <el-button type="primary" style="margin-left: 6px" @click="load"
+      <!-- <el-button type="primary" style="margin-left: 6px" @click="load"
         >查询</el-button
-      >
+      > -->
     </div>
     <el-table
       v-loading="loading"
@@ -105,7 +105,12 @@ export default {
   data() {
     return {
       loading: true,
-      form: {},
+      form: {
+        id: "",
+        time: "",
+        author: "",
+        title: "",
+      },
       dialogVisible: false,
       search: "",
       currentPage: 1,
@@ -141,6 +146,7 @@ export default {
         .then((res) => {
           this.loading = false;
           this.tableData = res.data.records;
+          // console.log(res.data);
           this.total = res.data.total;
         });
     },
@@ -228,8 +234,8 @@ export default {
         // 新增
         let userStr = sessionStorage.getItem("user") || "{}";
         let user = JSON.parse(userStr);
-        this.form.author = user.nickName;
-
+        this.form.author = user.name;
+        console.log(this.form.author);
         request.post("/news", this.form).then((res) => {
           console.log(res);
           if (res.status === 200) {

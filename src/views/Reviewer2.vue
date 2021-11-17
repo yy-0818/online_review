@@ -2,7 +2,7 @@
   <div style="padding: 10px">
     <!--    搜索区域-->
     <div style="margin: 10px 0">
-      <el-input
+      <!-- <el-input
         v-model="search"
         placeholder="请输入关键字"
         style="width: 20%"
@@ -11,7 +11,7 @@
 
       <el-button type="primary" style="margin-left: 5px" @click="load"
         >查询
-      </el-button>
+      </el-button> -->
     </div>
     <el-table
       v-fit-columns
@@ -114,7 +114,7 @@
 
           <el-popconfirm
             title="确定通过吗？"
-            @confirm="handlesave(scope.row.state)"
+            @confirm="handlesave(scope.row.id)"
           >
             <template #reference>
               <el-button size="mini" type="primary" plain>通过</el-button>
@@ -137,11 +137,19 @@
     </el-table>
 
     <div style="margin: 20px 0">
+      <!-- <el-pagination
+        :page-sizes="[10, 20, 30]"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="400"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      >
+      </el-pagination> -->
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-sizes="[10, 15, 20]"
+        :page-sizes="[10, 20, 30, 40]"
         :page-size="pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
@@ -263,12 +271,23 @@ export default {
   created() {
     this.load();
   },
+  computed: {
+    getUserId() {
+      let userJson = sessionStorage.getItem("user");
+      if (!userJson) {
+        return;
+      }
+      let userId = JSON.parse(userJson);
+      //   return userId.id;
+      return 12;
+    },
+  },
   methods: {
     load() {
       this.loading = true;
 
       request
-        .get("/paper/all/", {
+        .get("/paper/teacher/" + this.getUserId, {
           params: {
             pageNum: this.currentPage,
             pageSize: this.pageSize,
@@ -334,21 +353,22 @@ export default {
       this.formdata.id = row.id;
       this.dialogVisible = true;
     },
-    handlesave() {
-      console.log(this.formdata.state + 1);
-      request.put("/paper/save", this.formdata.state).then((res) => {
+    handlesave(id) {
+      console.log(id);
+      request.post("/paper/passUltimate/" + id).then((res) => {
         console.log(res);
-        if (res.status === 200) {
+        if (res.status == 200) {
           this.$message({
             type: "success",
-            message: "更新成功",
+            message: "通过成功",
           });
         } else {
           this.$message({
             type: "error",
-            message: "操作无效，请稍后尝试",
+            message: "请求超时",
           });
         }
+        this.load();
       });
     },
 

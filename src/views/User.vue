@@ -17,7 +17,7 @@
       </div>
 
       <!--    搜索区域-->
-      <div style="margin: 10px 0">
+      <!-- <div style="margin: 10px 0">
         <el-input
           v-model="search"
           placeholder="请输入关键字"
@@ -30,7 +30,7 @@
         <el-button type="primary" style="margin-left: 5px" @click="load"
           >查询</el-button
         >
-      </div>
+      </div> -->
       <div>
         <el-table
           v-fit-columns

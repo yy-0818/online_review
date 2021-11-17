@@ -2,7 +2,7 @@
   <div style="padding: 10px">
     <!--    搜索区域-->
     <div style="margin: 10px 0">
-      <el-input
+      <!-- <el-input
         v-model="search"
         placeholder="请输入关键字"
         style="width: 20%"
@@ -11,7 +11,7 @@
 
       <el-button type="primary" style="margin-left: 5px" @click="load"
         >查询
-      </el-button>
+      </el-button> -->
     </div>
     <el-table
       v-fit-columns
@@ -348,7 +348,7 @@ export default {
         } else {
           this.$message({
             type: "error",
-            message: res.msg,
+            message: "请求超时",
           });
         }
         this.load();
