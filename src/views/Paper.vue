@@ -153,7 +153,7 @@
               </div>
 
               <div class="el-upload__tip">
-                只能上传PFD与Word文件，且不超过50M
+                可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
               </div>
             </el-upload>
 

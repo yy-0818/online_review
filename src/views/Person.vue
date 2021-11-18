@@ -35,6 +35,19 @@
           ></el-input>
         </el-form-item>
 
+        <el-form-item label="研究方向">
+          <!--                    <el-input v-model="form.gender"></el-input>-->
+          <el-select v-model="form.directionId">
+            <el-option
+              v-for="item in directionIdOptions"
+              :key="item.value"
+              :label="item.name"
+              :value="item.id"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
+
         <el-form-item label="性别">
           <!--                    <el-input v-model="form.gender"></el-input>-->
           <el-select v-model="form.gender">
@@ -70,8 +83,10 @@ export default {
         gender: 0,
         password: "",
         avatarUrl: "",
+        directionId: "",
       },
 
+      directionIdOptions: [],
       genderOptions: [
         { value: 1, label: "男" },
         { value: 0, label: "女" },
@@ -79,6 +94,7 @@ export default {
     };
   },
   created() {
+    this.getDirections();
     let str = sessionStorage.getItem("user") || "{}";
     this.form = JSON.parse(str);
   },
@@ -87,6 +103,12 @@ export default {
       this.newAvatarUrl = "/api" + res.data;
       this.$message.success("上传成功");
       // this.update()
+    },
+    getDirections() {
+      request.get("/direction").then((res) => {
+        // console.log(res.data);
+        this.directionIdOptions = res.data;
+      });
     },
     update() {
       if (this.newAvatarUrl !== "") {

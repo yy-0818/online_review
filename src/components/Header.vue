@@ -23,9 +23,13 @@
 
         <el-dropdown style="margin-top: -0px;">
           <span class="el-dropdown-link">
-            <el-avatar :size="40" :src="'/api/' + user.avatarUrl"></el-avatar>
-            {{ user.Name }}
-            <!-- <i class="el-icon-arrow-down el-icon--right"></i> -->
+            <el-avatar
+              :size="40"
+              :src="'/api/' + user.avatarUrl"
+              fit="scale-down"
+            ></el-avatar>
+            <!-- {{ user.name }}
+            <i class="el-icon-arrow-down el-icon--right"></i> -->
           </span>
           <template #dropdown>
             <el-dropdown-menu>

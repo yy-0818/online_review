@@ -121,7 +121,7 @@
                 : "未审核" && scope.row.state === 3
                 ? "终审通过"
                 : "未审核" && scope.row.state === 2
-                ? "未通过通过"
+                ? "初审未通过"
                 : "未审核"
             }}</el-tag
           >
@@ -304,8 +304,8 @@ export default {
         return;
       }
       let userId = JSON.parse(userJson);
-      return userId.id;
-      // return 12;
+      // return userId.id;
+      return 12;
     },
   },
   methods: {
