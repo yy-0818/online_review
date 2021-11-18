@@ -115,7 +115,7 @@ export default {
         message: h(
           "i",
           { style: "color: teal" },
-          "这是关于书写论文的相关内容(格式)"
+          "这是关于书写论文的相关内容(示例)"
         ),
       });
     },
@@ -125,7 +125,7 @@ export default {
         message: h(
           "i",
           { style: "color: teal" },
-          "这是关于书写论文的相关内容(注释)"
+          "这是关于书写论文的相关内容(要求说明)"
         ),
       });
     },

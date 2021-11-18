@@ -136,7 +136,7 @@
               action="http://49.234.51.220:12345/files/upload"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
-              accept=".pdf, .doc,.docx"
+              accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
               :file-list="fileList"
               :on-change="fileChange"
               :auto-upload="false"
@@ -153,7 +153,7 @@
               </div>
 
               <div class="el-upload__tip">
-                只能上传PFD与Word文件，且不超过10M
+                只能上传PFD与Word文件，且不超过50M
               </div>
             </el-upload>
 
@@ -312,11 +312,7 @@ export default {
     open() {
       this.$notify({
         title: "温馨提示",
-        message: h(
-          "i",
-          { style: "color: teal" },
-          "这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案"
-        ),
+        message: h("i", { style: "color: teal" }, "请先上传论文哟！"),
       });
     },
     getUserId() {

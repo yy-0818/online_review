@@ -43,8 +43,8 @@
                 style="margin-left: 15px"
                 type="primary"
                 @click="getCode"
-                :class="{ 'disabled-style': getCodeBtnDisable }"
-                :disabled="getCodeBtnDisable"
+                :class="{ 'disabled-style': btnDisable }"
+                :disabled="btnDisable"
                 >{{ codeBtnWord }} ></el-button
               >
             </div>
@@ -79,12 +79,46 @@ import request from "@/utils/request";
 export default {
   name: "Register",
   data() {
+    var checkEmail = (rule, value, callback) => {
+      const mailReg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+      if (!value) {
+        return callback(new Error("邮箱不能为空"));
+      }
+      setTimeout(() => {
+        if (mailReg.test(value)) {
+          callback();
+        } else {
+          callback(new Error("请输入正确的邮箱格式"));
+        }
+      }, 100);
+    };
+
+    var validatePass = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入密码"));
+      } else {
+        if (this.form.confirm !== "") {
+          this.$refs.form.validateField("confirm");
+        }
+        callback();
+      }
+    };
+    var validatePass2 = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请再次输入密码"));
+      } else if (value !== this.form.password) {
+        callback(new Error("两次输入密码不一致!"));
+      } else {
+        callback();
+      }
+    };
+
     return {
       form: { email: "", password: "", confirm: "", code: "" },
       rules: {
-        email: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
+        email: [{ validator: checkEmail, trigger: "blur" }],
         password: [
-          { required: true, message: "请输入密码", trigger: "blur" },
+          { validator: validatePass, trigger: "blur" },
           {
             min: 6,
             max: 12,
@@ -93,7 +127,7 @@ export default {
           },
         ],
         confirm: [
-          { required: true, message: "请确认密码", trigger: "blur" },
+          { validator: validatePass2, trigger: "blur" },
           {
             min: 6,
             max: 12,
@@ -105,8 +139,10 @@ export default {
       },
       codeBtnWord: "获取验证码", // 获取验证码按钮文字
       waitTime: 61, // 获取验证码按钮失效时间
+      btnDisable: false,
     };
   },
+  computed: {},
   methods: {
     //邮箱验证
     // sendEmail() {
@@ -117,68 +153,71 @@ export default {
     //     alert("邮箱格式不正确");
     //   }
     // },
-    computed: {
-      emailStyle() {
-        let reg = /^[A-Za-z1-9]+([-_.][A-Za-z1-9]+)*@([A-Za-z1-9]+[-.])+[A-Za-z]{2,5}$/;
-        if (!reg.test(this.form.email)) {
-          return false;
+
+    // 控制获取验证码按钮是否可点击
+    getCodeBtnDisable() {
+      if (this.waitTime == 61) {
+        if (this.form.emai) {
+          this.false;
         }
         return true;
-      },
-      // 控制获取验证码按钮是否可点击
-      getCodeBtnDisable: {
-        get() {
-          if (this.waitTime == 61) {
-            if (this.form.emai) {
-              return false;
-            }
-            return true;
-          }
-          return true;
-        },
-        // 注意：因为计算属性本身没有set方法，不支持在方法中进行修改，而下面我要进行这个操作，所以需要手动添加
-        set() {},
-      },
+      }
+      return true;
+      // 注意：因为计算属性本身没有set方法，不支持在方法中进行修改，而下面我要进行这个操作，所以需要手动添加
+    },
+    emailStyle() {
+      let reg = /^[A-Za-z1-9]+([-_.][A-Za-z1-9]+)*@([A-Za-z1-9]+[-.])+[A-Za-z]{2,5}$/;
+      if (!reg.test(this.form.email)) {
+        return false;
+      }
+      return true;
     },
 
     getCode() {
-      request
-        .post(`/api/sendEmail`, {
-          email: this.form.email,
-        })
-        .then((response) => {
-          // console.log(response);
-          if (response.status == 200) {
-            // console.log();
+      if (this.emailStyle()) {
+        request
+          .post(`/api/sendEmail`, {
+            email: this.form.email,
+          })
+          .then((response) => {
+            // console.log(response);
+            if (response.status == 200) {
+              // console.log();
+              this.$message({
+                type: "success",
+                // message: response.msg + ", " + response.data,
+                message: "验证码已发送，请稍候...",
+              });
+            }
+          })
+          .catch(() => {
             this.$message({
-              type: "success",
-              // message: response.msg + ", " + response.data,
-              message: "验证码已发送，请稍候...",
+              type: "error",
+              message: "请求超时，请检查网络连接",
             });
-          }
-        })
-        .catch(() => {
-          this.$message({
-            type: "error",
-            message: "请求超时，请检查网络连接",
           });
-        });
 
-      let that = this;
-      that.waitTime--;
-      that.getCodeBtnDisable = true;
-      this.codeBtnWord = `${this.waitTime}s 后重新获取`;
-      let timer = setInterval(function() {
-        if (that.waitTime > 1) {
-          that.waitTime--;
-          that.codeBtnWord = `${that.waitTime}s 后重新获取`;
-        } else {
-          clearInterval(timer);
-          that.codeBtnWord = "获取验证码";
-          that.getCodeBtnDisable = false;
-          that.waitTime = 61;
-        }
-      }, 1000);
+        let that = this;
+        that.waitTime--;
+        that.btnDisable = true;
+        this.codeBtnWord = `${this.waitTime}s 后重新获取`;
+        let timer = setInterval(function() {
+          if (that.waitTime > 1) {
+            that.waitTime--;
+            that.codeBtnWord = `${that.waitTime}s 后重新获取`;
+          } else {
+            clearInterval(timer);
+            that.codeBtnWord = "获取验证码";
+            that.btnDisable = false;
+            that.waitTime = 61;
+          }
+        }, 1000);
+      } else {
+        this.$message({
+          type: "error",
+          message: "邮箱填写有误，请重试...",
+        });
+      }
     },
     goBack() {
       this.$router.push("/register"); // 这里写上你要跳转的页面

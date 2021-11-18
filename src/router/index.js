@@ -56,6 +56,11 @@ const routes = [
         name: "Reviewer2",
         component: () => import("@/views/Reviewer2"),
       },
+      {
+        path: "MyPaper",
+        name: "MyPaper",
+        component: () => import("@/views/MyPaper"),
+      },
     ],
   },
   {

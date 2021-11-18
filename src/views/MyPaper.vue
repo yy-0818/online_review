@@ -83,26 +83,11 @@
         </template>
       </el-table-column>
 
-      <el-table-column
+      <!-- <el-table-column
         prop="uploaderName"
         label="上传人"
         show-overflow-tooltip
-      ></el-table-column>
-
-      <!-- <el-table-column prop="state" label="状态">
-        <template #default="scope">
-          <span v-if="scope.row.state === 0" style="color:#909399">未审核</span>
-          <span v-if="scope.row.state === 1" style="color:#e49724"
-            >初审通过</span
-          >
-          <span v-if="scope.row.state === 2" style="color:#F56C6C"
-            >初审未通过</span
-          >
-          <span v-if="scope.row.state === 3" style="color:#67C23A"
-            >终审通过</span
-          >
-        </template>
-      </el-table-column> -->
+      ></el-table-column> -->
 
       <el-table-column label="审核状态" align="center">
         <template #default="scope">
@@ -122,15 +107,13 @@
                 ? "初审通过"
                 : "未审核" && scope.row.state === 3
                 ? "终审通过"
-                : "未审核" && scope.row.state === 2
-                ? "未通过通过"
                 : "未审核"
             }}</el-tag
           >
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" width="260">
+      <el-table-column label="操作" width="80">
         <template #default="scope">
           <el-button
             size="mini"
@@ -138,26 +121,6 @@
             plain
             @click="previewOpen(scope.row)"
             >预览
-          </el-button>
-
-          <!-- <el-popconfirm
-            title="确定通过吗？"
-            @confirm="handlesave(scope.row.id)"
-          >
-            <template #reference>
-              <el-button size="mini" type="primary" plain>通过</el-button>
-            </template>
-          </el-popconfirm> -->
-          <el-button
-            size="mini"
-            type="primary"
-            plain
-            @click="handlesave(scope.row.id)"
-            >通过
-          </el-button>
-
-          <el-button size="mini" type="danger" @click="handleEdit(scope.row)"
-            >退回
           </el-button>
         </template>
       </el-table-column>
@@ -167,82 +130,13 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-sizes="[10, 15, 20]"
+        :page-sizes="[10, 20, 30, 40]"
         :page-size="pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
       >
       </el-pagination>
     </div>
-
-    <!-- 论文通过意见弹窗 -->
-    <el-dialog
-      title="意见"
-      v-model="dialogFormVisible"
-      :close-on-click-modal="false"
-      width="40%"
-    >
-      <el-form ref="formdata" :model="formdata"> </el-form>
-    </el-dialog>
-
-    <!-- <el-dialog title="收货地址" v-model="dialogTableVisible">
-  <el-table :data="gridData">
-    <el-table-column property="date" label="日期" width="150"></el-table-column>
-    <el-table-column property="name" label="姓名" width="200"></el-table-column>
-    <el-table-column property="address" label="地址"></el-table-column>
-  </el-table>
-</el-dialog> -->
-
-    <!-- 论文退回意见弹窗  -->
-    <el-dialog
-      title="意见"
-      v-model="dialogVisible"
-      :close-on-click-modal="false"
-      width="40%"
-    >
-      <el-form
-        ref="formdata"
-        :model="formdata"
-        :rules="rulesReviewer"
-        label-width="100px"
-      >
-        <el-form-item label="备注内容：" prop="content">
-          <el-input
-            type="textarea"
-            autosize
-            placeholder="请输入内容"
-            v-model="formdata.content"
-          >
-          </el-input>
-        </el-form-item>
-        <el-form-item label="修改意见：" prop="opinion">
-          <el-input
-            type="textarea"
-            autosize
-            placeholder="请输入内容"
-            v-model="formdata.opinion"
-          >
-          </el-input>
-        </el-form-item>
-
-        <el-form-item label="退回原因：" prop="reason">
-          <el-input
-            type="textarea"
-            :rows="5"
-            placeholder="请输入内容"
-            v-model="formdata.reason"
-          >
-          </el-input>
-        </el-form-item>
-      </el-form>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button @click="save" type="primary">确定</el-button>
-        </span>
-      </template>
-    </el-dialog>
 
     <!-- 预览弹框 -->
     <el-dialog
@@ -301,12 +195,23 @@ export default {
   created() {
     this.load();
   },
+  computed: {
+    getUserId() {
+      let userJson = sessionStorage.getItem("user");
+      if (!userJson) {
+        return;
+      }
+      let userId = JSON.parse(userJson);
+      return userId.id;
+      // return 12;
+    },
+  },
   methods: {
     load() {
       this.loading = true;
 
       request
-        .get("/paper/all", {
+        .get("/paper/student/" + this.getUserId, {
           params: {
             pageNum: this.currentPage,
             pageSize: this.pageSize,
@@ -362,9 +267,9 @@ export default {
             });
 
           this.dialogVisible = false; // 关闭弹窗
+          this.load(); // 刷新表格的数据
         }
       });
-      this.load(); // 刷新表格的数据
       this.$refs["formdata"].resetFields();
     },
     handleEdit(row) {
@@ -374,7 +279,7 @@ export default {
     },
     handlesave(id) {
       console.log(id);
-      request.post("/paper/passPrimary/" + id).then((res) => {
+      request.post("/paper/passUltimate/" + id).then((res) => {
         console.log(res);
         if (res.status == 200) {
           this.$message({

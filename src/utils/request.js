@@ -1,5 +1,6 @@
 import axios from "axios";
 import router from "@/router";
+import Message from "element-plus";
 
 const request = axios.create({
   baseURL: "/api",
@@ -48,7 +49,7 @@ request.interceptors.response.use(
       res = res ? JSON.parse(res) : res;
     }
     // 验证token
-    if (res.code === "401") {
+    if (res.status === 10003) {
       console.error("token过期，重新登录");
       router.push("/login");
     }
