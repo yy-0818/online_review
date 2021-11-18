@@ -89,7 +89,7 @@
         show-overflow-tooltip
       ></el-table-column>
 
-      <el-table-column prop="state" label="状态">
+      <!-- <el-table-column prop="state" label="状态">
         <template #default="scope">
           <span v-if="scope.row.state === 0" style="color:#909399">未审核</span>
           <span v-if="scope.row.state === 1" style="color:#e49724"
@@ -100,6 +100,30 @@
           >
           <span v-if="scope.row.state === 3" style="color:#67C23A"
             >终审通过</span
+          >
+        </template>
+      </el-table-column> -->
+
+      <el-table-column label="审核状态" align="center">
+        <template #default="scope">
+          <el-tag
+            size="medium"
+            :type="
+              scope.row.state === 1
+                ? 'primary'
+                : scope.row.state === 0
+                ? 'info'
+                : scope.row.state === 3
+                ? 'success'
+                : 'danger'
+            "
+            >{{
+              scope.row.state === 1
+                ? "一审通过"
+                : "未审核" && scope.row.state === 3
+                ? "终审通过"
+                : "未通过"
+            }}</el-tag
           >
         </template>
       </el-table-column>

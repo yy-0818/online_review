@@ -83,7 +83,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column prop="state" label="状态">
+          <!-- <el-table-column prop="state" label="状态">
             <template #default="scope">
               <span v-if="scope.row.state === 0" style="color:#9a9b9c"
                 >未审核</span
@@ -98,9 +98,9 @@
                 >通过</span
               >
             </template>
-          </el-table-column>
+          </el-table-column> -->
 
-          <el-table-column label="操作" width="150">
+          <el-table-column label="操作" width="80">
             <template #default="scope">
               <!-- <el-button
                 size="mini"
@@ -109,13 +109,13 @@
                 @click="showBooks(scope.row)"
                 >查看上传论文</el-button
               > -->
-              <el-button
+              <!-- <el-button
                 size="mini"
                 type="primary"
                 plain
                 @click="handleEdit(scope.row)"
                 >编辑</el-button
-              >
+              > -->
               <el-popconfirm
                 title="确定删除吗？"
                 @confirm="handleDelete(scope.row.id)"
