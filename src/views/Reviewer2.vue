@@ -138,23 +138,14 @@
             >预览
           </el-button>
 
-          <el-popconfirm
-            title="确定通过吗？"
-            @confirm="handlesave(scope.row.id)"
-          >
-            <template #reference>
-              <el-button size="mini" type="primary" plain>通过</el-button>
-            </template>
-          </el-popconfirm>
-          <!-- <el-button size="mini" type="primary" plain>编辑</el-button> -->
-          <!-- <el-popconfirm
-            title="确定退回吗？"
-            @confirm="handleDelete(scope.row.id)"
-          >
-            <template #reference>
-              <el-button size="mini" type="danger">退回</el-button>
-            </template>
-          </el-popconfirm> -->
+          <el-button
+            size="mini"
+            type="primary"
+            plain
+            @click="handleEdit1(scope.row)"
+            >通过
+          </el-button>
+
           <el-button size="mini" type="danger" @click="handleEdit(scope.row)"
             >退回
           </el-button>
@@ -182,6 +173,56 @@
       >
       </el-pagination>
     </div>
+
+    <!-- 论文通过意见弹窗 -->
+    <el-dialog
+      title="意见"
+      v-model="dialogFormVisible"
+      :close-on-click-modal="false"
+      width="40%"
+    >
+      <el-form
+        ref="formdata"
+        :model="formdata"
+        :rules="rulesReviewer"
+        label-width="100px"
+      >
+        <el-form-item label="备注内容：" prop="content">
+          <el-input
+            type="textarea"
+            autosize
+            placeholder="请输入内容"
+            v-model="formdata.content"
+          >
+          </el-input>
+        </el-form-item>
+        <el-form-item label="修改意见：" prop="opinion">
+          <el-input
+            type="textarea"
+            autosize
+            placeholder="请输入内容"
+            v-model="formdata.opinion"
+          >
+          </el-input>
+        </el-form-item>
+
+        <el-form-item label="退回原因：" prop="reason">
+          <el-input
+            type="textarea"
+            :rows="5"
+            placeholder="请输入内容"
+            v-model="formdata.reason"
+          >
+          </el-input>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button @click="handlesave" type="primary">确定</el-button>
+        </span>
+      </template>
+    </el-dialog>
 
     <!-- 论文批语弹窗  -->
     <el-dialog
@@ -272,6 +313,7 @@ export default {
         state: "",
       },
       dialogVisible: false, // 弹窗
+      dialogFormVisible: false,
 
       search: "",
       currentPage: 1,
@@ -304,8 +346,8 @@ export default {
         return;
       }
       let userId = JSON.parse(userJson);
-      // return userId.id;
-      return 12;
+      return userId.id;
+      // return 12;
     },
   },
   methods: {
@@ -378,6 +420,11 @@ export default {
       // this.form = JSON.parse(JSON.stringify(row));
       this.formdata.id = row.id;
       this.dialogVisible = true;
+    },
+    handleEdit1(row) {
+      // this.form = JSON.parse(JSON.stringify(row));
+      this.formdata.id = row.id;
+      this.dialogFormVisible = true;
     },
     handlesave(id) {
       console.log(id);
