@@ -130,7 +130,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" width="260">
+      <el-table-column label="操作" width="280">
         <template #default="scope">
           <el-button
             size="mini"
@@ -140,19 +140,19 @@
             >预览
           </el-button>
 
-          <!-- <el-popconfirm
-            title="确定通过吗？"
-            @confirm="handlesave(scope.row.id)"
+          <el-popconfirm
+            title="确定下载吗？"
+            @confirm="handleDownlaod(scope.row)"
           >
             <template #reference>
-              <el-button size="mini" type="primary" plain>通过</el-button>
+              <el-button size="mini" type="warning" plain>下载</el-button>
             </template>
-          </el-popconfirm> -->
+          </el-popconfirm>
           <el-button
             size="mini"
             type="primary"
             plain
-            @click="handlesave(scope.row.id)"
+            @click="handleEdit1(scope.row)"
             >通过
           </el-button>
 
@@ -183,7 +183,107 @@
       :close-on-click-modal="false"
       width="40%"
     >
-      <el-form ref="formdata" :model="formdata"> </el-form>
+      <el-form
+        ref="formdata"
+        :model="formdata"
+        :rules="rulesReviewer"
+        label-width="100px"
+      >
+        <el-form-item label="备注内容：" prop="content">
+          <el-input
+            type="textarea"
+            autosize
+            placeholder="请输入内容"
+            v-model="formdata.content"
+          >
+          </el-input>
+        </el-form-item>
+        <el-form-item label="修改意见：" prop="opinion">
+          <el-input
+            type="textarea"
+            autosize
+            placeholder="请输入内容"
+            v-model="formdata.opinion"
+          >
+          </el-input>
+        </el-form-item>
+
+        <el-form-item label="退回原因：" prop="reason">
+          <el-input
+            type="textarea"
+            :rows="5"
+            placeholder="请输入内容"
+            v-model="formdata.reason"
+          >
+          </el-input>
+        </el-form-item>
+      </el-form>
+      <div>
+        <el-card
+          style="margin: 10px 12px 12px 24px;display: flex;"
+          shadow="hover"
+        >
+          <div>
+            <div class="header">上传文件</div>
+
+            <div class="content">
+              <div>
+                <el-upload
+                  drag
+                  ref="upload"
+                  class="upload-demo"
+                  :limit="limitNum"
+                  action="http://49.234.51.220:12345/files/upload"
+                  :on-preview="handlePreview"
+                  :on-remove="handleRemove"
+                  accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
+                  :file-list="fileList"
+                  :on-change="fileChange"
+                  :auto-upload="false"
+                  :on-exceed="exceedFile"
+                  :on-success="handleSuccess"
+                  :on-error="handleError"
+                >
+                  <i class="el-icon-upload"></i>
+
+                  <div class="el-upload__text">
+                    将Order文件拖到此处，或
+
+                    <em>点击上传</em>
+                  </div>
+
+                  <div class="el-upload__tip">
+                    可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
+                  </div>
+                </el-upload>
+
+                <br />
+
+                <div
+                  style="display: flex;justify-content: center;align-items: center;"
+                >
+                  <el-button
+                    size="small"
+                    type="primary"
+                    :disabled="isBtn"
+                    @click="submitUpload"
+                    plain
+                    >立即上传<i class="el-icon-upload el-icon--right"></i
+                  ></el-button>
+
+                  <el-button size="small" plain> 取消 </el-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </el-card>
+      </div>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button @click="handlesave" type="primary">确定</el-button>
+        </span>
+      </template>
     </el-dialog>
 
     <!-- <el-dialog title="收货地址" v-model="dialogTableVisible">
@@ -196,7 +296,7 @@
 
     <!-- 论文退回意见弹窗  -->
     <el-dialog
-      title="意见"
+      title="退回意见"
       v-model="dialogVisible"
       :close-on-click-modal="false"
       width="40%"
@@ -260,6 +360,7 @@
 <script>
 import request from "@/utils/request";
 import { encode } from "js-base64";
+import fileDownload from "js-file-download";
 
 export default {
   name: "Home",
@@ -276,7 +377,7 @@ export default {
         state: "",
       },
       dialogVisible: false, // 弹窗
-
+      dialogFormVisible: false,
       search: "",
       currentPage: 1,
       pageSize: 10,
@@ -370,7 +471,14 @@ export default {
     handleEdit(row) {
       // this.form = JSON.parse(JSON.stringify(row));
       this.formdata.id = row.id;
+      console.log(row.id);
       this.dialogVisible = true;
+    },
+
+    handleEdit1(row) {
+      // this.form = JSON.parse(JSON.stringify(row));
+      this.formdata.id = row.id;
+      this.dialogFormVisible = true;
     },
     handlesave(id) {
       console.log(id);
@@ -391,24 +499,14 @@ export default {
       });
     },
 
-    // handleDelete(id) {
-    //   console.log(id);
-    //   request.delete("/paper/" + id).then((res) => {
-    //     if (res.status === 200) {
-    //       this.$message({
-    //         type: "success",
-    //         message: "删除成功",
-    //       });
-    //     } else {
-    //       this.$message({
-    //         type: "error",
-    //         message: res.msg,
-    //       });
-    //     }
-    //     this.load(); // 删除之后重新加载表格的数据
-    //   });
-    //   dialogVisible = false; //关闭dialog
-    // },
+    handleDownlaod(row) {
+      let url = row.url;
+      let filename = url.replace(/^\/files\/([a-fA-F0-9]{32})_/, "");
+
+      request.get(url, {}, { responseType: "arraybuffer" }).then((res) => {
+        fileDownload(res, filename);
+      });
+    },
     handleSizeChange(pageSize) {
       // 改变当前每页的个数触发
       this.pageSize = pageSize;

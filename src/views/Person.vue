@@ -36,7 +36,6 @@
         </el-form-item>
 
         <el-form-item label="研究方向">
-          <!--                    <el-input v-model="form.gender"></el-input>-->
           <el-select v-model="form.directionId">
             <el-option
               v-for="item in directionIdOptions"
@@ -49,7 +48,6 @@
         </el-form-item>
 
         <el-form-item label="性别">
-          <!--                    <el-input v-model="form.gender"></el-input>-->
           <el-select v-model="form.gender">
             <el-option
               v-for="item in genderOptions"

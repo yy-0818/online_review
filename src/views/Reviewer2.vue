@@ -128,7 +128,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" width="260">
+      <el-table-column label="操作" width="280">
         <template #default="scope">
           <el-button
             size="mini"
@@ -137,6 +137,12 @@
             @click="previewOpen(scope.row)"
             >预览
           </el-button>
+
+          <el-popconfirm title="确定下载吗？" @confirm="handlesave(scope.row)">
+            <template #reference>
+              <el-button size="mini" type="warning" plain>下载</el-button>
+            </template>
+          </el-popconfirm>
 
           <el-button
             size="mini"
@@ -216,6 +222,66 @@
           </el-input>
         </el-form-item>
       </el-form>
+      <div>
+        <el-card
+          style="margin: 10px 12px 12px 24px;display: flex;"
+          shadow="hover"
+        >
+          <div>
+            <div class="header">上传文件</div>
+
+            <div class="content">
+              <div>
+                <el-upload
+                  drag
+                  ref="upload"
+                  class="upload-demo"
+                  :limit="limitNum"
+                  action="http://49.234.51.220:12345/files/upload"
+                  :on-preview="handlePreview"
+                  :on-remove="handleRemove"
+                  accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
+                  :file-list="fileList"
+                  :on-change="fileChange"
+                  :auto-upload="false"
+                  :on-exceed="exceedFile"
+                  :on-success="handleSuccess"
+                  :on-error="handleError"
+                >
+                  <i class="el-icon-upload"></i>
+
+                  <div class="el-upload__text">
+                    将Order文件拖到此处，或
+
+                    <em>点击上传</em>
+                  </div>
+
+                  <div class="el-upload__tip">
+                    可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
+                  </div>
+                </el-upload>
+
+                <br />
+
+                <div
+                  style="display: flex;justify-content: center;align-items: center;"
+                >
+                  <el-button
+                    size="small"
+                    type="primary"
+                    :disabled="isBtn"
+                    @click="submitUpload"
+                    plain
+                    >立即上传<i class="el-icon-upload el-icon--right"></i
+                  ></el-button>
+
+                  <el-button size="small" plain> 取消 </el-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </el-card>
+      </div>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -346,8 +412,8 @@ export default {
         return;
       }
       let userId = JSON.parse(userJson);
-      return userId.id;
-      // return 12;
+      // return userId.id;
+      return 12;
     },
   },
   methods: {
