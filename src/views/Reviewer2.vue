@@ -138,7 +138,10 @@
             >预览
           </el-button>
 
-          <el-popconfirm title="确定下载吗？" @confirm="handlesave(scope.row)">
+          <el-popconfirm
+            title="确定下载吗？"
+            @confirm="handleDownlaod(scope.row)"
+          >
             <template #reference>
               <el-button size="mini" type="warning" plain>下载</el-button>
             </template>
@@ -481,6 +484,15 @@ export default {
         }
       });
       this.$refs["formdata"].resetFields();
+    },
+
+    handleDownlaod(row) {
+      let url = row.url;
+      let filename = url.replace(/^\/files\/([a-fA-F0-9]{32})_/, "");
+
+      request.get(url, {}, { responseType: "arraybuffer" }).then((res) => {
+        fileDownload(res, filename);
+      });
     },
     handleEdit(row) {
       // this.form = JSON.parse(JSON.stringify(row));
