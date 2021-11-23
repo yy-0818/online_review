@@ -123,7 +123,7 @@
                 : "未审核" && scope.row.state === 3
                 ? "终审通过"
                 : "未审核" && scope.row.state === 2
-                ? "初审未通过"
+                ? "待修改"
                 : "未审核"
             }}</el-tag
           >
@@ -189,7 +189,7 @@
         :rules="rulesReviewer"
         label-width="100px"
       >
-        <el-form-item label="备注内容：" prop="content">
+        <!-- <el-form-item label="备注内容：" prop="content">
           <el-input
             type="textarea"
             autosize
@@ -206,9 +206,9 @@
             v-model="formdata.opinion"
           >
           </el-input>
-        </el-form-item>
+        </el-form-item> -->
 
-        <el-form-item label="退回原因：" prop="reason">
+        <el-form-item label="修改意见：" prop="reason">
           <el-input
             type="textarea"
             :rows="5"
@@ -321,7 +321,7 @@
           >
           </el-input>
         </el-form-item>
-        <el-row type="flex" justify="center" align="middle">
+        <!-- <el-row type="flex" justify="center" align="middle">
           <el-card style="display: flex;" shadow="hover">
             <div class="content">
               <div>
@@ -373,7 +373,7 @@
               </div>
             </div>
           </el-card>
-        </el-row>
+        </el-row> -->
       </el-form>
       <template #footer>
         <span class="dialog-footer">
@@ -414,6 +414,7 @@ export default {
         opinion: "",
         reason: "",
         state: "",
+        url: "",
       },
       dialogVisible: false, // 弹窗
       dialogFormVisible: false,
@@ -426,21 +427,20 @@ export default {
       previewFileUrl: "",
       previewVisible: false,
       rulesReviewer: {
-        content: [
-          { required: true, message: "请输入备注内容", trigger: "blur" },
-        ],
-        opinion: [
-          { required: true, message: "请输入备注内容", trigger: "blur" },
-        ],
-        reason: [
-          { required: true, message: "请输入退回原因", trigger: "blur" },
-        ],
+        // content: [
+        //   { required: true, message: "请输入备注内容", trigger: "blur" },
+        // ],
+        // opinion: [
+        //   { required: true, message: "请输入备注内容", trigger: "blur" },
+        // ],
+        reason: [{ required: true, message: "请输入内容", trigger: "blur" }],
       },
     };
   },
   created() {
     this.load();
   },
+
   methods: {
     submitUpload() {
       let _this = this;
@@ -477,7 +477,7 @@ export default {
 
     handleSuccess(res, file, fileList) {
       this.formdata.url = file.response.data;
-      console.log(file.response.data);
+      console.log(this.formdata.url);
 
       this.$message.success("文件上传成功");
     },
@@ -488,9 +488,9 @@ export default {
       this.isBtn = false;
     },
 
+    //查询
     load() {
       this.loading = true;
-
       request
         .get("/paper/all", {
           params: {
@@ -565,23 +565,28 @@ export default {
       this.formdata.id = row.id;
       this.dialogFormVisible = true;
     },
-    handlesave(id) {
+    handlesave(id, commentFileUrl) {
       console.log(id);
-      request.post("/paper/passPrimary/" + id).then((res) => {
-        console.log(res);
-        if (res.status == 200) {
-          this.$message({
-            type: "success",
-            message: "通过成功",
-          });
-        } else {
-          this.$message({
-            type: "error",
-            message: "请求超时",
-          });
-        }
-        this.load();
-      });
+      request
+        .post("/paper/passPrimary/", {
+          id: this.formdata.id,
+          commentFileUrl: this.formdata.url,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.status == 200) {
+            this.$message({
+              type: "success",
+              message: "通过成功",
+            });
+          } else {
+            this.$message({
+              type: "error",
+              message: "请求超时",
+            });
+          }
+          this.load();
+        });
     },
 
     handleDownlaod(row) {

@@ -328,7 +328,7 @@
           >
           </el-input>
         </el-form-item>
-        <el-row type="flex" justify="center" align="middle">
+        <!-- <el-row type="flex" justify="center" align="middle">
           <el-card style="display: flex;" shadow="hover">
             <div class="content">
               <div>
@@ -380,7 +380,7 @@
               </div>
             </div>
           </el-card>
-        </el-row>
+        </el-row> -->
       </el-form>
       <template #footer>
         <span class="dialog-footer">
@@ -420,6 +420,7 @@ export default {
         opinion: "",
         reason: "",
         state: "",
+        url: "",
       },
       dialogVisible: false, // 弹窗
       dialogFormVisible: false,
@@ -433,15 +434,13 @@ export default {
       previewFileUrl: "",
       previewVisible: false,
       rulesReviewer: {
-        content: [
-          { required: true, message: "请输入备注内容", trigger: "blur" },
-        ],
-        opinion: [
-          { required: true, message: "请输入备注内容", trigger: "blur" },
-        ],
-        reason: [
-          { required: true, message: "请输入退回原因", trigger: "blur" },
-        ],
+        // content: [
+        //   { required: true, message: "请输入备注内容", trigger: "blur" },
+        // ],
+        // opinion: [
+        //   { required: true, message: "请输入备注内容", trigger: "blur" },
+        // ],
+        reason: [{ required: true, message: "请输入内容", trigger: "blur" }],
       },
     };
   },
@@ -460,9 +459,54 @@ export default {
     },
   },
   methods: {
+    submitUpload() {
+      let _this = this;
+
+      if (this.length === 0) {
+        this.$message.warning("请上传文件");
+      } else {
+        this.$refs.upload.submit();
+
+        this.isBtn = true;
+      }
+    },
+
+    handleRemove(file, fileList) {
+      // console.log(file, fileList);
+
+      this.length = 0; // console.log(this.length)
+    },
+
+    handlePreview(file) {
+      console.log(file, 111);
+    }, // 文件状态改变时的钩子
+
+    fileChange(file, fileList) {
+      this.length = 1; // console.log(file.raw); // // this.fileList.push(file.raw); // console.log(this.fileList,this.length);
+    }, // 文件超出个数限制时的钩子
+
+    exceedFile(files, fileList) {
+      this.$message.warning(
+        `只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length +
+          fileList.length} 个`
+      );
+    }, // 文件上传成功时的钩子
+
+    handleSuccess(res, file, fileList) {
+      this.formdata.url = file.response.data;
+      console.log(this.formdata.url);
+
+      this.$message.success("文件上传成功");
+    },
+
+    handleError(err, file, fileList) {
+      this.$message.error("文件上传失败");
+
+      this.isBtn = false;
+    },
+    //查询
     load() {
       this.loading = true;
-
       request
         .get("/paper/teacher/" + this.getUserId, {
           params: {
@@ -546,21 +590,26 @@ export default {
     },
     handlesave(id) {
       console.log(id);
-      request.post("/paper/passUltimate/" + id).then((res) => {
-        console.log(res);
-        if (res.status == 200) {
-          this.$message({
-            type: "success",
-            message: "通过成功",
-          });
-        } else {
-          this.$message({
-            type: "error",
-            message: "请求超时",
-          });
-        }
-        this.load();
-      });
+      request
+        .post("/paper/passUltimate/", {
+          id: this.formdata.id,
+          commentFileUrl: this.formdata.url,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.status == 200) {
+            this.$message({
+              type: "success",
+              message: "通过成功",
+            });
+          } else {
+            this.$message({
+              type: "error",
+              message: "请求超时",
+            });
+          }
+          this.load();
+        });
     },
 
     // handleDelete(id) {
