@@ -83,6 +83,6 @@ export default {
 
 <style scoped>
 .el-menu-item-h {
-  font-size: 18px;
+  font-size: 17px;
 }
 </style>

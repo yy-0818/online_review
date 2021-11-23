@@ -16,9 +16,9 @@
       <el-button type="primary" style="margin-left: 8px" @click="add"
         >新增</el-button
       >
-      <!-- <el-button type="primary" style="margin-left: 6px" @click="load"
+      <el-button type="primary" style="margin-left: 6px" @click="load"
         >查询</el-button
-      > -->
+      >
     </div>
     <el-table
       v-loading="loading"

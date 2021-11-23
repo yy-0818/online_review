@@ -152,7 +152,7 @@
             size="mini"
             type="primary"
             plain
-            @click="handleEdit1(scope.row)"
+            @click="handleAdopt(scope.row)"
             >通过
           </el-button>
 
@@ -288,7 +288,7 @@
       width="42.3%"
     >
       <el-form
-        ref="formdata"
+        ref="formdataBack"
         :model="formdata"
         :rules="rulesReviewer"
         label-width="100px"
@@ -378,7 +378,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button @click="save" type="primary">确定</el-button>
+          <el-button @click="save()" type="primary">确定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -416,6 +416,8 @@ export default {
         state: "",
         url: "",
       },
+      formDatas: {},
+
       dialogVisible: false, // 弹窗
       dialogFormVisible: false,
       search: "",
@@ -427,12 +429,12 @@ export default {
       previewFileUrl: "",
       previewVisible: false,
       rulesReviewer: {
-        // content: [
-        //   { required: true, message: "请输入备注内容", trigger: "blur" },
-        // ],
-        // opinion: [
-        //   { required: true, message: "请输入备注内容", trigger: "blur" },
-        // ],
+        content: [
+          { required: true, message: "请输入备注内容", trigger: "blur" },
+        ],
+        opinion: [
+          { required: true, message: "请输入备注内容", trigger: "blur" },
+        ],
         reason: [{ required: true, message: "请输入内容", trigger: "blur" }],
       },
     };
@@ -520,8 +522,7 @@ export default {
     },
 
     save() {
-      console.log("====================================");
-      this.$refs["formdata"].validate((valid) => {
+      this.$refs["formdataBack"].validate((valid) => {
         console.log(valid);
         if (valid) {
           console.log(this.formdata);
@@ -548,51 +549,71 @@ export default {
             });
 
           this.dialogVisible = false; // 关闭弹窗
+          this.load(); // 刷新表格的数据
+        } else {
+          // this.$message({
+          //   type: "error",
+          //   message: "aaaa",
+          // });
+          return false;
         }
       });
-      this.load(); // 刷新表格的数据
       this.$refs["formdata"].resetFields();
     },
     handleEdit(row) {
       // this.form = JSON.parse(JSON.stringify(row));
       this.formdata.id = row.id;
-      console.log(row.id);
+      console.log(this.formdata.id);
       this.dialogVisible = true;
     },
 
-    handleEdit1(row) {
+    handleAdopt(row) {
       // this.form = JSON.parse(JSON.stringify(row));
       this.formdata.id = row.id;
       this.dialogFormVisible = true;
     },
-    handlesave(id, commentFileUrl) {
-      console.log(id);
-      request
-        .post("/paper/passPrimary/", {
-          id: this.formdata.id,
-          commentFileUrl: this.formdata.url,
-        })
-        .then((res) => {
-          console.log(res);
-          if (res.status == 200) {
-            this.$message({
-              type: "success",
-              message: "通过成功",
+    handlesave() {
+      this.$refs["formdata"].validate((valid) => {
+        console.log(valid);
+        if (valid) {
+          request
+            .post("/paper/passPrimary/", {
+              id: this.formdata.id,
+              commentFileUrl: this.formdata.url,
+            })
+            .then((res) => {
+              console.log(res);
+              if (res.status == 200) {
+                this.$message({
+                  type: "success",
+                  message: "通过成功",
+                });
+              } else {
+                this.$message({
+                  type: "error",
+                  message: "请求超时",
+                });
+              }
             });
-          } else {
-            this.$message({
-              type: "error",
-              message: "请求超时",
-            });
-          }
-          this.load();
-        });
+          this.dialogVisible = false; // 关闭弹窗
+        }
+      });
+      // this.load(); // 刷新表格的数据
+      // this.$refs["formdata"].resetFields();
     },
 
     handleDownlaod(row) {
       let url = row.url;
       let filename = url.replace(/^\/files\/([a-fA-F0-9]{32})_/, "");
 
+      console.log(url);
+      if (url === "") {
+        this.$message({
+          type: "error",
+          message: "未找到文件",
+        });
+        return;
+      }
       request.get(url, {}, { responseType: "arraybuffer" }).then((res) => {
         fileDownload(res, filename);
       });
