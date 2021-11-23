@@ -17,20 +17,20 @@
       </div>
 
       <!--    搜索区域-->
-      <!-- <div style="margin: 10px 0">
+      <div style="margin: 10px 0">
         <el-input
           v-model="search"
           placeholder="请输入关键字"
           style="width: 20%"
           clearable
         ></el-input>
-        <el-button style="margin-left: 5px" type="primary" @click="add"
+        <!-- <el-button style="margin-left: 5px" type="primary" @click="add"
           >新增</el-button
-        >
+        > -->
         <el-button type="primary" style="margin-left: 5px" @click="load"
           >查询</el-button
         >
-      </div> -->
+      </div>
       <div>
         <el-table
           v-fit-columns
@@ -100,15 +100,15 @@
             </template>
           </el-table-column> -->
 
-          <el-table-column label="操作" width="80">
+          <el-table-column label="操作" width="200">
             <template #default="scope">
-              <!-- <el-button
+              <el-button
                 size="mini"
                 type="success"
                 plain
-                @click="showBooks(scope.row)"
+                @click="showPaper(scope.row)"
                 >查看上传论文</el-button
-              > -->
+              >
               <!-- <el-button
                 size="mini"
                 type="primary"
@@ -276,6 +276,7 @@ export default {
       this.form = JSON.parse(JSON.stringify(row));
       this.dialogVisible = true;
     },
+    showPaper() {},
     handleDelete(id) {
       console.log(id);
       request.delete("/user/" + id).then((res) => {
