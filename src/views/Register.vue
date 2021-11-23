@@ -1,6 +1,6 @@
 <template>
   <div class="af">
-    <div style="width: 400px; margin: 100px auto">
+    <div style="width: 400px; margin:auto">
       <el-card>
         <div id="todoapp">
           欢迎注册
@@ -274,6 +274,7 @@ export default {
 }
 
 .af {
+  display: flex;
   width: 100%;
   height: 100vh;
   overflow: hidden;

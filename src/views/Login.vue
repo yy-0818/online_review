@@ -1,7 +1,7 @@
 <template>
   <div class="af">
     <!-- <img src="../assets/img/fc.png" alt="fj" /> -->
-    <div style="width: 400px; margin: 100px auto">
+    <div style="width: 400px; margin:auto;">
       <el-card>
         <div id="todoapp" shadow="hover">
           欢迎登录
@@ -151,6 +151,7 @@ export default {
 }
 
 .af {
+  display: flex;
   width: 100%;
   height: 100vh;
   overflow: hidden;

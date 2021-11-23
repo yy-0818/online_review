@@ -2,7 +2,7 @@
   <div style="padding: 10px">
     <!--    搜索区域-->
     <div style="margin: 10px 0">
-      <!-- <el-input
+      <el-input
         v-model="search"
         placeholder="请输入关键字"
         style="width: 20%"
@@ -11,7 +11,7 @@
 
       <el-button type="primary" style="margin-left: 5px" @click="load"
         >查询
-      </el-button> -->
+      </el-button>
     </div>
     <el-table
       v-fit-columns
@@ -280,20 +280,12 @@
       </template>
     </el-dialog>
 
-    <!-- <el-dialog title="收货地址" v-model="dialogTableVisible">
-  <el-table :data="gridData">
-    <el-table-column property="date" label="日期" width="150"></el-table-column>
-    <el-table-column property="name" label="姓名" width="200"></el-table-column>
-    <el-table-column property="address" label="地址"></el-table-column>
-  </el-table>
-</el-dialog> -->
-
     <!-- 论文退回意见弹窗  -->
     <el-dialog
       title="退回意见"
       v-model="dialogVisible"
       :close-on-click-modal="false"
-      width="40%"
+      width="42.3%"
     >
       <el-form
         ref="formdata"
@@ -646,8 +638,24 @@ export default {
 
 /* /deep/  在scoped中 可以更改外部样式 */
 .previewDialog .el-dialog__body {
-  /*width: 100%;*/
   height: 90%;
   padding: 0;
 }
+
+/* dialog弹窗居中 */
+/* .el-dialog {
+  display: flex;
+  flex-direction: column;
+  margin: 0 !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: calc(100% - 30px);
+  max-width: calc(100% - 30px);
+}
+.el-dialog .el-dialog__body {
+  flex: 1;
+  overflow: auto;
+} */
 </style>

@@ -2,7 +2,7 @@
   <div style="padding: 10px">
     <!--    搜索区域-->
     <div style="margin: 10px 0">
-      <!-- <el-input
+      <el-input
         v-model="search"
         placeholder="请输入关键字"
         style="width: 20%"
@@ -11,7 +11,7 @@
 
       <el-button type="primary" style="margin-left: 5px" @click="load"
         >查询
-      </el-button> -->
+      </el-button>
     </div>
     <el-table
       v-fit-columns
@@ -188,7 +188,7 @@
       title="意见"
       v-model="dialogFormVisible"
       :close-on-click-modal="false"
-      width="40%"
+      width="42.3%"
     >
       <el-form
         ref="formdata"
@@ -225,14 +225,111 @@
           </el-input>
         </el-form-item>
       </el-form>
-      <div>
-        <el-card
-          style="margin: 10px 12px 12px 24px;display: flex;"
-          shadow="hover"
-        >
-          <div>
-            <div class="header">上传文件</div>
+      <el-row type="flex" justify="center" align="middle">
+        <el-card style="display: flex;" shadow="hover">
+          <div class="content">
+            <div>
+              <el-upload
+                drag
+                ref="upload"
+                class="upload-demo"
+                :limit="limitNum"
+                action="http://49.234.51.220:12345/files/upload"
+                :on-preview="handlePreview"
+                :on-remove="handleRemove"
+                accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
+                :file-list="fileList"
+                :on-change="fileChange"
+                :auto-upload="false"
+                :on-exceed="exceedFile"
+                :on-success="handleSuccess"
+                :on-error="handleError"
+              >
+                <i class="el-icon-upload"></i>
 
+                <div class="el-upload__text">
+                  将Order文件拖到此处，或
+
+                  <em>点击上传</em>
+                </div>
+
+                <div class="el-upload__tip">
+                  可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
+                </div>
+              </el-upload>
+
+              <br />
+
+              <div
+                style="display: flex;justify-content: center;align-items: center;"
+              >
+                <el-button
+                  size="small"
+                  type="primary"
+                  :disabled="isBtn"
+                  @click="submitUpload"
+                  plain
+                  >立即上传<i class="el-icon-upload el-icon--right"></i
+                ></el-button>
+
+                <el-button size="small" plain> 取消 </el-button>
+              </div>
+            </div>
+          </div>
+        </el-card>
+      </el-row>
+
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button @click="handlesave" type="primary">确定</el-button>
+        </span>
+      </template>
+    </el-dialog>
+
+    <!-- 论文退回意见弹窗  -->
+    <el-dialog
+      title="退回意见"
+      v-model="dialogVisible"
+      :close-on-click-modal="false"
+      width="42.3%"
+    >
+      <el-form
+        ref="formdata"
+        :model="formdata"
+        :rules="rulesReviewer"
+        label-width="100px"
+      >
+        <el-form-item label="备注内容：" prop="content">
+          <el-input
+            type="textarea"
+            autosize
+            placeholder="请输入内容"
+            v-model="formdata.content"
+          >
+          </el-input>
+        </el-form-item>
+        <el-form-item label="修改意见：" prop="opinion">
+          <el-input
+            type="textarea"
+            autosize
+            placeholder="请输入内容"
+            v-model="formdata.opinion"
+          >
+          </el-input>
+        </el-form-item>
+
+        <el-form-item label="退回原因：" prop="reason">
+          <el-input
+            type="textarea"
+            :rows="5"
+            placeholder="请输入内容"
+            v-model="formdata.reason"
+          >
+          </el-input>
+        </el-form-item>
+        <el-row type="flex" justify="center" align="middle">
+          <el-card style="display: flex;" shadow="hover">
             <div class="content">
               <div>
                 <el-upload
@@ -282,69 +379,12 @@
                 </div>
               </div>
             </div>
-          </div>
-        </el-card>
-      </div>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="dialogFormVisible = false">取 消</el-button>
-          <el-button @click="handlesave" type="primary">确定</el-button>
-        </span>
-      </template>
-    </el-dialog>
-
-    <!-- 论文批语弹窗  -->
-    <el-dialog
-      title="编辑"
-      v-model="dialogVisible"
-      :close-on-click-modal="false"
-      width="40%"
-    >
-      <el-form
-        ref="formdata"
-        :model="formdata"
-        :rules="rulesReviewer"
-        label-width="100px"
-      >
-        <el-form-item label="备注内容：" prop="content">
-          <el-input
-            type="textarea"
-            autosize
-            placeholder="请输入内容"
-            v-model="formdata.content"
-          >
-          </el-input>
-        </el-form-item>
-        <el-form-item label="修改意见：" prop="opinion">
-          <el-input
-            type="textarea"
-            autosize
-            placeholder="请输入内容"
-            v-model="formdata.opinion"
-          >
-          </el-input>
-        </el-form-item>
-
-        <el-form-item label="退回原因：" prop="reason">
-          <el-input
-            type="textarea"
-            :rows="5"
-            placeholder="请输入内容"
-            v-model="formdata.reason"
-          >
-          </el-input>
-        </el-form-item>
+          </el-card>
+        </el-row>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取 消</el-button>
-          <!-- <el-button type="primary" @click="save">确 定</el-button> -->
-          <!-- @confirm="handleDelete(scope.row.id)" -->
-          <!-- <el-popconfirm title="确定退回吗？" @confirm="save"></el-popconfirm>
-            <template #reference>
-              <el-button type="primary">确 定</el-button>
-            </template>
-          </el-popconfirm> -->
           <el-button @click="save" type="primary">确定</el-button>
         </span>
       </template>
@@ -480,7 +520,7 @@ export default {
             });
 
           this.dialogVisible = false; // 关闭弹窗
-          this.load(); // 刷新表格的数据 
+          this.load(); // 刷新表格的数据
         }
       });
       this.$refs["formdata"].resetFields();
