@@ -111,8 +111,12 @@
             </el-form-item>
           </el-row>
           <div style="text-align: center;margin-top: 30px;">
-            <el-button type="primary" @click="save">上传</el-button>
-            <el-button @click="resetForm">重置</el-button>
+            <el-button type="primary" plain @click="save"
+              ><i class="el-icon-upload"></i>上传</el-button
+            >
+            <el-button type="success" plain @click="resetForm"
+              ><i class="el-icon-refresh"></i>重置</el-button
+            >
           </div>
           <div class="div-el-button" align="center">
             <el-button type="text" @click="open">Tip</el-button>
@@ -168,10 +172,10 @@
                 :disabled="isBtn"
                 @click="submitUpload"
                 plain
-                >立即上传<i class="el-icon-upload el-icon--right"></i
-              ></el-button>
+                ><i class="el-icon-upload"></i>立即上传</el-button
+              >
 
-              <el-button size="small" plain> 取消 </el-button>
+              <!-- <el-button size="small" plain> 取消 </el-button> -->
             </div>
           </div>
         </div>

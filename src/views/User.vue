@@ -28,7 +28,7 @@
           >新增</el-button
         > -->
         <el-button type="primary" style="margin-left: 5px" @click="load"
-          >查询</el-button
+          ><i class="el-icon-search"></i>查询</el-button
         >
       </div>
       <div>
@@ -100,14 +100,14 @@
             </template>
           </el-table-column> -->
 
-          <el-table-column label="操作" width="200">
+          <el-table-column label="操作" width="230">
             <template #default="scope">
               <el-button
                 size="mini"
                 type="success"
                 plain
                 @click="showPaper(scope.row)"
-                >查看上传论文</el-button
+                ><i class="el-icon-folder-opened"></i>查看上传论文</el-button
               >
               <!-- <el-button
                 size="mini"
@@ -121,7 +121,9 @@
                 @confirm="handleDelete(scope.row.id)"
               >
                 <template #reference>
-                  <el-button size="mini" type="danger">删除</el-button>
+                  <el-button size="mini" type="danger"
+                    ><i class="el-icon-delete"></i>删除</el-button
+                  >
                 </template>
               </el-popconfirm>
             </template>
@@ -200,7 +202,6 @@ export default {
     // },
     load() {
       this.loading = true;
-
       request
         .get("/user/all", {
           params: {

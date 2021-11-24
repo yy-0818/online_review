@@ -14,10 +14,10 @@
         clearable
       ></el-input>
       <el-button type="primary" style="margin-left: 8px" @click="add"
-        >新增</el-button
+        ><i class="el-icon-upload2 "></i>新增</el-button
       >
       <el-button type="primary" style="margin-left: 6px" @click="load"
-        >查询</el-button
+        ><i class="el-icon-search"></i>查询</el-button
       >
     </div>
     <el-table
@@ -39,14 +39,28 @@
 
       <el-table-column label="操作">
         <template #default="scope">
-          <el-button size="mini" @click="details(scope.row)">详情</el-button>
-          <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
+          <el-button
+            size="mini"
+            type="success"
+            plain
+            @click="details(scope.row)"
+            ><i class="el-icon-tickets"></i>详情</el-button
+          >
+          <el-button
+            size="mini"
+            type="primary"
+            plain
+            @click="handleEdit(scope.row)"
+            ><i class="el-icon-edit-outline"></i>编辑</el-button
+          >
           <el-popconfirm
             title="确定删除吗？"
             @confirm="handleDelete(scope.row.id)"
           >
             <template #reference>
-              <el-button size="mini" type="danger">删除</el-button>
+              <el-button size="mini" type="danger"
+                ><i class="el-icon-delete el-icon--left"></i>删除</el-button
+              >
             </template>
           </el-popconfirm>
         </template>

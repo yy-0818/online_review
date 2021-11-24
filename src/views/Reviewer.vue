@@ -10,7 +10,7 @@
       ></el-input>
 
       <el-button type="primary" style="margin-left: 5px" @click="load"
-        >查询
+        ><i class="el-icon-search"></i>查询
       </el-button>
     </div>
     <el-table
@@ -130,14 +130,14 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" width="280">
+      <el-table-column label="操作" width="330">
         <template #default="scope">
           <el-button
             size="mini"
             type="success"
             plain
             @click="previewOpen(scope.row)"
-            >预览
+            ><i class="el-icon-tickets"></i>预览
           </el-button>
 
           <el-popconfirm
@@ -145,19 +145,25 @@
             @confirm="handleDownlaod(scope.row)"
           >
             <template #reference>
-              <el-button size="mini" type="warning" plain>下载</el-button>
+              <el-button size="mini" type="warning" plain
+                ><i class="el-icon-folder-add"></i>下载</el-button
+              >
             </template>
           </el-popconfirm>
+          <el-icon>
+            <download />
+          </el-icon>
+
           <el-button
             size="mini"
             type="primary"
             plain
             @click="handleAdopt(scope.row)"
-            >通过
+            ><i class="el-icon-circle-check"></i>通过
           </el-button>
 
           <el-button size="mini" type="danger" @click="handleEdit(scope.row)"
-            >退回
+            ><i class="el-icon-circle-close"></i>退回
           </el-button>
         </template>
       </el-table-column>
@@ -265,7 +271,7 @@
                   >立即上传<i class="el-icon-upload el-icon--right"></i
                 ></el-button>
 
-                <el-button size="small" plain> 取消 </el-button>
+                <!-- <el-button size="small" plain> 取消 </el-button> -->
               </div>
             </div>
           </div>

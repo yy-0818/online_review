@@ -115,14 +115,21 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" width="80">
+      <el-table-column label="操作" width="170">
         <template #default="scope">
           <el-button
             size="mini"
             type="success"
             plain
             @click="previewOpen(scope.row)"
-            >预览
+            ><i class="el-icon-tickets"></i>预览
+          </el-button>
+          <el-button
+            size="mini"
+            type="primary"
+            plain
+            @click="newUpload(scope.row)"
+            ><i class="el-icon-upload"></i>上传
           </el-button>
         </template>
       </el-table-column>
