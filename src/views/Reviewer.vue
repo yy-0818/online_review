@@ -604,8 +604,8 @@ export default {
           this.dialogVisible = false; // 关闭弹窗
         }
       });
-      // this.load(); // 刷新表格的数据
-      // this.$refs["formdata"].resetFields();
+      this.load(); // 刷新表格的数据
+      this.$refs["formdata"].resetFields();
     },
 
     handleDownlaod(row) {

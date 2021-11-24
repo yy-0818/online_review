@@ -10,7 +10,15 @@
       ></el-input>
 
       <el-button type="primary" style="margin-left: 5px" @click="load"
-        >查询
+        ><i class="el-icon-search"></i>查询
+      </el-button>
+
+      <el-button
+        type="primary"
+        plain
+        style="margin-left: 5px"
+        @click="loadPaperAll"
+        ><i class="el-icon-paperclip"></i>查看其它论文
       </el-button>
     </div>
     <el-table
@@ -456,8 +464,8 @@ export default {
         return;
       }
       let userId = JSON.parse(userJson);
-      // return userId.id;
-      return 12;
+      return userId.id;
+      // return 12;
     },
   },
   methods: {
@@ -511,6 +519,23 @@ export default {
       this.loading = true;
       request
         .get("/paper/teacher/" + this.getUserId, {
+          params: {
+            pageNum: this.currentPage,
+            pageSize: this.pageSize,
+            search: this.search,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          this.loading = false;
+          this.tableData = res.data.records;
+          this.total = res.data.total;
+        });
+    },
+    loadPaperAll() {
+      this.loading = true;
+      request
+        .post("/paper/allpassPrimary/", {
           params: {
             pageNum: this.currentPage,
             pageSize: this.pageSize,
