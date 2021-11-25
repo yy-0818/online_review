@@ -100,15 +100,15 @@
             </template>
           </el-table-column> -->
 
-          <el-table-column label="操作" width="230">
+          <el-table-column label="操作" width="100">
             <template #default="scope">
-              <el-button
+              <!-- <el-button
                 size="mini"
                 type="success"
                 plain
                 @click="showPaper(scope.row)"
                 ><i class="el-icon-folder-opened"></i>查看上传论文</el-button
-              >
+              > -->
               <!-- <el-button
                 size="mini"
                 type="primary"
@@ -122,7 +122,7 @@
               >
                 <template #reference>
                   <el-button size="mini" type="danger"
-                    ><i class="el-icon-delete"></i>删除</el-button
+                    ><i class="el-icon-delete el-icon--left"></i>删除</el-button
                   >
                 </template>
               </el-popconfirm>

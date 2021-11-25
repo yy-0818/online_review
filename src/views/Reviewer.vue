@@ -150,9 +150,6 @@
               >
             </template>
           </el-popconfirm>
-          <el-icon>
-            <download />
-          </el-icon>
 
           <el-button
             size="mini"
@@ -195,7 +192,7 @@
         :rules="rulesReviewer"
         label-width="100px"
       >
-        <!-- <el-form-item label="备注内容：" prop="content">
+        <el-form-item label="备注内容：" prop="content">
           <el-input
             type="textarea"
             autosize
@@ -204,7 +201,7 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="修改意见：" prop="opinion">
+        <el-form-item label="通过缘由：" prop="opinion">
           <el-input
             type="textarea"
             autosize
@@ -212,7 +209,7 @@
             v-model="formdata.opinion"
           >
           </el-input>
-        </el-form-item> -->
+        </el-form-item>
 
         <el-form-item label="修改意见：" prop="reason">
           <el-input
@@ -500,7 +497,7 @@ export default {
     load() {
       this.loading = true;
       request
-        .get("/paper/all", {
+        .get("/paper/allDiderotPrimary/", {
           params: {
             pageNum: this.currentPage,
             pageSize: this.pageSize,
@@ -601,11 +598,13 @@ export default {
                 });
               }
             });
-          this.dialogVisible = false; // 关闭弹窗
+          this.dialogFormVisible = false; // 关闭弹窗
         }
       });
-      this.load(); // 刷新表格的数据
+
       this.$refs["formdata"].resetFields();
+      this.$refs["upload"].clearFiles();
+      this.load(); // 刷新表格的数据
     },
 
     handleDownlaod(row) {

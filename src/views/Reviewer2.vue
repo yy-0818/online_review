@@ -560,6 +560,8 @@ export default {
       this.formdata.id = row.id;
       this.dialogFormVisible = true;
     },
+
+    //通过
     handlesave(id) {
       console.log(id);
       request
@@ -582,6 +584,9 @@ export default {
           }
           this.load();
         });
+      this.$refs["formdata"].resetFields();
+      this.$refs["upload"].clearFiles();
+      this.dialogFormVisible = false; // 关闭弹窗
     },
 
     // handleDelete(id) {

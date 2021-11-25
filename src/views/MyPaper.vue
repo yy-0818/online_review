@@ -259,7 +259,7 @@ export default {
         state: "",
         url: "",
       },
-      dialogVisible: false, // 弹窗
+      // 弹窗
       dialogFormVisible: false,
 
       search: "",
@@ -410,11 +410,10 @@ export default {
             });
           }
         });
-
-      console.log("dialog close");
+      this.load(); // 刷新表格的数据
+      // console.log("dialog close");
       this.dialogFormVisible = false; // 关闭弹窗
       this.$refs["upload"].clearFiles();
-      this.load(); // 刷新表格的数据
     },
 
     // handleDelete(id) {
@@ -441,8 +440,8 @@ export default {
       console.log(url);
       if (url === "" || url === null) {
         this.$message({
-          type: "error",
-          message: "未找到文件",
+          type: "warning",
+          message: "暂无老师上传的文件",
         });
         return;
       }

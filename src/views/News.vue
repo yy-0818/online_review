@@ -81,9 +81,13 @@
     </div>
 
     <el-dialog title="提示" v-model="dialogVisible" width="50%">
-      <el-form :model="form" label-width="120px">
+      <el-form :model="form" label-width="50px">
         <el-form-item label="标题">
-          <el-input v-model="form.title" style="width: 50%"></el-input>
+          <el-input
+            v-model="form.title"
+            style="width: 50%"
+            placeholder="请输入内容"
+          ></el-input>
         </el-form-item>
 
         <div id="div1"></div>
@@ -318,3 +322,22 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/* dialog弹窗居中 */
+/* .el-dialog {
+  display: flex;
+  flex-direction: column;
+  margin: 0 !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: calc(100% - 30px);
+  max-width: calc(100% - 30px);
+}
+.el-dialog .el-dialog__body {
+  flex: 1;
+  overflow: auto;
+} */
+</style>
