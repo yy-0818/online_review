@@ -17,7 +17,7 @@
         type="primary"
         plain
         style="margin-left: 5px"
-        @click="loadPaperAll"
+        @click="handleLookAll"
         ><i class="el-icon-paperclip"></i>查看其它论文
       </el-button>
     </div>
@@ -182,6 +182,7 @@
         @current-change="handleCurrentChange"
       >
       </el-pagination> -->
+
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -338,59 +339,6 @@
           >
           </el-input>
         </el-form-item>
-        <!-- <el-row type="flex" justify="center" align="middle">
-          <el-card style="display: flex;" shadow="hover">
-            <div class="content">
-              <div>
-                <el-upload
-                  drag
-                  ref="upload"
-                  class="upload-demo"
-                  :limit="limitNum"
-                  action="http://49.234.51.220:12345/files/upload"
-                  :on-preview="handlePreview"
-                  :on-remove="handleRemove"
-                  accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
-                  :file-list="fileList"
-                  :on-change="fileChange"
-                  :auto-upload="false"
-                  :on-exceed="exceedFile"
-                  :on-success="handleSuccess"
-                  :on-error="handleError"
-                >
-                  <i class="el-icon-upload"></i>
-
-                  <div class="el-upload__text">
-                    将Order文件拖到此处，或
-
-                    <em>点击上传</em>
-                  </div>
-
-                  <div class="el-upload__tip">
-                    可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
-                  </div>
-                </el-upload>
-
-                <br />
-
-                <div
-                  style="display: flex;justify-content: center;align-items: center;"
-                >
-                  <el-button
-                    size="small"
-                    type="primary"
-                    :disabled="isBtn"
-                    @click="submitUpload"
-                    plain
-                    >立即上传<i class="el-icon-upload el-icon--right"></i
-                  ></el-button>
-
-                  <el-button size="small" plain> 取消 </el-button>
-                </div>
-              </div>
-            </div>
-          </el-card>
-        </el-row> -->
       </el-form>
       <template #footer>
         <span class="dialog-footer">
@@ -452,6 +400,7 @@ export default {
         // ],
         reason: [{ required: true, message: "请输入内容", trigger: "blur" }],
       },
+      justMe: true,
     };
   },
   created() {
@@ -469,6 +418,36 @@ export default {
     },
   },
   methods: {
+    // 查询
+    load() {
+      this.loading = true;
+      let userId = "";
+      if (this.justMe) {
+        userId = this.getUserId;
+      }
+
+      request
+        .get("/paper/allPassPrimary", {
+          params: {
+            pageNum: this.currentPage,
+            pageSize: this.pageSize,
+            search: this.search,
+            id: userId,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          this.loading = false;
+          this.tableData = res.data.records;
+          this.total = res.data.total;
+        });
+    },
+    handleLookAll() {
+      this.justMe = !this.justMe;
+      this.load();
+    },
+
+    //文件上传
     submitUpload() {
       let _this = this;
 
@@ -514,41 +493,7 @@ export default {
 
       this.isBtn = false;
     },
-    //查询
-    load() {
-      this.loading = true;
-      request
-        .get("/paper/teacher/" + this.getUserId, {
-          params: {
-            pageNum: this.currentPage,
-            pageSize: this.pageSize,
-            search: this.search,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          this.loading = false;
-          this.tableData = res.data.records;
-          this.total = res.data.total;
-        });
-    },
-    loadPaperAll() {
-      this.loading = true;
-      request
-        .post("/paper/allpassPrimary/", {
-          params: {
-            pageNum: this.currentPage,
-            pageSize: this.pageSize,
-            search: this.search,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          this.loading = false;
-          this.tableData = res.data.records;
-          this.total = res.data.total;
-        });
-    },
+
     // handleUploadSuccess(res) {
     //   if (res.status === 200) {
     //     this.$message.success("导入成功");
@@ -667,6 +612,7 @@ export default {
       this.currentPage = pageNum;
       this.load();
     },
+
     // 预览事件
     previewOpen(data) {
       // console.log(data.file);

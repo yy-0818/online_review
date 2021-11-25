@@ -436,10 +436,10 @@ export default {
       previewVisible: false,
       rulesReviewer: {
         content: [
-          { required: true, message: "请输入备注内容", trigger: "blur" },
-        ],
-        opinion: [
-          { required: true, message: "请输入备注内容", trigger: "blur" },
+          //   { required: true, message: "请输入备注内容", trigger: "blur" },
+          // ],
+          // opinion: [
+          //   { required: true, message: "请输入内容", trigger: "blur" },
         ],
         reason: [{ required: true, message: "请输入内容", trigger: "blur" }],
       },

@@ -115,7 +115,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" width="170">
+      <el-table-column label="操作" width="270">
         <template #default="scope">
           <el-button
             size="mini"
@@ -124,6 +124,16 @@
             @click="previewOpen(scope.row)"
             ><i class="el-icon-tickets"></i>预览
           </el-button>
+          <el-popconfirm
+            title="确定下载吗？"
+            @confirm="handleDownlaod(scope.row)"
+          >
+            <template #reference>
+              <el-button size="mini" type="warning" plain
+                ><i class="el-icon-folder-add"></i>下载建议</el-button
+              >
+            </template>
+          </el-popconfirm>
           <el-button
             size="mini"
             type="primary"
@@ -232,6 +242,7 @@
 <script>
 import request from "@/utils/request";
 import { encode } from "js-base64";
+import fileDownload from "js-file-download";
 
 export default {
   name: "Home",
@@ -371,6 +382,15 @@ export default {
     },
 
     handlesave() {
+      let url = this.formdata.url;
+      console.log(url);
+      if (url === "" || url === null) {
+        this.$message({
+          type: "error",
+          message: "文件不能为空",
+        });
+        return;
+      }
       request
         .post("/paper/saves/", {
           id: this.formdata.id,
@@ -390,9 +410,11 @@ export default {
             });
           }
         });
-      this.dialogVisible = false; // 关闭弹窗
-      // this.load(); // 刷新表格的数据
-      // this.$refs["formdata"].resetFields();
+
+      console.log("dialog close");
+      this.dialogFormVisible = false; // 关闭弹窗
+      this.$refs["upload"].clearFiles();
+      this.load(); // 刷新表格的数据
     },
 
     // handleDelete(id) {
@@ -413,6 +435,24 @@ export default {
     //   });
     //   dialogVisible = false; //关闭dialog
     // },
+
+    handleDownlaod(row) {
+      let url = row.commentFileUrl;
+      console.log(url);
+      if (url === "" || url === null) {
+        this.$message({
+          type: "error",
+          message: "未找到文件",
+        });
+        return;
+      }
+      let filename = url.replace(/^\/files\/([a-fA-F0-9]{32})_/, "");
+
+      request.get(url, {}, { responseType: "arraybuffer" }).then((res) => {
+        fileDownload(res, filename);
+      });
+    },
+
     handleSizeChange(pageSize) {
       // 改变当前每页的个数触发
       this.pageSize = pageSize;
