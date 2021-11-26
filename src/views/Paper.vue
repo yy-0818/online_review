@@ -60,6 +60,7 @@
             >
               <el-input
                 type="textarea"
+                :rows="5"
                 class="el-form-item-d"
                 v-model="formPaper.summary"
               ></el-input>
@@ -71,6 +72,7 @@
             >
               <el-input
                 type="textarea"
+                :rows="5"
                 class="el-form-item-d"
                 v-model="formPaper.summaryS"
               ></el-input>
@@ -126,7 +128,7 @@
     </el-card>
   </el-row>
   <el-row>
-    <el-card style="margin: 10px 12px 12px 24px;display: flex;" shadow="hover">
+    <el-card class="el-card-y" shadow="hover">
       <div>
         <div class="header">上传文件</div>
 
@@ -149,20 +151,15 @@
               :on-error="handleError"
             >
               <i class="el-icon-upload"></i>
-
               <div class="el-upload__text">
                 将Order文件拖到此处，或
-
                 <em>点击上传</em>
               </div>
-
               <div class="el-upload__tip">
                 可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
               </div>
             </el-upload>
-
             <br />
-
             <div
               style="display: flex;justify-content: center;align-items: center;"
             >
@@ -372,8 +369,12 @@ export default {
 </script>
 
 <style scoped>
+.el-card-y {
+  margin: 10px 12px 12px 24px;
+  display: flex;
+}
 .header {
-  /* width: 100%; */
+  width: 100%;
   padding: 60px;
   margin-bottom: 40px;
   display: flex;
@@ -385,7 +386,7 @@ export default {
 }
 
 .content {
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
 }
@@ -410,6 +411,10 @@ export default {
 .div-el-button {
   /* align-content: center; */
   padding: 22px;
+}
+
+.box-card {
+  /* display: flex; */
 }
 
 /* .el-card {

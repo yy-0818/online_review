@@ -117,7 +117,9 @@ export default {
       imgSrc: {
         backgroundImage: "url(" + require("../assets/carousel/3.png") + ")",
         height: "100vh", //这里一定要设置高度 否则背景图无法显示
+        width: "100vw",
         backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
       },
       form: { email: "", password: "", confirm: "", code: "" },
       rules: {

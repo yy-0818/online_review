@@ -181,7 +181,7 @@ export default {
     },
     open3() {
       this.$notify({
-        title: "温馨提示",
+        title: "SAYING",
         message: h(
           "i",
           { style: "color: teal" },

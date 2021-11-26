@@ -8,6 +8,7 @@ module.exports = {
       "/api": {
         //设置拦截器  拦截器格式   斜杠+拦截器名字，名字可以自己定
         target: "http://192.168.4.71:8181", //代理的目标地址
+        // target:"http://47.99.204.81:8181/"
         // target: "localhost:9090",
         changeOrigin: true, //是否设置同源，输入是的
         pathRewrite: {

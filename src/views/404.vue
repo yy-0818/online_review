@@ -5,17 +5,15 @@
         <h1>404</h1>
         <h2>抱歉！找不到页面</h2>
       </div>
-      <router-link to="/Login" >返回登录页面</router-link>
+      <router-link to="/Home">返回主页面</router-link>
     </div>
   </div>
 </template>
 
 <script>
-export default{
-  name:"Home",
-  components:{
-
-  },
+export default {
+  name: "Home",
+  components: {},
 };
 </script>
 <style scoped>
@@ -59,13 +57,13 @@ body {
 }
 
 .notfound .notfound-404 h1 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50% , -50%);
-  -ms-transform: translate(-50% , -50%);
-  transform: translate(-50% , -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   font-size: 224px;
   font-weight: 900;
   margin-top: 0px;
@@ -77,9 +75,8 @@ body {
   letter-spacing: -20px;
 }
 
-
 .notfound .notfound-404 h2 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   position: absolute;
   left: 0;
   right: 0;
@@ -94,7 +91,7 @@ body {
 }
 
 .notfound a {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   display: inline-block;
   text-transform: uppercase;
   color: #ff005a;
@@ -123,5 +120,4 @@ body {
     font-size: 182px;
   }
 }
-
 </style>

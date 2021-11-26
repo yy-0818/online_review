@@ -4,6 +4,7 @@ import Message from "element-plus";
 
 const request = axios.create({
   baseURL: "/api",
+  // baseURL: "http://47.99.204.81:8181/",
   timeout: 60000,
 });
 

@@ -1,7 +1,6 @@
 <template>
   <div class="af" :style="imgSrc">
     <!-- <img :src="imgSrc" width="100%" height="100%" alt="" /> -->
-
     <div style="width: 400px; margin:auto;">
       <el-card>
         <div id="todoapp" shadow="hover">
@@ -76,16 +75,14 @@ export default {
     return {
       imgSrc: {
         backgroundImage: "url(" + require("../assets/carousel/3.png") + ")",
-        height: "100vh", //这里一定要设置高度 否则背景图无法显示
+        height: "100vh",
+        width: "100vw",
         backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
       },
 
       form: { role: "", email: "", password: "" },
-      // ruleForm: {
-      // username: "lunaticzy9527@gmail.com",
-      // password: "123",
-      //   email: '',
-      // },
+
       rules: {
         email: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
         password: [{ required: true, message: "请输入密码", trigger: "blur" }],
