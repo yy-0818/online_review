@@ -18,7 +18,7 @@
         plain
         style="margin-left: 5px"
         @click="handleLookAll"
-        ><i class="el-icon-paperclip"></i>查看其它论文
+        ><i class="el-icon-paperclip"></i>所有论文
       </el-button>
     </div>
     <el-table
@@ -371,7 +371,7 @@ export default {
   data() {
     return {
       loading: true,
-
+      message: "",
       formdata: {
         id: "",
         content: "",
@@ -414,7 +414,6 @@ export default {
       }
       let userId = JSON.parse(userJson);
       return userId.id;
-      // return 12;
     },
   },
   methods: {

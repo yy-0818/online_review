@@ -1,6 +1,7 @@
 <template>
-  <div class="af">
-    <!-- <img src="../assets/img/fc.png" alt="fj" /> -->
+  <div class="af" :style="imgSrc">
+    <!-- <img :src="imgSrc" width="100%" height="100%" alt="" /> -->
+
     <div style="width: 400px; margin:auto;">
       <el-card>
         <div id="todoapp" shadow="hover">
@@ -73,6 +74,12 @@ export default {
   },
   data() {
     return {
+      imgSrc: {
+        backgroundImage: "url(" + require("../assets/carousel/3.png") + ")",
+        height: "100vh", //这里一定要设置高度 否则背景图无法显示
+        backgroundRepeat: "no-repeat",
+      },
+
       form: { role: "", email: "", password: "" },
       // ruleForm: {
       // username: "lunaticzy9527@gmail.com",
@@ -155,7 +162,7 @@ export default {
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background: linear-gradient(90deg, #8dbed6, #2918c0);
+  /* background: linear-gradient(90deg, #8dbed6, #2918c0); */
 }
 
 /* .showbox :hover {

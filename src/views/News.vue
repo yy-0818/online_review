@@ -142,6 +142,17 @@ export default {
   created() {
     this.load();
   },
+  // computed: {
+  //   getUserId() {
+  //     let userJson = sessionStorage.getItem("user");
+  //     if (!userJson) {
+  //       return;
+  //     }
+  //     let userId = JSON.parse(userJson);
+  //     console.log(userId.id);
+  //     return userId.id;
+  //   },
+  // },
   methods: {
     details(row) {
       this.detail = row;
@@ -275,6 +286,7 @@ export default {
     },
     handleEdit(row) {
       this.form = JSON.parse(JSON.stringify(row));
+      console.log(this.form.id);
       this.dialogVisible = true;
 
       this.$nextTick(() => {

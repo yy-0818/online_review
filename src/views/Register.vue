@@ -1,6 +1,6 @@
 <template>
-  <div class="af">
-    <div style="width: 400px; margin:auto">
+  <div class="af" :style="imgSrc">
+    <div style="width: 400px;margin: auto;">
       <el-card>
         <div id="todoapp">
           欢迎注册
@@ -114,6 +114,11 @@ export default {
     };
 
     return {
+      imgSrc: {
+        backgroundImage: "url(" + require("../assets/carousel/3.png") + ")",
+        height: "100vh", //这里一定要设置高度 否则背景图无法显示
+        backgroundRepeat: "no-repeat",
+      },
       form: { email: "", password: "", confirm: "", code: "" },
       rules: {
         email: [{ validator: checkEmail, trigger: "blur" }],
@@ -142,18 +147,8 @@ export default {
       btnDisable: false,
     };
   },
-  computed: {},
-  methods: {
-    //邮箱验证
-    // sendEmail() {
-    //   var regEmail = /^[A-Za-z1-9]+([-_.][A-Za-z1-9]+)*@([A-Za-z1-9]+[-.])+[A-Za-z]{2,5}$/;
-    //   if (this.email == "") {
-    //     alert("请输入邮箱");
-    //   } else if (!regEmail.test(this.email)) {
-    //     alert("邮箱格式不正确");
-    //   }
-    // },
 
+  methods: {
     // 控制获取验证码按钮是否可点击
     getCodeBtnDisable() {
       if (this.waitTime == 61) {
@@ -279,6 +274,7 @@ export default {
   width: 100%;
   height: 100vh;
   overflow: hidden;
+
   background: linear-gradient(90deg, #8dbed6, #2918c0);
 }
 

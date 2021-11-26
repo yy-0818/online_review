@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div style="padding:5%">
     <el-card class="el-card" shadow="hover">
-      <el-form ref="form" :model="form" label-width="80px">
+      <el-form ref="form" :model="form" label-width="80px" size="mini">
         <el-form-item style="text-align: center" label-width="0">
           <el-upload
             class="avatar-uploader"
@@ -36,7 +36,7 @@
         </el-form-item>
 
         <el-form-item label="研究方向">
-          <el-select v-model="form.directionId">
+          <el-select v-model="form.directionId" style="width:80%">
             <el-option
               v-for="item in directionIdOptions"
               :key="item.value"
@@ -48,7 +48,7 @@
         </el-form-item>
 
         <el-form-item label="性别">
-          <el-select v-model="form.gender">
+          <el-select v-model="form.gender" style="width:80%">
             <el-option
               v-for="item in genderOptions"
               :key="item.value"
@@ -141,8 +141,9 @@ export default {
 <style scoped>
 /* style="width: 28%; margin: 10% 30%" */
 .el-card {
-  width: 28%;
-  margin: 10% 30%;
+  width: 32%;
+  /* margin: 10% 30%; */
+  margin: auto;
 }
 .el-form-item-d {
   width: 200px;

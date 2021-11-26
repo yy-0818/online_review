@@ -1,5 +1,30 @@
 <template>
-  <div style="padding:10px">
+  <div style="padding:2px">
+    <div>
+      <!-- type="card",卡片化,当页面宽度方向空间空余，但高度方向空间匮乏时，可使用卡片风格 -->
+      <el-carousel
+        indicator-position="outside"
+        :loop="true"
+        :autoplay="true"
+        :interval="5000"
+        type="card"
+        height="300px"
+      >
+        <el-carousel-item v-for="item in dataimgs" :key="item">
+          <!-- <el-image style="width: 100%;height: 100%;" :src="url" :fit="fit">
+          </el-image> -->
+          <div class="grid-content">
+            <el-col :md="20" :offset="2">
+              <div>
+                <img :src="item.src" style="width: 100%;height: 100%;" />
+                <!-- <p class="italictext">{{ item.txt }}</p>
+                <span class="service">{{ item.txt2 }}</span> -->
+              </div>
+            </el-col>
+          </div>
+        </el-carousel-item>
+      </el-carousel>
+    </div>
     <el-row>
       <el-col
         :span="8"
@@ -63,23 +88,26 @@
         :key="o"
         :offset="index > 0 ? 1 : 0"
       >
-        <el-card
-          style="margin-right: auto;"
-          :body-style="{ padding: '0px' }"
-          shadow="hover"
-        >
-          <img src="../assets/img/hh.png" class="image" />
-          <div style="padding: 14px;">
-            <span>园翁莫把秋荷折，因与游鱼盖夕阳宋。</span>
-            <div class="bottom clearfix">
-              <time class="time">{{ currentDate }}</time>
+        <div class="layOut" @click="layOut">
+          <el-card
+            style="margin-right: auto;"
+            :body-style="{ padding: '0px' }"
+            shadow="hover"
+          >
+            <img src="../assets/img/hh.png" class="image" alt="夕阳" />
 
-              <el-button type="text" class="button" @click="open3"
-                >操作按钮</el-button
-              >
+            <div style="padding: 14px;">
+              <span>园翁莫把秋荷折，因与游鱼盖夕阳宋。</span>
+              <div class="bottom clearfix">
+                <time class="time">{{ currentDate }}</time>
+
+                <el-button type="text" class="button" @click="open3"
+                  >操作按钮</el-button
+                >
+              </div>
             </div>
-          </div>
-        </el-card>
+          </el-card>
+        </div>
       </el-col>
     </el-row>
     <!--    <el-row style="margin-top: 10px;">-->
@@ -105,6 +133,28 @@ import { h } from "@vue/runtime-core";
 export default {
   data() {
     return {
+      fit: "cover",
+      // imgs: ["img/1.jpg", "img/2.jpg", "img/3.jpg", "img/4.jpg", "img/5.jpg"],
+      dataimgs: [
+        {
+          src: require("../assets/carousel/1.png"),
+          txt: '"Keep on going never give up."',
+          txt2: '"勇往直前，决不放弃！"',
+        },
+        {
+          src: require("../assets/carousel/1.png"),
+        },
+        {
+          src: require("../assets/carousel/1.png"),
+        },
+        {
+          src: require("../assets/carousel/1.png"),
+        },
+        {
+          src: require("../assets/carousel/1.png"),
+        },
+      ],
+      lay_type: 0,
       currentDate: new Date(),
     };
   },
@@ -135,8 +185,8 @@ export default {
         message: h(
           "i",
           { style: "color: teal" },
-          "这是什么也不是这是什么也不是这是什么也不是这是什么也不是" +
-            "这是什么也不是这是什么也不是这是什么也不是这是什么也不是"
+          "Four short words sum up what has lifted most successful individuals above the crowd: a little bit more.\n" +
+            "成功的秘诀就是四个简单的字：多一点点。"
         ),
       });
     },
