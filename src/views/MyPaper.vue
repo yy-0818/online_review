@@ -164,8 +164,8 @@
       :close-on-click-modal="false"
       width="42.3%"
     >
-      <el-row type="flex" justify="center" align="middle">
-        <el-card style="display: flex;" shadow="hover">
+      <!-- <el-row type="flex" justify="center" align="middle">
+        <el-card style="display: flex;width:100vw" shadow="hover">
           <div class="content">
             <div>
               <el-upload
@@ -210,8 +210,58 @@
                   plain
                   >立即上传<i class="el-icon-upload el-icon--right"></i
                 ></el-button>
+              </div>
+            </div>
+          </div>
+        </el-card>
+      </el-row> -->
 
-                <!-- <el-button size="small" plain> 取消 </el-button> -->
+      <el-row>
+        <el-card style="width:100vw;" shadow="hover">
+          <div type="flex" justify="center" align="middle">
+            <div>
+              <el-upload
+                drag
+                ref="upload"
+                class="upload-demo"
+                :limit="limitNum"
+                action="http://49.234.51.220:12345/files/upload"
+                :on-preview="handlePreview"
+                :on-remove="handleRemove"
+                accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
+                :file-list="fileList"
+                :on-change="fileChange"
+                :auto-upload="false"
+                :on-exceed="exceedFile"
+                :on-success="handleSuccess"
+                :on-error="handleError"
+              >
+                <i class="el-icon-upload"></i>
+
+                <div class="el-upload__text">
+                  将Order文件拖到此处，或
+
+                  <em>点击上传</em>
+                </div>
+
+                <div class="el-upload__tip">
+                  可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
+                </div>
+              </el-upload>
+
+              <br />
+
+              <div
+                style="display: flex;justify-content: center;align-items: center;"
+              >
+                <el-button
+                  size="small"
+                  type="primary"
+                  :disabled="isBtn"
+                  @click="submitUpload"
+                  plain
+                  >立即上传<i class="el-icon-upload el-icon--right"></i
+                ></el-button>
               </div>
             </div>
           </div>
@@ -502,4 +552,24 @@ export default {
   height: 90%;
   padding: 0;
 }
+
+/* .upload-demo /deep/ .el-upload-list {
+  height: 120px;
+  width: 100px;
+  line-height: 120px;
+} */
+
+/* .el-upload-dragger {
+} */
+
+/* .el-upload-list {
+  width: 26%;
+} */
+/* .el-upload-list__item:first-child {
+  margin-top: 0;
+} */
+
+/* .content {
+  margin: 0;
+} */
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="af" :style="imgSrc">
-    <div style="width: 400px;margin: auto;">
+    <div style="width: 400px; margin:auto;">
       <el-card>
         <div id="todoapp">
           欢迎注册
@@ -116,10 +116,10 @@ export default {
     return {
       imgSrc: {
         backgroundImage: "url(" + require("../assets/carousel/3.png") + ")",
-        height: "100vh", //这里一定要设置高度 否则背景图无法显示
-        width: "100vw",
+        // height: "100vh",
+        // width: "100vw",
         backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
+        // backgroundSize: "cover",
       },
       form: { email: "", password: "", confirm: "", code: "" },
       rules: {
@@ -276,8 +276,9 @@ export default {
   width: 100%;
   height: 100vh;
   overflow: hidden;
-
-  background: linear-gradient(90deg, #8dbed6, #2918c0);
+  background-size: 100% 100%;
+  /* background-size: cover; */
+  /* background: linear-gradient(90deg, #8dbed6, #2918c0); */
 }
 
 #todoapp {

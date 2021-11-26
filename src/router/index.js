@@ -78,6 +78,7 @@ const routes = [
     name: "Register",
     component: () => import("@/views/Register"),
   },
+
   {
     path: "/:catchAll(.*)",
     name: "/404",

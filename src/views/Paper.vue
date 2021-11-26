@@ -129,51 +129,47 @@
   </el-row>
   <el-row>
     <el-card class="el-card-y" shadow="hover">
-      <div>
-        <div class="header">上传文件</div>
+      <div class="header">上传文件</div>
 
-        <div class="content">
-          <div>
-            <el-upload
-              drag
-              ref="upload"
-              class="upload-demo"
-              :limit="limitNum"
-              action="http://49.234.51.220:12345/files/upload"
-              :on-preview="handlePreview"
-              :on-remove="handleRemove"
-              accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
-              :file-list="fileList"
-              :on-change="fileChange"
-              :auto-upload="false"
-              :on-exceed="exceedFile"
-              :on-success="handleSuccess"
-              :on-error="handleError"
-            >
-              <i class="el-icon-upload"></i>
-              <div class="el-upload__text">
-                将Order文件拖到此处，或
-                <em>点击上传</em>
-              </div>
-              <div class="el-upload__tip">
-                可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
-              </div>
-            </el-upload>
-            <br />
-            <div
-              style="display: flex;justify-content: center;align-items: center;"
-            >
-              <el-button
-                size="small"
-                type="primary"
-                :disabled="isBtn"
-                @click="submitUpload"
-                plain
-                ><i class="el-icon-upload"></i>立即上传</el-button
-              >
-
-              <!-- <el-button size="small" plain> 取消 </el-button> -->
+      <div class="content">
+        <div>
+          <el-upload
+            drag
+            ref="upload"
+            class="upload-demo"
+            :limit="limitNum"
+            action="http://49.234.51.220:12345/files/upload"
+            :on-preview="handlePreview"
+            :on-remove="handleRemove"
+            accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
+            :file-list="fileList"
+            :on-change="fileChange"
+            :auto-upload="false"
+            :on-exceed="exceedFile"
+            :on-success="handleSuccess"
+            :on-error="handleError"
+          >
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">
+              将Order文件拖到此处，或
+              <em>点击上传</em>
             </div>
+            <div class="el-upload__tip">
+              可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
+            </div>
+          </el-upload>
+          <br />
+          <div
+            style="display: flex;justify-content: center;align-items: center;"
+          >
+            <el-button
+              size="small"
+              type="primary"
+              :disabled="isBtn"
+              @click="submitUpload"
+              plain
+              ><i class="el-icon-upload"></i>立即上传</el-button
+            >
           </div>
         </div>
       </div>
@@ -370,8 +366,10 @@ export default {
 
 <style scoped>
 .el-card-y {
-  margin: 10px 12px 12px 24px;
+  margin: 10px 12px 12px 14px;
   display: flex;
+
+  /* display: flow-root; */
 }
 .header {
   width: 100%;
@@ -413,10 +411,9 @@ export default {
   padding: 22px;
 }
 
-.box-card {
-  /* display: flex; */
+.el-upload-list {
+  width: 26%;
 }
-
 /* .el-card {
   min-width: 380px;
   margin-right: 20px;

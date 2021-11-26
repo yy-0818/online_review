@@ -63,22 +63,23 @@
 
 <script>
 import request from "@/utils/request";
-
 import ValidCode from "@/components/ValidCode";
+import image from "@/components/image";
 
 export default {
   name: "Login",
   components: {
     ValidCode,
+    image,
   },
   data() {
     return {
       imgSrc: {
         backgroundImage: "url(" + require("../assets/carousel/3.png") + ")",
-        height: "100vh",
-        width: "100vw",
+        // height: "100vh",
+        // width: "100vw",
         backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
+        // backgroundSize: "cover",
       },
 
       form: { role: "", email: "", password: "" },
@@ -159,6 +160,7 @@ export default {
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  background-size: 100% 100%;
   /* background: linear-gradient(90deg, #8dbed6, #2918c0); */
 }
 

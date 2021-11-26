@@ -236,7 +236,7 @@
           </el-input>
         </el-form-item>
       </el-form>
-      <el-row type="flex" justify="center" align="middle">
+      <!-- <el-row type="flex" justify="center" align="middle">
         <el-card style="display: flex;" shadow="hover">
           <div class="content">
             <div>
@@ -282,8 +282,57 @@
                   plain
                   >立即上传<i class="el-icon-upload el-icon--right"></i
                 ></el-button>
+              </div>
+            </div>
+          </div>
+        </el-card>
+      </el-row> -->
+      <el-row>
+        <el-card style="width:100vw;" shadow="hover">
+          <div type="flex" justify="center" align="middle">
+            <div>
+              <el-upload
+                drag
+                ref="upload"
+                class="upload-demo"
+                :limit="limitNum"
+                action="http://49.234.51.220:12345/files/upload"
+                :on-preview="handlePreview"
+                :on-remove="handleRemove"
+                accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
+                :file-list="fileList"
+                :on-change="fileChange"
+                :auto-upload="false"
+                :on-exceed="exceedFile"
+                :on-success="handleSuccess"
+                :on-error="handleError"
+              >
+                <i class="el-icon-upload"></i>
 
-                <!-- <el-button size="small" plain> 取消 </el-button> -->
+                <div class="el-upload__text">
+                  将Order文件拖到此处，或
+
+                  <em>点击上传</em>
+                </div>
+
+                <div class="el-upload__tip">
+                  可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
+                </div>
+              </el-upload>
+
+              <br />
+
+              <div
+                style="display: flex;justify-content: center;align-items: center;"
+              >
+                <el-button
+                  size="small"
+                  type="primary"
+                  :disabled="isBtn"
+                  @click="submitUpload"
+                  plain
+                  >立即上传<i class="el-icon-upload el-icon--right"></i
+                ></el-button>
               </div>
             </div>
           </div>
@@ -467,18 +516,18 @@ export default {
 
     handlePreview(file) {
       console.log(file, 111);
-    }, // 文件状态改变时的钩子
+    },
 
     fileChange(file, fileList) {
       this.length = 1; // console.log(file.raw); // // this.fileList.push(file.raw); // console.log(this.fileList,this.length);
-    }, // 文件超出个数限制时的钩子
+    },
 
     exceedFile(files, fileList) {
       this.$message.warning(
         `只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length +
           fileList.length} 个`
       );
-    }, // 文件上传成功时的钩子
+    },
 
     handleSuccess(res, file, fileList) {
       this.formdata.url = file.response.data;
