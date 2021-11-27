@@ -270,7 +270,7 @@
 
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button @click="handleDelt">取 消</el-button>
           <el-button @click="handlesave" type="primary">确定</el-button>
         </span>
       </template>
@@ -429,6 +429,10 @@ export default {
       // this.form = JSON.parse(JSON.stringify(row));
       this.formdata.id = row.id;
       this.dialogFormVisible = true;
+    },
+
+    handleDelt() {
+      dialogFormVisible = false;
     },
 
     handlesave() {

@@ -17,7 +17,7 @@ module.exports = {
         },
         legLevel: "debug",
         onProxyReq(proxyReq, req, res) {
-          console.log("------\n\n\n");
+          // console.log("------\n\n\n");
           // console.log(proxyReq.path);
           console.log(
             " ......................阿弥陀佛......................\n" +

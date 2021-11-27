@@ -59,10 +59,10 @@
                 >返回登录 >>
               </el-button>
               <el-button
-                style="padding-left:30vh"
+                style="padding-left:25vh"
                 type="text"
                 @click="resetForm('form')"
-                >重置</el-button
+                ><i class="el-icon-refresh"></i>重置</el-button
               ></el-form-item
             >
           </el-form-item>
@@ -265,7 +265,7 @@ export default {
 .el-card {
   min-width: 380px;
   margin-right: 20px;
-  transition: all 0.5s;
+  transition: all 0.25s;
 }
 .el-card:hover {
   margin-top: -5px;
