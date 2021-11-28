@@ -1,5 +1,5 @@
 <template>
-  <el-row style="margin: 10px 12px 12px 24px;">
+  <el-row style="margin: 10px 12px 12px 24px;max-width:90%">
     <el-card class="box-card" shadow="hover">
       <template #header>
         <div class="card-header">
@@ -113,8 +113,12 @@
             </el-form-item>
           </el-row>
           <div style="text-align: center;margin-top: 30px;">
+            <el-button type="info" plain @click="newUpload"
+              ><i class="el-icon-upload"></i>点击上传论文
+            </el-button>
+
             <el-button type="primary" plain @click="save"
-              ><i class="el-icon-upload"></i>上传</el-button
+              ><i class="el-icon-position"></i>提交</el-button
             >
             <el-button type="success" plain @click="resetForm"
               ><i class="el-icon-refresh"></i>重置</el-button
@@ -127,7 +131,7 @@
       </div>
     </el-card>
   </el-row>
-  <el-row>
+  <!-- <el-row>
     <el-card class="el-card-y" shadow="hover">
       <div class="header">上传文件</div>
 
@@ -174,7 +178,123 @@
         </div>
       </div>
     </el-card>
-  </el-row>
+  </el-row> -->
+
+  <!-- 上传弹窗 -->
+  <el-dialog
+    title="请选择你要上传的文件"
+    v-model="dialogFormVisible"
+    :close-on-click-modal="false"
+    width="42.3%"
+  >
+    <el-row>
+      <el-card style="width:100vw;" shadow="hover">
+        <div type="flex" justify="center" align="middle">
+          <div>
+            <el-upload
+              drag
+              ref="upload"
+              class="upload-demo"
+              :limit="limitNum"
+              action="http://paper.lunatic.ren/api/files/upload"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
+              :file-list="fileList"
+              :on-change="fileChange"
+              :auto-upload="false"
+              :on-exceed="exceedFile"
+              :on-success="handleSuccess"
+              :on-error="handleError"
+            >
+              <i class="el-icon-upload"></i>
+
+              <div class="el-upload__text">
+                将Order文件拖到此处，或
+
+                <em>点击上传</em>
+              </div>
+
+              <div class="el-upload__tip">
+                可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
+              </div>
+            </el-upload>
+
+            <br />
+
+            <div
+              style="display: flex;justify-content: center;align-items: center;"
+            >
+              <el-button
+                size="small"
+                type="primary"
+                :disabled="isBtn"
+                @click="submitUpload"
+                plain
+                >立即上传<i class="el-icon-upload el-icon--right"></i
+              ></el-button>
+            </div>
+          </div>
+        </div>
+      </el-card>
+    </el-row>
+
+    <!-- <el-row>
+      <el-card class="el-card-y" shadow="hover">
+        <div class="header">上传文件</div>
+
+        <div class="content">
+          <div>
+            <el-upload
+              drag
+              ref="upload"
+              class="upload-demo"
+              :limit="limitNum"
+              action="http://49.234.51.220:12345/files/upload"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
+              :file-list="fileList"
+              :on-change="fileChange"
+              :auto-upload="false"
+              :on-exceed="exceedFile"
+              :on-success="handleSuccess"
+              :on-error="handleError"
+            >
+              <i class="el-icon-upload"></i>
+              <div class="el-upload__text">
+                将Order文件拖到此处，或
+                <em>点击上传</em>
+              </div>
+              <div class="el-upload__tip">
+                可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
+              </div>
+            </el-upload>
+            <br />
+            <div
+              style="display: flex;justify-content: center;align-items: center;"
+            >
+              <el-button
+                size="small"
+                type="primary"
+                :disabled="isBtn"
+                @click="submitUpload"
+                plain
+                ><i class="el-icon-upload"></i>立即上传</el-button
+              >
+            </div>
+          </div>
+        </div>
+      </el-card>
+    </el-row> -->
+
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button @click="handlesave" type="primary">确定</el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 
 <script>
@@ -184,6 +304,7 @@ import { h } from "vue";
 export default {
   data() {
     return {
+      dialogFormVisible: false,
       directionIdOptions: [],
       reviewerIdOptions: [],
       reviewerList: [],
@@ -283,10 +404,47 @@ export default {
     },
 
     handleError(err, file, fileList) {
-      this.$message.error("文件上传失败");
+      this.$message.error("文件上传失败, " + JSON.parse(err.message).data);
 
       this.isBtn = false;
     },
+    newUpload() {
+      this.dialogFormVisible = true;
+    },
+    handlesave() {
+      let url = this.formPaper.url;
+      console.log(url);
+      if (url === "" || url === null) {
+        this.$message({
+          type: "error",
+          message: "文件不能为空",
+        });
+        return;
+      }
+      request
+        .post("/paper/saves/", {
+          id: this.formPaper.id,
+          url: this.formPaper.url,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.status == 200) {
+            this.$message({
+              type: "success",
+              message: "上传成功",
+            });
+          } else {
+            this.$message({
+              type: "error",
+              message: "请求超时",
+            });
+          }
+        });
+      // console.log("dialog close");
+      this.dialogFormVisible = false; // 关闭弹窗
+      this.$refs["upload"].clearFiles();
+    },
+
     getDirections() {
       request.get("/direction").then((res) => {
         // console.log(res.data);
@@ -404,6 +562,10 @@ export default {
 .el-form-item-d {
   min-width: 300px;
   /* margin-top: 30px; */
+}
+W.el-form-item-button {
+  margin-top: 30px;
+  right: 50px;
 }
 
 .div-el-button {
