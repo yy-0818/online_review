@@ -281,7 +281,7 @@
                 ref="upload"
                 class="upload-demo"
                 :limit="limitNum"
-                action="http://49.234.51.220:12345/files/upload"
+                action="http://paper.lunatic.ren/api/files/upload"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove"
                 accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
@@ -326,7 +326,7 @@
 
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button @click="handleDelt">取 消</el-button>
           <el-button @click="handlesave" type="primary">确定</el-button>
         </span>
       </template>
@@ -429,7 +429,7 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button @click="handleDelt2">取 消</el-button>
           <el-button @click="save()" type="primary">确定</el-button>
         </span>
       </template>
@@ -459,7 +459,7 @@ export default {
   data() {
     return {
       loading: true,
-
+      limitNum: 1,
       formdata: {
         id: "",
         content: "",
@@ -618,6 +618,19 @@ export default {
       console.log(this.formdata.id);
       this.dialogVisible = true;
     },
+    handleDelt() {
+      //通过
+      // 取消弹窗并清空内容
+      this.dialogFormVisible = false;
+      this.$refs["formdata"].resetFields();
+      this.$refs["upload"].clearFiles();
+    },
+    handleDelt2() {
+      //退回弹窗
+      this.dialogVisible = false;
+      this.$refs["formdata"].resetFields();
+      this.$refs["upload"].clearFiles();
+    },
 
     handleAdopt(row) {
       // this.form = JSON.parse(JSON.stringify(row));
@@ -690,7 +703,9 @@ export default {
         this.previewVisible = true;
         this.previewFileUrl =
           "http://8.136.96.167:8012/onlinePreview?url=" +
-          encodeURIComponent(encode("http://49.234.51.220:12345" + data.url)) +
+          encodeURIComponent(
+            encode("http://paper.lunatic.ren/api" + data.url)
+          ) +
           "&officePreviewType=pdf";
         // this.previewFileUrl =
         //   "https://view.officeapps.live.com/op/view.aspx?src=" + data.url;

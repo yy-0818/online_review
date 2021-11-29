@@ -262,14 +262,14 @@ export default {
 </script>
 
 <style scoped>
-.el-card {
+/* .el-card {
   min-width: 380px;
   margin-right: 20px;
   transition: all 0.25s;
 }
 .el-card:hover {
   margin-top: -5px;
-}
+} */
 
 .af {
   display: flex;

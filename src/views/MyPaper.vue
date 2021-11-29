@@ -225,7 +225,7 @@
                 ref="upload"
                 class="upload-demo"
                 :limit="limitNum"
-                action="http://49.234.51.220:12345/files/upload"
+                action="http://paper.lunatic.ren/api/files/upload"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove"
                 accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
@@ -300,7 +300,7 @@ export default {
   data() {
     return {
       loading: true,
-
+      limitNum: 1,
       formdata: {
         id: "",
         content: "",
@@ -402,8 +402,11 @@ export default {
     }, // 文件状态改变时的钩子
 
     fileChange(file, fileList) {
-      this.length = 1; // console.log(file.raw); // // this.fileList.push(file.raw); // console.log(this.fileList,this.length);
-    }, // 文件超出个数限制时的钩子
+      this.length = 1;
+      // console.log(file.raw);
+      // this.fileList.push(file.raw);
+      // console.log(this.fileList, this.length);
+    }, // 文件超出个数限制时的钩子s
 
     exceedFile(files, fileList) {
       this.$message.warning(
@@ -432,7 +435,8 @@ export default {
     },
 
     handleDelt() {
-      dialogFormVisible = false;
+      this.dialogFormVisible = false;
+      this.$refs["upload"].clearFiles();
     },
 
     handlesave() {
@@ -524,7 +528,9 @@ export default {
         this.previewVisible = true;
         this.previewFileUrl =
           "http://8.136.96.167:8012/onlinePreview?url=" +
-          encodeURIComponent(encode("http://49.234.51.220:12345" + data.url)) +
+          encodeURIComponent(
+            encode("http://paper.lunatic.ren/api" + data.url)
+          ) +
           "&officePreviewType=pdf";
         // this.previewFileUrl =
         //   "https://view.officeapps.live.com/op/view.aspx?src=" + data.url;

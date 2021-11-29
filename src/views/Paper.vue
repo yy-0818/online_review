@@ -1,13 +1,18 @@
 <template>
-  <el-row style="margin: 10px 12px 12px 24px;max-width:90%">
+  <el-row style="margin: 10px 12px 12px 24px;max-width:80%">
     <el-card class="box-card" shadow="hover">
       <template #header>
         <div class="card-header">
-          <span style="  font-size: 20px;">论文详情</span>
+          <span style="  font-size: 25px;">论文详情</span>
         </div>
       </template>
       <div>
-        <el-form ref="formPaper" :model="formPaper" :rules="rulesPaper">
+        <el-form
+          ref="formPaper"
+          :model="formPaper"
+          :rules="rulesPaper"
+          label-width="130px"
+        >
           <el-row>
             <el-form-item
               class="el-form-item-a"
@@ -78,39 +83,43 @@
               ></el-input>
             </el-form-item>
 
-            <el-form-item
-              class="el-form-item-a1"
-              label="研究方向"
-              prop="directionId"
-            >
-              <el-select
-                v-model="formPaper.directionId"
-                :change="filterReviewer(formPaper.directionId)"
+            <div>
+              <el-form-item
+                class="el-form-item-a1"
+                label="研究方向"
+                prop="directionId"
               >
-                <el-option
-                  v-for="item in directionIdOptions"
-                  :key="item.value"
-                  :label="item.name"
-                  :value="item.id"
+                <el-select
+                  v-model="formPaper.directionId"
+                  :change="filterReviewer(formPaper.directionId)"
                 >
-                </el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item
-              class="el-form-item-a2"
-              label="指导老师"
-              prop="reviewerId"
-            >
-              <el-select v-model="formPaper.reviewerId">
-                <el-option
-                  v-for="item in reviewerIdOptions"
-                  :key="item.value"
-                  :label="item.name"
-                  :value="item.id"
-                >
-                </el-option>
-              </el-select>
-            </el-form-item>
+                  <el-option
+                    v-for="item in directionIdOptions"
+                    :key="item.value"
+                    :label="item.name"
+                    :value="item.id"
+                  >
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </div>
+            <div>
+              <el-form-item
+                class="el-form-item-a2"
+                label="指导老师"
+                prop="reviewerId"
+              >
+                <el-select v-model="formPaper.reviewerId">
+                  <el-option
+                    v-for="item in reviewerIdOptions"
+                    :key="item.value"
+                    :label="item.name"
+                    :value="item.id"
+                  >
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </div>
           </el-row>
           <div style="text-align: center;margin-top: 30px;">
             <el-button type="info" plain @click="newUpload"
@@ -290,7 +299,7 @@
 
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button @click="handleDelt">取 消</el-button>
         <el-button @click="handlesave" type="primary">确定</el-button>
       </span>
     </template>
@@ -320,7 +329,7 @@ export default {
         directionId: "",
         reviewerId: "",
       },
-      limitNum: 1, // 上传excel时，同时允许上传的最大数
+      limitNum: 1, // 上传文件，同时允许上传的最大数
       fileList: [],
       length: 0, //当前上传文件个数
       isBtn: false, //控制上传按钮能否点击
@@ -410,6 +419,11 @@ export default {
     },
     newUpload() {
       this.dialogFormVisible = true;
+    },
+    handleDelt() {
+      //取消弹窗并清空内容  通过
+      this.dialogFormVisible = false;
+      this.$refs["upload"].clearFiles();
     },
     handlesave() {
       let url = this.formPaper.url;

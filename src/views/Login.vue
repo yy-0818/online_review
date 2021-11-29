@@ -3,7 +3,7 @@
     <!-- <img :src="imgSrc" width="100%" height="100%" alt="" /> -->
     <div style="width: 400px; margin:auto;">
       <el-card>
-        <div id="todoapp" shadow="hover">
+        <div id="todoapp">
           欢迎登录
         </div>
         <el-form ref="form" :model="form" size="normal" :rules="rules">
@@ -146,14 +146,14 @@ export default {
 </script>
 
 <style scoped>
-.el-card {
+/* .el-card {
   min-width: 380px;
   margin-right: 20px;
-  transition: all 0.25s;
+ transition: all 0.25s;
 }
 .el-card:hover {
   margin-top: -5px;
-}
+}  */
 
 .af {
   display: flex;
