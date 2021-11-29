@@ -10,7 +10,7 @@
             :on-success="handleAvatarSuccess"
           >
             <img v-if="newAvatarUrl" :src="newAvatarUrl" class="avatar" />
-            <img v-else :src="'/api' + form.avatarUrl" class="avatar" />
+            <img v-else :src="form.avatarUrl === '/image/avatar.png' ? defaultAvatar: form.avatarUrl === undefined ? defaultAvatar : '/api' + form.avatarUrl" class="avatar" />
 
             <!-- <i v-else class="el-icon-plus avatar-uploader-icon"></i> -->
           </el-upload>
@@ -73,6 +73,7 @@ export default {
   name: "Person",
   data() {
     return {
+      defaultAvatar: '/api/files/avatar.png',
       newAvatarUrl: "", // tx: "上传头像",
       form: {
         id: "",

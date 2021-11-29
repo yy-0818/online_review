@@ -25,7 +25,7 @@
           <span class="el-dropdown-link">
             <el-avatar
                 :size="40"
-                :src="user.avatarUrl === '/image/avatar.png' ? '/api/files/avatar.png': user.avatarUrl === undefined ? '/image/avatar.png' : '/api' + user.avatarUrl "
+                :src="user.avatarUrl === '/image/avatar.png' ? defaultAvatar: user.avatarUrl === undefined ? defaultAvatar : '/api' + user.avatarUrl"
                 fit="scale-down"
             ></el-avatar>
             <!-- {{ user.name }}
@@ -57,6 +57,7 @@ export default {
   data() {
     return {
       fullscreen: false,
+      defaultAvatar: '/api/files/avatar.png'
     };
   },
   methods: {
