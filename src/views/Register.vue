@@ -282,7 +282,7 @@ export default {
 }
 
 #todoapp {
-  font-size: 60px "华文行楷";
+  /*font-size: 60px "华文行楷";*/
   text-align: center;
   font: 50px "华文行楷";
   color: #4d4d4d;
