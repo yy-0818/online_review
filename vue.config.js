@@ -4,6 +4,8 @@ function resolve(dir) {
   return path.join(__dirname, dir);
 }
 
+const name = '在线审稿系统' // page title
+
 // 跨域配置
 module.exports = {
   devServer: {
