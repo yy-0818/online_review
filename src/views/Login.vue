@@ -49,7 +49,7 @@
               >前往注册 >>
             </el-button>
             <el-button
-              style="padding-left:25vh"
+              style="padding-left:30vh"
               type="text"
               @click="resetForm('form')"
               ><i class="el-icon-refresh"></i>重置</el-button
