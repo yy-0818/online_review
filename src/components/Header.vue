@@ -1,9 +1,9 @@
 <template>
   <div
-    style="height: 50px; line-height: 50px; border-bottom: 1px solid #ccc; display: flex"
+      style="height: 50px; line-height: 50px; border-bottom: 1px solid #ccc; display: flex"
   >
     <div
-      style="width: 500px; padding-left: 15px; font-weight: bold; color: dodgerblue;font-size: 25px"
+        style="width: 500px; padding-left: 15px; font-weight: bold; color: dodgerblue;font-size: 25px"
     >
       在线审稿系统(OMRS)
     </div>
@@ -13,9 +13,9 @@
         <!-- 全屏显示 -->
         <div class="btn-fullscreen" @click="handleFullScreen">
           <el-tooltip
-            effect="light"
-            :content="fullscreen ? `取消全屏` : `全屏`"
-            placement="bottom"
+              effect="light"
+              :content="fullscreen ? `取消全屏` : `全屏`"
+              placement="bottom"
           >
             <i class="el-icon-rank"></i>
           </el-tooltip>
@@ -24,9 +24,9 @@
         <el-dropdown style="margin-top: -0px;">
           <span class="el-dropdown-link">
             <el-avatar
-              :size="40"
-              :src="'/api/' + user.avatarUrl"
-              fit="scale-down"
+                :size="40"
+                :src="user.avatarUrl === '/image/avatar.png' ? '/api/files/avatar.png': user.avatarUrl === undefined ? '/image/avatar.png' : '/api' + user.avatarUrl "
+                fit="scale-down"
             ></el-avatar>
             <!-- {{ user.name }}
             <i class="el-icon-arrow-down el-icon--right"></i> -->
@@ -34,11 +34,13 @@
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item @click="$router.push('/person')"
-                >个人信息</el-dropdown-item
+              >个人信息
+              </el-dropdown-item
               >
 
               <el-dropdown-item divided @click="$router.push('/login')"
-                >退出系统</el-dropdown-item
+              >退出系统
+              </el-dropdown-item
               >
             </el-dropdown-menu>
           </template>
@@ -57,8 +59,14 @@ export default {
       fullscreen: false,
     };
   },
-  created() {},
   methods: {
+    // userAvatarUrl() {
+    //   let url = this.user.avatarUrl
+    //
+    //   if (url !== null && url !== '' && this.user.avatarUrl !== '/image/avatar.png') {
+    //     return url
+    //   } else return '/image/avatar.png'
+    // },
     // 全屏事件
     handleFullScreen() {
       let element = document.documentElement;

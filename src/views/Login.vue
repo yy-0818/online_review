@@ -64,13 +64,11 @@
 <script>
 import request from "@/utils/request";
 import ValidCode from "@/components/ValidCode";
-import image from "@/components/image";
 
 export default {
   name: "Login",
   components: {
     ValidCode,
-    image,
   },
   data() {
     return {
