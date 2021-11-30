@@ -142,7 +142,7 @@
 
           <el-popconfirm
             title="确定下载吗？"
-            @confirm="handleDownlaod(scope.row)"
+            @confirm="handleDownload(scope.row)"
           >
             <template #reference>
               <el-button size="mini" type="warning" plain
@@ -450,7 +450,7 @@
 
 <script>
 import request from "@/utils/request";
-import { encode } from "js-base64";
+import { encode, Base64 } from "js-base64";
 import fileDownload from "js-file-download";
 
 export default {
@@ -669,11 +669,17 @@ export default {
       this.load(); // 刷新表格的数据
     },
 
-    handleDownlaod(row) {
-      let url = row.url;
-      let filename = url.replace(/^\/files\/([a-fA-F0-9]{32})_/, "");
+    handleDownload(row) {
+      const url = row.url;
+      const filename = url.replace(/^\/files\/([a-fA-F0-9]{32})_/, "");
+      const filesuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
 
-      console.log(url);
+      console.log(
+        filename,
+        filesuffix,
+        filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)
+      );
+
       if (url === "") {
         this.$message({
           type: "error",
@@ -681,8 +687,25 @@ export default {
         });
         return;
       }
-      request.get(url, {}, { responseType: "arraybuffer" }).then((res) => {
-        fileDownload(res, filename);
+      if (!filename || !filesuffix) {
+        this.$message({
+          type: "error",
+          message: "文件名或文件后缀错误，请检查文件！",
+        });
+        return;
+      }
+      request({
+        url: url,
+        method: "get",
+        responseType: "blob",
+      }).then((res) => {
+        let blob = new Blob([res], { type: `application/${filesuffix}` });
+        let url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a"); // 创建a标签
+        link.href = url;
+        link.download = filename; // 重命名文件
+        link.click();
+        URL.revokeObjectURL(url); // 释放内存
       });
     },
     handleSizeChange(pageSize) {
@@ -697,16 +720,16 @@ export default {
     },
     // 预览事件
     previewOpen(data) {
-      // console.log(data.file);
+      console.log(data);
       if (data.url) {
         console.log(data.url);
         this.previewVisible = true;
         this.previewFileUrl =
           "http://8.136.96.167:8012/onlinePreview?url=" +
           encodeURIComponent(
-            encode("http://paper.lunatic.ren/api" + data.url)
-          ) +
-          "&officePreviewType=pdf";
+            Base64.encode("http://paper.lunatic.ren/api" + data.url)
+          );
+        // + "&officePreviewType=pdf";
         // this.previewFileUrl =
         //   "https://view.officeapps.live.com/op/view.aspx?src=" + data.url;
         console.log(this.previewFileUrl);

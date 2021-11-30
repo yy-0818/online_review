@@ -148,7 +148,7 @@
 
           <el-popconfirm
             title="确定下载吗？"
-            @confirm="handleDownlaod(scope.row)"
+            @confirm="handleDownload(scope.row)"
           >
             <template #reference>
               <el-button size="mini" type="warning" plain
@@ -599,12 +599,43 @@ export default {
       this.$refs["formdata"].resetFields();
     },
 
-    handleDownlaod(row) {
-      let url = row.url;
-      let filename = url.replace(/^\/files\/([a-fA-F0-9]{32})_/, "");
+    handleDownload(row) {
+      const url = row.url;
+      const filename = url.replace(/^\/files\/([a-fA-F0-9]{32})_/, "");
+      const filesuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
 
-      request.get(url, {}, { responseType: "arraybuffer" }).then((res) => {
-        fileDownload(res, filename);
+      console.log(
+        filename,
+        filesuffix,
+        filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)
+      );
+
+      if (url === "") {
+        this.$message({
+          type: "error",
+          message: "未找到文件",
+        });
+        return;
+      }
+      if (!filename || !filesuffix) {
+        this.$message({
+          type: "error",
+          message: "文件名或文件后缀错误，请检查文件！",
+        });
+        return;
+      }
+      request({
+        url: url,
+        method: "get",
+        responseType: "blob",
+      }).then((res) => {
+        let blob = new Blob([res], { type: `application/${filesuffix}` });
+        let url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a"); // 创建a标签
+        link.href = url;
+        link.download = filename; // 重命名文件
+        link.click();
+        URL.revokeObjectURL(url); // 释放内存
       });
     },
     handleEdit(row) {
