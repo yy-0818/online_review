@@ -208,7 +208,7 @@
                   ref="upload"
                   class="upload-demo"
                   :limit="limitNum"
-                  action="http://paper.lunatic.ren/api/files/upload"
+                  :action="fileApiURL+'/files/upload'"
                   :on-preview="handlePreview"
                   :on-remove="handleRemove"
                   accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
@@ -251,55 +251,6 @@
         </el-card>
       </el-row>
 
-      <!-- <el-row>
-        <el-card class="el-card-y" shadow="hover">
-          <div class="header">上传文件</div>
-
-          <div class="content">
-            <div>
-              <el-upload
-                drag
-                ref="upload"
-                class="upload-demo"
-                :limit="limitNum"
-                action="http://49.234.51.220:12345/files/upload"
-                :on-preview="handlePreview"
-                :on-remove="handleRemove"
-                accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
-                :file-list="fileList"
-                :on-change="fileChange"
-                :auto-upload="false"
-                :on-exceed="exceedFile"
-                :on-success="handleSuccess"
-                :on-error="handleError"
-              >
-                <i class="el-icon-upload"></i>
-                <div class="el-upload__text">
-                  将Order文件拖到此处，或
-                  <em>点击上传</em>
-                </div>
-                <div class="el-upload__tip">
-                  可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
-                </div>
-              </el-upload>
-              <br />
-              <div
-                style="display: flex;justify-content: center;align-items: center;"
-              >
-                <el-button
-                  size="small"
-                  type="primary"
-                  :disabled="isBtn"
-                  @click="submitUpload"
-                  plain
-                  ><i class="el-icon-upload"></i>立即上传</el-button
-                >
-              </div>
-            </div>
-          </div>
-        </el-card>
-      </el-row> -->
-
       <template #footer>
       <span class="dialog-footer">
         <el-button @click="handleDelt">取 消</el-button>
@@ -313,10 +264,12 @@
 <script>
 import request from "@/utils/request";
 import {h} from "vue";
+import {fileApiURL} from "@/setting";
 
 export default {
   data() {
     return {
+      fileApiURL: fileApiURL,
       dialogFormVisible: false,
       directionIdOptions: [],
       reviewerIdOptions: [],

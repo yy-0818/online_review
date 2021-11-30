@@ -4,7 +4,6 @@ import Message from "element-plus";
 
 const request = axios.create({
   baseURL: "/api",
-  // baseURL: "http://paper.lunatic.ren/api/",
   timeout: 60000,
 });
 

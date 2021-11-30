@@ -296,7 +296,7 @@
                 ref="upload"
                 class="upload-demo"
                 :limit="limitNum"
-                action="http://paper.lunatic.ren/api/files/upload"
+                :action="fileApiURL+'/files/upload'"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove"
                 accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
@@ -413,23 +413,18 @@
 <script>
 import request from "@/utils/request";
 import { encode } from "js-base64";
+import download from "@/utils/download";
+import {fileApiURL} from "@/setting";
 
 export default {
   name: "Home",
   components: {},
   data() {
     return {
+      fileApiURL: fileApiURL,
       loading: true,
       limitNum: 1,
       message: "",
-      formdata: {
-        id: "",
-        content: "",
-        opinion: "",
-        reason: "",
-        state: "",
-        url: "",
-      },
       formdata: {
         id: "",
         content: "",
@@ -557,7 +552,7 @@ export default {
     //     this.load();
     //   }
     // },
-    expoert() {
+    exporter() {
       location.href =
         // "http://" + window.server.filesUploadUrl + ":8181/user/export";
         // "/api" + "/files/editor/upload";
@@ -602,11 +597,11 @@ export default {
     handleDownload(row) {
       const url = row.url;
       const filename = url.replace(/^\/files\/([a-fA-F0-9]{32})_/, "");
-      const filesuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
+      const fileSuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
 
       console.log(
         filename,
-        filesuffix,
+        fileSuffix,
         filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)
       );
 
@@ -617,7 +612,7 @@ export default {
         });
         return;
       }
-      if (!filename || !filesuffix) {
+      if (!filename || !fileSuffix) {
         this.$message({
           type: "error",
           message: "文件名或文件后缀错误，请检查文件！",
@@ -629,13 +624,7 @@ export default {
         method: "get",
         responseType: "blob",
       }).then((res) => {
-        let blob = new Blob([res], { type: `application/${filesuffix}` });
-        let url = window.URL.createObjectURL(blob);
-        const link = document.createElement("a"); // 创建a标签
-        link.href = url;
-        link.download = filename; // 重命名文件
-        link.click();
-        URL.revokeObjectURL(url); // 释放内存
+        download(res, filename, fileSuffix)
       });
     },
     handleEdit(row) {
@@ -730,7 +719,7 @@ export default {
         this.previewFileUrl =
           "http://8.136.96.167:8012/onlinePreview?url=" +
           encodeURIComponent(
-            encode("http://paper.lunatic.ren/api" + data.url)
+            encode(this.fileApiURL + data.url)
           ) +
           "&officePreviewType=pdf";
         // this.previewFileUrl =

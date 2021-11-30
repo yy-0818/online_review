@@ -14,21 +14,21 @@
       </el-button>
     </div> -->
     <el-table
-      v-fit-columns
-      v-loading="loading"
-      :data="tableData"
-      border
-      stripe
-      style="width: 100%"
-      tooltip-effect="dark"
-      :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
+        v-fit-columns
+        v-loading="loading"
+        :data="tableData"
+        border
+        stripe
+        style="width: 100%"
+        tooltip-effect="dark"
+        :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
     >
       <el-table-column
-        prop="id"
-        label="ID"
-        sortable
-        width="60"
-        align="center"
+          prop="id"
+          label="ID"
+          sortable
+          width="60"
+          align="center"
       ></el-table-column>
       <!--      <el-table-column label="性别">-->
       <!--        <template #default="scope">-->
@@ -41,35 +41,35 @@
       <!-- <el-table-column prop="name" label="姓名"> </el-table-column> -->
 
       <el-table-column
-        prop="title"
-        label="题目"
-        show-overflow-tooltip
+          prop="title"
+          label="题目"
+          show-overflow-tooltip
       ></el-table-column>
       <el-table-column
-        prop="titleS"
-        label="题目(英)"
-        show-overflow-tooltip
+          prop="titleS"
+          label="题目(英)"
+          show-overflow-tooltip
       ></el-table-column>
       <el-table-column
-        prop="keyword"
-        label="关键词"
-        show-overflow-tooltip
+          prop="keyword"
+          label="关键词"
+          show-overflow-tooltip
       ></el-table-column>
       <el-table-column
-        prop="keywordS"
-        label="关键词(英)"
-        show-overflow-tooltip
+          prop="keywordS"
+          label="关键词(英)"
+          show-overflow-tooltip
       ></el-table-column>
       <el-table-column
-        prop="summary"
-        label="摘要"
-        tooltip-effect="light"
-        show-overflow-tooltip
+          prop="summary"
+          label="摘要"
+          tooltip-effect="light"
+          show-overflow-tooltip
       ></el-table-column>
       <el-table-column
-        prop="summaryS"
-        label="摘要(英)"
-        show-overflow-tooltip
+          prop="summaryS"
+          label="摘要(英)"
+          show-overflow-tooltip
       ></el-table-column>
 
       <el-table-column label="方向" show-overflow-tooltip>
@@ -92,8 +92,8 @@
       <el-table-column label="审核状态" align="center">
         <template #default="scope">
           <el-tag
-            size="medium"
-            :type="
+              size="medium"
+              :type="
               scope.row.state === 1
                 ? 'primary'
                 : scope.row.state === 0
@@ -102,15 +102,16 @@
                 ? 'success'
                 : 'danger'
             "
-            >{{
+          >{{
               scope.row.state === 1
-                ? "初审通过"
-                : "未审核" && scope.row.state === 3
-                ? "终审通过"
-                : "未审核" && scope.row.state === 2
-                ? "待修改"
-                : "未审核"
-            }}</el-tag
+                  ? "初审通过"
+                  : "未审核" && scope.row.state === 3
+                      ? "终审通过"
+                      : "未审核" && scope.row.state === 2
+                          ? "待修改"
+                          : "未审核"
+            }}
+          </el-tag
           >
         </template>
       </el-table-column>
@@ -118,28 +119,29 @@
       <el-table-column label="操作" width="270">
         <template #default="scope">
           <el-button
-            size="mini"
-            type="success"
-            plain
-            @click="previewOpen(scope.row)"
-            ><i class="el-icon-tickets"></i>预览
+              size="mini"
+              type="success"
+              plain
+              @click="previewOpen(scope.row)"
+          ><i class="el-icon-tickets"></i>预览
           </el-button>
           <el-popconfirm
-            title="确定下载吗？"
-            @confirm="handleDownload(scope.row)"
+              title="确定下载吗？"
+              @confirm="handleDownload(scope.row)"
           >
             <template #reference>
               <el-button size="mini" type="warning" plain
-                ><i class="el-icon-folder-add"></i>下载建议</el-button
+              ><i class="el-icon-folder-add"></i>下载建议
+              </el-button
               >
             </template>
           </el-popconfirm>
           <el-button
-            size="mini"
-            type="primary"
-            plain
-            @click="newUpload(scope.row)"
-            ><i class="el-icon-upload"></i>上传
+              size="mini"
+              type="primary"
+              plain
+              @click="newUpload(scope.row)"
+          ><i class="el-icon-upload"></i>上传
           </el-button>
         </template>
       </el-table-column>
@@ -147,22 +149,22 @@
 
     <div style="margin: 20px 0">
       <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :page-sizes="[10, 20, 30, 40]"
-        :page-size="pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="total"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :page-sizes="[10, 20, 30, 40]"
+          :page-size="pageSize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total"
       >
       </el-pagination>
     </div>
 
     <!-- 上传弹窗 -->
     <el-dialog
-      title="请选择你要上传的文件"
-      v-model="dialogFormVisible"
-      :close-on-click-modal="false"
-      width="42.3%"
+        title="请选择你要上传的文件"
+        v-model="dialogFormVisible"
+        :close-on-click-modal="false"
+        width="42.3%"
     >
       <!-- <el-row type="flex" justify="center" align="middle">
         <el-card style="display: flex;width:100vw" shadow="hover">
@@ -221,20 +223,20 @@
           <div type="flex" justify="center" align="middle">
             <div>
               <el-upload
-                drag
-                ref="upload"
-                class="upload-demo"
-                :limit="limitNum"
-                action="http://paper.lunatic.ren/api/files/upload"
-                :on-preview="handlePreview"
-                :on-remove="handleRemove"
-                accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
-                :file-list="fileList"
-                :on-change="fileChange"
-                :auto-upload="false"
-                :on-exceed="exceedFile"
-                :on-success="handleSuccess"
-                :on-error="handleError"
+                  drag
+                  ref="upload"
+                  class="upload-demo"
+                  :limit="limitNum"
+                  :action="fileApiURL+'/files/upload'"
+                  :on-preview="handlePreview"
+                  :on-remove="handleRemove"
+                  accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
+                  :file-list="fileList"
+                  :on-change="fileChange"
+                  :auto-upload="false"
+                  :on-exceed="exceedFile"
+                  :on-success="handleSuccess"
+                  :on-error="handleError"
               >
                 <i class="el-icon-upload"></i>
 
@@ -249,18 +251,18 @@
                 </div>
               </el-upload>
 
-              <br />
+              <br/>
 
               <div
-                style="display: flex;justify-content: center;align-items: center;"
+                  style="display: flex;justify-content: center;align-items: center;"
               >
                 <el-button
-                  size="small"
-                  type="primary"
-                  :disabled="isBtn"
-                  @click="submitUpload"
-                  plain
-                  >立即上传<i class="el-icon-upload el-icon--right"></i
+                    size="small"
+                    type="primary"
+                    :disabled="isBtn"
+                    @click="submitUpload"
+                    plain
+                >立即上传<i class="el-icon-upload el-icon--right"></i
                 ></el-button>
               </div>
             </div>
@@ -278,11 +280,11 @@
 
     <!-- 预览弹框 -->
     <el-dialog
-      custom-class="previewDialog"
-      title="预览"
-      :fullscreen="true"
-      v-model="previewVisible"
-      :before-close="previewClose"
+        custom-class="previewDialog"
+        title="预览"
+        :fullscreen="true"
+        v-model="previewVisible"
+        :before-close="previewClose"
     >
       <iframe class="el-iframe" :src="previewFileUrl" frameborder="0"></iframe>
     </el-dialog>
@@ -291,15 +293,16 @@
 
 <script>
 import request from "@/utils/request";
-import { encode } from "js-base64";
-import fileDownload from "js-file-download";
-import axios from "axios";
+import {encode} from "js-base64";
+import download from "@/utils/download"
+import {fileApiURL} from "@/setting";
 
 export default {
   name: "Home",
   components: {},
   data() {
     return {
+      fileApiURL: fileApiURL,
       loading: true,
       limitNum: 1,
       formdata: {
@@ -323,13 +326,13 @@ export default {
       previewVisible: false,
       rulesReviewer: {
         content: [
-          { required: true, message: "请输入备注内容", trigger: "blur" },
+          {required: true, message: "请输入备注内容", trigger: "blur"},
         ],
         opinion: [
-          { required: true, message: "请输入备注内容", trigger: "blur" },
+          {required: true, message: "请输入备注内容", trigger: "blur"},
         ],
         reason: [
-          { required: true, message: "请输入退回原因", trigger: "blur" },
+          {required: true, message: "请输入退回原因", trigger: "blur"},
         ],
       },
     };
@@ -352,19 +355,19 @@ export default {
     load() {
       this.loading = true;
       request
-        .get("/paper/student/" + this.getUserId, {
-          params: {
-            pageNum: this.currentPage,
-            pageSize: this.pageSize,
-            search: this.search,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          this.loading = false;
-          this.tableData = res.data.records;
-          this.total = res.data.total;
-        });
+          .get("/paper/student/" + this.getUserId, {
+            params: {
+              pageNum: this.currentPage,
+              pageSize: this.pageSize,
+              search: this.search,
+            },
+          })
+          .then((res) => {
+            console.log(res);
+            this.loading = false;
+            this.tableData = res.data.records;
+            this.total = res.data.total;
+          });
     },
     // handleUploadSuccess(res) {
     //   if (res.status === 200) {
@@ -374,9 +377,9 @@ export default {
     // },
     expoert() {
       location.href =
-        // "http://" + window.server.filesUploadUrl + ":8181/user/export";
-        // "/api" + "/files/editor/upload";
-        "";
+          // "http://" + window.server.filesUploadUrl + ":8181/user/export";
+          // "/api" + "/files/editor/upload";
+          "";
     },
 
     //文件上传
@@ -411,7 +414,7 @@ export default {
 
     exceedFile(files, fileList) {
       this.$message.warning(
-        `只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length +
+          `只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length +
           fileList.length} 个`
       );
     }, // 文件上传成功时的钩子
@@ -451,24 +454,24 @@ export default {
         return;
       }
       request
-        .post("/paper/saves/", {
-          id: this.formdata.id,
-          url: this.formdata.url,
-        })
-        .then((res) => {
-          console.log(res);
-          if (res.status == 200) {
-            this.$message({
-              type: "success",
-              message: "上传成功",
-            });
-          } else {
-            this.$message({
-              type: "error",
-              message: "请求超时",
-            });
-          }
-        });
+          .post("/paper/saves/", {
+            id: this.formdata.id,
+            url: this.formdata.url,
+          })
+          .then((res) => {
+            console.log(res);
+            if (res.status === 200) {
+              this.$message({
+                type: "success",
+                message: "上传成功",
+              });
+            } else {
+              this.$message({
+                type: "error",
+                message: "请求超时",
+              });
+            }
+          });
       this.load(); // 刷新表格的数据
       // console.log("dialog close");
       this.dialogFormVisible = false; // 关闭弹窗
@@ -497,23 +500,9 @@ export default {
     handleDownload(row) {
       const url = row.commentFileUrl;
       const filename = url.replace(/^\/files\/([a-fA-F0-9]{32})_/, "");
-      const filesuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
+      const fileSuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
       console.log(url);
-      // if (url === "" || url === null) {
-      //   this.$message({
-      //     type: "warning",
-      //     message: "暂无老师上传的文件",
-      //   });
-      //   return;
-      // }
-      // url = "/api" + url;
-      // let filename = url.replace(/^\/files\/([a-fA-F0-9]{32})_/, "");
 
-      // request
-      //   .get(url, {}, { responseType: "arraybuffer", aa: "bb" })
-      //   .then((res) => {
-      //     fileDownload(res, filename);
-      //   });
       if (url === "" || url === null) {
         this.$message({
           type: "warning",
@@ -521,26 +510,23 @@ export default {
         });
         return;
       }
-      if (!filename || !filesuffix) {
+      if (!filename || !fileSuffix) {
         this.$message({
           type: "error",
           message: "文件名或文件后缀错误，请检查文件！",
         });
         return;
       }
+      this.$message({
+        type: "success",
+        message: "文件下载中, 请稍后..."
+      })
       request({
         url: url,
         method: "get",
         responseType: "blob",
       }).then((res) => {
-        let blob = new Blob([res], { type: `application/${filesuffix}` });
-        let url = window.URL.createObjectURL(blob);
-        const link = document.createElement("a"); // 创建a标签
-        link.href = url;
-        link.download = filename; // 重命名文件
-        console.log(link.download);
-        link.click();
-        URL.revokeObjectURL(url); // 释放内存
+        download(res, filename, fileSuffix);
       });
     },
 
@@ -561,11 +547,11 @@ export default {
         console.log(data.url);
         this.previewVisible = true;
         this.previewFileUrl =
-          "http://8.136.96.167:8012/onlinePreview?url=" +
-          encodeURIComponent(
-            encode("http://paper.lunatic.ren/api" + data.url)
-          ) +
-          "&officePreviewType=pdf";
+            "http://8.136.96.167:8012/onlinePreview?url=" +
+            encodeURIComponent(
+                encode(this.fileApiURL + data.url)
+            ) +
+            "&officePreviewType=pdf";
         // this.previewFileUrl =
         //   "https://view.officeapps.live.com/op/view.aspx?src=" + data.url;
         console.log(this.previewFileUrl);
