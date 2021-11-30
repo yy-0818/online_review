@@ -44,16 +44,19 @@
               >登 录</el-button
             >
           </el-form-item>
-          <el-form-item
-            ><el-button type="text" @click="$router.push('/register')"
-              >前往注册 >>
-            </el-button>
-            <el-button
-              style="padding-left:30vh"
-              type="text"
-              @click="resetForm('form')"
-              ><i class="el-icon-refresh"></i>重置</el-button
-            >
+
+          <el-form-item>
+            <el-row>
+              <el-button type="text" @click="$router.push('/register')"
+                >前往注册 >>
+              </el-button>
+              <el-button
+                style="padding-left:22vh"
+                type="text"
+                @click="resetForm('form')"
+                ><i class="el-icon-refresh"></i>重置</el-button
+              >
+            </el-row>
           </el-form-item>
         </el-form>
       </el-card>

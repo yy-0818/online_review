@@ -126,7 +126,7 @@
           </el-button>
           <el-popconfirm
             title="确定下载吗？"
-            @confirm="handleDownlaod(scope.row)"
+            @confirm="handleDownload(scope.row)"
           >
             <template #reference>
               <el-button size="mini" type="warning" plain
@@ -293,6 +293,7 @@
 import request from "@/utils/request";
 import { encode } from "js-base64";
 import fileDownload from "js-file-download";
+import axios from "axios";
 
 export default {
   name: "Home",
@@ -493,7 +494,7 @@ export default {
     //   dialogVisible = false; //关闭dialog
     // },
 
-    handleDownlaod(row) {
+    handleDownload(row) {
       let url = row.commentFileUrl;
       console.log(url);
       if (url === "" || url === null) {
@@ -503,11 +504,14 @@ export default {
         });
         return;
       }
+      url = "/api" + url;
       let filename = url.replace(/^\/files\/([a-fA-F0-9]{32})_/, "");
 
-      request.get(url, {}, { responseType: "arraybuffer" }).then((res) => {
-        fileDownload(res, filename);
-      });
+      request
+        .get(url, {}, { responseType: "arraybuffer", aa: "bb" })
+        .then((res) => {
+          fileDownload(res, filename);
+        });
     },
 
     handleSizeChange(pageSize) {
