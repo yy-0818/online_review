@@ -3,12 +3,12 @@
     <div>
       <!-- type="card",卡片化,当页面宽度方向空间空余，但高度方向空间匮乏时，可使用卡片风格 -->
       <el-carousel
-          indicator-position="outside"
-          :loop="true"
-          :autoplay="true"
-          :interval="5000"
-          type="card"
-          height="300px"
+        indicator-position="outside"
+        :loop="true"
+        :autoplay="true"
+        :interval="5000"
+        type="card"
+        height="300px"
       >
         <el-carousel-item v-for="item in dataimgs" :key="item">
           <!-- <el-image style="width: 100%;height: 100%;" :src="url" :fit="fit">
@@ -16,7 +16,7 @@
           <div class="grid-content">
             <el-col :md="20" :offset="2">
               <div>
-                <img :src="item.src" style="width: 100%;height: 100%;"/>
+                <img :src="item.src" style="width: 100%;height: 100%;" />
                 <!-- <p class="italictext">{{ item.txt }}</p>
                 <span class="service">{{ item.txt2 }}</span> -->
               </div>
@@ -27,76 +27,74 @@
     </div>
     <el-row>
       <el-col
-          :span="8"
-          v-for="(o, index) in 1"
-          :key="o"
-          :offset="index > 0 ? 1 : 0"
+        :span="8"
+        v-for="(o, index) in 1"
+        :key="o"
+        :offset="index > 0 ? 1 : 0"
       >
         <el-card
-            style="margin-right: auto;"
-            :body-style="{ padding: '0px' }"
-            shadow="hover"
+          style="margin-right: auto;"
+          :body-style="{ padding: '0px' }"
+          shadow="hover"
         >
-          <img src="../assets/img/fc.png" class="image"/>
+          <img src="../assets/img/fc.png" class="image" />
 
           <div style="padding: 14px;">
             <a
-                href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovLzQ5LjIzNC41MS4yMjA6MTIzNDUvZmlsZXMvZGIxMWMyMGIzZTRlNDk4MmJmOTY4YmQyMTcwZGU3NThfUGFwZXIgZm9ybWF0IChwcmVsaW1pbmFyeSBkcmFmdCkuZG9jeA%3D%3D&officePreviewType=pdf"
-                target="_blank"
-            ><span>Paper format (preliminary draft) </span></a
+              href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovLzQ5LjIzNC41MS4yMjA6MTIzNDUvZmlsZXMvZGIxMWMyMGIzZTRlNDk4MmJmOTY4YmQyMTcwZGU3NThfUGFwZXIgZm9ybWF0IChwcmVsaW1pbmFyeSBkcmFmdCkuZG9jeA%3D%3D&officePreviewType=pdf"
+              target="_blank"
+              ><span>Paper format (preliminary draft) </span></a
             >
 
             <div class="bottom clearfix">
               <time class="time">{{ currentDate }}</time>
               <el-button type="text" @click="open" class="button"
-              >操作按钮
-              </el-button
-              >
+                >操作按钮
+              </el-button>
             </div>
           </div>
         </el-card>
       </el-col>
       <el-col
-          :span="8"
-          v-for="(o, index) in 1"
-          :key="o"
-          :offset="index > 0 ? 1 : 0"
+        :span="8"
+        v-for="(o, index) in 1"
+        :key="o"
+        :offset="index > 0 ? 1 : 0"
       >
         <el-card
-            style="margin-right: auto;"
-            :body-style="{ padding: '0px' }"
-            shadow="hover"
+          style="margin-right: auto;"
+          :body-style="{ padding: '0px' }"
+          shadow="hover"
         >
-          <img src="../assets/img/rl.png" class="image" alt=""/>
+          <img src="../assets/img/rl.png" class="image" alt="" />
           <div style="padding: 14px;">
             <a
-                href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovLzQ5LjIzNC41MS4yMjA6MTIzNDUvZmlsZXMvMmUyZDgxYzFmM2U0NGNlY2JkYTg2ZGIzNmUxOTliYWRfRXhwbGFuYXRpb24uZG9jeA%3D%3D&officePreviewType=pdf"
-                target="_blank"
-            ><span>Explanation </span></a
+              href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovLzQ5LjIzNC41MS4yMjA6MTIzNDUvZmlsZXMvMmUyZDgxYzFmM2U0NGNlY2JkYTg2ZGIzNmUxOTliYWRfRXhwbGFuYXRpb24uZG9jeA%3D%3D&officePreviewType=pdf"
+              target="_blank"
+              ><span>Explanation </span></a
             >
             <div class="bottom clearfix">
               <time class="time">{{ currentDate }}</time>
               <el-button type="text" @click="open2" class="button"
-              >操作按钮
-              </el-button
-              >
+                >操作按钮
+              </el-button>
             </div>
           </div>
         </el-card>
       </el-col>
       <el-col
-          :span="8"
-          v-for="(o, index) in 1"
-          :key="o"
-          :offset="index > 0 ? 1 : 0"
+        :span="8"
+        v-for="(o, index) in 1"
+        :key="o"
+        :offset="index > 0 ? 1 : 0"
       >
         <div class="layOut" @click="layOut">
           <el-card
-              style="margin-right: auto;"
-              :body-style="{ padding: '0px' }"
-              shadow="hover"
+            style="margin-right: auto;"
+            :body-style="{ padding: '0px' }"
+            shadow="hover"
           >
-            <img src="../assets/img/hh.png" class="image" alt="夕阳"/>
+            <img src="../assets/img/hh.png" class="image" alt="夕阳" />
 
             <div style="padding: 14px;">
               <span>园翁莫把秋荷折，因与游鱼盖夕阳宋。</span>
@@ -104,9 +102,8 @@
                 <time class="time">{{ currentDate }}</time>
 
                 <el-button type="text" class="button" @click="open3"
-                >操作按钮
-                </el-button
-                >
+                  >操作按钮
+                </el-button>
               </div>
             </div>
           </el-card>
@@ -131,7 +128,7 @@
 
 <script>
 import request from "@/utils/request";
-import {h} from "@vue/runtime-core";
+import { h } from "@vue/runtime-core";
 
 export default {
   data() {
@@ -145,16 +142,19 @@ export default {
           txt2: '"勇往直前，决不放弃！"',
         },
         {
-          src: require("../assets/carousel/1.png"),
+          src: require("../assets/carousel/2.png"),
         },
         {
-          src: require("../assets/carousel/1.png"),
+          src: require("../assets/carousel/11.png"),
         },
         {
-          src: require("../assets/carousel/1.png"),
+          src: require("../assets/carousel/4.png"),
         },
         {
-          src: require("../assets/carousel/1.png"),
+          src: require("../assets/carousel/13.jpg"),
+        },
+        {
+          src: require("../assets/carousel/12.jpg"),
         },
       ],
       lay_type: 0,
@@ -163,7 +163,7 @@ export default {
   },
   mounted() {
     console.log(
-        " ......................阿弥陀佛......................\n" +
+      " ......................阿弥陀佛......................\n" +
         "                       _oo0oo_                      \n" +
         "                      o8888888o                     \n" +
         '                      88" . "88                     \n' +
@@ -191,9 +191,9 @@ export default {
       this.$notify({
         title: "温馨提示",
         message: h(
-            "i",
-            {style: "color: teal"},
-            "这是关于书写论文的相关内容(示例)"
+          "i",
+          { style: "color: teal" },
+          "这是关于书写论文的相关内容(示例)"
         ),
       });
     },
@@ -201,9 +201,9 @@ export default {
       this.$notify({
         title: "温馨提示",
         message: h(
-            "i",
-            {style: "color: teal"},
-            "这是关于书写论文的相关内容(要求说明)"
+          "i",
+          { style: "color: teal" },
+          "这是关于书写论文的相关内容(要求说明)"
         ),
       });
     },
@@ -211,9 +211,9 @@ export default {
       this.$notify({
         title: "SAYING",
         message: h(
-            "i",
-            {style: "color: teal"},
-            "Four short words sum up what has lifted most successful individuals above the crowd: a little bit more.\n" +
+          "i",
+          { style: "color: teal" },
+          "Four short words sum up what has lifted most successful individuals above the crowd: a little bit more.\n" +
             "成功的秘诀就是四个简单的字：多一点点。"
         ),
       });
