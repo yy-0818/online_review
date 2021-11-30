@@ -140,7 +140,7 @@
               </el-button>
             </div>
             <div class="div-el-button" align="center">
-              <el-button type="text" @click="open">Tip</el-button>
+              <el-button type="text" @click="open">Tips</el-button>
             </div>
           </el-form>
         </div>
@@ -441,7 +441,15 @@ export default {
     open() {
       this.$notify({
         title: "温馨提示",
-        message: h("i", { style: "color: teal" }, "请先上传论文哟！"),
+        message: h(
+          "i",
+          { style: "color: teal" },
+          "请先上传论文哟！" +
+            "\n" +
+            "注：上传压缩包文件时，最好有二级目录，否则可能会导致预览失败！"
+        ),
+        offset: 50, //偏移
+        // customClass: "notifyStyle", //自定义类
       });
     },
     getUserId() {
@@ -543,6 +551,11 @@ W.el-form-item-button {
 
 .el-upload-list {
   width: 26%;
+}
+
+.notifyStyle {
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 /* .el-card {
