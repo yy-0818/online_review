@@ -4,7 +4,7 @@ import Message from "element-plus";
 
 const request = axios.create({
   baseURL: "/api",
-  // baseURL: "http://47.99.204.81:8181/",
+  // baseURL: "http://paper.lunatic.ren/api/",
   timeout: 60000,
 });
 
@@ -54,7 +54,8 @@ request.interceptors.response.use(
     }
     // 兼容服务端返回的字符串数据
     if (typeof res === "string") {
-      res = res ? JSON.parse(res) : res;
+      // console.log(res)
+      // res = res ? JSON.parse(res) : res;
     }
     // 验证token
     if (res.status === 10003) {

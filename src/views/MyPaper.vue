@@ -495,8 +495,25 @@ export default {
     // },
 
     handleDownload(row) {
-      let url = row.commentFileUrl;
+      const url = row.commentFileUrl;
+      const filename = url.replace(/^\/files\/([a-fA-F0-9]{32})_/, "");
+      const filesuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
       console.log(url);
+      // if (url === "" || url === null) {
+      //   this.$message({
+      //     type: "warning",
+      //     message: "暂无老师上传的文件",
+      //   });
+      //   return;
+      // }
+      // url = "/api" + url;
+      // let filename = url.replace(/^\/files\/([a-fA-F0-9]{32})_/, "");
+
+      // request
+      //   .get(url, {}, { responseType: "arraybuffer", aa: "bb" })
+      //   .then((res) => {
+      //     fileDownload(res, filename);
+      //   });
       if (url === "" || url === null) {
         this.$message({
           type: "warning",
@@ -504,14 +521,27 @@ export default {
         });
         return;
       }
-      url = "/api" + url;
-      let filename = url.replace(/^\/files\/([a-fA-F0-9]{32})_/, "");
-
-      request
-        .get(url, {}, { responseType: "arraybuffer", aa: "bb" })
-        .then((res) => {
-          fileDownload(res, filename);
+      if (!filename || !filesuffix) {
+        this.$message({
+          type: "error",
+          message: "文件名或文件后缀错误，请检查文件！",
         });
+        return;
+      }
+      request({
+        url: url,
+        method: "get",
+        responseType: "blob",
+      }).then((res) => {
+        let blob = new Blob([res], { type: `application/${filesuffix}` });
+        let url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a"); // 创建a标签
+        link.href = url;
+        link.download = filename; // 重命名文件
+        console.log(link.download);
+        link.click();
+        URL.revokeObjectURL(url); // 释放内存
+      });
     },
 
     handleSizeChange(pageSize) {
