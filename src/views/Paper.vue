@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row style="margin: 10px 12px 12px 24px;max-width:80%">
+    <el-row style="margin: 20px;" justify="center" align="middle">
       <el-card class="box-card" shadow="hover">
         <template #header>
           <div class="card-header">
@@ -9,132 +9,135 @@
         </template>
         <div>
           <el-form
-              ref="formPaper"
-              :model="formPaper"
-              :rules="rulesPaper"
-              label-width="130px"
+            ref="formPaper"
+            :model="formPaper"
+            :rules="rulesPaper"
+            label-width="130px"
           >
-            <el-row>
-              <el-form-item
+            <el-row gutter="20">
+              <el-col :span="8">
+                <el-form-item
                   class="el-form-item-a"
                   label="标&ensp;题&ensp;(中)"
                   prop="title"
-              >
-                <el-input
+                >
+                  <el-input
                     class="el-form-item-d"
                     v-model="formPaper.title"
-                ></el-input>
-              </el-form-item>
+                  ></el-input>
+                </el-form-item>
+              </el-col>
 
-              <el-form-item
+              <el-col :span="8" :push="4">
+                <el-form-item
                   class="el-form-item-a"
                   label="标&ensp;题&ensp;(英)"
                   prop="titleS"
-              >
-                <el-input
+                >
+                  <el-input
                     class="el-form-item-d"
                     v-model="formPaper.titleS"
-                ></el-input>
-              </el-form-item>
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
 
-              <el-form-item
+            <el-row gutter="20">
+              <el-col :span="8">
+                <el-form-item
                   class="el-form-item-a"
                   label="关键词(中)"
                   prop="keyword"
-              >
-                <el-input
+                >
+                  <el-input
                     class="el-form-item-d"
                     v-model="formPaper.keyword"
-                ></el-input>
-              </el-form-item>
-
-              <el-form-item
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8" :push="4">
+                <el-form-item
                   class="el-form-item-a"
                   label="关键词(英)"
                   prop="keywordS"
-              >
-                <el-input
+                >
+                  <el-input
                     class="el-form-item-d"
                     v-model="formPaper.keywordS"
-                ></el-input>
-              </el-form-item>
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
 
-              <el-form-item
-                  class="el-form-item-a"
-                  label="摘&ensp;要&ensp;(中)"
-                  prop="summary"
-              >
-                <el-input
-                    type="textarea"
-                    :rows="5"
-                    class="el-form-item-d"
-                    v-model="formPaper.summary"
-                ></el-input>
-              </el-form-item>
-              <el-form-item
-                  class="el-form-item-a"
-                  label="摘&ensp;要&ensp;(英)"
-                  prop="summaryS"
-              >
-                <el-input
-                    type="textarea"
-                    :rows="5"
-                    class="el-form-item-d"
-                    v-model="formPaper.summaryS"
-                ></el-input>
-              </el-form-item>
+            <el-form-item
+              class="el-form-item-a"
+              label="摘&ensp;要&ensp;(中)"
+              prop="summary"
+            >
+              <el-input
+                type="textarea"
+                :rows="5"
+                class="el-form-item-d"
+                v-model="formPaper.summary"
+              ></el-input>
+            </el-form-item>
+            <el-form-item
+              class="el-form-item-a"
+              label="摘&ensp;要&ensp;(英)"
+              prop="summaryS"
+            >
+              <el-input
+                type="textarea"
+                :rows="5"
+                class="el-form-item-d"
+                v-model="formPaper.summaryS"
+              ></el-input>
+            </el-form-item>
 
-              <div>
-                <el-form-item
-                    class="el-form-item-a1"
-                    label="研究方向"
-                    prop="directionId"
-                >
+            <el-row>
+              <el-col :span="8">
+                <el-form-item label="研究方向" prop="directionId">
                   <el-select
-                      v-model="formPaper.directionId"
-                      :change="filterReviewer(formPaper.directionId)"
+                    v-model="formPaper.directionId"
+                    :change="filterReviewer(formPaper.directionId)"
                   >
                     <el-option
-                        v-for="item in directionIdOptions"
-                        :key="item.value"
-                        :label="item.name"
-                        :value="item.id"
+                      v-for="item in directionIdOptions"
+                      :key="item.value"
+                      :label="item.name"
+                      :value="item.id"
                     >
                     </el-option>
                   </el-select>
                 </el-form-item>
-              </div>
-              <div>
-                <el-form-item
-                    class="el-form-item-a2"
-                    label="指导老师"
-                    prop="reviewerId"
-                >
+              </el-col>
+              <el-col :span="8">
+                <el-form-item label="指导老师" prop="reviewerId">
                   <el-select v-model="formPaper.reviewerId">
                     <el-option
-                        v-for="item in reviewerIdOptions"
-                        :key="item.value"
-                        :label="item.name"
-                        :value="item.id"
+                      v-for="item in reviewerIdOptions"
+                      :key="item.value"
+                      :label="item.name"
+                      :value="item.id"
                     >
                     </el-option>
                   </el-select>
                 </el-form-item>
-              </div>
+              </el-col>
             </el-row>
+
+            <!-- </el-row> -->
             <div style="text-align: center;margin-top: 30px;">
               <el-button type="info" plain @click="newUpload"
-              ><i class="el-icon-upload"></i>点击上传论文
+                ><i class="el-icon-upload"></i>点击上传论文
               </el-button>
 
               <el-button type="primary" plain @click="save"
-              ><i class="el-icon-position"></i>提交
-              </el-button
-              >
+                ><i class="el-icon-position"></i>提交
+              </el-button>
               <el-button type="success" plain @click="resetForm"
-              ><i class="el-icon-refresh"></i>重置
-              </el-button
-              >
+                ><i class="el-icon-refresh"></i>重置
+              </el-button>
             </div>
             <div class="div-el-button" align="center">
               <el-button type="text" @click="open">Tip</el-button>
@@ -194,30 +197,30 @@
 
     <!-- 上传弹窗 -->
     <el-dialog
-        title="请选择你要上传的文件"
-        v-model="dialogFormVisible"
-        :close-on-click-modal="false"
-        width="42.3%"
+      title="请选择你要上传的文件"
+      v-model="dialogFormVisible"
+      :close-on-click-modal="false"
+      width="42.3%"
     >
       <el-row>
         <el-card style="width:100vw;" shadow="hover">
           <div type="flex" justify="center" align="middle">
             <div>
               <el-upload
-                  drag
-                  ref="upload"
-                  class="upload-demo"
-                  :limit="limitNum"
-                  :action="fileApiURL+'/files/upload'"
-                  :on-preview="handlePreview"
-                  :on-remove="handleRemove"
-                  accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
-                  :file-list="fileList"
-                  :on-change="fileChange"
-                  :auto-upload="false"
-                  :on-exceed="exceedFile"
-                  :on-success="handleSuccess"
-                  :on-error="handleError"
+                drag
+                ref="upload"
+                class="upload-demo"
+                :limit="limitNum"
+                :action="fileApiURL + '/files/upload'"
+                :on-preview="handlePreview"
+                :on-remove="handleRemove"
+                accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
+                :file-list="fileList"
+                :on-change="fileChange"
+                :auto-upload="false"
+                :on-exceed="exceedFile"
+                :on-success="handleSuccess"
+                :on-error="handleError"
               >
                 <i class="el-icon-upload"></i>
 
@@ -232,18 +235,18 @@
                 </div>
               </el-upload>
 
-              <br/>
+              <br />
 
               <div
-                  style="display: flex;justify-content: center;align-items: center;"
+                style="display: flex;justify-content: center;align-items: center;"
               >
                 <el-button
-                    size="small"
-                    type="primary"
-                    :disabled="isBtn"
-                    @click="submitUpload"
-                    plain
-                >立即上传<i class="el-icon-upload el-icon--right"></i
+                  size="small"
+                  type="primary"
+                  :disabled="isBtn"
+                  @click="submitUpload"
+                  plain
+                  >立即上传<i class="el-icon-upload el-icon--right"></i
                 ></el-button>
               </div>
             </div>
@@ -252,10 +255,10 @@
       </el-row>
 
       <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="handleDelt">取 消</el-button>
-        <el-button @click="handlesave" type="primary">确定</el-button>
-      </span>
+        <span class="dialog-footer">
+          <el-button @click="handleDelt">取 消</el-button>
+          <el-button @click="handlesave" type="primary">确定</el-button>
+        </span>
       </template>
     </el-dialog>
   </div>
@@ -263,8 +266,8 @@
 
 <script>
 import request from "@/utils/request";
-import {h} from "vue";
-import {fileApiURL} from "@/setting";
+import { h } from "vue";
+import { fileApiURL } from "@/setting";
 
 export default {
   data() {
@@ -291,27 +294,27 @@ export default {
       length: 0, //当前上传文件个数
       isBtn: false, //控制上传按钮能否点击
       rulesPaper: {
-        title: [{required: true, message: "请输入标题(中)", trigger: "blur"}],
+        title: [{ required: true, message: "请输入标题(中)", trigger: "blur" }],
         titleS: [
-          {required: true, message: "请输入标题(英)", trigger: "blur"},
+          { required: true, message: "请输入标题(英)", trigger: "blur" },
         ],
         keyword: [
-          {required: true, message: "请输关键词(中)", trigger: "blur"},
+          { required: true, message: "请输关键词(中)", trigger: "blur" },
         ],
         keywordS: [
-          {required: true, message: "请输入关键词(英)", trigger: "blur"},
+          { required: true, message: "请输入关键词(英)", trigger: "blur" },
         ],
         summary: [
-          {required: true, message: "请输入摘要(中)", trigger: "blur"},
+          { required: true, message: "请输入摘要(中)", trigger: "blur" },
         ],
         summaryS: [
-          {required: true, message: "请输入摘要(英)", trigger: "blur"},
+          { required: true, message: "请输入摘要(英)", trigger: "blur" },
         ],
         directionId: [
-          {required: true, message: "请选择方向", trigger: "blur"},
+          { required: true, message: "请选择方向", trigger: "blur" },
         ],
         reviewerId: [
-          {required: true, message: "请选择老师", trigger: "blur"},
+          { required: true, message: "请选择老师", trigger: "blur" },
         ],
       },
     };
@@ -357,7 +360,7 @@ export default {
 
     exceedFile(files, fileList) {
       this.$message.warning(
-          `只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length +
+        `只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length +
           fileList.length} 个`
       );
     }, // 文件上传成功时的钩子
@@ -393,24 +396,24 @@ export default {
         return;
       }
       request
-          .post("/paper/saves/", {
-            id: this.formPaper.id,
-            url: this.formPaper.url,
-          })
-          .then((res) => {
-            console.log(res);
-            if (res.status == 200) {
-              this.$message({
-                type: "success",
-                message: "上传成功",
-              });
-            } else {
-              this.$message({
-                type: "error",
-                message: "请求超时",
-              });
-            }
-          });
+        .post("/paper/saves/", {
+          id: this.formPaper.id,
+          url: this.formPaper.url,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.status == 200) {
+            this.$message({
+              type: "success",
+              message: "上传成功",
+            });
+          } else {
+            this.$message({
+              type: "error",
+              message: "请求超时",
+            });
+          }
+        });
       // console.log("dialog close");
       this.dialogFormVisible = false; // 关闭弹窗
       this.$refs["upload"].clearFiles();
@@ -438,7 +441,7 @@ export default {
     open() {
       this.$notify({
         title: "温馨提示",
-        message: h("i", {style: "color: teal"}, "请先上传论文哟！"),
+        message: h("i", { style: "color: teal" }, "请先上传论文哟！"),
       });
     },
     getUserId() {
@@ -463,26 +466,26 @@ export default {
             return;
           }
           request
-              .post("/paper/save", this.formPaper)
-              .then((res) => {
+            .post("/paper/save", this.formPaper)
+            .then((res) => {
+              console.log(res);
+              if (res.data === "OK") {
+                this.$message({
+                  type: "success",
+                  message: "上传成功",
+                });
+              } else {
                 console.log(res);
-                if (res.data === "OK") {
-                  this.$message({
-                    type: "success",
-                    message: "上传成功",
-                  });
-                } else {
-                  console.log(res);
-                  this.$message({
-                    type: "error",
-                    message: res.msg,
-                  });
-                  return false;
-                }
-              })
-              .catch((error) => {
-                console.log(error);
-              });
+                this.$message({
+                  type: "error",
+                  message: res.msg,
+                });
+                return false;
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         }
       });
     },
@@ -521,16 +524,6 @@ export default {
 
 .el-form-item-a {
   margin-top: 30px;
-}
-
-.el-form-item-a1 {
-  margin-top: 30px;
-  padding-left: 10px;
-}
-
-.el-form-item-a2 {
-  margin-top: 30px;
-  padding-left: 110px;
 }
 
 .el-form-item-d {
