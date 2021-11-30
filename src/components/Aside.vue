@@ -1,19 +1,27 @@
 <template>
   <div>
     <el-menu
-      style="width: 200px; min-height: calc(100vh - 50px)"
+      background-color="#545c64"
+      text-color="#fff"
+      active-text-color="#ffd04b"
+      style="width: 215px; min-height: calc(100vh - 50px)"
       :default-active="path"
+      unique-opened="true"
       router
     >
-      <el-menu-item index="/home" class="el-menu-item-h">主页</el-menu-item>
-
-      <el-menu-item index="/paper" class="el-menu-item-h"
-        >论文上传</el-menu-item
+      <el-menu-item index="/home" class="el-menu-item-h">
+        <i class="el-icon-location"></i>主页</el-menu-item
       >
 
-      <el-menu-item index="/news" class="el-menu-item-h">资源分享</el-menu-item>
-      <el-menu-item index="/MyPaper" class="el-menu-item-h"
-        >我的论文</el-menu-item
+      <el-menu-item index="/paper" class="el-menu-item-h">
+        <i class="el-icon-position"></i>论文上传</el-menu-item
+      >
+
+      <el-menu-item index="/news" class="el-menu-item-h">
+        <i class="el-icon-document"></i>资源分享</el-menu-item
+      >
+      <el-menu-item index="/MyPaper" class="el-menu-item-h">
+        <i class="el-icon-star-off"></i>我的论文</el-menu-item
       >
 
       <!-- <el-menu-item index="/im" class="el-menu-item-h">聊天室</el-menu-item> -->
@@ -28,28 +36,32 @@
 
       <el-submenu index="1" v-if="user.role === 3 || user.role === 2">
         <template #title>
-          <span class="el-menu-item-h">论文审核</span>
+          <span class="el-menu-item-h">
+            <i class="el-icon-menu"></i>论文审核</span
+          >
         </template>
         <el-menu-item
           index="/Reviewer"
           class="el-menu-item-h"
           v-if="user.role === 3 || user.role === 2"
-          >初审</el-menu-item
+          ><i class="el-icon-notebook-1"></i>初审</el-menu-item
         >
         <el-menu-item
           index="/Reviewer2"
           class="el-menu-item-h"
           v-if="user.role === 3"
-          >终审</el-menu-item
+          ><i class="el-icon-notebook-2"></i>终审</el-menu-item
         >
       </el-submenu>
 
       <el-submenu index="1" v-if="user.role === 3 || user.role === 2">
         <template #title>
-          <span class="el-menu-item-h">系统管理</span>
+          <span class="el-menu-item-h">
+            <i class="el-icon-setting"></i>系统管理</span
+          >
         </template>
-        <el-menu-item index="/user" class="el-menu-item-h"
-          >用户管理</el-menu-item
+        <el-menu-item index="/user" class="el-menu-item-h">
+          <i class="el-icon-user"></i>用户管理</el-menu-item
         >
       </el-submenu>
     </el-menu>
