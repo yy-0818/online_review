@@ -3,32 +3,32 @@
     <!--    搜索区域-->
     <div style="margin: 10px 0">
       <el-input
-          v-model="search"
-          placeholder="请输入关键字"
-          style="width: 20%"
-          clearable
+        v-model="search"
+        placeholder="请输入关键字"
+        style="width: 20%"
+        clearable
       ></el-input>
 
       <el-button type="primary" style="margin-left: 5px" @click="load"
-      ><i class="el-icon-search"></i>查询
+        ><i class="el-icon-search"></i>查询
       </el-button>
     </div>
     <el-table
-        v-fit-columns
-        v-loading="loading"
-        :data="tableData"
-        border
-        stripe
-        style="width: 100%"
-        tooltip-effect="dark"
-        :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
+      v-fit-columns
+      v-loading="loading"
+      :data="tableData"
+      border
+      stripe
+      style="width: 100%"
+      tooltip-effect="dark"
+      :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
     >
       <el-table-column
-          prop="id"
-          label="ID"
-          sortable
-          width="60"
-          align="center"
+        prop="id"
+        label="ID"
+        sortable
+        width="60"
+        align="center"
       ></el-table-column>
       <!--      <el-table-column label="性别">-->
       <!--        <template #default="scope">-->
@@ -41,35 +41,35 @@
       <!-- <el-table-column prop="name" label="姓名"> </el-table-column> -->
 
       <el-table-column
-          prop="title"
-          label="题目"
-          show-overflow-tooltip
+        prop="title"
+        label="题目"
+        show-overflow-tooltip
       ></el-table-column>
       <el-table-column
-          prop="titleS"
-          label="题目(英)"
-          show-overflow-tooltip
+        prop="titleS"
+        label="题目(英)"
+        show-overflow-tooltip
       ></el-table-column>
       <el-table-column
-          prop="keyword"
-          label="关键词"
-          show-overflow-tooltip
+        prop="keyword"
+        label="关键词"
+        show-overflow-tooltip
       ></el-table-column>
       <el-table-column
-          prop="keywordS"
-          label="关键词(英)"
-          show-overflow-tooltip
+        prop="keywordS"
+        label="关键词(英)"
+        show-overflow-tooltip
       ></el-table-column>
       <el-table-column
-          prop="summary"
-          label="摘要"
-          tooltip-effect="light"
-          show-overflow-tooltip
+        prop="summary"
+        label="摘要"
+        tooltip-effect="light"
+        show-overflow-tooltip
       ></el-table-column>
       <el-table-column
-          prop="summaryS"
-          label="摘要(英)"
-          show-overflow-tooltip
+        prop="summaryS"
+        label="摘要(英)"
+        show-overflow-tooltip
       ></el-table-column>
 
       <el-table-column label="方向" show-overflow-tooltip>
@@ -84,9 +84,9 @@
       </el-table-column>
 
       <el-table-column
-          prop="uploaderName"
-          label="上传人"
-          show-overflow-tooltip
+        prop="uploaderName"
+        label="上传人"
+        show-overflow-tooltip
       ></el-table-column>
 
       <!-- <el-table-column prop="state" label="状态">
@@ -107,8 +107,8 @@
       <el-table-column label="审核状态" align="center">
         <template #default="scope">
           <el-tag
-              size="medium"
-              :type="
+            size="medium"
+            :type="
               scope.row.state === 1
                 ? 'primary'
                 : scope.row.state === 0
@@ -117,52 +117,50 @@
                 ? 'success'
                 : 'danger'
             "
-          >{{
+            >{{
               scope.row.state === 1
-                  ? "初审通过"
-                  : "未审核" && scope.row.state === 3
-                      ? "终审通过"
-                      : "未审核" && scope.row.state === 2
-                          ? "待修改"
-                          : "未审核"
+                ? "初审通过"
+                : "未审核" && scope.row.state === 3
+                ? "终审通过"
+                : "未审核" && scope.row.state === 2
+                ? "待修改"
+                : "未审核"
             }}
-          </el-tag
-          >
+          </el-tag>
         </template>
       </el-table-column>
 
       <el-table-column label="操作" width="330">
         <template #default="scope">
           <el-button
-              size="mini"
-              type="success"
-              plain
-              @click="previewOpen(scope.row)"
-          ><i class="el-icon-tickets"></i>预览
+            size="mini"
+            type="success"
+            plain
+            @click="previewOpen(scope.row)"
+            ><i class="el-icon-view"></i>预览
           </el-button>
 
           <el-popconfirm
-              title="确定下载吗？"
-              @confirm="handleDownload(scope.row)"
+            title="确定下载吗？"
+            @confirm="handleDownload(scope.row)"
           >
             <template #reference>
               <el-button size="mini" type="warning" plain
-              ><i class="el-icon-folder-add"></i>下载
-              </el-button
-              >
+                ><i class="el-icon-folder-add"></i>下载
+              </el-button>
             </template>
           </el-popconfirm>
 
           <el-button
-              size="mini"
-              type="primary"
-              plain
-              @click="handleAdopt(scope.row)"
-          ><i class="el-icon-circle-check"></i>通过
+            size="mini"
+            type="primary"
+            plain
+            @click="handleAdopt(scope.row)"
+            ><i class="el-icon-document-checked"></i>通过
           </el-button>
 
           <el-button size="mini" type="danger" @click="handleEdit(scope.row)"
-          ><i class="el-icon-circle-close"></i>退回
+            ><i class="el-icon-document-delete "></i>退回
           </el-button>
         </template>
       </el-table-column>
@@ -170,55 +168,55 @@
 
     <div style="margin: 20px 0">
       <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          :page-sizes="[10, 15, 20]"
-          :page-size="pageSize"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="total"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="[10, 15, 20]"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
       >
       </el-pagination>
     </div>
 
     <!-- 论文通过意见弹窗 -->
     <el-dialog
-        title="意见"
-        v-model="dialogFormVisible"
-        :close-on-click-modal="false"
-        width="42.3%"
+      title="意见"
+      v-model="dialogFormVisible"
+      :close-on-click-modal="false"
+      width="42.3%"
     >
       <el-form
-          ref="formdata"
-          :model="formdata"
-          :rules="rulesReviewer"
-          label-width="100px"
+        ref="formdata"
+        :model="formdata"
+        :rules="rulesReviewer"
+        label-width="100px"
       >
         <el-form-item label="备注内容：" prop="content">
           <el-input
-              type="textarea"
-              autosize
-              placeholder="请输入内容"
-              v-model="formdata.content"
+            type="textarea"
+            autosize
+            placeholder="请输入内容"
+            v-model="formdata.content"
           >
           </el-input>
         </el-form-item>
         <el-form-item label="通过缘由：" prop="opinion">
           <el-input
-              type="textarea"
-              autosize
-              placeholder="请输入内容"
-              v-model="formdata.opinion"
+            type="textarea"
+            autosize
+            placeholder="请输入内容"
+            v-model="formdata.opinion"
           >
           </el-input>
         </el-form-item>
 
         <el-form-item label="修改意见：" prop="reason">
           <el-input
-              type="textarea"
-              :rows="5"
-              placeholder="请输入内容"
-              v-model="formdata.reason"
+            type="textarea"
+            :rows="5"
+            placeholder="请输入内容"
+            v-model="formdata.reason"
           >
           </el-input>
         </el-form-item>
@@ -279,20 +277,20 @@
           <div type="flex" justify="center" align="middle">
             <div>
               <el-upload
-                  drag
-                  ref="upload"
-                  class="upload-demo"
-                  :limit="limitNum"
-                  :action="fileApiURL+'/files/upload'"
-                  :on-preview="handlePreview"
-                  :on-remove="handleRemove"
-                  accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
-                  :file-list="fileList"
-                  :on-change="fileChange"
-                  :auto-upload="false"
-                  :on-exceed="exceedFile"
-                  :on-success="handleSuccess"
-                  :on-error="handleError"
+                drag
+                ref="upload"
+                class="upload-demo"
+                :limit="limitNum"
+                :action="fileApiURL + '/files/upload'"
+                :on-preview="handlePreview"
+                :on-remove="handleRemove"
+                accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
+                :file-list="fileList"
+                :on-change="fileChange"
+                :auto-upload="false"
+                :on-exceed="exceedFile"
+                :on-success="handleSuccess"
+                :on-error="handleError"
               >
                 <i class="el-icon-upload"></i>
 
@@ -307,18 +305,18 @@
                 </div>
               </el-upload>
 
-              <br/>
+              <br />
 
               <div
-                  style="display: flex;justify-content: center;align-items: center;"
+                style="display: flex;justify-content: center;align-items: center;"
               >
                 <el-button
-                    size="small"
-                    type="primary"
-                    :disabled="isBtn"
-                    @click="submitUpload"
-                    plain
-                >立即上传<i class="el-icon-upload el-icon--right"></i
+                  size="small"
+                  type="primary"
+                  :disabled="isBtn"
+                  @click="submitUpload"
+                  plain
+                  >立即上传<i class="el-icon-upload el-icon--right"></i
                 ></el-button>
               </div>
             </div>
@@ -336,42 +334,42 @@
 
     <!-- 论文退回意见弹窗  -->
     <el-dialog
-        title="退回意见"
-        v-model="dialogVisible"
-        :close-on-click-modal="false"
-        width="42.3%"
+      title="退回意见"
+      v-model="dialogVisible"
+      :close-on-click-modal="false"
+      width="42.3%"
     >
       <el-form
-          ref="formdataBack"
-          :model="formdata"
-          :rules="rulesReviewer"
-          label-width="100px"
+        ref="formdataBack"
+        :model="formdata"
+        :rules="rulesReviewer"
+        label-width="100px"
       >
         <el-form-item label="备注内容：" prop="content">
           <el-input
-              type="textarea"
-              autosize
-              placeholder="请输入内容"
-              v-model="formdata.content"
+            type="textarea"
+            autosize
+            placeholder="请输入内容"
+            v-model="formdata.content"
           >
           </el-input>
         </el-form-item>
         <el-form-item label="修改意见：" prop="opinion">
           <el-input
-              type="textarea"
-              autosize
-              placeholder="请输入内容"
-              v-model="formdata.opinion"
+            type="textarea"
+            autosize
+            placeholder="请输入内容"
+            v-model="formdata.opinion"
           >
           </el-input>
         </el-form-item>
 
         <el-form-item label="退回原因：" prop="reason">
           <el-input
-              type="textarea"
-              :rows="5"
-              placeholder="请输入内容"
-              v-model="formdata.reason"
+            type="textarea"
+            :rows="5"
+            placeholder="请输入内容"
+            v-model="formdata.reason"
           >
           </el-input>
         </el-form-item>
@@ -439,11 +437,11 @@
 
     <!-- 预览弹框 -->
     <el-dialog
-        custom-class="previewDialog"
-        title="预览"
-        :fullscreen="true"
-        v-model="previewVisible"
-        :before-close="previewClose"
+      custom-class="previewDialog"
+      title="预览"
+      :fullscreen="true"
+      v-model="previewVisible"
+      :before-close="previewClose"
     >
       <iframe class="el-iframe" :src="previewFileUrl" frameborder="0"></iframe>
     </el-dialog>
@@ -452,9 +450,9 @@
 
 <script>
 import request from "@/utils/request";
-import {Base64} from "js-base64";
+import { Base64 } from "js-base64";
 import download from "@/utils/download";
-import {fileApiURL} from "@/setting";
+import { fileApiURL } from "@/setting";
 
 export default {
   name: "Home",
@@ -491,7 +489,7 @@ export default {
           // opinion: [
           //   { required: true, message: "请输入内容", trigger: "blur" },
         ],
-        reason: [{required: true, message: "请输入内容", trigger: "blur"}],
+        reason: [{ required: true, message: "请输入内容", trigger: "blur" }],
       },
     };
   },
@@ -528,7 +526,7 @@ export default {
 
     exceedFile(files, fileList) {
       this.$message.warning(
-          `只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length +
+        `只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length +
           fileList.length} 个`
       );
     }, // 文件上传成功时的钩子
@@ -550,19 +548,19 @@ export default {
     load() {
       this.loading = true;
       request
-          .get("/paper/allDiderotPrimary/", {
-            params: {
-              pageNum: this.currentPage,
-              pageSize: this.pageSize,
-              search: this.search,
-            },
-          })
-          .then((res) => {
-            console.log(res);
-            this.loading = false;
-            this.tableData = res.data.records;
-            this.total = res.data.total;
-          });
+        .get("/paper/allDiderotPrimary/", {
+          params: {
+            pageNum: this.currentPage,
+            pageSize: this.pageSize,
+            search: this.search,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          this.loading = false;
+          this.tableData = res.data.records;
+          this.total = res.data.total;
+        });
     },
     // handleUploadSuccess(res) {
     //   if (res.status === 200) {
@@ -572,9 +570,9 @@ export default {
     // },
     expoert() {
       location.href =
-          // "http://" + window.server.filesUploadUrl + ":8181/user/export";
-          // "/api" + "/files/editor/upload";
-          "";
+        // "http://" + window.server.filesUploadUrl + ":8181/user/export";
+        // "/api" + "/files/editor/upload";
+        "";
     },
 
     save() {
@@ -583,26 +581,26 @@ export default {
         if (valid) {
           console.log(this.formdata);
           request
-              .post("/paper/failEmail", this.formdata)
-              .then((res) => {
+            .post("/paper/failEmail", this.formdata)
+            .then((res) => {
+              console.log(res);
+              if (res.status === 200) {
+                this.$message({
+                  type: "success",
+                  message: "退回成功",
+                });
+              } else {
                 console.log(res);
-                if (res.status === 200) {
-                  this.$message({
-                    type: "success",
-                    message: "退回成功",
-                  });
-                } else {
-                  console.log(res);
-                  this.$message({
-                    type: "error",
-                    message: res.msg,
-                  });
-                  return false;
-                }
-              })
-              .catch((error) => {
-                console.log(error);
-              });
+                this.$message({
+                  type: "error",
+                  message: res.msg,
+                });
+                return false;
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
 
           this.dialogVisible = false; // 关闭弹窗
           this.load(); // 刷新表格的数据
@@ -646,24 +644,24 @@ export default {
         console.log(valid);
         if (valid) {
           request
-              .post("/paper/passPrimary/", {
-                id: this.formdata.id,
-                commentFileUrl: this.formdata.url,
-              })
-              .then((res) => {
-                console.log(res);
-                if (res.status === 200) {
-                  this.$message({
-                    type: "success",
-                    message: "通过成功",
-                  });
-                } else {
-                  this.$message({
-                    type: "error",
-                    message: "请求超时",
-                  });
-                }
-              });
+            .post("/paper/passPrimary/", {
+              id: this.formdata.id,
+              commentFileUrl: this.formdata.url,
+            })
+            .then((res) => {
+              console.log(res);
+              if (res.status === 200) {
+                this.$message({
+                  type: "success",
+                  message: "通过成功",
+                });
+              } else {
+                this.$message({
+                  type: "error",
+                  message: "请求超时",
+                });
+              }
+            });
           this.dialogFormVisible = false; // 关闭弹窗
         }
       });
@@ -679,9 +677,9 @@ export default {
       const fileSuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
 
       console.log(
-          filename,
-          fileSuffix,
-          filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)
+        filename,
+        fileSuffix,
+        filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)
       );
 
       if (url === "") {
@@ -700,14 +698,14 @@ export default {
       }
       this.$message({
         type: "success",
-        message: "文件下载中, 请稍后..."
-      })
+        message: "文件下载中, 请稍后...",
+      });
       request({
         url: url,
         method: "get",
         responseType: "blob",
       }).then((res) => {
-        download(res, filename, fileSuffix)
+        download(res, filename, fileSuffix);
       });
     },
     handleSizeChange(pageSize) {
@@ -727,10 +725,8 @@ export default {
         console.log(data.url);
         this.previewVisible = true;
         this.previewFileUrl =
-            "http://8.136.96.167:8012/onlinePreview?url=" +
-            encodeURIComponent(
-                Base64.encode(this.fileApiURL + data.url)
-            );
+          "http://8.136.96.167:8012/onlinePreview?url=" +
+          encodeURIComponent(Base64.encode(this.fileApiURL + data.url));
         // + "&officePreviewType=pdf";
         // this.previewFileUrl =
         //   "https://view.officeapps.live.com/op/view.aspx?src=" + data.url;

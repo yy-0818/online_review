@@ -143,7 +143,7 @@
             type="success"
             plain
             @click="previewOpen(scope.row)"
-            ><i class="el-icon-tickets"></i>预览
+            ><i class="el-icon-view"></i>预览
           </el-button>
 
           <el-popconfirm
@@ -162,27 +162,17 @@
             type="primary"
             plain
             @click="handlePass(scope.row)"
-            ><i class="el-icon-circle-check"></i>通过
+            ><i class="el-icon-document-checked"></i>通过
           </el-button>
 
           <el-button size="mini" type="danger" @click="handleEdit(scope.row)"
-            ><i class="el-icon-circle-close"></i>退回
+            ><i class="el-icon-document-delete"></i>退回
           </el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <div style="margin: 20px 0">
-      <!-- <el-pagination
-        :page-sizes="[10, 20, 30]"
-        :page-size="pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="400"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      >
-      </el-pagination> -->
-
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -236,57 +226,7 @@
           </el-input>
         </el-form-item>
       </el-form>
-      <!-- <el-row type="flex" justify="center" align="middle">
-        <el-card style="display: flex;" shadow="hover">
-          <div class="content">
-            <div>
-              <el-upload
-                drag
-                ref="upload"
-                class="upload-demo"
-                :limit="limitNum"
-                action="http://49.234.51.220:12345/files/upload"
-                :on-preview="handlePreview"
-                :on-remove="handleRemove"
-                accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
-                :file-list="fileList"
-                :on-change="fileChange"
-                :auto-upload="false"
-                :on-exceed="exceedFile"
-                :on-success="handleSuccess"
-                :on-error="handleError"
-              >
-                <i class="el-icon-upload"></i>
 
-                <div class="el-upload__text">
-                  将Order文件拖到此处，或
-
-                  <em>点击上传</em>
-                </div>
-
-                <div class="el-upload__tip">
-                  可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
-                </div>
-              </el-upload>
-
-              <br />
-
-              <div
-                style="display: flex;justify-content: center;align-items: center;"
-              >
-                <el-button
-                  size="small"
-                  type="primary"
-                  :disabled="isBtn"
-                  @click="submitUpload"
-                  plain
-                  >立即上传<i class="el-icon-upload el-icon--right"></i
-                ></el-button>
-              </div>
-            </div>
-          </div>
-        </el-card>
-      </el-row> -->
       <el-row>
         <el-card style="width:100vw;" shadow="hover">
           <div type="flex" justify="center" align="middle">
@@ -296,7 +236,7 @@
                 ref="upload"
                 class="upload-demo"
                 :limit="limitNum"
-                :action="fileApiURL+'/files/upload'"
+                :action="fileApiURL + '/files/upload'"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove"
                 accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
@@ -414,7 +354,7 @@
 import request from "@/utils/request";
 import { encode } from "js-base64";
 import download from "@/utils/download";
-import {fileApiURL} from "@/setting";
+import { fileApiURL } from "@/setting";
 
 export default {
   name: "Home",
@@ -624,7 +564,7 @@ export default {
         method: "get",
         responseType: "blob",
       }).then((res) => {
-        download(res, filename, fileSuffix)
+        download(res, filename, fileSuffix);
       });
     },
     handleEdit(row) {
@@ -718,9 +658,7 @@ export default {
         this.previewVisible = true;
         this.previewFileUrl =
           "http://8.136.96.167:8012/onlinePreview?url=" +
-          encodeURIComponent(
-            encode(this.fileApiURL + data.url)
-          ) +
+          encodeURIComponent(encode(this.fileApiURL + data.url)) +
           "&officePreviewType=pdf";
         // this.previewFileUrl =
         //   "https://view.officeapps.live.com/op/view.aspx?src=" + data.url;

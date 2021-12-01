@@ -10,18 +10,18 @@
       router
     >
       <el-menu-item index="/home" class="el-menu-item-h">
-        <i class="el-icon-location"></i>主页</el-menu-item
+        <i class="el-icon-s-home"></i>主页</el-menu-item
       >
 
       <el-menu-item index="/paper" class="el-menu-item-h">
-        <i class="el-icon-position"></i>论文上传</el-menu-item
+        <i class="el-icon-s-promotion"></i>论文上传</el-menu-item
       >
 
       <el-menu-item index="/news" class="el-menu-item-h">
         <i class="el-icon-document"></i>资源分享</el-menu-item
       >
       <el-menu-item index="/MyPaper" class="el-menu-item-h">
-        <i class="el-icon-star-off"></i>我的论文</el-menu-item
+        <i class="el-icon-star-on"></i>我的论文</el-menu-item
       >
 
       <!-- <el-menu-item index="/im" class="el-menu-item-h">聊天室</el-menu-item> -->
@@ -57,11 +57,11 @@
       <el-submenu index="1" v-if="user.role === 3 || user.role === 2">
         <template #title>
           <span class="el-menu-item-h">
-            <i class="el-icon-setting"></i>系统管理</span
+            <i class="el-icon-s-tools"></i>系统管理</span
           >
         </template>
         <el-menu-item index="/user" class="el-menu-item-h">
-          <i class="el-icon-user"></i>用户管理</el-menu-item
+          <i class="el-icon-s-custom"></i>用户管理</el-menu-item
         >
       </el-submenu>
     </el-menu>
