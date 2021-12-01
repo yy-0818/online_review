@@ -25,8 +25,8 @@
           clearable
         ></el-input>
         <!-- <el-button style="margin-left: 5px" type="primary" @click="add"
-          >新增</el-button
-        > -->
+          >新增</el-button -->
+
         <el-button type="primary" style="margin-left: 5px" @click="load"
           ><i class="el-icon-search"></i>查询</el-button
         >
@@ -100,7 +100,7 @@
             </template>
           </el-table-column> -->
 
-          <el-table-column label="操作" width="100">
+          <el-table-column label="操作" width="180">
             <template #default="scope">
               <!-- <el-button
                 size="mini"
@@ -109,20 +109,20 @@
                 @click="showPaper(scope.row)"
                 ><i class="el-icon-folder-opened"></i>查看上传论文</el-button
               > -->
-              <!-- <el-button
+              <el-button
                 size="mini"
-                type="primary"
+                type="success"
                 plain
                 @click="handleEdit(scope.row)"
-                >编辑</el-button
-              > -->
+                ><i class="el-icon-edit-outline"></i>编辑</el-button
+              >
               <el-popconfirm
                 title="确定删除吗？"
                 @confirm="handleDelete(scope.row.id)"
               >
                 <template #reference>
                   <el-button size="mini" type="danger"
-                    ><i class="el-icon-delete el-icon--left"></i>删除</el-button
+                    ><i class="el-icon-delete "></i>删除</el-button
                   >
                 </template>
               </el-popconfirm>
@@ -143,9 +143,9 @@
         </el-pagination>
       </div>
 
-      <el-dialog title="提示" v-model="dialogVisible" width="30%">
+      <el-dialog title="用户信息" v-model="dialogVisible" width="30%">
         <el-form :model="form" label-width="120px">
-          <el-form-item label="用户名">
+          <el-form-item label="邮箱">
             <el-input
               v-model="form.email"
               style="width: 80%"
@@ -153,19 +153,49 @@
             ></el-input>
           </el-form-item>
           <el-form-item label="姓名">
-            <el-input v-model="form.Name" style="width: 80%"></el-input>
+            <el-input v-model="form.name" style="width: 80%"></el-input>
+          </el-form-item>
+
+          <el-form-item label="角色">
+            <el-select v-model="form.role" style="width:80%">
+              <el-option
+                v-for="item in roles"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+
+          <el-form-item label="研究方向">
+            <el-select v-model="form.directionId" style="width:80%">
+              <el-option
+                v-for="item in directionIdOptions"
+                :key="item.value"
+                :label="item.name"
+                :value="item.id"
+              >
+              </el-option>
+            </el-select>
           </el-form-item>
 
           <el-form-item label="性别">
-            <el-radio v-model="form.gender" label="男">男</el-radio>
-            <el-radio v-model="form.gender" label="女">女</el-radio>
-            <el-radio v-model="form.gender" label="未知">未知</el-radio>
+            <el-select v-model="form.gender" style="width:80%">
+              <el-option
+                v-for="item in genderOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
           </el-form-item>
         </el-form>
         <template #footer>
           <span class="dialog-footer">
             <el-button @click="dialogVisible = false">取 消</el-button>
-            <el-button type="primary" @click="save">确 定</el-button>
+            <el-button type="primary" @click="update">确 定</el-button>
           </span>
         </template>
       </el-dialog>
@@ -190,10 +220,21 @@ export default {
       pageSize: 10,
       total: 0,
       tableData: [],
+      directionIdOptions: [],
+      roles: [
+        { value: 1, label: "普通用户" },
+        { value: 2, label: "审核员" },
+        { value: 3, label: "管理员" },
+      ],
+      genderOptions: [
+        { value: 1, label: "男" },
+        { value: 0, label: "女" },
+      ],
     };
   },
   created() {
     this.load();
+    this.getDirections();
   },
   methods: {
     // showBooks(books) {
@@ -223,6 +264,12 @@ export default {
         this.load();
       }
     },
+    getDirections() {
+      request.get("/direction").then((res) => {
+        // console.log(res.data);
+        this.directionIdOptions = res.data;
+      });
+    },
     expoer() {
       location.href =
         // "http://" + window.server.filesUploadUrl + ":8181/user/export";
@@ -233,48 +280,72 @@ export default {
       this.dialogVisible = true; // 显示弹窗
       this.form = {}; // 清空表单属性
     },
-    save() {
-      if (this.form.id) {
-        // 更新
-        request.put("/user", this.form).then((res) => {
-          // console.log(res);
-          if (res.status === 200) {
-            this.$message({
-              type: "success",
-              message: "更新成功",
-            });
-          } else {
-            this.$message({
-              type: "error",
-              message: res.msg,
-            });
-          }
-          this.load(); // 刷新表格的数据
-          this.dialogVisible = false; // 关闭弹窗
-        });
-      } else {
-        // 新增
-        request.post("/user", this.form).then((res) => {
-          // console.log(res);
-          if (res.status === 200) {
-            this.$message({
-              type: "success",
-              message: "新增成功",
-            });
-          } else {
-            this.$message({
-              type: "error",
-              message: res.msg,
-            });
-          }
 
-          this.load(); // 刷新表格的数据
-          this.dialogVisible = false; // 关闭弹窗
-        });
-      }
+    update() {
+      request.put("/user", this.form).then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          this.$message({
+            type: "success",
+            message: "更新成功",
+          });
+          sessionStorage.setItem("user", JSON.stringify(this.form));
+          // 触发Layout更新用户信息
+          this.$emit("userInfo");
+        } else {
+          this.$message({
+            type: "error",
+            message: res.msg,
+            // message: "保存失败",
+          });
+        }
+      });
+      this.dialogVisible = false; // 关闭弹窗
+      this.load(); // 刷新表格的数据
     },
+    // save() {
+    //   if (this.form.id) {
+    //     // 更新
+    //     request.put("/user", this.form).then((res) => {
+    //       // console.log(res);
+    //       if (res.status === 200) {
+    //         this.$message({
+    //           type: "success",
+    //           message: "更新成功",
+    //         });
+    //       } else {
+    //         this.$message({
+    //           type: "error",
+    //           message: res.msg,
+    //         });
+    //       }
+    //       this.load(); // 刷新表格的数据
+    //       this.dialogVisible = false; // 关闭弹窗
+    //     });
+    //   } else {
+    //     // 新增
+    //     request.post("/user", this.form).then((res) => {
+    //       // console.log(res);
+    //       if (res.status === 200) {
+    //         this.$message({
+    //           type: "success",
+    //           message: "新增成功",
+    //         });
+    //       } else {
+    //         this.$message({
+    //           type: "error",
+    //           message: res.msg,
+    //         });
+    //       }
+
+    //       this.load(); // 刷新表格的数据
+    //       this.dialogVisible = false; // 关闭弹窗
+    //     });
+    //   }
+    // },
     handleEdit(row) {
       this.form = JSON.parse(JSON.stringify(row));
+      console.log(this.form);
       this.dialogVisible = true;
     },
     showPaper() {},

@@ -28,7 +28,7 @@ request.interceptors.request.use(
         config.headers["token"] = user.token; // 设置请求头
       }
     }
-    console.log(config);
+    // console.log(config);
     return config;
   },
   (error) => {
@@ -41,8 +41,8 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   (response) => {
     let res = response.data;
-    console.log(response);
-    console.log(response.config.responseType);
+    // console.log(response);
+    // console.log(response.config.responseType);
 
     // 如果是返回的文件
     if (response.config.responseType === "blob") {
