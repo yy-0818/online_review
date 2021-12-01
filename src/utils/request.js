@@ -1,6 +1,6 @@
 import axios from "axios";
 import router from "@/router";
-import Message from "element-plus";
+import {message} from "@/utils/message";
 
 const request = axios.create({
   baseURL: "/api",
@@ -22,6 +22,11 @@ request.interceptors.request.use(
     if (!whiteUrls.includes(config.url)) {
       // 校验请求白名单
       if (!userJson) {
+        message.error({
+          message:  'token过期，重新登录',
+          duration: 2 * 1000,
+          showClose: true
+        })
         router.push("/login");
       } else {
         let user = JSON.parse(userJson);
@@ -59,6 +64,11 @@ request.interceptors.response.use(
     // 验证token
     if (res.status === 10003) {
       console.error("token过期，重新登录");
+      message.error({
+        message:  'token过期，重新登录',
+        duration: 2 * 1000,
+        showClose: true
+      })
       router.push("/login");
     }
     return res;
