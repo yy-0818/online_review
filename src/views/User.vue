@@ -237,10 +237,6 @@ export default {
     this.getDirections();
   },
   methods: {
-    // showBooks(books) {
-    //   this.bookList = books;
-    //   this.bookVis = true;
-    // },
     load() {
       this.loading = true;
       request
@@ -290,9 +286,7 @@ export default {
             type: "success",
             message: "更新成功",
           });
-          sessionStorage.setItem("user", JSON.stringify(this.form));
-          // 触发Layout更新用户信息
-          this.$emit("userInfo");
+          this.load(); // 刷新表格的数据
         } else {
           this.$message({
             type: "error",
@@ -302,7 +296,6 @@ export default {
         }
       });
       this.dialogVisible = false; // 关闭弹窗
-      this.load(); // 刷新表格的数据
     },
     // save() {
     //   if (this.form.id) {

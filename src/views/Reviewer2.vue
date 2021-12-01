@@ -514,6 +514,7 @@ export default {
                   type: "success",
                   message: "退回成功",
                 });
+                this.load(); // 刷新表格的数据
               } else {
                 console.log(res);
                 this.$message({
@@ -528,7 +529,6 @@ export default {
             });
 
           this.dialogVisible = false; // 关闭弹窗
-          this.load(); // 刷新表格的数据
         }
       });
       this.$refs["formdata"].resetFields();
@@ -608,13 +608,13 @@ export default {
               type: "success",
               message: "通过成功",
             });
+            this.load();
           } else {
             this.$message({
               type: "error",
               message: "请求超时",
             });
           }
-          this.load();
         });
       this.$refs["formdata"].resetFields();
       this.$refs["upload"].clearFiles();
