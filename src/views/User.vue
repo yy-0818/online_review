@@ -252,9 +252,10 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.loading = false;
           this.tableData = res.data.records;
+          console.table(this.tableData);
           this.total = res.data.total;
         });
     },
