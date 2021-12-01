@@ -1,10 +1,6 @@
 <template>
-  <div
-      style="height: 50px; line-height: 50px; border-bottom: 1px solid #ccc; display: flex"
-  >
-    <div
-        style="width: 500px; padding-left: 15px; font-weight: bold; color: dodgerblue;font-size: 25px"
-    >
+  <div class="div-header">
+    <div class="div-header-a">
       在线审稿系统(OMRS)
     </div>
     <div style="flex: 1"></div>
@@ -13,9 +9,9 @@
         <!-- 全屏显示 -->
         <div class="btn-fullscreen" @click="handleFullScreen">
           <el-tooltip
-              effect="light"
-              :content="fullscreen ? `取消全屏` : `全屏`"
-              placement="bottom"
+            effect="light"
+            :content="fullscreen ? `取消全屏` : `全屏`"
+            placement="bottom"
           >
             <i class="el-icon-rank"></i>
           </el-tooltip>
@@ -24,9 +20,15 @@
         <el-dropdown style="margin-top: -0px;">
           <span class="el-dropdown-link">
             <el-avatar
-                :size="40"
-                :src="user.avatarUrl === '/image/avatar.png' ? defaultAvatar: user.avatarUrl === undefined ? defaultAvatar : '/api' + user.avatarUrl"
-                fit="scale-down"
+              :size="40"
+              :src="
+                user.avatarUrl === '/image/avatar.png'
+                  ? defaultAvatar
+                  : user.avatarUrl === undefined
+                  ? defaultAvatar
+                  : '/api' + user.avatarUrl
+              "
+              fit="scale-down"
             ></el-avatar>
             <!-- {{ user.name }}
             <i class="el-icon-arrow-down el-icon--right"></i> -->
@@ -34,14 +36,12 @@
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item @click="$router.push('/person')"
-              >个人信息
-              </el-dropdown-item
-              >
+                >个人信息
+              </el-dropdown-item>
 
               <el-dropdown-item divided @click="$router.push('/login')"
-              >退出系统
-              </el-dropdown-item
-              >
+                >退出系统
+              </el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -57,7 +57,7 @@ export default {
   data() {
     return {
       fullscreen: false,
-      defaultAvatar: '/api/files/avatar.png'
+      defaultAvatar: "/api/files/avatar.png",
     };
   },
   methods: {
@@ -120,5 +120,21 @@ export default {
 .el-avatar {
   position: relative;
   top: -8px;
+}
+
+.div-header {
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  background: #fefeff;
+}
+
+.div-header-a {
+  width: 500px;
+  padding-left: 15px;
+  font-weight: bold;
+  color: dodgerblue;
+  font-size: 25px;
 }
 </style>

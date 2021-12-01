@@ -4,7 +4,7 @@
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b"
-      style="width: 215px; min-height: calc(100vh - 50px)"
+      style="width: 215px; min-height: calc(100vh - 50px);height:100%"
       :default-active="path"
       unique-opened="true"
       router
