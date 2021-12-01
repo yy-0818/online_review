@@ -41,7 +41,7 @@
 
           <div style="padding: 14px;">
             <a
-              href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovLzQ5LjIzNC41MS4yMjA6MTIzNDUvZmlsZXMvZGIxMWMyMGIzZTRlNDk4MmJmOTY4YmQyMTcwZGU3NThfUGFwZXIgZm9ybWF0IChwcmVsaW1pbmFyeSBkcmFmdCkuZG9jeA%3D%3D&officePreviewType=pdf"
+              href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovL3BhcGVyLmx1bmF0aWMucmVuL2FwaS9maWxlcy85MjI3OTYyYmQ3ZmU0Yzk1YmYxMzBkOWFhYmY0MzNkNl9QYXBlciBmb3JtYXQgKHByZWxpbWluYXJ5IGRyYWZ0KS5kb2N4&officePreviewType=pdf"
               target="_blank"
               ><span>Paper format (preliminary draft) </span></a
             >
@@ -69,7 +69,7 @@
           <img src="../assets/img/rl.png" class="image" alt="" />
           <div style="padding: 14px;">
             <a
-              href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovLzQ5LjIzNC41MS4yMjA6MTIzNDUvZmlsZXMvMmUyZDgxYzFmM2U0NGNlY2JkYTg2ZGIzNmUxOTliYWRfRXhwbGFuYXRpb24uZG9jeA%3D%3D&officePreviewType=pdf"
+              href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovL3BhcGVyLmx1bmF0aWMucmVuL2FwaS9maWxlcy83NTAzYWYxMDFiZjA0ZDU1OTM4ODBhMThjMDBhMDI2OF9FeHBsYW5hdGlvbi5kb2N4&officePreviewType=pdf"
               target="_blank"
               ><span>Explanation </span></a
             >
@@ -292,4 +292,25 @@ export default {
   /* margin-top: 20x; */
   width: 568px;
 }
+
+/* a:hover {
+  text-decoration: none;
+  color: red;
+} */
+a:link {
+  color: #000;
+  text-decoration: none;
+}
+a:visited {
+  color: rgb(10, 160, 247);
+  text-decoration: none;
+}
+a:hover {
+  color: #00f;
+  text-decoration: none;
+}
+/* a:active {
+  color: #fff;
+  text-decoration: none;
+} */
 </style>
