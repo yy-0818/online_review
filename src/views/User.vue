@@ -267,7 +267,7 @@ export default {
         this.directionIdOptions = res.data;
       });
     },
-    expoer() {
+    export() {
       location.href =
         // "http://" + window.server.filesUploadUrl + ":8181/user/export";
         // "/api" + "/files/editor/upload";

@@ -256,14 +256,14 @@
 
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="handleDelt">取 消</el-button>
-          <el-button @click="handlesave" type="primary">确定</el-button>
+          <el-button @click="handleDele">取 消</el-button>
+          <el-button @click="handleSave" type="primary">确定</el-button>
         </span>
       </template>
     </el-dialog>
   </div>
 </template>
-
+S
 <script>
 import request from "@/utils/request";
 import { h } from "vue";
@@ -380,12 +380,12 @@ export default {
     newUpload() {
       this.dialogFormVisible = true;
     },
-    handleDelt() {
+    handleDele() {
       //取消弹窗并清空内容  通过
       this.dialogFormVisible = false;
-      this.$refs["upload"].clearFiles();
+      this.$refs["upload"].clearFileSs();
     },
-    handlesave() {
+    handleSave() {
       let url = this.formPaper.url;
       console.log(url);
       if (url === "" || url === null) {

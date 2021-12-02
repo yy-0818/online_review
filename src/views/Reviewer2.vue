@@ -281,8 +281,8 @@
 
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="handleDelt">取 消</el-button>
-          <el-button @click="handlesave" type="primary">确定</el-button>
+          <el-button @click="handleDele">取 消</el-button>
+          <el-button @click="handleSave" type="primary">确定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -331,7 +331,7 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="handleDelt2">取 消</el-button>
+          <el-button @click="handleDele2">取 消</el-button>
           <el-button @click="save" type="primary">确定</el-button>
         </span>
       </template>
@@ -492,7 +492,7 @@ export default {
     //     this.load();
     //   }
     // },
-    exporter() {
+    export() {
       location.href =
         // "http://" + window.server.filesUploadUrl + ":8181/user/export";
         // "/api" + "/files/editor/upload";
@@ -573,14 +573,14 @@ export default {
       this.dialogVisible = true;
       this.$refs["upload"].clearFiles();
     },
-    handleDelt() {
+    handleDele() {
       //取消弹窗并清空内容
       this.dialogFormVisible = false;
       this.$refs["formdata"].resetFields();
       this.$refs["upload"].clearFiles();
     },
 
-    handleDelt2() {
+    handleDele2() {
       //退回弹窗
       this.dialogVisible = false;
       this.$refs["formdata"].resetFields();
@@ -594,7 +594,7 @@ export default {
     },
 
     //通过
-    handlesave(id) {
+    handleSave(id) {
       console.log(id);
       request
         .post("/paper/passUltimate/", {

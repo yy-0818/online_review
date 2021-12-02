@@ -10,7 +10,7 @@
         type="card"
         height="300px"
       >
-        <el-carousel-item v-for="item in dataimgs" :key="item">
+        <el-carousel-item v-for="item in DataImgs" :key="item">
           <!-- <el-image style="width: 100%;height: 100%;" :src="url" :fit="fit">
           </el-image> -->
           <div class="grid-content">
@@ -110,19 +110,6 @@
         </div>
       </el-col>
     </el-row>
-    <!--    <el-row style="margin-top: 10px;">-->
-    <!--      <el-card class="box-card" shadow="hover">-->
-    <!--        <template #header>-->
-    <!--          <div class="card-header">-->
-    <!--            <span style="  font-size: 20px;">入站详情</span>-->
-    <!--            &lt;!&ndash; <el-button class="button" type="text">操作按钮</el-button> &ndash;&gt;-->
-    <!--          </div>-->
-    <!--        </template>-->
-    <!--        <div v-for="o in 4" :key="o" class="text item">-->
-    <!--          {{ " " + o }}-->
-    <!--        </div>-->
-    <!--      </el-card>-->
-    <!--    </el-row>-->
   </div>
 </template>
 
@@ -135,7 +122,7 @@ export default {
     return {
       fit: "cover",
       // imgs: ["img/1.jpg", "img/2.jpg", "img/3.jpg", "img/4.jpg", "img/5.jpg"],
-      dataimgs: [
+      DataImgs: [
         {
           src: require("../assets/carousel/1.png"),
           txt: '"Keep on going never give up."',

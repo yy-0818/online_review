@@ -326,8 +326,8 @@
 
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="handleDelt">取 消</el-button>
-          <el-button @click="handlesave" type="primary">确定</el-button>
+          <el-button @click="handleDele">取 消</el-button>
+          <el-button @click="handleSave" type="primary">确定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -429,7 +429,7 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="handleDelt2">取 消</el-button>
+          <el-button @click="handleDele2">取 消</el-button>
           <el-button @click="save()" type="primary">确定</el-button>
         </span>
       </template>
@@ -470,7 +470,6 @@ export default {
         state: "",
         url: "",
       },
-      formDatas: {},
 
       dialogVisible: false, // 弹窗
       dialogFormVisible: false,
@@ -568,7 +567,7 @@ export default {
     //     this.load();
     //   }
     // },
-    expoert() {
+    export() {
       location.href =
         // "http://" + window.server.filesUploadUrl + ":8181/user/export";
         // "/api" + "/files/editor/upload";
@@ -620,14 +619,14 @@ export default {
       console.log(this.formdata.id);
       this.dialogVisible = true;
     },
-    handleDelt() {
+    handleDele() {
       //通过
       // 取消弹窗并清空内容
       this.dialogFormVisible = false;
       this.$refs["formdata"].resetFields();
       this.$refs["upload"].clearFiles();
     },
-    handleDelt2() {
+    handleDele2() {
       //退回弹窗
       this.dialogVisible = false;
       this.$refs["formdata"].resetFields();
@@ -639,7 +638,7 @@ export default {
       this.formdata.id = row.id;
       this.dialogFormVisible = true;
     },
-    handlesave() {
+    handleSave() {
       this.$refs["formdata"].validate((valid) => {
         console.log(valid);
         if (valid) {

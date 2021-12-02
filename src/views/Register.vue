@@ -2,7 +2,7 @@
   <div class="af" :style="imgSrc">
     <div style="width: 400px; margin:auto;">
       <el-card>
-        <div id="todoapp">
+        <div id="todo">
           欢迎注册
         </div>
         <el-form ref="form" :model="form" size="normal" :rules="rules">
@@ -74,7 +74,6 @@
 
 <script>
 import request from "@/utils/request";
-// import axios from "axios";
 
 export default {
   name: "Register",
@@ -154,7 +153,7 @@ export default {
     // 控制获取验证码按钮是否可点击
     getCodeBtnDisable() {
       if (this.waitTime == 61) {
-        if (this.form.emai) {
+        if (this.form.email) {
           this.false;
         }
         return true;
@@ -281,8 +280,8 @@ export default {
   /* background: linear-gradient(90deg, #8dbed6, #2918c0); */
 }
 
-#todoapp {
-  /*font-size: 60px "华文行楷";*/
+#todo {
+  font-size: 60px "华文行楷";
   text-align: center;
   font: 50px "华文行楷";
   color: #4d4d4d;
