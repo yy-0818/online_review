@@ -1,9 +1,9 @@
 <template>
   <div>
     <el-menu
-      background-color="#545c64"
+      background-color="#304156"
       text-color="#fff"
-      active-text-color="#ffd04b"
+      active-text-color="#409eff"
       style="width: 215px; min-height: calc(100vh - 50px);height:100%"
       :default-active="path"
       unique-opened="true"
@@ -95,6 +95,6 @@ export default {
 
 <style scoped>
 .el-menu-item-h {
-  font-size: 17px;
+  font-size: 16px;
 }
 </style>

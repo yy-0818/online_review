@@ -1,7 +1,7 @@
 <template>
   <div class="div-header">
     <div class="div-header-a">
-      在线审稿系统(OMRS)
+      科研成果内部审核系统
     </div>
     <div style="flex: 1"></div>
     <div class="header-right">
@@ -128,13 +128,15 @@ export default {
   border-bottom: 1px solid #ccc;
   display: flex;
   background: #fefeff;
+  /* background: #304156; */
 }
 
 .div-header-a {
   width: 500px;
-  padding-left: 15px;
+  padding-left: 5px;
   font-weight: bold;
   color: dodgerblue;
-  font-size: 25px;
+  /* color: white; */
+  font-size: 21px;
 }
 </style>
