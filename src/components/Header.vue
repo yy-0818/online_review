@@ -57,7 +57,8 @@ export default {
   data() {
     return {
       fullscreen: false,
-      defaultAvatar: "/api/files/avatar.png",
+      defaultAvatar:
+        "https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/img/avatar.png",
     };
   },
   methods: {

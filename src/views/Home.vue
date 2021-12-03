@@ -41,7 +41,7 @@
 
           <div style="padding: 14px;">
             <a
-              href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovL3BhcGVyLmx1bmF0aWMucmVuL2FwaS9maWxlcy85MjI3OTYyYmQ3ZmU0Yzk1YmYxMzBkOWFhYmY0MzNkNl9QYXBlciBmb3JtYXQgKHByZWxpbWluYXJ5IGRyYWZ0KS5kb2N4&officePreviewType=pdf"
+              href="http://8.136.96.167:8012/onlinePreview?url=aHR0cHM6Ly9wYXBlci1yZXZpZXctc3lzdGVtLTEyNTMzNDY2ODYuY29zLmFwLWd1YW5nemhvdS5teXFjbG91ZC5jb20vZG9jcy9QYXBlciUyMGZvcm1hdCUyMChwcmVsaW1pbmFyeSUyMGRyYWZ0KS5kb2N4&officePreviewType=image"
               target="_blank"
               ><span>Paper format (preliminary draft) </span></a
             >
@@ -69,7 +69,7 @@
           <img src="../assets/img/rl.png" class="image" alt="" />
           <div style="padding: 14px;">
             <a
-              href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovL3BhcGVyLmx1bmF0aWMucmVuL2FwaS9maWxlcy83NTAzYWYxMDFiZjA0ZDU1OTM4ODBhMThjMDBhMDI2OF9FeHBsYW5hdGlvbi5kb2N4&officePreviewType=pdf"
+              href="http://8.136.96.167:8012/onlinePreview?url=aHR0cHM6Ly9wYXBlci1yZXZpZXctc3lzdGVtLTEyNTMzNDY2ODYuY29zLmFwLWd1YW5nemhvdS5teXFjbG91ZC5jb20vZG9jcy9FeHBsYW5hdGlvbi5kb2N4&officePreviewType=pdf"
               target="_blank"
               ><span>Explanation </span></a
             >
@@ -94,7 +94,11 @@
             :body-style="{ padding: '0px' }"
             shadow="hover"
           >
-            <img src="../assets/img/hh.png" class="image" alt="夕阳" />
+            <img
+              src="https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/img/hh.png"
+              class="image"
+              alt="夕阳"
+            />
 
             <div style="padding: 14px;">
               <span>园翁莫把秋荷折，因与游鱼盖夕阳宋。</span>
@@ -124,24 +128,30 @@ export default {
       // imgs: ["img/1.jpg", "img/2.jpg", "img/3.jpg", "img/4.jpg", "img/5.jpg"],
       DataImgs: [
         {
-          src: require("../assets/carousel/1.png"),
+          src:
+            "https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/carousel/1.png",
           txt: '"Keep on going never give up."',
           txt2: '"勇往直前，决不放弃！"',
         },
         {
-          src: require("../assets/carousel/2.png"),
+          src:
+            "https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/carousel/2.png",
         },
         {
-          src: require("../assets/carousel/11.png"),
+          src:
+            "https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/carousel/11.png",
         },
         {
-          src: require("../assets/carousel/4.png"),
+          src:
+            "https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/carousel/4.png",
         },
         {
-          src: require("../assets/carousel/13.jpg"),
+          src:
+            "https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/carousel/13.jpg",
         },
         {
-          src: require("../assets/carousel/12.jpg"),
+          src:
+            "https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/carousel/12.jpg",
         },
       ],
       lay_type: 0,
