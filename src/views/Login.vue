@@ -76,7 +76,8 @@ export default {
   data() {
     return {
       imgSrc: {
-        backgroundImage: "url(" + require("../assets/carousel/3.png") + ")",
+        backgroundImage:
+          "url(https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/carousel/3.png)",
         // height: "100vh",
         // width: "100vw",
         backgroundRepeat: "no-repeat",

@@ -37,7 +37,10 @@
           :body-style="{ padding: '0px' }"
           shadow="hover"
         >
-          <img src="../assets/img/fc.png" class="image" />
+          <img
+            src="https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/img/fc.png"
+            class="image"
+          />
 
           <div style="padding: 14px;">
             <a
@@ -66,7 +69,11 @@
           :body-style="{ padding: '0px' }"
           shadow="hover"
         >
-          <img src="../assets/img/rl.png" class="image" alt="" />
+          <img
+            src="https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/img/rl.png"
+            class="image"
+            alt=""
+          />
           <div style="padding: 14px;">
             <a
               href="http://8.136.96.167:8012/onlinePreview?url=aHR0cHM6Ly9wYXBlci1yZXZpZXctc3lzdGVtLTEyNTMzNDY2ODYuY29zLmFwLWd1YW5nemhvdS5teXFjbG91ZC5jb20vZG9jcy9FeHBsYW5hdGlvbi5kb2N4&officePreviewType=pdf"
