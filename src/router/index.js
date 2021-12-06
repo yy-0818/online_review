@@ -1,5 +1,7 @@
-import { createRouter, createWebHistory } from "vue-router";
+import {createRouter, createWebHistory} from "vue-router";
 import Layout from "../layout/Layout.vue";
+import NProgress from 'nprogress' // progress bar
+import 'nprogress/nprogress.css' // progress bar style
 
 const routes = [
   {
@@ -136,26 +138,33 @@ const router = createRouter({
 });
 
 // 限制某些页面禁止未登录访问
-let limitPagePath = ["/about"];
+// let limitPagePath = [];
 
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */
 
+  // NProgress.start()
+
   if (to.meta.title) {
     document.title = to.meta.title;
   }
-  if (limitPagePath.includes(to.path)) {
-    // 判断sessionStorage是否保存了用户信息
-    let userStr = sessionStorage.getItem("user") || "{}";
-    let user = JSON.parse(userStr);
-    if (!user.id) {
-      // 跳转到登录页面
-      next({ path: "/login" });
-    } else {
-      next();
-    }
+
+
+  NProgress.start();
+  let userStr = sessionStorage.getItem("user") || "{}";
+  let user = JSON.parse(userStr);
+  if (to.path !== '/login' && !user.token) {
+    next({path: '/login'})
+    NProgress.done()
+
   } else {
-    next();
+    if (to.path === '/login' && user.token) {
+      next('/')
+      NProgress.done()
+    } else {
+      next()
+      NProgress.done()
+    }
   }
 });
 
