@@ -14,7 +14,7 @@
             :rules="rulesPaper"
             label-width="130px"
           >
-            <el-row gutter="20">
+            <el-row :gutter="20">
               <el-col :span="8">
                 <el-form-item
                   class="el-form-item-a"
@@ -42,7 +42,7 @@
               </el-col>
             </el-row>
 
-            <el-row gutter="20">
+            <el-row :gutter="20">
               <el-col :span="8">
                 <el-form-item
                   class="el-form-item-a"

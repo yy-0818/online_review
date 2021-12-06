@@ -6,7 +6,7 @@
       active-text-color="#409eff"
       style="width: 215px; min-height: calc(100vh - 50px);height:100%"
       :default-active="path"
-      unique-opened="true"
+      :unique-opened="true"
       router
     >
       <el-menu-item index="/home" class="el-menu-item-h">
