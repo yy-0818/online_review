@@ -8,13 +8,14 @@ import Plugin from "v-fit-columns";
 // import 'dayjs/locale/zh-cn'
 // import locale from 'element-plus/lib/locale/lang/zh-cn'
 // import * as echarts from "echarts";
-
 import "@/assets/css/global.css";
+import VueParticles from "vue-particles";
 
 const app = createApp(App)
   .use(Plugin)
   .use(store)
   .use(router)
+  .use(VueParticles)
   .use(ElementPlus, { size: "small" })
   .mount("#app");
 // app.echarts = echarts;
