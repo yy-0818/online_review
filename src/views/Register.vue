@@ -1,6 +1,24 @@
 <template>
-  <div class="af" :style="imgSrc">
-    <div style="width: 400px; margin:auto;">
+  <div class="welcome-page" :style="imgSrc">
+    <vue-particles
+      color="#409EFF"
+      :particleOpacity="0.7"
+      :particlesNumber="80"
+      shapeType="circle"
+      :particleSize="4"
+      linesColor="#409EFF"
+      :linesWidth="1"
+      :lineLinked="true"
+      :lineOpacity="0.4"
+      :linesDistance="150"
+      :moveSpeed="3"
+      :hoverEffect="true"
+      hoverMode="grab"
+      :clickEffect="true"
+      clickMode="push"
+    >
+    </vue-particles>
+    <div class="main">
       <el-card>
         <div id="todo">
           欢迎注册
@@ -271,7 +289,7 @@ export default {
   margin-top: -5px;
 } */
 
-.af {
+.welcome-page {
   display: flex;
   width: 100%;
   height: 100vh;
@@ -279,6 +297,20 @@ export default {
   background-size: 100% 100%;
   /* background-size: cover; */
   /* background: linear-gradient(90deg, #8dbed6, #2918c0); */
+}
+
+.main {
+  /* text-align: center; 让div内部文字居中 */
+  background-color: #fff;
+  /* border-radius: 20px; */
+  width: 400px;
+  height: 500px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 #todo {

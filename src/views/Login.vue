@@ -1,9 +1,26 @@
 <template>
-  <div class="af" :style="imgSrc">
-    <!-- <img :src="imgSrc" width="100%" height="100%" alt="" /> -->
-    <div style="width: 400px; margin:auto;">
+  <div class="welcome-page" :style="imgSrc">
+    <vue-particles
+      color="#409EFF"
+      :particleOpacity="0.7"
+      :particlesNumber="80"
+      shapeType="circle"
+      :particleSize="4"
+      linesColor="#409EFF"
+      :linesWidth="1"
+      :lineLinked="true"
+      :lineOpacity="0.4"
+      :linesDistance="150"
+      :moveSpeed="3"
+      :hoverEffect="true"
+      hoverMode="grab"
+      :clickEffect="true"
+      clickMode="push"
+    >
+    </vue-particles>
+    <div class="main">
       <el-card>
-        <div id="todoapp">
+        <div id="todo">
           欢迎登录
         </div>
         <el-form ref="form" :model="form" size="normal" :rules="rules">
@@ -47,9 +64,7 @@
 
           <el-form-item>
             <el-row>
-              <el-button type="text" @click="$router.push('/register')"
-                >前往注册 >>
-              </el-button>
+              <el-button type="text" @click="register">前往注册 >> </el-button>
               <el-button
                 style="padding-left:22vh"
                 type="text"
@@ -143,6 +158,11 @@ export default {
     resetForm(form) {
       this.$refs[form].resetFields();
     },
+
+    register() {
+      console.log("=======");
+      this.$router.push("/register");
+    },
   },
 };
 </script>
@@ -157,20 +177,33 @@ export default {
   margin-top: -5px;
 }  */
 
-.af {
+.welcome-page {
   display: flex;
   width: 100%;
   height: 100vh;
   overflow: hidden;
   background-size: 100% 100%;
-  /* background: linear-gradient(90deg, #8dbed6, #2918c0); */
+}
+
+.main {
+  /* text-align: center; 让div内部文字居中 */
+  background-color: #fff;
+  /* border-radius: 20px; */
+  width: 400px;
+  height: 500px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 /* .showbox :hover {
   box-shadow: 0px 12px 36px rgba(0, 0, 0, 0.1);
 } */
 
-#todoapp {
+#todo {
   /*font-size: 60px "华文行楷";*/
   text-align: center;
   font: 50px "华文行楷";
