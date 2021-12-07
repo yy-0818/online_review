@@ -9,9 +9,9 @@
         <!-- 全屏显示 -->
         <div class="btn-fullscreen" @click="handleFullScreen">
           <el-tooltip
-              effect="light"
-              :content="fullscreen ? `取消全屏` : `全屏`"
-              placement="bottom"
+            effect="light"
+            :content="fullscreen ? `取消全屏` : `全屏`"
+            placement="bottom"
           >
             <i class="el-icon-rank"></i>
           </el-tooltip>
@@ -20,27 +20,25 @@
         <el-dropdown style="margin-top: -0px;">
           <span class="el-dropdown-link">
             <el-avatar
-                :size="40"
-                :src="
+              :size="40"
+              :src="
                 user.avatarUrl === '/image/avatar.png'
                   ? defaultAvatar
                   : user.avatarUrl === undefined
                   ? defaultAvatar
                   : '/api' + user.avatarUrl
               "
-                fit="scale-down"
+              fit="scale-down"
             ></el-avatar>
             <!-- {{ user.name }}
             <i class="el-icon-arrow-down el-icon--right"></i> -->
           </span>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item @click="$router.push('/person')"
-              >个人信息
-              </el-dropdown-item>
+              <el-dropdown-item @click="me">个人信息 </el-dropdown-item>
 
               <el-dropdown-item divided @click="logout"
-              >退出系统
+                >退出系统
               </el-dropdown-item>
             </el-dropdown-menu>
           </template>
@@ -58,14 +56,16 @@ export default {
     return {
       fullscreen: false,
       defaultAvatar:
-          "https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/img/avatar.png",
+        "https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/img/avatar.png",
     };
   },
   methods: {
-
+    me() {
+      this.$router.push("/person");
+    },
     logout() {
-      sessionStorage.clear()
-      this.$router.push('/login')
+      sessionStorage.clear();
+      this.$router.push("/login");
     },
 
     // userAvatarUrl() {

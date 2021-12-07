@@ -32,7 +32,7 @@ const routes = [
       {
         path: "paper",
         name: "Paper",
-        component: () => import("@/views/Paper"),
+        component: () => import("@/views/results/Paper"),
         meta: {
           title: "论文上传",
           keepAlive: true,
@@ -59,19 +59,9 @@ const routes = [
       },
 
       {
-        path: "im",
-        name: "Im",
-        component: () => import("@/views/Im"),
-      },
-      {
-        path: "message",
-        name: "Message",
-        component: () => import("@/views/Message"),
-      },
-      {
         path: "Reviewer",
         name: "Reviewer",
-        component: () => import("@/views/Reviewer"),
+        component: () => import("@/views/correct/reviewer1/paper/Reviewer"),
         meta: {
           title: "初审",
           keepAlive: true,
@@ -80,7 +70,7 @@ const routes = [
       {
         path: "Reviewer2",
         name: "Reviewer2",
-        component: () => import("@/views/Reviewer2"),
+        component: () => import("@/views/correct/reviewer2/paper/Reviewer2"),
         meta: {
           title: "终审",
           keepAlive: true,
@@ -124,7 +114,7 @@ const routes = [
   {
     path: "/:catchAll(.*)",
     name: "/404",
-    component: () => import("../views/404.vue"),
+    component: () => import("../views/error/404.vue"),
     meta: {
       title: "404",
       keepAlive: true,
