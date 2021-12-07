@@ -302,7 +302,7 @@ export default {
 .main {
   /* text-align: center; 让div内部文字居中 */
   background-color: #fff;
-  /* border-radius: 20px; */
+  border-radius: 20px;
   width: 400px;
   height: 500px;
   margin: auto;
