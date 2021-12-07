@@ -1,7 +1,7 @@
-import {createRouter, createWebHistory} from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import Layout from "../layout/Layout.vue";
-import NProgress from 'nprogress' // progress bar
-import 'nprogress/nprogress.css' // progress bar style
+import NProgress from "nprogress"; // progress bar
+import "nprogress/nprogress.css"; // progress bar style
 
 const routes = [
   {
@@ -139,6 +139,7 @@ const router = createRouter({
 
 // 限制某些页面禁止未登录访问
 // let limitPagePath = [];
+let writeList = ["/register"];
 
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */
@@ -149,22 +150,26 @@ router.beforeEach((to, from, next) => {
     document.title = to.meta.title;
   }
 
-
   NProgress.start();
-  let userStr = sessionStorage.getItem("user") || "{}";
-  let user = JSON.parse(userStr);
-  if (to.path !== '/login' && !user.token) {
-    next({path: '/login'})
-    NProgress.done()
 
-  } else {
-    if (to.path === '/login' && user.token) {
-      next('/')
-      NProgress.done()
+  if (!writeList.includes(to.path)) {
+    let userStr = sessionStorage.getItem("user") || "{}";
+    let user = JSON.parse(userStr);
+    if (to.path !== "/login" && !user.token) {
+      next({ path: "/login" });
+      NProgress.done();
     } else {
-      next()
-      NProgress.done()
+      if (to.path === "/login" && user.token) {
+        next("/");
+        NProgress.done();
+      } else {
+        next();
+        NProgress.done();
+      }
     }
+  } else {
+    next();
+    NProgress.done();
   }
 });
 
