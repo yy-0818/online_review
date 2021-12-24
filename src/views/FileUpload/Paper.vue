@@ -24,7 +24,7 @@
       <el-card class="box-card" shadow="hover">
         <template #header>
           <div class="card-header">
-            <span style="  font-size: 25px;">论文详情</span>
+            <span class="patent-span">论文详情</span>
           </div>
         </template>
         <div>
@@ -506,6 +506,10 @@ export default {
   font-size: 32px;
   color: #652c11;
   letter-spacing: 2px;
+}
+
+.patent-span {
+  font: 30px "华文";
 }
 
 .content {

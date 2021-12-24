@@ -78,32 +78,31 @@
       <el-table-column label="审核状态" align="center">
         <template #default="scope">
           <el-tag
-            size="medium"
-            :type="
+              size="medium"
+              :type="
               scope.row.state === 1 ||
-              scope.row.state === 3 ||
-              scope.row.state === 5
+              scope.row.state === 3
                 ? 'primary'
                 : scope.row.state === 0
                 ? 'info'
-                : scope.row.state === 4 || scope.row.state === 6
+                : scope.row.state === 4 || scope.row.state === 6 || scope.row.state === 2
                 ? 'danger'
-                : 'success'
+                :scope.row.state === 5 ?'success':''
             "
-            >{{
+          >{{
               scope.row.state === 1
-                ? "初审通过"
-                : "未审核" && scope.row.state === 2
-                ? "待修改"
-                : "未审核" && scope.row.state === 3
-                ? "二审通过"
-                : "未审核" && scope.row.state === 4
-                ? "二审未通过"
-                : "未审核" && scope.row.state === 5
-                ? "终审通过,归档"
-                : "未审核" && scope.row.state === 6
-                ? "终审未通过"
-                : "未审核"
+                  ? "初审通过"
+                  : "未审核" && scope.row.state === 2
+                      ? "一审未通过"
+                      : "未审核" && scope.row.state === 3
+                          ? "二审通过"
+                          : "未审核" && scope.row.state === 4
+                              ? "二审未通过"
+                              : "未审核" && scope.row.state === 5
+                                  ? "已归档"
+                                  : "未审核" && scope.row.state === 6
+                                      ? "终审未通过"
+                                      : "未审核"
             }}
           </el-tag>
         </template>
@@ -507,7 +506,7 @@ export default {
         if (valid) {
           console.log(this.formdata);
           request
-            .post("/paper/failBack", this.formdata)
+            .post("/paper/failBackFirst", this.formdata)
             .then((res) => {
               console.log(res);
               if (res.status === 200) {
@@ -601,43 +600,47 @@ export default {
     },
 
     handleDownload(row) {
-      const url = row.paperFiles[0].url;
-
-      if (url === "") {
+      const file = row.paperFiles;
+      if (file.length !== 0) {
+        console.log(file);
+        for (const key of file) {
+          // console.log(key.typeOr);
+          if (key.typeOr === 0) {
+            console.log(key.url);
+            const filename = key.url.replace(
+                /^\/files\/([a-fA-F0-9]{32})_/,
+                ""
+            );
+            const fileSuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
+            if (!filename || !fileSuffix) {
+              this.$message({
+                type: "error",
+                message: "文件名或文件后缀错误，请检查文件!",
+              });
+              return;
+            }
+            this.$message({
+              type: "success",
+              message: "文件下载中, 请稍后...",
+            });
+            request({
+              url: key.url,
+              method: "get",
+              responseType: "blob",
+            }).then((res) => {
+              download(res, filename, fileSuffix);
+            });
+          }
+        }
+      } else {
         this.$message({
-          type: "error",
+          type: "info",
           message: "未找到文件",
         });
-        return;
       }
-      const filename = url.replace(/^\/files\/([a-fA-F0-9]{32})_/, "");
-      const fileSuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
-
-      console.log(
-        filename,
-        fileSuffix,
-        filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)
-      );
-
-      if (!filename || !fileSuffix) {
-        this.$message({
-          type: "error",
-          message: "文件名或文件后缀错误，请检查文件!",
-        });
-        return;
-      }
-      this.$message({
-        type: "success",
-        message: "文件下载中, 请稍后...",
-      });
-      request({
-        url: url,
-        method: "get",
-        responseType: "blob",
-      }).then((res) => {
-        download(res, filename, fileSuffix);
-      });
     },
+
+
     handleSizeChange(pageSize) {
       // 改变当前每页的个数触发
       this.pageSize = pageSize;

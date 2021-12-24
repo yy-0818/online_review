@@ -1,5 +1,5 @@
 export const setUser = (user) => {
-  localStorage.setItem("user", JSON.stringify(user))
+  sessionStorage.setItem("user", JSON.stringify(user))
 }
 
 export const getUser = ()=> {

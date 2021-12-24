@@ -24,8 +24,7 @@ import Logo from "../Logo.vue";
 import SidebarItem from "./SidebarItem.vue";
 import {getTabs, getUser} from "@/utils/storage";
 import {setBreadcrumb} from "@/utils/storage";
-import {constRoutes} from "@/router";
-import {adminMenuList, studentMenuList} from "./menuList";
+import {adminMenuList, auditorMenuList, studentMenuList, teacherMenuList} from "./menuList";
 
 export default {
   components: {Logo, SidebarItem},
@@ -40,17 +39,16 @@ export default {
 
     const user = getUser()
 
-    const routers = ref(constRoutes)
     let menuList = (user) => {
       console.log(user);
       if (user.role === 0) {
         return studentMenuList
       } else if (user.role === 1) {
-        return adminMenuList
+        return teacherMenuList
       } else if (user.role === 2) {
-        return adminMenuList
+        return auditorMenuList
       } else if (user.role === 3) {
-        return studentMenuList
+        return adminMenuList
       }
     }
 
@@ -106,7 +104,6 @@ export default {
       ...params,
       isShowLogo,
       isCollapse,
-      routers
     };
   },
 };

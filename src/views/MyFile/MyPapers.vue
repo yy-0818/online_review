@@ -135,32 +135,31 @@
       <el-table-column label="审核状态" align="center">
         <template #default="scope">
           <el-tag
-            size="medium"
-            :type="
+              size="medium"
+              :type="
               scope.row.state === 1 ||
-              scope.row.state === 3 ||
-              scope.row.state === 5
+              scope.row.state === 3
                 ? 'primary'
                 : scope.row.state === 0
                 ? 'info'
-                : scope.row.state === 4 || scope.row.state === 6
+                : scope.row.state === 4 || scope.row.state === 6 || scope.row.state === 2
                 ? 'danger'
-                : 'success'
+                :scope.row.state === 5 ?'success':''
             "
-            >{{
+          >{{
               scope.row.state === 1
-                ? "初审通过"
-                : "未审核" && scope.row.state === 2
-                ? "待修改"
-                : "未审核" && scope.row.state === 3
-                ? "二审通过"
-                : "未审核" && scope.row.state === 4
-                ? "二审未通过"
-                : "未审核" && scope.row.state === 5
-                ? "终审通过,归档"
-                : "未审核" && scope.row.state === 6
-                ? "终审未通过"
-                : "未审核"
+                  ? "初审通过"
+                  : "未审核" && scope.row.state === 2
+                      ? "一审未通过"
+                      : "未审核" && scope.row.state === 3
+                          ? "二审通过"
+                          : "未审核" && scope.row.state === 4
+                              ? "二审未通过"
+                              : "未审核" && scope.row.state === 5
+                                  ? "已归档"
+                                  : "未审核" && scope.row.state === 6
+                                      ? "终审未通过"
+                                      : "未审核"
             }}
           </el-tag>
         </template>
@@ -503,42 +502,38 @@ export default {
 
     handleDownload(row) {
       const file = row.paperFiles;
-      if (file.length != 0) {
-        // console.log(file);
-        for (const key of file) {
-          // console.log(key.typeOr);
-          if (key.typeOr === 1) {
-            console.log(key.url);
-            const filename = key.url.replace(
-              /^\/files\/([a-fA-F0-9]{32})_/,
-              ""
-            );
-            const fileSuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
-            if (!filename || !fileSuffix) {
-              this.$message({
-                type: "error",
-                message: "文件名或文件后缀错误，请检查文件!",
-              });
-              return;
-            }
-            this.$message({
-              type: "success",
-              message: "文件下载中, 请稍后...",
-            });
-            request({
-              url: key.url,
-              method: "get",
-              responseType: "blob",
-            }).then((res) => {
-              download(res, filename, fileSuffix);
-            });
-          }
+      // console.log(file[1])
+      if(file[1] !== undefined){
+        // console.log(file[1])
+        const key = file[1]
+        const filename = key.url.replace(
+            /^\/files\/([a-fA-F0-9]{32})_/,
+            ""
+        );
+        const fileSuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
+        if (!filename || !fileSuffix) {
+          this.$message({
+            type: "error",
+            message: "文件名或文件后缀错误，请检查文件!",
+          });
+          return;
         }
-      } else {
         this.$message({
-          type: "error",
-          message: "未找到文件",
+          type: "success",
+          message: "文件下载中, 请稍后...",
         });
+        request({
+          url: key.url,
+          method: "get",
+          responseType: "blob",
+        }).then((res) => {
+          download(res, filename, fileSuffix);
+        });
+      }else {
+        this.$message({
+          type:"info",
+          message:"暂未找到任何文件"
+        })
       }
     },
 
@@ -555,7 +550,7 @@ export default {
     // 预览事件
     previewOpen(data) {
       const file = data.paperFiles;
-      if (file.length != 0) {
+      if (file.length !== 0) {
         console.log(file);
         for (const key of file) {
           // console.log(key.typeOr);
