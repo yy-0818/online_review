@@ -1,8 +1,8 @@
 const userRole = {
-  student: 0,
-  teacher: 1,
-  auditor: 2,
-  admin: 3
+  student: 1,
+  teacher: 2,
+  auditor: 3,
+  admin: 4
 }
 
 function hasPermission(roles, menu) {

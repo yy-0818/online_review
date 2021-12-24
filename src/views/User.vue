@@ -163,6 +163,7 @@
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
+                :disabled="item.value===4"
               >
               </el-option>
             </el-select>
@@ -225,6 +226,7 @@ export default {
         { value: 1, label: "普通用户" },
         { value: 2, label: "审核员" },
         { value: 3, label: "管理员" },
+        { value: 4, label: "超级管理员" },
       ],
       genderOptions: [
         { value: 1, label: "男" },

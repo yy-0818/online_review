@@ -66,6 +66,14 @@
             ></el-input>
           </el-form-item>
 
+<!--          <el-form-item label="角色">-->
+<!--            <el-input-->
+<!--                class="el-form-item-d"-->
+<!--                v-model="form.role"-->
+<!--                disabled-->
+<!--            ></el-input>-->
+<!--          </el-form-item>-->
+
           <el-form-item label="研究方向">
             <el-select v-model="form.directionId" style="width:80%">
               <el-option
@@ -117,9 +125,15 @@ export default {
         password: "",
         avatarUrl: "",
         directionId: "",
+        role:"",
       },
-
       directionIdOptions: [],
+      roles: [
+        { value: 1, label: "普通用户" },
+        { value: 2, label: "审核员" },
+        { value: 3, label: "管理员" },
+        { value: 4, label: "超级管理员" },
+      ],
       genderOptions: [
         { value: 1, label: "男" },
         { value: 0, label: "女" },

@@ -41,13 +41,13 @@ export default {
 
     let menuList = (user) => {
       console.log(user);
-      if (user.role === 0) {
+      if (user.role === 1) {
         return studentMenuList
-      } else if (user.role === 1) {
-        return teacherMenuList
       } else if (user.role === 2) {
-        return auditorMenuList
+        return teacherMenuList
       } else if (user.role === 3) {
+        return auditorMenuList
+      } else if (user.role === 4) {
         return adminMenuList
       }
     }
