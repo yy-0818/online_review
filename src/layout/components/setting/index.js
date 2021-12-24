@@ -49,7 +49,7 @@ export const _data = {
     "#383F45",
   ],
   showBreadcrumb: true,
-  showTabs: true,
+  showTabs: false,
 };
 
 // 主题切换

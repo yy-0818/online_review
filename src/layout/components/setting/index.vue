@@ -89,14 +89,14 @@
           @change="changeSetting('showBreadcrumb', $event)"
         ></el-switch>
       </div>
-      <div class="other-row">
-        <span>导航页</span>
-        <el-switch
-          v-model="showTabs"
-          class="custom-switch"
-          @change="changeSetting('showTabs', $event)"
-        ></el-switch>
-      </div>
+<!--      <div class="other-row">-->
+<!--        <span>导航页</span>-->
+<!--        <el-switch-->
+<!--          v-model="showTabs"-->
+<!--          class="custom-switch"-->
+<!--          @change="changeSetting('showTabs', $event)"-->
+<!--        ></el-switch>-->
+<!--      </div>-->
     </div>
     <el-button class="draw-save" @click="close">保存</el-button>
   </el-drawer>

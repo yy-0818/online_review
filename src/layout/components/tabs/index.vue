@@ -76,6 +76,8 @@ import {
 } from "@element-plus/icons";
 import { setTabs, getTabs } from "@/utils/storage.js";
 import { useStore } from "vuex";
+import {useRouter} from "vue-router";
+
 export default {
   components: {
     ArrowDown,
@@ -86,6 +88,7 @@ export default {
   },
   setup() {
     const store = useStore();
+    const router = useRouter()
     const data = reactive({
       left: 0,
       tabs: getTabs(),
@@ -129,6 +132,7 @@ export default {
     // 点击tab
     const handleTag = (obj) => {
       store.commit("getActiveMenu", obj.props.name);
+      // router.push({path:obj.props.name})
       setTabs(data.tabs, obj.props.name);
       judgeTabs();
     };

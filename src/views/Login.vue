@@ -48,7 +48,7 @@
                 style="width: 65%"
                 placeholder="请输入验证码"
               ></el-input>
-              <ValidCode style="margin-left: 8px" @input="createValidCode" />
+              <ValidCode style="margin-left: 8px" @input="createValidCode" :refresh="refreshNumber"/>
             </div>
           </el-form-item>
           <!-- <el-form-item prop="role">
@@ -82,6 +82,7 @@
 <script>
 import request from "@/utils/request";
 import ValidCode from "@/components/ValidCode";
+import {setUser} from "@/utils/storage";
 
 export default {
   name: "Login",
@@ -98,6 +99,7 @@ export default {
         backgroundRepeat: "no-repeat",
         // backgroundSize: "cover",
       },
+      refreshNumber:0,
 
       form: { role: "", email: "", password: "" },
 
@@ -135,6 +137,7 @@ export default {
             this.form.validCode.toLowerCase() !== this.validCode.toLowerCase()
           ) {
             this.$message.error("验证码错误");
+            this.refreshNumber +=1
             return;
           }
 
@@ -150,7 +153,7 @@ export default {
                   type: "success",
                   message: "登录成功",
                 });
-                sessionStorage.setItem("user", JSON.stringify(res.data)); // 缓存用户信息
+                setUser(res.data) // 缓存用户信息
                 this.$router.push("/"); //登录成功之后进行页面的跳转，跳转到主页
               } else {
                 this.$message({

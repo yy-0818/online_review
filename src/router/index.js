@@ -50,6 +50,8 @@ export const constRoutes = [
           keepAlive: true,
         },
       },
+
+
       {
         path: "person",
         name: "Person",
@@ -60,155 +62,120 @@ export const constRoutes = [
         },
       },
       {
-        path: "/upload",
-        name: "upload",
-        component: Layout,
+        path: "paper",
+        name: "Paper",
+        component: () => import("@/views/FileUpload/Paper"),
         meta: {
-          title: "成果上传"
+          title: "论文上传",
+          keepAlive: true,
         },
-        children: [{
-          path: "paper",
-          name: "Paper",
-          component: () => import("@/views/FileUpload/Paper"),
-          meta: {
-            title: "论文上传",
-            keepAlive: true,
-          },
-        },
-          {
-            path: "patent",
-            name: "Patent",
-            component: () => import("@/views/FileUpload/patent"),
-            meta: {
-              title: "专利上传",
-              keepAlive: true,
-            },
-          },
-          {
-            path: "report",
-            name: "Report",
-            component: () => import("@/views/FileUpload/report"),
-            meta: {
-              title: "报告上传",
-              keepAlive: true,
-            },
-          }
-          ]
       },
       {
-        path: "first",
-        name: "first",
-        component:'',
+        path: "patent",
+        name: "Patent",
+        component: () => import("@/views/FileUpload/patent"),
         meta: {
-          title: "初审"
+          title: "专利上传",
+          keepAlive: true,
         },
-        children: [
-          {
-            path: "/first/reviewer1",
-            name: "Reviewer1",
-            component: () => import("@/views/correct/reviewer1/paper/Reviewer"),
-            meta: {
-              title: "论文审核",
-              keepAlive: true,
-            },
-          },
-          {
-            path: "PatentReview1",
-            name: "PatentReview1",
-            component: () => import("@/views/correct/reviewer1/patent/Reviewer"),
-            meta: {
-              title: "专利审核",
-              keepAlive: true,
-            },
-          },
-          {
-            path: "ReportReview1",
-            name: "ReportReview1",
-            component: () => import("@/views/correct/reviewer1/report/Reviewer"),
-            meta: {
-              title: "报告审核",
-              keepAlive: true,
-            },
-          }
-
-        ]
       },
       {
-        path: "second",
-        name: "second",
-        component: Layout,
+        path: "report",
+        name: "Report",
+        component: () => import("@/views/FileUpload/report"),
         meta: {
-          title: "二审"
+          title: "报告上传",
+          keepAlive: true,
         },
-        children: [
+      },
 
-          {
-            path: "reviewer2",
-            name: "Reviewer2",
-            component: () => import("@/views/correct/reviewer2/paper/Reviewer2"),
-            meta: {
-              title: "论文审核",
-              keepAlive: true,
-            },
-          },
-          {
-            path: "PatentReview2",
-            name: "PatentReview2",
-            component: () => import("@/views/correct/reviewer2/patent/Reviewer2"),
-            meta: {
-              title: "专利审核",
-              keepAlive: true,
-            },
-          },
-          {
-            path: "ReportReview2",
-            name: "ReportReview2",
-            component: () => import("@/views/correct/reviewer2/report/Reviewer2"),
-            meta: {
-              title: "报告审核",
-              keepAlive: true,
-            },
-          }
-        ]
+
+
+      {
+        path: "/reviewer1",
+        name: "Reviewer1",
+        component: () => import("@/views/correct/reviewer1/paper/Reviewer"),
+        meta: {
+          title: "论文审核",
+          keepAlive: true,
+        },
       },
       {
-        path: "final",
-        name: "final",
-        component: Layout,
+        path: "PatentReview1",
+        name: "PatentReview1",
+        component: () => import("@/views/correct/reviewer1/patent/Reviewer"),
         meta: {
-          title: "终审"
+          title: "专利审核",
+          keepAlive: true,
         },
-        children: [
-          {
-            path: "reviewer3",
-            name: "Reviewer3",
-            component: () => import("@/views/correct/reviewer3/paper/Reviewer3"),
-            meta: {
-              title: "论文审核",
-              keepAlive: true,
-            },
-          },
-          {
-            path: "PatentReview3",
-            name: "PatentReview3",
-            component: () => import("@/views/correct/reviewer3/patent/Reviewer3"),
-            meta: {
-              title: "专利审核",
-              keepAlive: true,
-            },
-          },
-          {
-            path: "ReportReview3",
-            name: "ReportReview3",
-            component: () => import("@/views/correct/reviewer3/report/Reviewer3"),
-            meta: {
-              title: "报告审核",
-              keepAlive: true,
-            },
-          }]
+      },
+      {
+        path: "ReportReview1",
+        name: "ReportReview1",
+        component: () => import("@/views/correct/reviewer1/report/Reviewer"),
+        meta: {
+          title: "报告审核",
+          keepAlive: true,
+        },
       },
 
 
+
+      {
+        path: "reviewer2",
+        name: "Reviewer2",
+        component: () => import("@/views/correct/reviewer2/paper/Reviewer2"),
+        meta: {
+          title: "论文审核",
+          keepAlive: true,
+        },
+      },
+      {
+        path: "PatentReview2",
+        name: "PatentReview2",
+        component: () => import("@/views/correct/reviewer2/patent/Reviewer2"),
+        meta: {
+          title: "专利审核",
+          keepAlive: true,
+        },
+      },
+      {
+        path: "ReportReview2",
+        name: "ReportReview2",
+        component: () => import("@/views/correct/reviewer2/report/Reviewer2"),
+        meta: {
+          title: "报告审核",
+          keepAlive: true,
+        },
+      },
+
+      {
+        path: "reviewer3",
+        name: "Reviewer3",
+        component: () => import("@/views/correct/reviewer3/paper/Reviewer3"),
+        meta: {
+          title: "论文审核",
+          keepAlive: true,
+        },
+      },
+      {
+        path: "PatentReview3",
+        name: "PatentReview3",
+        component: () => import("@/views/correct/reviewer3/patent/Reviewer3"),
+        meta: {
+          title: "专利审核",
+          keepAlive: true,
+        },
+      },
+      {
+        path: "ReportReview3",
+        name: "ReportReview3",
+        component: () => import("@/views/correct/reviewer3/report/Reviewer3"),
+        meta: {
+          title: "报告审核",
+          keepAlive: true,
+        },
+      },
       {
         path: "MyPapers",
         name: "MyPaper",

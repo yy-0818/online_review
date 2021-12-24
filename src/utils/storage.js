@@ -1,3 +1,13 @@
+export const setUser = (user) => {
+  localStorage.setItem("user", JSON.stringify(user))
+}
+
+export const getUser = ()=> {
+  let user = sessionStorage.getItem("user")
+  user = user? JSON.parse(user):{}
+  return user
+}
+
 // 设置导航
 export const setTabs = (data, value) => {
   if (value) {
@@ -24,9 +34,9 @@ export const getThemes = () => {
   result = result
     ? JSON.parse(result)
     : {
-        showBreadcrumb: true,
-        showTabs: true
-      }
+      showBreadcrumb: true,
+      showTabs: true
+    }
   return result
 }
 
