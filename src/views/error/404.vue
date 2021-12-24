@@ -3,7 +3,7 @@
     <div class="notfound">
       <div class="notfound-404">
         <h1>404</h1>
-        <h2>抱歉！找不到页面</h2>
+        <h2>抱歉!找不到页面</h2>
       </div>
       <router-link to="/Home">返回主页面</router-link>
     </div>

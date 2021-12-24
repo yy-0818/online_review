@@ -1,5 +1,25 @@
 <template>
-  <div>
+<div>
+  <div id="app">
+    <vue-particles
+            color="#409EFF"
+            :particleOpacity="0.7"
+            :particlesNumber="120"
+            shapeType="polygon"
+            :particleSize="4"
+            linesColor="#409EFF"
+            :linesWidth="1.5"
+            :lineLinked="true"
+            :lineOpacity="0.6"
+            :linesDistance="150"
+            :moveSpeed="3"
+            :hoverEffect="true"
+            hoverMode="grab"
+            :clickEffect="true"
+            clickMode="push"
+    >
+    </vue-particles>
+</div>
     <el-row style="margin: 20px;" justify="center" align="middle">
       <el-card class="box-card" shadow="hover">
         <template #header>
@@ -32,11 +52,11 @@
                 <el-form-item
                   class="el-form-item-a"
                   label="标&ensp;题&ensp;(英)"
-                  prop="titleS"
+                  prop="titleEn"
                 >
                   <el-input
                     class="el-form-item-d"
-                    v-model="formPaper.titleS"
+                    v-model="formPaper.titleEn"
                   ></el-input>
                 </el-form-item>
               </el-col>
@@ -59,11 +79,11 @@
                 <el-form-item
                   class="el-form-item-a"
                   label="关键词(英)"
-                  prop="keywordS"
+                  prop="keywordEn"
                 >
                   <el-input
                     class="el-form-item-d"
-                    v-model="formPaper.keywordS"
+                    v-model="formPaper.keywordEn"
                   ></el-input>
                 </el-form-item>
               </el-col>
@@ -84,22 +104,23 @@
             <el-form-item
               class="el-form-item-a"
               label="摘&ensp;要&ensp;(英)"
-              prop="summaryS"
+              prop="summaryEn"
             >
               <el-input
                 type="textarea"
                 :rows="5"
                 class="el-form-item-d"
-                v-model="formPaper.summaryS"
+                v-model="formPaper.summaryEn"
               ></el-input>
             </el-form-item>
 
             <el-row>
               <el-col :span="8">
-                <el-form-item label="研究方向" prop="directionId">
+                <el-form-item label="研究方向" prop="directionIds">
                   <el-select
-                    v-model="formPaper.directionId"
-                    :change="filterReviewer(formPaper.directionId)"
+                    multiple
+                    v-model="formPaper.directionIds"
+                    @change="getReviewers"
                   >
                     <el-option
                       v-for="item in directionIdOptions"
@@ -112,12 +133,12 @@
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item label="指导老师" prop="reviewerId">
-                  <el-select v-model="formPaper.reviewerId">
+                <el-form-item label="指导老师" prop="reviewerIds">
+                  <el-select multiple v-model="formPaper.reviewerIds">
                     <el-option
-                      v-for="item in reviewerIdOptions"
-                      :key="item.value"
-                      :label="item.name"
+                      v-for="item in reviewerList"
+                      :key="item.id"
+                      :label="item.userName"
                       :value="item.id"
                     >
                     </el-option>
@@ -183,7 +204,7 @@
                 </div>
 
                 <div class="el-upload__tip">
-                  可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
+                  可以上传PFD、Word以及任意压缩包格式的文件，且不超过100M
                 </div>
               </el-upload>
 
@@ -198,7 +219,7 @@
                   :disabled="isBtn"
                   @click="submitUpload"
                   plain
-                  >立即上传<i class="el-icon-upload el-icon--right"></i
+                  >上传至服务器<i class="el-icon-upload el-icon--right"></i
                 ></el-button>
               </div>
             </div>
@@ -208,14 +229,14 @@
 
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="handleDele">取 消</el-button>
-          <el-button @click="handleSave" type="primary">确定</el-button>
+          <el-button @click="handleDele" type="primary">取 消</el-button>
+          <el-button @click="handleDele" type="primary">确定</el-button>
         </span>
       </template>
     </el-dialog>
   </div>
 </template>
-S
+
 <script>
 import request from "@/utils/request";
 import { h } from "vue";
@@ -230,16 +251,18 @@ export default {
       reviewerIdOptions: [],
       reviewerList: [],
       formPaper: {
+        types: 0,  // 表单类型  0--论文；1--专利；2--报告
+        typeOr:0, //文件上传 类型  1为老师意见
         uploaderId: "",
         title: "",
-        titleS: "",
+        titleEn: "",
         keyword: "",
-        keywordS: "",
+        keywordEn: "",
         summary: "",
-        summaryS: "",
+        summaryEn: "",
         url: "",
-        directionId: "",
-        reviewerId: "",
+        directionIds: [],
+        reviewerIds: [],
       },
       limitNum: 1, // 上传文件，同时允许上传的最大数
       fileList: [],
@@ -247,39 +270,34 @@ export default {
       isBtn: false, //控制上传按钮能否点击
       rulesPaper: {
         title: [{ required: true, message: "请输入标题(中)", trigger: "blur" }],
-        titleS: [
+        titleEn: [
           { required: true, message: "请输入标题(英)", trigger: "blur" },
         ],
         keyword: [
           { required: true, message: "请输关键词(中)", trigger: "blur" },
         ],
-        keywordS: [
+        keywordEn: [
           { required: true, message: "请输入关键词(英)", trigger: "blur" },
         ],
         summary: [
           { required: true, message: "请输入摘要(中)", trigger: "blur" },
         ],
-        summaryS: [
+        summaryEn: [
           { required: true, message: "请输入摘要(英)", trigger: "blur" },
         ],
-        directionId: [
+        directionIds: [
           { required: true, message: "请选择方向", trigger: "blur" },
         ],
-        reviewerId: [
+        reviewerIds: [
           { required: true, message: "请选择老师", trigger: "blur" },
         ],
       },
     };
   },
 
-  // created() {
-  //   this.$store.state.adminleftnavnum = "0"; //设置左侧导航2-2 active
-  // },
-
   mounted() {
-    // this.$store.state.adminleftnavnum = "0"; //设置左侧导航2-2 active
     this.getDirections();
-    this.getReviewers();
+    // this.getReviewers();
     // this.load();
   },
 
@@ -335,7 +353,7 @@ export default {
     handleDele() {
       //取消弹窗并清空内容  通过
       this.dialogFormVisible = false;
-      this.$refs["upload"].clearFileSs();
+      this.$refs["upload"].clearFiles();
     },
     handleSave() {
       let url = this.formPaper.url;
@@ -348,7 +366,7 @@ export default {
         return;
       }
       request
-        .post("/paper/saves/", {
+        .post("/paper/save/", {
           id: this.formPaper.id,
           url: this.formPaper.url,
         })
@@ -371,21 +389,28 @@ export default {
       this.$refs["upload"].clearFiles();
     },
 
+
     getDirections() {
       request.get("/direction").then((res) => {
-        // console.log(res.data);
+        // console.table(res.data);
         this.directionIdOptions = res.data;
       });
     },
     getReviewers() {
-      request.get("/user/identity/3").then((res) => {
-        // console.log(res.data);
-        this.reviewerList = res.data;
-      });
+      // console.log("=======getReviewers=======");
+      // console.log(this.formPaper.directionIds);
+      request
+        .post("/user/identity", this.formPaper.directionIds)
+        .then((res) => {
+          // console.table(res.data);
+          this.reviewerList = res.data;
+        });
     },
+
     filterReviewer(directionId) {
       this.formPaper.reviewerId = null;
       // console.log(directionId);
+      // this.getReviewers();
       this.reviewerIdOptions = this.reviewerList.filter((element) => {
         return element.directionId === directionId;
       });
@@ -396,9 +421,9 @@ export default {
         message: h(
           "i",
           { style: "color: teal" },
-          "请先上传论文哟！" +
+          "请先上传论文哟!" +
             "\n" +
-            "注：上传压缩包文件时，最好有二级目录，否则可能会导致预览失败！"
+            "注:上传压缩包文件时，最好有二级目录，否则可能会导致预览失败!"
         ),
         offset: 50, //偏移
         // customClass: "notifyStyle", //自定义类
@@ -425,6 +450,8 @@ export default {
             });
             return;
           }
+          this.formPaper.directionId = this.formPaper.directionIds.join();
+          this.formPaper.reviewerId = this.formPaper.reviewerIds.join();
           request
             .post("/paper/save", this.formPaper)
             .then((res) => {
@@ -457,6 +484,11 @@ export default {
 </script>
 
 <style scoped>
+#app{
+  position: fixed;
+
+}
+
 .el-card-y {
   margin: 10px 12px 12px 14px;
   display: flex;

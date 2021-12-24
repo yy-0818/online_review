@@ -30,15 +30,6 @@
         width="60"
         align="center"
       ></el-table-column>
-      <!--      <el-table-column label="性别">-->
-      <!--        <template #default="scope">-->
-      <!--          <span v-if="scope.row.gender === 1">男</span>-->
-      <!--          <span v-if="scope.row.gender === 0">女</span>-->
-      <!--        </template>-->
-      <!--      </el-table-column>-->
-      <!-- <el-table-column prop="email" label="邮箱"></el-table-column> -->
-
-      <!-- <el-table-column prop="name" label="姓名"> </el-table-column> -->
 
       <el-table-column
         prop="title"
@@ -46,7 +37,7 @@
         show-overflow-tooltip
       ></el-table-column>
       <el-table-column
-        prop="titleS"
+        prop="titleEn"
         label="题目(英)"
         show-overflow-tooltip
       ></el-table-column>
@@ -56,7 +47,7 @@
         show-overflow-tooltip
       ></el-table-column>
       <el-table-column
-        prop="keywordS"
+        prop="keywordEn"
         label="关键词(英)"
         show-overflow-tooltip
       ></el-table-column>
@@ -67,70 +58,58 @@
         show-overflow-tooltip
       ></el-table-column>
       <el-table-column
-        prop="summaryS"
+        prop="summaryEn"
         label="摘要(英)"
         show-overflow-tooltip
       ></el-table-column>
 
       <el-table-column label="方向" show-overflow-tooltip>
         <template #default="scope">
-          <span v-if="scope.row.directionId === 1">区域风险评估与研究</span>
-          <span v-if="scope.row.directionId === 2">数值模拟与云计算应用</span>
-          <span v-if="scope.row.directionId === 3">模型试验与现场研究</span>
-          <span v-if="scope.row.directionId === 4">监测预警系统设计与开发</span>
-          <span v-if="scope.row.directionId === 5">算法模型研究</span>
-          <span v-if="scope.row.directionId === 6">智能装备研发及应用</span>
+          {{ showDirections(scope.row) }}
         </template>
       </el-table-column>
 
       <el-table-column
-        prop="uploaderName"
+        prop="user.name"
         label="上传人"
         show-overflow-tooltip
       ></el-table-column>
-
-      <!-- <el-table-column prop="state" label="状态">
-        <template #default="scope">
-          <span v-if="scope.row.state === 0" style="color:#909399">未审核</span>
-          <span v-if="scope.row.state === 1" style="color:#e49724"
-            >初审通过</span
-          >
-          <span v-if="scope.row.state === 2" style="color:#F56C6C"
-            >初审未通过</span
-          >
-          <span v-if="scope.row.state === 3" style="color:#67C23A"
-            >终审通过</span
-          >
-        </template>
-      </el-table-column> -->
 
       <el-table-column label="审核状态" align="center">
         <template #default="scope">
           <el-tag
             size="medium"
             :type="
-              scope.row.state === 1
+              scope.row.state === 1 ||
+              scope.row.state === 3 ||
+              scope.row.state === 5
                 ? 'primary'
                 : scope.row.state === 0
                 ? 'info'
-                : scope.row.state === 3
-                ? 'success'
-                : 'danger'
+                : scope.row.state === 4 || scope.row.state === 6
+                ? 'danger'
+                : 'success'
             "
             >{{
               scope.row.state === 1
                 ? "初审通过"
-                : "未审核" && scope.row.state === 3
-                ? "终审通过"
                 : "未审核" && scope.row.state === 2
                 ? "待修改"
+                : "未审核" && scope.row.state === 3
+                ? "二审通过"
+                : "未审核" && scope.row.state === 4
+                ? "二审未通过"
+                : "未审核" && scope.row.state === 5
+                ? "终审通过,归档"
+                : "未审核" && scope.row.state === 6
+                ? "终审未通过"
                 : "未审核"
             }}
           </el-tag>
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" width="330">
+      <el-table-column fixed="right" label="操作" width="330">
         <template #default="scope">
           <el-button
             size="mini"
@@ -192,7 +171,7 @@
         :rules="rulesReviewer"
         label-width="100px"
       >
-        <el-form-item label="备注内容：" prop="content">
+        <el-form-item label="备注内容:" prop="content">
           <el-input
             type="textarea"
             autosize
@@ -201,7 +180,7 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="通过缘由：" prop="opinion">
+        <el-form-item label="通过缘由:" prop="opinion">
           <el-input
             type="textarea"
             autosize
@@ -211,7 +190,7 @@
           </el-input>
         </el-form-item>
 
-        <el-form-item label="修改意见：" prop="reason">
+        <el-form-item label="修改意见:" prop="reason">
           <el-input
             type="textarea"
             :rows="5"
@@ -340,12 +319,12 @@
       width="42.3%"
     >
       <el-form
-        ref="formdataBack"
+        ref="formdata"
         :model="formdata"
         :rules="rulesReviewer"
         label-width="100px"
       >
-        <el-form-item label="备注内容：" prop="content">
+        <el-form-item label="备注内容:" prop="content">
           <el-input
             type="textarea"
             autosize
@@ -354,7 +333,7 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="修改意见：" prop="opinion">
+        <el-form-item label="修改意见:" prop="opinion">
           <el-input
             type="textarea"
             autosize
@@ -364,7 +343,7 @@
           </el-input>
         </el-form-item>
 
-        <el-form-item label="退回原因：" prop="reason">
+        <el-form-item label="退回原因:" prop="reason">
           <el-input
             type="textarea"
             :rows="5"
@@ -373,59 +352,6 @@
           >
           </el-input>
         </el-form-item>
-        <!-- <el-row type="flex" justify="center" align="middle">
-          <el-card style="display: flex;" shadow="hover">
-            <div class="content">
-              <div>
-                <el-upload
-                  drag
-                  ref="upload"
-                  class="upload-demo"
-                  :limit="limitNum"
-                  action="http://49.234.51.220:12345/files/upload"
-                  :on-preview="handlePreview"
-                  :on-remove="handleRemove"
-                  accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
-                  :file-list="fileList"
-                  :on-change="fileChange"
-                  :auto-upload="false"
-                  :on-exceed="exceedFile"
-                  :on-success="handleSuccess"
-                  :on-error="handleError"
-                >
-                  <i class="el-icon-upload"></i>
-
-                  <div class="el-upload__text">
-                    将Order文件拖到此处，或
-
-                    <em>点击上传</em>
-                  </div>
-
-                  <div class="el-upload__tip">
-                    可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
-                  </div>
-                </el-upload>
-
-                <br />
-
-                <div
-                  style="display: flex;justify-content: center;align-items: center;"
-                >
-                  <el-button
-                    size="small"
-                    type="primary"
-                    :disabled="isBtn"
-                    @click="submitUpload"
-                    plain
-                    >立即上传<i class="el-icon-upload el-icon--right"></i
-                  ></el-button>
-
-                  <el-button size="small" plain> 取消 </el-button>
-                </div>
-              </div>
-            </div>
-          </el-card>
-        </el-row> -->
       </el-form>
       <template #footer>
         <span class="dialog-footer">
@@ -453,6 +379,7 @@ import request from "@/utils/request";
 import { Base64 } from "js-base64";
 import download from "@/utils/download";
 import { fileApiURL } from "@/setting";
+import jsonpath from "jsonpath";
 
 export default {
   name: "Home",
@@ -476,6 +403,7 @@ export default {
       search: "",
       currentPage: 1,
       pageSize: 10,
+      types: 0,
       total: 0,
       tableData: [],
 
@@ -497,6 +425,30 @@ export default {
   },
 
   methods: {
+    //查询
+    load() {
+      this.loading = true;
+      request
+        .get(
+          `/paper/findByTypesFirst?pageNum=${this.currentPage}&pageSize=${this.pageSize}&types=${this.types}&search=${this.search}`
+        )
+        .then((res) => {
+          // console.log(res);
+          this.loading = false;
+          this.tableData = res.data.records;
+          this.total = res.data.total;
+          // console.table(this.tableData);
+        });
+    },
+    //方向
+    showDirections(row) {
+      let directions = row.directions;
+      if (directions.length === 0) {
+        return "无";
+      }
+      const names = jsonpath.query(directions, "$..name");
+      return names.join("，");
+    },
     submitUpload() {
       let _this = this;
 
@@ -543,30 +495,6 @@ export default {
       this.isBtn = false;
     },
 
-    //查询
-    load() {
-      this.loading = true;
-      request
-        .get("/paper/allDiderotPrimary/", {
-          params: {
-            pageNum: this.currentPage,
-            pageSize: this.pageSize,
-            search: this.search,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          this.loading = false;
-          this.tableData = res.data.records;
-          this.total = res.data.total;
-        });
-    },
-    // handleUploadSuccess(res) {
-    //   if (res.status === 200) {
-    //     this.$message.success("导入成功");
-    //     this.load();
-    //   }
-    // },
     export() {
       location.href =
         // "http://" + window.server.filesUploadUrl + ":8181/user/export";
@@ -575,18 +503,17 @@ export default {
     },
 
     save() {
-      this.$refs["formdataBack"].validate((valid) => {
-        console.log(valid);
+      this.$refs["formdata"].validate((valid) => {
         if (valid) {
           console.log(this.formdata);
           request
-            .post("/paper/failEmail", this.formdata)
+            .post("/paper/failBack", this.formdata)
             .then((res) => {
               console.log(res);
               if (res.status === 200) {
                 this.$message({
                   type: "success",
-                  message: "退回成功",
+                  message: "退回完成,邮件已发送",
                 });
                 this.load(); // 刷新表格的数据
               } else {
@@ -643,16 +570,19 @@ export default {
         console.log(valid);
         if (valid) {
           request
-            .post("/paper/passPrimary/", {
-              id: this.formdata.id,
+            .post("/paper/passFirst", {
               commentFileUrl: this.formdata.url,
+              content: this.formdata.content,
+              id: this.formdata.id,
+              opinion: this.formdata.opinion,
+              reason: this.formdata.reason,
             })
             .then((res) => {
               console.log(res);
               if (res.status === 200) {
                 this.$message({
                   type: "success",
-                  message: "通过成功",
+                  message: "通过完成，邮件已发送",
                 });
                 this.load(); // 刷新表格的数据
               } else {
@@ -671,7 +601,15 @@ export default {
     },
 
     handleDownload(row) {
-      const url = row.url;
+      const url = row.paperFiles[0].url;
+
+      if (url === "") {
+        this.$message({
+          type: "error",
+          message: "未找到文件",
+        });
+        return;
+      }
       const filename = url.replace(/^\/files\/([a-fA-F0-9]{32})_/, "");
       const fileSuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
 
@@ -681,17 +619,10 @@ export default {
         filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)
       );
 
-      if (url === "") {
-        this.$message({
-          type: "error",
-          message: "未找到文件",
-        });
-        return;
-      }
       if (!filename || !fileSuffix) {
         this.$message({
           type: "error",
-          message: "文件名或文件后缀错误，请检查文件！",
+          message: "文件名或文件后缀错误，请检查文件!",
         });
         return;
       }
@@ -719,18 +650,23 @@ export default {
     },
     // 预览事件
     previewOpen(data) {
-      console.log(data);
-      if (data.url) {
-        console.log(data.url);
-        this.previewVisible = true;
-        this.previewFileUrl =
-          "http://8.136.96.167:8012/onlinePreview?url=" +
-          encodeURIComponent(Base64.encode(this.fileApiURL + data.url));
-        // + "&officePreviewType=pdf";
-        // this.previewFileUrl =
-        //   "https://view.officeapps.live.com/op/view.aspx?src=" + data.url;
-        console.log(this.previewFileUrl);
-        console.log(this.previewVisible);
+      // console.log(data);
+      // console.log(data.paperFiles);
+      const file = data.paperFiles;
+      if (file.length != 0) {
+        // console.log(file);
+        for (const key of file) {
+          // console.log(key.typeOr);
+          if (key.typeOr === 0) {
+            // console.log(key.url);
+            this.previewVisible = true;
+            this.previewFileUrl =
+              "http://8.136.96.167:8012/onlinePreview?url=" +
+              encodeURIComponent(Base64.encode(this.fileApiURL + key.url));
+            console.log(this.previewFileUrl);
+            console.log(this.previewVisible);
+          }
+        }
       } else {
         this.$message("暂无链接");
       }

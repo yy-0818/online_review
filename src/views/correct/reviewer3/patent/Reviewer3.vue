@@ -360,7 +360,7 @@ export default {
       this.loading = true;
       request
         .get(
-          `/paper/findByTypesFirst?pageNum=${this.currentPage}&pageSize=${this.pageSize}&types=${this.types}&search=${this.search}`
+          `/paper/findByTypesThird?pageNum=${this.currentPage}&pageSize=${this.pageSize}&types=${this.types}&search=${this.search}`
         )
         .then((res) => {
           // console.log(res);
@@ -433,7 +433,7 @@ export default {
     },
 
     save() {
-      this.$refs["formdataBack"].validate((valid) => {
+      this.$refs["formdataBackThird"].validate((valid) => {
         console.log(valid);
         // this.$message({
         //   type: "success",
@@ -442,7 +442,7 @@ export default {
         if (valid) {
           console.log(this.formdata);
           request
-            .post("/paper/failBack", this.formdata)
+            .post("/paper/failBackSecond", this.formdata)
             .then((res) => {
               console.log(res);
               if (res.status === 200) {
@@ -505,7 +505,7 @@ export default {
         console.log(valid);
         if (valid) {
           request
-            .post("/paper/passFirst", {
+            .post("/paper/passThird", {
               commentFileUrl: this.formdata.url,
               content: this.formdata.content,
               id: this.formdata.id,

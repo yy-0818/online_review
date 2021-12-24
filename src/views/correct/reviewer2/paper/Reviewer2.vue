@@ -12,14 +12,6 @@
       <el-button type="primary" style="margin-left: 5px" @click="load"
         ><i class="el-icon-search"></i>查询
       </el-button>
-
-      <el-button
-        type="primary"
-        plain
-        style="margin-left: 5px"
-        @click="handleLookAll"
-        ><i class="el-icon-paperclip"></i>所有论文
-      </el-button>
     </div>
     <el-table
       v-fit-columns
@@ -38,15 +30,6 @@
         width="60"
         align="center"
       ></el-table-column>
-      <!--      <el-table-column label="性别">-->
-      <!--        <template #default="scope">-->
-      <!--          <span v-if="scope.row.gender === 1">男</span>-->
-      <!--          <span v-if="scope.row.gender === 0">女</span>-->
-      <!--        </template>-->
-      <!--      </el-table-column>-->
-      <!-- <el-table-column prop="email" label="邮箱"></el-table-column> -->
-
-      <!-- <el-table-column prop="name" label="姓名"> </el-table-column> -->
 
       <el-table-column
         prop="title"
@@ -54,7 +37,7 @@
         show-overflow-tooltip
       ></el-table-column>
       <el-table-column
-        prop="titleS"
+        prop="titleEn"
         label="题目(英)"
         show-overflow-tooltip
       ></el-table-column>
@@ -64,7 +47,7 @@
         show-overflow-tooltip
       ></el-table-column>
       <el-table-column
-        prop="keywordS"
+        prop="keywordEn"
         label="关键词(英)"
         show-overflow-tooltip
       ></el-table-column>
@@ -75,68 +58,58 @@
         show-overflow-tooltip
       ></el-table-column>
       <el-table-column
-        prop="summaryS"
+        prop="summaryEn"
         label="摘要(英)"
         show-overflow-tooltip
       ></el-table-column>
 
       <el-table-column label="方向" show-overflow-tooltip>
         <template #default="scope">
-          <span v-if="scope.row.directionId === 1">区域风险评估与研究</span>
-          <span v-if="scope.row.directionId === 2">数值模拟与云计算应用</span>
-          <span v-if="scope.row.directionId === 3">模型试验与现场研究</span>
-          <span v-if="scope.row.directionId === 4">监测预警系统设计与开发</span>
-          <span v-if="scope.row.directionId === 5">算法模型研究</span>
-          <span v-if="scope.row.directionId === 6">智能装备研发及应用</span>
+          {{ showDirections(scope.row) }}
         </template>
       </el-table-column>
 
       <el-table-column
-        prop="uploaderName"
+        prop="user.name"
         label="上传人"
         show-overflow-tooltip
       ></el-table-column>
-
-      <!-- <el-table-column prop="state" label="状态">
-        <template #default="scope">
-          <span v-if="scope.row.state === 0" style="color:#909399">未审核</span>
-          <span v-if="scope.row.state === 1" style="color:#e49724"
-            >初审通过</span
-          >
-          <span v-if="scope.row.state === 2" style="color:#F56C6C"
-            >初审未通过</span
-          >
-          <span v-if="scope.row.state === 3" style="color:#67C23A">通过</span>
-        </template>
-      </el-table-column> -->
 
       <el-table-column label="审核状态" align="center">
         <template #default="scope">
           <el-tag
             size="medium"
             :type="
-              scope.row.state === 1
+              scope.row.state === 1 ||
+              scope.row.state === 3 ||
+              scope.row.state === 5
                 ? 'primary'
                 : scope.row.state === 0
                 ? 'info'
-                : scope.row.state === 3
-                ? 'success'
-                : 'danger'
+                : scope.row.state === 4 || scope.row.state === 6
+                ? 'danger'
+                : 'success'
             "
             >{{
               scope.row.state === 1
                 ? "初审通过"
-                : "未审核" && scope.row.state === 3
-                ? "终审通过"
                 : "未审核" && scope.row.state === 2
-                ? "初审未通过"
+                ? "待修改"
+                : "未审核" && scope.row.state === 3
+                ? "二审通过"
+                : "未审核" && scope.row.state === 4
+                ? "二审未通过"
+                : "未审核" && scope.row.state === 5
+                ? "终审通过,归档"
+                : "未审核" && scope.row.state === 6
+                ? "终审未通过"
                 : "未审核"
-            }}</el-tag
-          >
+            }}
+          </el-tag>
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" width="330">
+      <el-table-column fixed="right" label="操作" width="330">
         <template #default="scope">
           <el-button
             size="mini"
@@ -152,8 +125,8 @@
           >
             <template #reference>
               <el-button size="mini" type="warning" plain
-                ><i class="el-icon-folder-add"></i>下载</el-button
-              >
+                ><i class="el-icon-folder-add"></i>下载
+              </el-button>
             </template>
           </el-popconfirm>
 
@@ -161,12 +134,12 @@
             size="mini"
             type="primary"
             plain
-            @click="handlePass(scope.row)"
+            @click="handleAdopt(scope.row)"
             ><i class="el-icon-document-checked"></i>通过
           </el-button>
 
           <el-button size="mini" type="danger" @click="handleEdit(scope.row)"
-            ><i class="el-icon-document-delete"></i>退回
+            ><i class="el-icon-document-delete "></i>退回
           </el-button>
         </template>
       </el-table-column>
@@ -176,7 +149,8 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :page-sizes="[10, 20, 30, 40]"
+        :current-page="currentPage"
+        :page-sizes="[10, 15, 20]"
         :page-size="pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
@@ -197,7 +171,7 @@
         :rules="rulesReviewer"
         label-width="100px"
       >
-        <el-form-item label="备注内容：" prop="content">
+        <el-form-item label="备注内容:" prop="content">
           <el-input
             type="textarea"
             autosize
@@ -206,7 +180,7 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="修改意见：" prop="opinion">
+        <el-form-item label="通过缘由:" prop="opinion">
           <el-input
             type="textarea"
             autosize
@@ -216,7 +190,7 @@
           </el-input>
         </el-form-item>
 
-        <el-form-item label="退回原因：" prop="reason">
+        <el-form-item label="修改意见:" prop="reason">
           <el-input
             type="textarea"
             :rows="5"
@@ -300,7 +274,7 @@
         :rules="rulesReviewer"
         label-width="100px"
       >
-        <el-form-item label="备注内容：" prop="content">
+        <el-form-item label="备注内容:" prop="content">
           <el-input
             type="textarea"
             autosize
@@ -309,7 +283,7 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="修改意见：" prop="opinion">
+        <el-form-item label="修改意见:" prop="opinion">
           <el-input
             type="textarea"
             autosize
@@ -319,7 +293,7 @@
           </el-input>
         </el-form-item>
 
-        <el-form-item label="退回原因：" prop="reason">
+        <el-form-item label="退回原因:" prop="reason">
           <el-input
             type="textarea"
             :rows="5"
@@ -332,7 +306,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="handleDele2">取 消</el-button>
-          <el-button @click="save" type="primary">确定</el-button>
+          <el-button @click="save()" type="primary">确定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -352,9 +326,10 @@
 
 <script>
 import request from "@/utils/request";
-import { encode } from "js-base64";
+import { Base64 } from "js-base64";
 import download from "@/utils/download";
 import { fileApiURL } from "@/setting";
+import jsonpath from "jsonpath";
 
 export default {
   name: "Home",
@@ -364,7 +339,6 @@ export default {
       fileApiURL: fileApiURL,
       loading: true,
       limitNum: 1,
-      message: "",
       formdata: {
         id: "",
         content: "",
@@ -373,73 +347,58 @@ export default {
         state: "",
         url: "",
       },
+
       dialogVisible: false, // 弹窗
       dialogFormVisible: false,
-
       search: "",
       currentPage: 1,
       pageSize: 10,
+      types: 0,
       total: 0,
       tableData: [],
 
       previewFileUrl: "",
       previewVisible: false,
       rulesReviewer: {
-        // content: [
-        //   { required: true, message: "请输入备注内容", trigger: "blur" },
-        // ],
-        // opinion: [
-        //   { required: true, message: "请输入备注内容", trigger: "blur" },
-        // ],
+        content: [
+          //   { required: true, message: "请输入备注内容", trigger: "blur" },
+          // ],
+          // opinion: [
+          //   { required: true, message: "请输入内容", trigger: "blur" },
+        ],
         reason: [{ required: true, message: "请输入内容", trigger: "blur" }],
       },
-      justMe: true,
     };
   },
   created() {
     this.load();
   },
-  computed: {
-    getUserId() {
-      let userJson = sessionStorage.getItem("user");
-      if (!userJson) {
-        return;
-      }
-      let userId = JSON.parse(userJson);
-      return userId.id;
-    },
-  },
+
   methods: {
-    // 查询
+    //查询
     load() {
       this.loading = true;
-      let userId = "";
-      if (this.justMe) {
-        userId = this.getUserId;
-      }
-
       request
-        .get("/paper/allPassPrimary", {
-          params: {
-            pageNum: this.currentPage,
-            pageSize: this.pageSize,
-            search: this.search,
-            id: userId,
-          },
-        })
+        .get(
+          `/paper/findByTypesSecond?pageNum=${this.currentPage}&pageSize=${this.pageSize}&types=${this.types}&search=${this.search}`
+        )
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.loading = false;
           this.tableData = res.data.records;
           this.total = res.data.total;
+          // console.table(this.tableData);
         });
     },
-    handleLookAll() {
-      this.justMe = !this.justMe;
-      this.load();
+    //方向
+    showDirections(row) {
+      let directions = row.directions;
+      if (directions.length === 0) {
+        return "无";
+      }
+      const names = jsonpath.query(directions, "$..name");
+      return names.join("，");
     },
-
-    //文件上传
     submitUpload() {
       let _this = this;
 
@@ -460,18 +419,18 @@ export default {
 
     handlePreview(file) {
       console.log(file, 111);
-    },
+    }, // 文件状态改变时的钩子
 
     fileChange(file, fileList) {
       this.length = 1; // console.log(file.raw); // // this.fileList.push(file.raw); // console.log(this.fileList,this.length);
-    },
+    }, // 文件超出个数限制时的钩子
 
     exceedFile(files, fileList) {
       this.$message.warning(
         `只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length +
           fileList.length} 个`
       );
-    },
+    }, // 文件上传成功时的钩子
 
     handleSuccess(res, file, fileList) {
       this.formdata.url = file.response.data;
@@ -486,12 +445,6 @@ export default {
       this.isBtn = false;
     },
 
-    // handleUploadSuccess(res) {
-    //   if (res.status === 200) {
-    //     this.$message.success("导入成功");
-    //     this.load();
-    //   }
-    // },
     export() {
       location.href =
         // "http://" + window.server.filesUploadUrl + ":8181/user/export";
@@ -500,19 +453,18 @@ export default {
     },
 
     save() {
-      console.log("====================================");
       this.$refs["formdata"].validate((valid) => {
         console.log(valid);
         if (valid) {
           console.log(this.formdata);
           request
-            .post("/paper/failEmail", this.formdata)
+            .post("/paper/failBackSecond", this.formdata)
             .then((res) => {
               console.log(res);
               if (res.status === 200) {
                 this.$message({
                   type: "success",
-                  message: "退回成功",
+                  message: "退回完成,邮件已发送",
                 });
                 this.load(); // 刷新表格的数据
               } else {
@@ -529,57 +481,29 @@ export default {
             });
 
           this.dialogVisible = false; // 关闭弹窗
+        } else {
+          // this.$message({
+          //   type: "error",
+          //   message: "aaaa",
+          // });
+          return false;
         }
       });
       this.$refs["formdata"].resetFields();
     },
-
-    handleDownload(row) {
-      const url = row.url;
-      const filename = url.replace(/^\/files\/([a-fA-F0-9]{32})_/, "");
-      const fileSuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
-
-      console.log(
-        filename,
-        fileSuffix,
-        filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)
-      );
-
-      if (url === "") {
-        this.$message({
-          type: "error",
-          message: "未找到文件",
-        });
-        return;
-      }
-      if (!filename || !fileSuffix) {
-        this.$message({
-          type: "error",
-          message: "文件名或文件后缀错误，请检查文件！",
-        });
-        return;
-      }
-      request({
-        url: url,
-        method: "get",
-        responseType: "blob",
-      }).then((res) => {
-        download(res, filename, fileSuffix);
-      });
-    },
     handleEdit(row) {
       // this.form = JSON.parse(JSON.stringify(row));
       this.formdata.id = row.id;
+      console.log(this.formdata.id);
       this.dialogVisible = true;
-      this.$refs["upload"].clearFiles();
     },
     handleDele() {
-      //取消弹窗并清空内容
+      //通过
+      // 取消弹窗并清空内容
       this.dialogFormVisible = false;
       this.$refs["formdata"].resetFields();
       this.$refs["upload"].clearFiles();
     },
-
     handleDele2() {
       //退回弹窗
       this.dialogVisible = false;
@@ -587,58 +511,87 @@ export default {
       this.$refs["upload"].clearFiles();
     },
 
-    handlePass(row) {
+    handleAdopt(row) {
       // this.form = JSON.parse(JSON.stringify(row));
       this.formdata.id = row.id;
       this.dialogFormVisible = true;
     },
+    handleSave() {
+      this.$refs["formdata"].validate((valid) => {
+        console.log(valid);
+        if (valid) {
+          request
+            .post("/paper/passSecond", {
+              commentFileUrl: this.formdata.url,
+              content: this.formdata.content,
+              id: this.formdata.id,
+              opinion: this.formdata.opinion,
+              reason: this.formdata.reason,
+            })
+            .then((res) => {
+              console.log(res);
+              if (res.status === 200) {
+                this.$message({
+                  type: "success",
+                  message: "通过完成，邮件已发送",
+                });
+                this.load(); // 刷新表格的数据
+              } else {
+                this.$message({
+                  type: "error",
+                  message: "请求超时",
+                });
+              }
+            });
+          this.dialogFormVisible = false; // 关闭弹窗
+        }
+      });
 
-    //通过
-    handleSave(id) {
-      console.log(id);
-      request
-        .post("/paper/passUltimate/", {
-          id: this.formdata.id,
-          commentFileUrl: this.formdata.url,
-        })
-        .then((res) => {
-          console.log(res);
-          if (res.status == 200) {
-            this.$message({
-              type: "success",
-              message: "通过成功",
-            });
-            this.load();
-          } else {
-            this.$message({
-              type: "error",
-              message: "请求超时",
-            });
-          }
-        });
       this.$refs["formdata"].resetFields();
       this.$refs["upload"].clearFiles();
-      this.dialogFormVisible = false; // 关闭弹窗
     },
 
-    // handleDelete(id) {
-    //   console.log(id);
-    //   request.delete("/paper/" + id).then((res) => {
-    //     if (res.status === 200) {
-    //       this.$message({
-    //         type: "success",
-    //         message: "删除成功",
-    //       });
-    //     } else {
-    //       this.$message({
-    //         type: "error",
-    //         message: res.msg,
-    //       });
-    //     }
-    //     this.load(); // 删除之后重新加载表格的数据
-    //   });
-    //   dialogVisible = false; //关闭dialog
-    // },
+    handleDownload(row) {
+      const file = row.paperFiles;
+      if (file.length != 0) {
+        // console.log(file);
+        for (const key of file) {
+          // console.log(key.typeOr);
+          if (key.typeOr === 0) {
+            console.log(key.url);
+            const filename = key.url.replace(
+              /^\/files\/([a-fA-F0-9]{32})_/,
+              ""
+            );
+            const fileSuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
+            if (!filename || !fileSuffix) {
+              this.$message({
+                type: "error",
+                message: "文件名或文件后缀错误，请检查文件!",
+              });
+              return;
+            }
+            this.$message({
+              type: "success",
+              message: "文件下载中, 请稍后...",
+            });
+            request({
+              url: key.url,
+              method: "get",
+              responseType: "blob",
+            }).then((res) => {
+              download(res, filename, fileSuffix);
+            });
+          }
+        }
+      } else {
+        this.$message({
+          type: "error",
+          message: "未找到文件",
+        });
+      }
+    },
+
     handleSizeChange(pageSize) {
       // 改变当前每页的个数触发
       this.pageSize = pageSize;
@@ -649,21 +602,25 @@ export default {
       this.currentPage = pageNum;
       this.load();
     },
-
     // 预览事件
     previewOpen(data) {
-      // console.log(data.file);
-      if (data.url) {
-        console.log(data.url);
-        this.previewVisible = true;
-        this.previewFileUrl =
-          "http://8.136.96.167:8012/onlinePreview?url=" +
-          encodeURIComponent(encode(this.fileApiURL + data.url)) +
-          "&officePreviewType=pdf";
-        // this.previewFileUrl =
-        //   "https://view.officeapps.live.com/op/view.aspx?src=" + data.url;
-        console.log(this.previewFileUrl);
-        console.log(this.previewVisible);
+      // console.log(data);
+      // console.log(data.paperFiles);
+      const file = data.paperFiles;
+      if (file.length != 0) {
+        // console.log(file);
+        for (const key of file) {
+          // console.log(key.typeOr);
+          if (key.typeOr === 0) {
+            // console.log(key.url);
+            this.previewVisible = true;
+            this.previewFileUrl =
+              "http://8.136.96.167:8012/onlinePreview?url=" +
+              encodeURIComponent(Base64.encode(this.fileApiURL + key.url));
+            console.log(this.previewFileUrl);
+            console.log(this.previewVisible);
+          }
+        }
       } else {
         this.$message("暂无链接");
       }
@@ -681,12 +638,11 @@ export default {
 .el-iframe {
   width: 100%;
   height: 100%;
-  background-color: #f2f2f2;
+  background-color: #fbf7f7;
 }
 
 /* /deep/  在scoped中 可以更改外部样式 */
 .previewDialog .el-dialog__body {
-  /*width: 100%;*/
   height: 90%;
   padding: 0;
 }

@@ -1,50 +1,106 @@
 <template>
-  <div>
-    <!--    头部-->
-    <Header :user="user" />
+  <el-container v-if="navbarType === '左侧菜单模式'">
+    <el-aside :width="sidebarWidth">
+      <sidebar :showLogo="true"></sidebar>
+    </el-aside>
+    <el-container>
+      <el-header>
+        <navbar></navbar>
+      </el-header>
+      <tabs></tabs>
+      <el-main>
+        <slot name="home"></slot>
+      </el-main>
+    </el-container>
+  </el-container>
 
-    <!--    主体-->
-    <div style="display: flex">
-      <!--      侧边栏-->
-      <Aside />
-      <!--      内容区域-->
-      <router-view style="flex: 1" @userInfo="refreshUser" />
-    </div>
-  </div>
+  <el-container v-else-if="navbarType === '顶部菜单混合模式'">
+    <el-header>
+      <navbar :showLogo="true"></navbar>
+    </el-header>
+    <el-container>
+      <el-aside :width="sidebarWidth">
+        <sidebar></sidebar>
+      </el-aside>
+      <el-container direction="vertical">
+        <tabs></tabs>
+        <main class="el-main">
+          <slot name="home"></slot>
+        </main>
+      </el-container>
+    </el-container>
+  </el-container>
+
+  <el-container v-else-if="navbarType === '顶部菜单模式'">
+    <el-header>
+      <navbar :showLogo="true">
+        <template v-slot:sidebar>
+          <sidebar mode="horizontal"></sidebar>
+        </template>
+      </navbar>
+    </el-header>
+    <el-container direction="vertical">
+      <tabs></tabs>
+      <el-main>
+        <slot name="home"></slot>
+      </el-main>
+    </el-container>
+  </el-container>
+
+  <el-container v-else>
+    <el-aside width="80px">
+      <sidebar :showLogo="true" :collapse="true"></sidebar>
+    </el-aside>
+    <el-container>
+      <el-header>
+        <navbar></navbar>
+      </el-header>
+      <tabs></tabs>
+      <el-main>
+        <slot name="home"></slot>
+      </el-main>
+    </el-container>
+  </el-container>
 </template>
 
 <script>
-import Header from "@/components/Header";
-import Aside from "@/components/Aside";
-import request from "@/utils/request";
-
+import { Sidebar, Navbar, Tabs } from "./components/layout.js";
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+import { useStore } from "vuex";
 export default {
-  name: "Layout",
-  components: {
-    Header,
-    Aside,
-  },
-  data() {
+  components: { Sidebar, Navbar, Tabs },
+  setup() {
+    const route = useRoute();
+    const store = useStore();
+
+    // 获取当前路径
+    const currentPath = computed(() => {
+      return route.path;
+    });
+
+    // 导航栏类型
+    const navbarType = computed(() => {
+      return store.state.navbarType;
+    });
+
+    // 是否折叠菜单
+    const isCollapse = computed(() => {
+      return store.state.isCollapse;
+    });
+
+    // 侧边栏宽度
+    const sidebarWidth = computed(() => {
+      return store.state.isCollapse ? "64px" : "250px";
+    });
     return {
-      user: {},
+      currentPath,
+      navbarType,
+      isCollapse,
+      sidebarWidth,
     };
-  },
-  created() {
-    this.refreshUser();
-  },
-  methods: {
-    refreshUser() {
-      let userJson = sessionStorage.getItem("user");
-      if (!userJson) {
-        return;
-      }
-      let userId = JSON.parse(userJson).id;
-      request.get("/user/" + userId).then((res) => {
-        this.user = res.data;
-      });
-    },
   },
 };
 </script>
 
-<style scoped></style>
+<style></style>

@@ -1,22 +1,33 @@
-import { createRouter, createWebHistory } from "vue-router";
-import Layout from "../layout/Layout.vue";
+import {createRouter, createWebHistory} from "vue-router";
+import Layout from "/src/layout/index.vue";
 import NProgress from "nprogress"; // progress bar
 import "nprogress/nprogress.css"; // progress bar style
 
-const routes = [
+export const constRoutes = [
+  // {
+  //   path: "/redirect",
+  //   component: Layout,
+  //   hidden: true,
+  //   children: [
+  //     {
+  //       path: "/redirect/:path(.*)",
+  //       component: () => import("@/views/redirect/index"),
+  //     },
+  //   ],
+  // },
   {
     path: "/",
     name: "Layout",
     component: Layout,
     redirect: "/home",
     children: [
-      //嵌套
       {
         path: "home",
         name: "Home",
         component: () => import("@/views/Home"),
         meta: {
           title: "首页",
+          message: "欢迎您",
           keepAlive: true,
         },
       },
@@ -26,15 +37,6 @@ const routes = [
         component: () => import("@/views/User"),
         meta: {
           title: "用户管理",
-          keepAlive: true,
-        },
-      },
-      {
-        path: "paper",
-        name: "Paper",
-        component: () => import("@/views/results/Paper"),
-        meta: {
-          title: "论文上传",
           keepAlive: true,
         },
       },
@@ -57,31 +59,162 @@ const routes = [
           keepAlive: true,
         },
       },
+      {
+        path: "/upload",
+        name: "upload",
+        component: Layout,
+        meta: {
+          title: "成果上传"
+        },
+        children: [{
+          path: "paper",
+          name: "Paper",
+          component: () => import("@/views/FileUpload/Paper"),
+          meta: {
+            title: "论文上传",
+            keepAlive: true,
+          },
+        },
+          {
+            path: "patent",
+            name: "Patent",
+            component: () => import("@/views/FileUpload/patent"),
+            meta: {
+              title: "专利上传",
+              keepAlive: true,
+            },
+          },
+          {
+            path: "report",
+            name: "Report",
+            component: () => import("@/views/FileUpload/report"),
+            meta: {
+              title: "报告上传",
+              keepAlive: true,
+            },
+          }
+          ]
+      },
+      {
+        path: "first",
+        name: "first",
+        component:'',
+        meta: {
+          title: "初审"
+        },
+        children: [
+          {
+            path: "/first/reviewer1",
+            name: "Reviewer1",
+            component: () => import("@/views/correct/reviewer1/paper/Reviewer"),
+            meta: {
+              title: "论文审核",
+              keepAlive: true,
+            },
+          },
+          {
+            path: "PatentReview1",
+            name: "PatentReview1",
+            component: () => import("@/views/correct/reviewer1/patent/Reviewer"),
+            meta: {
+              title: "专利审核",
+              keepAlive: true,
+            },
+          },
+          {
+            path: "ReportReview1",
+            name: "ReportReview1",
+            component: () => import("@/views/correct/reviewer1/report/Reviewer"),
+            meta: {
+              title: "报告审核",
+              keepAlive: true,
+            },
+          }
+
+        ]
+      },
+      {
+        path: "second",
+        name: "second",
+        component: Layout,
+        meta: {
+          title: "二审"
+        },
+        children: [
+
+          {
+            path: "reviewer2",
+            name: "Reviewer2",
+            component: () => import("@/views/correct/reviewer2/paper/Reviewer2"),
+            meta: {
+              title: "论文审核",
+              keepAlive: true,
+            },
+          },
+          {
+            path: "PatentReview2",
+            name: "PatentReview2",
+            component: () => import("@/views/correct/reviewer2/patent/Reviewer2"),
+            meta: {
+              title: "专利审核",
+              keepAlive: true,
+            },
+          },
+          {
+            path: "ReportReview2",
+            name: "ReportReview2",
+            component: () => import("@/views/correct/reviewer2/report/Reviewer2"),
+            meta: {
+              title: "报告审核",
+              keepAlive: true,
+            },
+          }
+        ]
+      },
+      {
+        path: "final",
+        name: "final",
+        component: Layout,
+        meta: {
+          title: "终审"
+        },
+        children: [
+          {
+            path: "reviewer3",
+            name: "Reviewer3",
+            component: () => import("@/views/correct/reviewer3/paper/Reviewer3"),
+            meta: {
+              title: "论文审核",
+              keepAlive: true,
+            },
+          },
+          {
+            path: "PatentReview3",
+            name: "PatentReview3",
+            component: () => import("@/views/correct/reviewer3/patent/Reviewer3"),
+            meta: {
+              title: "专利审核",
+              keepAlive: true,
+            },
+          },
+          {
+            path: "ReportReview3",
+            name: "ReportReview3",
+            component: () => import("@/views/correct/reviewer3/report/Reviewer3"),
+            meta: {
+              title: "报告审核",
+              keepAlive: true,
+            },
+          }]
+      },
+
 
       {
-        path: "Reviewer",
-        name: "Reviewer",
-        component: () => import("@/views/correct/reviewer1/paper/Reviewer"),
-        meta: {
-          title: "初审",
-          keepAlive: true,
-        },
-      },
-      {
-        path: "Reviewer2",
-        name: "Reviewer2",
-        component: () => import("@/views/correct/reviewer2/paper/Reviewer2"),
-        meta: {
-          title: "终审",
-          keepAlive: true,
-        },
-      },
-      {
-        path: "MyPaper",
+        path: "MyPapers",
         name: "MyPaper",
-        component: () => import("@/views/MyPaper"),
+        component: () => import("@/views/MyFile/MyPapers"),
         meta: {
-          title: "我的论文",
+          title: "我的文献",
           keepAlive: true,
         },
       },
@@ -97,7 +230,8 @@ const routes = [
     name: "Login",
     component: () => import("@/views/Login"),
     meta: {
-      title: "登录_科研成果内部审核系统",
+      index: 1,
+      title: "登录",
       keepAlive: true,
     },
   },
@@ -106,7 +240,8 @@ const routes = [
     name: "Register",
     component: () => import("@/views/Register"),
     meta: {
-      title: "注册_科研成果内部审核系统",
+      index: 2,
+      title: "注册",
       keepAlive: true,
     },
   },
@@ -116,6 +251,7 @@ const routes = [
     name: "/404",
     component: () => import("../views/error/404.vue"),
     meta: {
+      index: 0,
       title: "404",
       keepAlive: true,
     },
@@ -124,7 +260,7 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes,
+  routes: constRoutes,
 });
 
 // 限制某些页面禁止未登录访问
@@ -146,7 +282,7 @@ router.beforeEach((to, from, next) => {
     let userStr = sessionStorage.getItem("user") || "{}";
     let user = JSON.parse(userStr);
     if (to.path !== "/login" && !user.token) {
-      next({ path: "/login" });
+      next({path: "/login"});
       NProgress.done();
     } else {
       if (to.path === "/login" && user.token) {

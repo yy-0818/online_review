@@ -249,7 +249,7 @@
       width="42.3%"
     >
       <el-form
-        ref="formdataBack"
+        ref="formdata"
         :model="formdata"
         :rules="rulesReviewer"
         label-width="100px"
@@ -333,7 +333,7 @@ export default {
       search: "",
       currentPage: 1,
       pageSize: 10,
-      types: 1,
+      types: 2,
       total: 0,
       tableData: [],
 
@@ -360,14 +360,14 @@ export default {
       this.loading = true;
       request
         .get(
-          `/paper/findByTypesFirst?pageNum=${this.currentPage}&pageSize=${this.pageSize}&types=${this.types}&search=${this.search}`
+          `/paper/findByTypesSecond?pageNum=${this.currentPage}&pageSize=${this.pageSize}&types=${this.types}&search=${this.search}`
         )
         .then((res) => {
           // console.log(res);
           this.loading = false;
           this.tableData = res.data.records;
           this.total = res.data.total;
-          // console.table(this.tableData);
+          console.table(this.tableData);
         });
     },
     //方向
@@ -379,9 +379,9 @@ export default {
       const names = jsonpath.query(directions, "$..name");
       return names.join("，");
     },
+
     submitUpload() {
       let _this = this;
-
       if (this.length === 0) {
         this.$message.warning("请上传文件");
       } else {
@@ -433,16 +433,16 @@ export default {
     },
 
     save() {
-      this.$refs["formdataBack"].validate((valid) => {
+      this.$refs["formdata"].validate((valid) => {
         console.log(valid);
         // this.$message({
         //   type: "success",
-        //   message: "已退回正在发送邮件，请稍等",
+        //   message: "已退回正在发送邮件, 请稍等",
         // });
         if (valid) {
           console.log(this.formdata);
           request
-            .post("/paper/failBack", this.formdata)
+            .post("/paper/failBackSecond", this.formdata)
             .then((res) => {
               console.log(res);
               if (res.status === 200) {
@@ -478,7 +478,7 @@ export default {
     handleEdit(row) {
       // this.form = JSON.parse(JSON.stringify(row));
       this.formdata.id = row.id;
-      console.log(this.formdata.id);
+      // console.log(this.formdata.id);
       this.dialogVisible = true;
     },
     handleDele() {
@@ -492,20 +492,22 @@ export default {
       //退回弹窗
       this.dialogVisible = false;
       this.$refs["formdata"].resetFields();
-      this.$refs["upload"].clearFiles();
     },
 
     handleAdopt(row) {
+      //通过弹窗
       // this.form = JSON.parse(JSON.stringify(row));
       this.formdata.id = row.id;
       this.dialogFormVisible = true;
     },
+
     handleSave() {
       this.$refs["formdata"].validate((valid) => {
         console.log(valid);
+        console.log(this.formdata);
         if (valid) {
           request
-            .post("/paper/passFirst", {
+            .post("/paper/passSecond", {
               commentFileUrl: this.formdata.url,
               content: this.formdata.content,
               id: this.formdata.id,
@@ -586,8 +588,10 @@ export default {
       this.currentPage = pageNum;
       this.load();
     },
+
     // 预览事件
     previewOpen(data) {
+      // console.table(data);
       const file = data.paperFiles;
       if (file.length != 0) {
         // console.log(file);

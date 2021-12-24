@@ -36,10 +36,30 @@
         label="题目"
         show-overflow-tooltip
       ></el-table-column>
-
+      <el-table-column
+        prop="titleEn"
+        label="题目(英)"
+        show-overflow-tooltip
+      ></el-table-column>
+      <el-table-column
+        prop="keyword"
+        label="关键词"
+        show-overflow-tooltip
+      ></el-table-column>
+      <el-table-column
+        prop="keywordEn"
+        label="关键词(英)"
+        show-overflow-tooltip
+      ></el-table-column>
       <el-table-column
         prop="summary"
         label="摘要"
+        tooltip-effect="light"
+        show-overflow-tooltip
+      ></el-table-column>
+      <el-table-column
+        prop="summaryEn"
+        label="摘要(英)"
         show-overflow-tooltip
       ></el-table-column>
 
@@ -89,7 +109,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" width="330">
+      <el-table-column fixed="right" label="操作" width="330">
         <template #default="scope">
           <el-button
             size="mini"
@@ -249,7 +269,7 @@
       width="42.3%"
     >
       <el-form
-        ref="formdataBack"
+        ref="formdata"
         :model="formdata"
         :rules="rulesReviewer"
         label-width="100px"
@@ -333,7 +353,7 @@ export default {
       search: "",
       currentPage: 1,
       pageSize: 10,
-      types: 1,
+      types: 0,
       total: 0,
       tableData: [],
 
@@ -360,7 +380,7 @@ export default {
       this.loading = true;
       request
         .get(
-          `/paper/findByTypesFirst?pageNum=${this.currentPage}&pageSize=${this.pageSize}&types=${this.types}&search=${this.search}`
+          `/paper/findByTypesThird?pageNum=${this.currentPage}&pageSize=${this.pageSize}&types=${this.types}&search=${this.search}`
         )
         .then((res) => {
           // console.log(res);
@@ -433,16 +453,12 @@ export default {
     },
 
     save() {
-      this.$refs["formdataBack"].validate((valid) => {
+      this.$refs["formdata"].validate((valid) => {
         console.log(valid);
-        // this.$message({
-        //   type: "success",
-        //   message: "已退回正在发送邮件，请稍等",
-        // });
         if (valid) {
           console.log(this.formdata);
           request
-            .post("/paper/failBack", this.formdata)
+            .post("/paper/failBackThird", this.formdata)
             .then((res) => {
               console.log(res);
               if (res.status === 200) {
@@ -505,7 +521,7 @@ export default {
         console.log(valid);
         if (valid) {
           request
-            .post("/paper/passFirst", {
+            .post("/paper/passThird", {
               commentFileUrl: this.formdata.url,
               content: this.formdata.content,
               id: this.formdata.id,
@@ -517,7 +533,7 @@ export default {
               if (res.status === 200) {
                 this.$message({
                   type: "success",
-                  message: "通过完成,邮件已发送",
+                  message: "通过完成，邮件已发送",
                 });
                 this.load(); // 刷新表格的数据
               } else {
@@ -588,6 +604,8 @@ export default {
     },
     // 预览事件
     previewOpen(data) {
+      // console.log(data);
+      // console.log(data.paperFiles);
       const file = data.paperFiles;
       if (file.length != 0) {
         // console.log(file);

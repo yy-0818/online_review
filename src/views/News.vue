@@ -6,7 +6,7 @@
     <!--    </div>-->
 
     <!--    搜索 新增  查询-->
-    <div style="margin: 20px 0">
+    <div style="margin: 5px 0">
       <el-input
         v-model="search"
         placeholder="请输入关键字"
@@ -59,7 +59,7 @@
           >
             <template #reference>
               <el-button size="mini" type="danger"
-                ><i class="el-icon-delete el-icon--left"></i>删除</el-button
+                ><i class="el-icon-delete "></i>删除</el-button
               >
             </template>
           </el-popconfirm>
@@ -80,7 +80,7 @@
       </el-pagination>
     </div>
 
-    <el-dialog title="提示" v-model="dialogVisible" width="50%">
+    <el-dialog title="提示" v-model="dialogVisible" style="width:50%">
       <el-form :model="form" label-width="50px">
         <el-form-item label="标题">
           <el-input

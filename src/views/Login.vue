@@ -51,11 +51,11 @@
               <ValidCode style="margin-left: 8px" @input="createValidCode" />
             </div>
           </el-form-item>
-          <el-form-item prop="role">
+          <!-- <el-form-item prop="role">
             <el-radio v-model="form.role" :label="3">管理员</el-radio>
             <el-radio v-model="form.role" :label="2">审核员</el-radio>
             <el-radio v-model="form.role" :label="1">普通用户</el-radio>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item>
             <el-button style="width: 100%" type="primary" @click="login"
               >登 录</el-button
@@ -66,7 +66,7 @@
             <el-row>
               <el-button type="text" @click="register">前往注册 >> </el-button>
               <el-button
-                style="padding-left:22vh"
+                style="padding-left:25vh"
                 type="text"
                 @click="resetForm('form')"
                 ><i class="el-icon-refresh"></i>重置</el-button
@@ -104,13 +104,20 @@ export default {
       rules: {
         email: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
         password: [{ required: true, message: "请输入密码", trigger: "blur" }],
-        role: [{ required: true, message: "请选择身份", trigger: "blur" }],
+        // role: [{ required: true, message: "请选择身份", trigger: "blur" }],
       },
       validCode: "",
     };
   },
   created() {
     sessionStorage.removeItem("user");
+
+    // document.onkeydown=e=>{
+    //   let _key = window.event.keyCode;
+    //   if(_key == 13) {
+    //     this.selectEntered();
+    //   }
+    // }
   },
   methods: {
     // 接收验证码组件提交的 4位验证码
@@ -190,7 +197,7 @@ export default {
   background-color: #fff;
   border-radius: 20px;
   width: 400px;
-  height: 510px;
+  height: 450px;
   margin: auto;
   position: absolute;
   top: 0;
@@ -199,15 +206,14 @@ export default {
   bottom: 0;
 }
 
-/* .showbox :hover {
-  box-shadow: 0px 12px 36px rgba(0, 0, 0, 0.1);
-} */
-
 #todo {
   /*font-size: 60px "华文行楷";*/
   text-align: center;
   font: 50px "华文行楷";
   color: #4d4d4d;
   padding: 30px 0;
+  background-image: linear-gradient(25deg, #00337e, #13548f, #1576a1, #009ab2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 </style>

@@ -77,7 +77,7 @@
                 >返回登录 >>
               </el-button>
               <el-button
-                style="padding-left:22vh"
+                style="padding-left:25vh"
                 type="text"
                 @click="resetForm('form')"
                 ><i class="el-icon-refresh"></i>重置</el-button
@@ -242,7 +242,7 @@ export default {
       if (this.form.password !== this.form.confirm) {
         this.$message({
           type: "error",
-          message: "2次密码输入不一致！",
+          message: "2次密码输入不一致!",
         });
         return;
       }
@@ -304,7 +304,7 @@ export default {
   background-color: #fff;
   border-radius: 20px;
   width: 400px;
-  height: 500px;
+  height: 450px;
   margin: auto;
   position: absolute;
   top: 0;
@@ -314,13 +314,14 @@ export default {
 }
 
 #todo {
-  font-size: 60px "华文行楷";
   text-align: center;
   font: 50px "华文行楷";
   color: #4d4d4d;
   padding: 30px 0;
+  background-image: linear-gradient(25deg, #00337e, #13548f, #1576a1, #009ab2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-
 .el-button.disabled-style {
   background-color: #eeeeee;
   color: #cccccc;
