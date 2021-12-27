@@ -10,12 +10,14 @@ import "@/assets/css/layout.scss";
 import "@/assets/css/custom.scss";
 import VueParticles from "vue-particles";
 import SvgIcon from "@/components/SvgIcon.vue";
+import moment from 'moment'
 // import VueLazyload from "vue-lazyload";
 
 const app = createApp(App)
   .use(Plugin)
   .use(store)
   .use(router)
+  .use(moment)
   .use(VueParticles)
   // .use(VueLazyload)
   .use(ElementPlus, { size: "small" })
