@@ -6,7 +6,7 @@
         <el-avatar
           :size="30"
           :src="
-            form.avatarUrl === '/image/avatar.png'
+            form.avatarUrl === '@/assets/img/user.jpg'
               ? defaultAvatar
               : form.avatarUrl === undefined
               ? defaultAvatar
