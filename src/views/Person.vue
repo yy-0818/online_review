@@ -66,13 +66,18 @@
             ></el-input>
           </el-form-item>
 
-<!--          <el-form-item label="角色">-->
-<!--            <el-input-->
-<!--                class="el-form-item-d"-->
-<!--                v-model="form.role"-->
-<!--                disabled-->
-<!--            ></el-input>-->
-<!--          </el-form-item>-->
+          <el-form-item label="角色">
+            <el-select v-model="form.role" style="width:80%">
+              <el-option
+                  v-for="item in roles"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                  disabled
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
 
           <el-form-item label="研究方向">
             <el-select v-model="form.directionId" style="width:80%">
