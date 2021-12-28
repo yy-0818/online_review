@@ -4,17 +4,7 @@ import NProgress from "nprogress"; // progress bar
 import "nprogress/nprogress.css"; // progress bar style
 
 export const constRoutes = [
-  // {
-  //   path: "/redirect",
-  //   component: Layout,
-  //   hidden: true,
-  //   children: [
-  //     {
-  //       path: "/redirect/:path(.*)",
-  //       component: () => import("@/views/redirect/index"),
-  //     },
-  //   ],
-  // },
+
   {
     path: "/",
     name: "Layout",
