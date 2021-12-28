@@ -199,112 +199,62 @@
           </el-input>
         </el-form-item>
       </el-form>
-      <!-- <el-row type="flex" justify="center" align="middle">
-        <el-card style="display: flex;" shadow="hover">
-          <div class="content">
-            <div>
-              <el-upload
-                drag
-                ref="upload"
-                class="upload-demo"
-                :limit="limitNum"
-                action="http://49.234.51.220:12345/files/upload"
-                :on-preview="handlePreview"
-                :on-remove="handleRemove"
-                accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
-                :file-list="fileList"
-                :on-change="fileChange"
-                :auto-upload="false"
-                :on-exceed="exceedFile"
-                :on-success="handleSuccess"
-                :on-error="handleError"
-              >
-                <i class="el-icon-upload"></i>
 
-                <div class="el-upload__text">
-                  将Order文件拖到此处，或
+<!--      <el-row>-->
+<!--        <el-card style="width:100vw;" shadow="hover">-->
+<!--          <div type="flex" justify="center" align="middle">-->
+<!--            <div>-->
+<!--              <el-upload-->
+<!--                drag-->
+<!--                ref="upload"-->
+<!--                class="upload-demo"-->
+<!--                :limit="limitNum"-->
+<!--                :action="fileApiURL + '/files/upload'"-->
+<!--                :on-preview="handlePreview"-->
+<!--                :on-remove="handleRemove"-->
+<!--                accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"-->
+<!--                :file-list="fileList"-->
+<!--                :on-change="fileChange"-->
+<!--                :auto-upload="false"-->
+<!--                :on-exceed="exceedFile"-->
+<!--                :on-success="handleSuccess"-->
+<!--                :on-error="handleError"-->
+<!--              >-->
+<!--                <i class="el-icon-upload"></i>-->
 
-                  <em>点击上传</em>
-                </div>
+<!--                <div class="el-upload__text">-->
+<!--                  将Order文件拖到此处，或-->
 
-                <div class="el-upload__tip">
-                  可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
-                </div>
-              </el-upload>
+<!--                  <em>点击上传</em>-->
+<!--                </div>-->
 
-              <br />
+<!--                <div class="el-upload__tip">-->
+<!--                  可以上传PFD、Word、任意压缩包格式的文件，且不超过50M-->
+<!--                </div>-->
+<!--              </el-upload>-->
 
-              <div
-                style="display: flex;justify-content: center;align-items: center;"
-              >
-                <el-button
-                  size="small"
-                  type="primary"
-                  :disabled="isBtn"
-                  @click="submitUpload"
-                  plain
-                  >立即上传<i class="el-icon-upload el-icon--right"></i
-                ></el-button>
-              </div>
-            </div>
-          </div>
-        </el-card>
-      </el-row> -->
-      <el-row>
-        <el-card style="width:100vw;" shadow="hover">
-          <div type="flex" justify="center" align="middle">
-            <div>
-              <el-upload
-                drag
-                ref="upload"
-                class="upload-demo"
-                :limit="limitNum"
-                :action="fileApiURL + '/files/upload'"
-                :on-preview="handlePreview"
-                :on-remove="handleRemove"
-                accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
-                :file-list="fileList"
-                :on-change="fileChange"
-                :auto-upload="false"
-                :on-exceed="exceedFile"
-                :on-success="handleSuccess"
-                :on-error="handleError"
-              >
-                <i class="el-icon-upload"></i>
+<!--              <br />-->
 
-                <div class="el-upload__text">
-                  将Order文件拖到此处，或
-
-                  <em>点击上传</em>
-                </div>
-
-                <div class="el-upload__tip">
-                  可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
-                </div>
-              </el-upload>
-
-              <br />
-
-              <div
-                style="display: flex;justify-content: center;align-items: center;"
-              >
-                <el-button
-                  size="small"
-                  type="primary"
-                  :disabled="isBtn"
-                  @click="submitUpload"
-                  plain
-                  >立即上传<i class="el-icon-upload el-icon--right"></i
-                ></el-button>
-              </div>
-            </div>
-          </div>
-        </el-card>
-      </el-row>
+<!--              <div-->
+<!--                style="display: flex;justify-content: center;align-items: center;"-->
+<!--              >-->
+<!--                <el-button-->
+<!--                  size="small"-->
+<!--                  type="primary"-->
+<!--                  :disabled="isBtn"-->
+<!--                  @click="submitUpload"-->
+<!--                  plain-->
+<!--                  >立即上传<i class="el-icon-upload el-icon&#45;&#45;right"></i-->
+<!--                ></el-button>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </el-card>-->
+<!--      </el-row>-->
 
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="handleDele">取 消</el-button>
+          <el-button @click="handleDele" type="primary">取 消</el-button>
           <el-button @click="handleSave" type="primary">确定</el-button>
         </span>
       </template>
@@ -342,6 +292,7 @@
           </el-input>
         </el-form-item>
 
+
         <el-form-item label="退回原因:" prop="reason">
           <el-input
             type="textarea"
@@ -352,10 +303,63 @@
           </el-input>
         </el-form-item>
       </el-form>
+
+      <el-row>
+      <el-card style="width:100vw;" shadow="hover">
+        <div type="flex" justify="center" align="middle">
+          <div>
+            <el-upload
+                drag
+                ref="upload"
+                class="upload-demo"
+                :limit="limitNum"
+                :action="fileApiURL + '/files/upload'"
+                :on-preview="handlePreview"
+                :on-remove="handleRemove"
+                accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
+                :file-list="fileList"
+                :on-change="fileChange"
+                :auto-upload="false"
+                :on-exceed="exceedFile"
+                :on-success="handleSuccess"
+                :on-error="handleError"
+            >
+              <i class="el-icon-upload"></i>
+
+              <div class="el-upload__text">
+                将Order文件拖到此处，或
+
+                <em>点击上传</em>
+              </div>
+
+              <div class="el-upload__tip">
+                可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
+              </div>
+            </el-upload>
+
+            <br />
+
+            <div
+                style="display: flex;justify-content: center;align-items: center;"
+            >
+              <el-button
+                  size="small"
+                  type="primary"
+                  :disabled="isBtn"
+                  @click="submitUpload"
+                  plain
+              >立即上传<i class="el-icon-upload el-icon--right"></i
+              ></el-button>
+            </div>
+          </div>
+        </div>
+      </el-card>
+      </el-row>
+
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="handleDele2">取 消</el-button>
-          <el-button @click="save()" type="primary">确定</el-button>
+          <el-button @click="handleDele2" type="primary">取 消</el-button>
+          <el-button @click="save" type="primary">确定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -506,7 +510,13 @@ export default {
         if (valid) {
           console.log(this.formdata);
           request
-            .post("/paper/failBackFirst", this.formdata)
+            .post("/paper/failBackFirst", {
+              commentFileUrl: this.formdata.url,
+              content: this.formdata.content,
+              id: this.formdata.id,
+              opinion: this.formdata.opinion,
+              reason: this.formdata.reason,
+            })
             .then((res) => {
               console.log(res);
               if (res.status === 200) {
@@ -538,6 +548,7 @@ export default {
         }
       });
       this.$refs["formdata"].resetFields();
+      this.$refs["upload"].clearFiles();
     },
     handleEdit(row) {
       // this.form = JSON.parse(JSON.stringify(row));
@@ -656,7 +667,7 @@ export default {
       // console.log(data);
       // console.log(data.paperFiles);
       const file = data.paperFiles;
-      if (file.length != 0) {
+      if (file.length !== 0) {
         // console.log(file);
         for (const key of file) {
           // console.log(key.typeOr);

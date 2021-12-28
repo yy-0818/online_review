@@ -89,8 +89,8 @@
                 : "未知" && scope.row.types === 1
                 ? "专利"
                 : "未知" && scope.row.state === 2
-                ? "报告"
-                : "未知"
+                ? "未知"
+                : "报告"
             }}
           </el-tag>
         </template>
@@ -515,9 +515,9 @@ export default {
 
     handleDownload(row) {
       const file = row.paperFiles;
-      // console.log(file[1])
+      console.log(file[1])
       if(file[1] !== undefined){
-        // console.log(file[1])
+        console.log(file[1].url)
         const key = file[1]
         const filename = key.url.replace(
             /^\/files\/([a-fA-F0-9]{32})_/,
