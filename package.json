@@ -16,6 +16,7 @@
     "js-base64": "^3.7.2",
     "js-file-download": "^0.4.12",
     "jsonpath": "^1.1.1",
+    "moment": "^2.29.1",
     "nprogress": "^0.2.0",
     "v-fit-columns": "^0.2.0",
     "vue": "^3.2.4",

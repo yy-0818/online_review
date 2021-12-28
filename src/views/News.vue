@@ -6,7 +6,7 @@
     <!--    </div>-->
 
     <!--    搜索 新增  查询-->
-    <div style="margin: 5px 0">
+    <div style="margin: 5px 0" >
       <el-input
         v-model="search"
         placeholder="请输入关键字"
@@ -26,6 +26,7 @@
       border
       stripe
       style="width: 100%"
+      :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
     >
       <!--      <el-table-column-->
       <!--          prop="id"-->
@@ -33,7 +34,7 @@
 
       <!--      >-->
       <el-table-column prop="id" label="ID" sortable> </el-table-column>
-      <el-table-column prop="time" label="时间" sortable> </el-table-column>
+      <el-table-column prop="time" label="时间" :formatter="dateFormat"   sortable> </el-table-column>
       <el-table-column prop="title" label="标题"> </el-table-column>
       <el-table-column prop="author" label="作者"> </el-table-column>
 
@@ -114,6 +115,7 @@
 <script>
 import E from "wangeditor";
 import request from "@/utils/request";
+import moment from 'moment'
 
 let editor;
 
@@ -154,6 +156,18 @@ export default {
   //   },
   // },
   methods: {
+    dateFormat(row,column){
+
+      let date = row[column.property];
+      if(date === null || date === '' || date === undefined){
+
+        return ''
+      } else {
+
+        return moment(date).format("YYYY-MM-DD HH:mm:ss")
+      }
+    },
+
     details(row) {
       this.detail = row;
       this.vis = true;
@@ -332,6 +346,8 @@ export default {
       this.load();
     },
   },
+
+
 };
 </script>
 

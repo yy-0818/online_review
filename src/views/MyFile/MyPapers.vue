@@ -53,6 +53,10 @@
             <el-form-item label="方向:">
               <span>{{ showDirections(props.row) }}</span>
             </el-form-item>
+
+            <el-form-item label="上传时间:">
+              <span>{{ props.row.createTime }}</span>
+            </el-form-item>
           </el-form>
         </template>
       </el-table-column>
@@ -85,8 +89,8 @@
                 : "未知" && scope.row.types === 1
                 ? "专利"
                 : "未知" && scope.row.state === 2
-                ? "报告"
-                : "未知"
+                ? "未知"
+                : "报告"
             }}
           </el-tag>
         </template>
@@ -132,6 +136,14 @@
         </template>
       </el-table-column>
 
+      <el-table-column
+          prop="createTime"
+          label="上传时间"
+          tooltip-effect="light"
+          show-overflow-tooltip
+          align="center"
+      ></el-table-column>
+
       <el-table-column label="审核状态" align="center">
         <template #default="scope">
           <el-tag
@@ -164,6 +176,7 @@
           </el-tag>
         </template>
       </el-table-column>
+
 
       <el-table-column label="操作" width="270">
         <template #default="scope">
@@ -302,7 +315,7 @@ export default {
       fileApiURL: fileApiURL,
       loading: true,
       limitNum: 1,
-      formdata: {
+      formData: {
         id: "",
         content: "",
         opinion: "",
@@ -422,8 +435,8 @@ export default {
     }, // 文件上传成功时的钩子
 
     handleSuccess(res, file, fileList) {
-      this.formdata.url = file.response.data;
-      console.log(this.formdata.url);
+      this.formData.url = file.response.data;
+      console.log(this.formData.url);
 
       this.$message.success("文件上传成功");
     },
@@ -436,7 +449,7 @@ export default {
 
     newUpload(row) {
       // this.form = JSON.parse(JSON.stringify(row));
-      this.formdata.id = row.id;
+      this.formData.id = row.id;
       this.dialogFormVisible = true;
     },
 
@@ -446,7 +459,7 @@ export default {
     },
 
     handleSave() {
-      let url = this.formdata.url;
+      let url = this.formData.url;
       console.log(url);
       if (url === "" || url === null) {
         this.$message({
@@ -457,8 +470,8 @@ export default {
       }
       request
         .post("/paper/saves/", {
-          id: this.formdata.id,
-          url: this.formdata.url,
+          id: this.formData.id,
+          url: this.formData.url,
         })
         .then((res) => {
           console.log(res);
@@ -502,9 +515,9 @@ export default {
 
     handleDownload(row) {
       const file = row.paperFiles;
-      // console.log(file[1])
+      console.log(file[1])
       if(file[1] !== undefined){
-        // console.log(file[1])
+        console.log(file[1].url)
         const key = file[1]
         const filename = key.url.replace(
             /^\/files\/([a-fA-F0-9]{32})_/,

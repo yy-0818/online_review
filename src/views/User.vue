@@ -61,10 +61,10 @@
           <!-- <el-table-column prop="age" label="年龄"> </el-table-column> -->
           <el-table-column label="角色">
             <template #default="scope">
-              <span v-if="scope.row.role === 0">游客</span>
-              <span v-if="scope.row.role === 1">学生</span>
-              <span v-if="scope.row.role === 2">老师</span>
+              <span v-if="scope.row.role === 1">普通用户</span>
+              <span v-if="scope.row.role === 2">审核员</span>
               <span v-if="scope.row.role === 3">管理员</span>
+              <span v-if="scope.row.role === 4">超级管理员</span>
             </template>
           </el-table-column>
           <!-- <el-table-column prop="title" label="题目"> </el-table-column> -->
@@ -253,7 +253,7 @@ export default {
           // console.log(res);
           this.loading = false;
           this.tableData = res.data.records;
-          console.table(this.tableData);
+          // console.table(this.tableData);
           this.total = res.data.total;
         });
     },

@@ -1,6 +1,6 @@
 <template>
   <div class="el-logo">
-    <img src="@/assets/logo.png" alt="" />
+<!--    <img src="@/assets/logo.png" alt="" />-->
     <span class="title" :class="{ 'is-hide': isHideTitle }"
       >科研成果审核系统</span
     >
