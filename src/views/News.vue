@@ -55,6 +55,7 @@
             ><i class="el-icon-edit-outline"></i>编辑</el-button
           >
           <el-popconfirm
+              v-if="this.formData.role===3 || this.formData.role===4 "
             title="确定删除吗？"
             @confirm="handleDelete(scope.row.id)"
           >
@@ -131,6 +132,7 @@ export default {
         author: "",
         title: "",
       },
+      formData:{},
       dialogVisible: false,
       search: "",
       currentPage: 1,
@@ -143,6 +145,10 @@ export default {
   },
   created() {
     this.load();
+
+    this.getDirections();
+    let str = sessionStorage.getItem("user") || "{}";
+    this.formData = JSON.parse(str);
   },
   // computed: {
   //   getUserId() {
@@ -155,6 +161,9 @@ export default {
   //     return userId.id;
   //   },
   // },
+
+
+
   methods: {
     dateFormat(row,column){
 
@@ -166,6 +175,12 @@ export default {
 
         return moment(date).format("YYYY-MM-DD HH:mm:ss")
       }
+    },
+    getDirections() {
+      request.get("/direction").then((res) => {
+        // console.log(res.data);
+        this.directionIdOptions = res.data;
+      });
     },
 
     details(row) {
