@@ -1,6 +1,6 @@
 <template>
   <div >
-    <div v-if="formData.role===1">
+    <div v-if="formData.role===4">
       <el-input
           v-model="search"
           placeholder="请输入关键字"
@@ -41,7 +41,7 @@
       <el-table-column prop="name" width="80px" label="作者"> </el-table-column>
       <el-table-column prop="createTime" width="150px" label="时间" :formatter="dateFormat"   sortable> </el-table-column>
 
-      <el-table-column label="操作" width="120px" v-if="formData.role===1" >
+      <el-table-column label="操作" width="120px" v-if="formData.role===4" >
 
 
         <template #default="scope">
