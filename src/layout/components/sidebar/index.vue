@@ -40,7 +40,6 @@ export default {
     const user = getUser()
 
     let menuList = (user) => {
-      console.log(user);
       if (user.role === 1) {
         return studentMenuList
       } else if (user.role === 2) {
