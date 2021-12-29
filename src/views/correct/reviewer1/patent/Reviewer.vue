@@ -51,7 +51,7 @@
 
       <el-table-column
         prop="user.name"
-        label="上传人"
+        label="作者"
         show-overflow-tooltip
       ></el-table-column>
 
