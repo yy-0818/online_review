@@ -5,7 +5,7 @@
         v-model="search"
         placeholder="请输入关键字"
         style="width: 20%"
-        clearable
+        clearables
       ></el-input>
       <el-button
         type="primary"
@@ -15,7 +15,7 @@
       >
       <el-button
         type="primary"
-        style="margin-left: 6px;position:relative"
+        style="margin-left: 8px;position:relative"
         @click="load"
         ><i class="el-icon-search"></i>查询</el-button
       >
@@ -87,7 +87,7 @@
       </el-table-column>
     </el-table>
 
-    <div style="margin: 10px 0">
+    <div style="margin: 10px 0;position:relative">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
