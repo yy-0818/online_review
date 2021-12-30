@@ -1,93 +1,101 @@
 <template>
-  <div >
-    <div v-if="formData.role===4">
+  <div>
+    <div v-if="formData.role === 4">
       <el-input
-          v-model="search"
-          placeholder="请输入关键字"
-          style="width: 20%"
-          clearable
+        v-model="search"
+        placeholder="请输入关键字"
+        style="width: 20%"
+        clearables
       ></el-input>
-      <el-button type="primary" style="margin-left: 8px" @click="add"
-      ><i class="el-icon-upload2 "></i>新增</el-button
+      <el-button
+        type="primary"
+        style="margin-left: 8px;position:relative"
+        @click="add"
+        ><i class="el-icon-upload2 "></i>新增</el-button
       >
-      <el-button type="primary" style="margin-left: 6px" @click="load"
-      ><i class="el-icon-search"></i>查询</el-button
+      <el-button
+        type="primary"
+        style="margin-left: 8px;position:relative"
+        @click="load"
+        ><i class="el-icon-search"></i>查询</el-button
       >
     </div>
 
-
-
     <el-table
-        v-loading="loading"
-        :data="tableData"
-        stripe
-        style="width: 100%"
-        max-height="30%"
+      v-loading="loading"
+      :data="tableData"
+      stripe
+      style="width: 100%"
+      max-height="30%"
     >
+      <!--      <el-table-column prop="title" label="通知公告"> </el-table-column>-->
 
-
-<!--      <el-table-column prop="title" label="通知公告"> </el-table-column>-->
-
-      <el-table-column
-          prop="title"
-          label="通知公告"
-      >
+      <el-table-column prop="title" label="通知公告">
         <template #default="scope">
-          <a :href="scope.row.title"  @click.prevent="details(scope.row)" target="_blank" class="a1">{{scope.row.title}}</a>
+          <a
+            :href="scope.row.title"
+            @click.prevent="details(scope.row)"
+            target="_blank"
+            class="a1"
+            >{{ scope.row.title }}</a
+          >
         </template>
       </el-table-column>
 
-
       <el-table-column prop="name" width="80px" label="作者"> </el-table-column>
-      <el-table-column prop="createTime" width="150px" label="时间" :formatter="dateFormat"   sortable> </el-table-column>
+      <el-table-column
+        prop="createTime"
+        width="150px"
+        label="时间"
+        :formatter="dateFormat"
+        sortable
+      >
+      </el-table-column>
 
-      <el-table-column label="操作" width="120px" v-if="formData.role===4" >
-
-
+      <el-table-column label="操作" width="120px" v-if="formData.role === 4">
         <template #default="scope">
-<!--          <el-button-->
-<!--              size="mini"-->
-<!--              type="success"-->
-<!--              plain-->
-<!--              @click="details(scope.row)"-->
-<!--          ><i class="el-icon-tickets"></i>详情</el-button-->
-<!--          >-->
+          <!--          <el-button-->
+          <!--              size="mini"-->
+          <!--              type="success"-->
+          <!--              plain-->
+          <!--              @click="details(scope.row)"-->
+          <!--          ><i class="el-icon-tickets"></i>详情</el-button-->
+          <!--          >-->
 
-<!--                <el-button type="primary" style="margin-left: 8px" @click="add"-->
-<!--                ><i class="el-icon-upload2 "></i></el-button-->
-<!--                >-->
+          <!--                <el-button type="primary" style="margin-left: 8px" @click="add"-->
+          <!--                ><i class="el-icon-upload2 "></i></el-button-->
+          <!--                >-->
 
           <el-button
-              size="mini"
-              type="primary"
-              plain
-              @click="handleEdit(scope.row)"
-          ><i class="el-icon-edit-outline"></i></el-button
-          >
+            size="mini"
+            type="primary"
+            plain
+            @click="handleEdit(scope.row)"
+            ><i class="el-icon-edit-outline"></i
+          ></el-button>
           <el-popconfirm
-              title="确定删除吗？"
-              @confirm="handleDelete(scope.row.id)"
+            title="确定删除吗？"
+            @confirm="handleDelete(scope.row.id)"
           >
             <template #reference>
               <el-button size="mini" type="danger"
-              ><i class="el-icon-delete "></i></el-button
-              >
+                ><i class="el-icon-delete "></i
+              ></el-button>
             </template>
           </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>
 
-
-    <div style="margin: 10px 0">
+    <div style="margin: 10px 0;position:relative">
       <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          :page-sizes="[5, 10, 20]"
-          :page-size="pageSize"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="total"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="[5, 10, 20]"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
       >
       </el-pagination>
     </div>
@@ -96,16 +104,14 @@
       <el-form :model="form" label-width="50px">
         <el-form-item label="标题">
           <el-input
-              v-model="form.title"
-              style="width: 50%"
-              placeholder="请输入内容"
+            v-model="form.title"
+            style="width: 50%"
+            placeholder="请输入内容"
           ></el-input>
         </el-form-item>
 
         <div id="div1"></div>
-        <!--        <el-form-item label="内容">-->
-        <!--          <el-input v-model="form.price" style="width: 80%"></el-input>-->
-        <!--        </el-form-item>-->
+
       </el-form>
       <template #footer>
         <span class="dialog-footer">
@@ -126,7 +132,7 @@
 <script>
 import E from "wangeditor";
 import request from "@/utils/request";
-import moment from 'moment'
+import moment from "moment";
 // import { borderBox1 } from '@jiaminghi/data-view'
 
 let editor;
@@ -143,9 +149,9 @@ export default {
         time: "",
         name: "",
         title: "",
-        content:''
+        content: "",
       },
-      formData:{
+      formData: {
         id: "",
         email: "",
         name: "",
@@ -153,7 +159,7 @@ export default {
         password: "",
         avatarUrl: "",
         directionId: "",
-        role:"",
+        role: "",
       },
       dialogVisible: false,
       search: "",
@@ -175,15 +181,12 @@ export default {
   },
 
   methods: {
-    dateFormat(row,column){
-
+    dateFormat(row, column) {
       let date = row[column.property];
-      if(date === null || date === '' || date === undefined){
-
-        return ''
+      if (date === null || date === "" || date === undefined) {
+        return "";
       } else {
-
-        return moment(date).format("YYYY-MM-DD")
+        return moment(date).format("YYYY-MM-DD");
       }
     },
 
@@ -193,7 +196,6 @@ export default {
         this.directionIdOptions = res.data;
       });
     },
-
 
     details(row) {
       this.detail = row;
@@ -206,19 +208,19 @@ export default {
     load() {
       this.loading = true;
       request
-          .get("/announcement/findAll", {
-            params: {
-              pageNum: this.currentPage,
-              pageSize: this.pageSize,
-              search: this.search,
-            },
-          })
-          .then((res) => {
-            this.loading = false;
-            this.tableData = res.data.records;
-            // console.log(res.data);
-            this.total = res.data.total;
-          });
+        .get("/announcement/findAll", {
+          params: {
+            pageNum: this.currentPage,
+            pageSize: this.pageSize,
+            search: this.search,
+          },
+        })
+        .then((res) => {
+          this.loading = false;
+          this.tableData = res.data.records;
+          // console.log(res.data);
+          this.total = res.data.total;
+        });
     },
     add() {
       this.dialogVisible = true;
@@ -237,7 +239,6 @@ export default {
           editor.config.uploadFileName = "file"; // 设置上传参数名称
 
           editor.config.uploadImgHooks = {
-
             customInsert: function(insertImgFn, result) {
               // result 即服务端返回的接口
               console.log("customInsert", result);
@@ -279,29 +280,31 @@ export default {
         let user = JSON.parse(userStr);
         this.form.author = user.name;
         // console.log(this.form.author);
-        request.post("/announcement/save", {uploaderId: this.formData.id,
-          title:this.form.title,
-          createTime:this.form.time,
-          id:this.form.id,
-          content:this.form.content
+        request
+          .post("/announcement/save", {
+            uploaderId: this.formData.id,
+            title: this.form.title,
+            createTime: this.form.time,
+            id: this.form.id,
+            content: this.form.content,
+          })
+          .then((res) => {
+            // console.log(res);
+            if (res.status === 200) {
+              this.$message({
+                type: "success",
+                message: "新增成功",
+              });
+              this.load();
+            } else {
+              this.$message({
+                type: "error",
+                message: res.msg,
+              });
+            }
 
-        }).then((res) => {
-          // console.log(res);
-          if (res.status === 200) {
-            this.$message({
-              type: "success",
-              message: "新增成功",
-            });
-            this.load();
-          } else {
-            this.$message({
-              type: "error",
-              message: res.msg,
-            });
-          }
-
-          this.dialogVisible = false; // 关闭弹窗
-        });
+            this.dialogVisible = false; // 关闭弹窗
+          });
       }
     },
     handleEdit(row) {
@@ -352,8 +355,6 @@ export default {
       this.load();
     },
   },
-
-
 };
 </script>
 
@@ -371,19 +372,15 @@ export default {
   background-color: #bec3c6;
 }
 
-
 .a2 {
-  background-color: #F1EFC7;
+  background-color: #f1efc7;
   color: #000000;
   padding: 10px;
   text-decoration: none;
   font-size: 16px;
   box-shadow: #666 0px 0px 6px;
 }
-.a2:active{
+.a2:active {
   background-color: #bdbc9d;
 }
-
-
-
 </style>
