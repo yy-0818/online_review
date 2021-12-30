@@ -111,9 +111,7 @@
         </el-form-item>
 
         <div id="div1"></div>
-        <!--        <el-form-item label="内容">-->
-        <!--          <el-input v-model="form.price" style="width: 80%"></el-input>-->
-        <!--        </el-form-item>-->
+
       </el-form>
       <template #footer>
         <span class="dialog-footer">
