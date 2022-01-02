@@ -54,7 +54,7 @@
             ></el-input>
           </el-form-item>
           <el-form-item label="姓名">
-            <el-input class="el-form-item-d" v-model="form.name"></el-input>
+            <el-input class="el-form-item-d" v-model="form.name" placeholder="请填写你的姓名"></el-input>
           </el-form-item>
 
           <el-form-item label="密码">
@@ -98,6 +98,7 @@
                       :key="item.value"
                       :label="item.label"
                       :value="item.value"
+                      :disabled="item.value===0"
               >
               </el-option>
             </el-select>
@@ -141,7 +142,9 @@ export default {
       ],
       genderOptions: [
         { value: 1, label: "男" },
-        { value: 0, label: "女" },
+        { value: 2, label: "女" },
+        { value: 0, label: "未知" },
+
       ],
     };
   },
