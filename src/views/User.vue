@@ -49,11 +49,18 @@
             width="60"
             align="center"
           ></el-table-column>
-          <el-table-column prop="name" label="姓名"> </el-table-column>
+          <el-table-column  label="姓名">
+            <template #default="scope">
+                  <span v-if="scope.row.name !== null">{{scope.row.name}}</span>
+                  <span v-else>未知</span>
+            </template>
+          </el-table-column>
+
           <el-table-column label="性别">
             <template #default="scope">
-              <span v-if="scope.row.gender === 1">男</span>
-              <span v-if="scope.row.gender === 0">女</span>
+              <span v-show="scope.row.gender === 2">女</span>
+              <span v-show="scope.row.gender === 1">男</span>
+              <span v-show="scope.row.gender === 0">未知</span>
             </template>
           </el-table-column>
           <el-table-column prop="email" label="邮箱"> </el-table-column>
@@ -61,25 +68,26 @@
           <!-- <el-table-column prop="age" label="年龄"> </el-table-column> -->
           <el-table-column label="角色">
             <template #default="scope">
-              <span v-if="scope.row.role === 1">普通用户</span>
-              <span v-if="scope.row.role === 2">审核员</span>
-              <span v-if="scope.row.role === 3">管理员</span>
-              <span v-if="scope.row.role === 4">超级管理员</span>
+              <span v-show="scope.row.role === 1">普通用户</span>
+              <span v-show="scope.row.role === 2">审核员</span>
+              <span v-show="scope.row.role === 3">管理员</span>
+              <span v-show="scope.row.role === 4">超级管理员</span>
             </template>
           </el-table-column>
           <!-- <el-table-column prop="title" label="题目"> </el-table-column> -->
           <el-table-column label="方向">
             <template #default="scope">
-              <span v-if="scope.row.directionId === 1">区域风险评估与研究</span>
-              <span v-if="scope.row.directionId === 2"
+              <span v-show="scope.row.directionId === 1">区域风险评估与研究</span>
+              <span v-show="scope.row.directionId === 2"
                 >数值模拟与云计算应用</span
               >
-              <span v-if="scope.row.directionId === 3">模型试验与现场研究</span>
-              <span v-if="scope.row.directionId === 4"
+              <span v-show="scope.row.directionId === 3">模型试验与现场研究</span>
+              <span v-show="scope.row.directionId === 4"
                 >监测预警系统设计与开发</span
               >
-              <span v-if="scope.row.directionId === 5">算法模型研究</span>
-              <span v-if="scope.row.directionId === 6">智能装备研发及应用</span>
+              <span v-show="scope.row.directionId === 5">算法模型研究</span>
+              <span v-show="scope.row.directionId === 6">智能装备研发及应用</span>
+              <span v-show="scope.row.directionId === 0">未知</span>
             </template>
           </el-table-column>
 
@@ -253,7 +261,7 @@ export default {
           // console.log(res);
           this.loading = false;
           this.tableData = res.data.records;
-          // console.table(this.tableData);
+          console.table(this.tableData);
           this.total = res.data.total;
         });
     },
