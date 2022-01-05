@@ -22,9 +22,9 @@ gitee 地址： https://gitee.com/torUntitled/paper_review_system.git
 
 ## 相关项目
 
-![image-20220104172351614](..\src\assets\img\image-20220104172351614.png)
+![image-20220104172351614](.\src\assets\img\image-20220104172351614.png)
 
-![image-20220104183207930](..\src\assets\img\image-20220104183207930.png)
+![image-20220104183207930](.\src\assets\img\image-20220104183207930.png)
 
 --
 
