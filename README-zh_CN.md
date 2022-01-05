@@ -88,7 +88,7 @@ npm run build
   - 富文本
   #- Markdown
 
-#- 预览
+- 预览
   - pdf
   - word
   - zip等压缩包
