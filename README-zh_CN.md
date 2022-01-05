@@ -22,9 +22,9 @@ gitee 地址： https://gitee.com/torUntitled/paper_review_system.git
 
 ## 相关项目
 
-![image-20220104172351614](D:\work\web_aft\new_paper\paper_review_system\src\assets\img\image-20220104172351614.png)
+![image-20220104172351614](https://gitee.com/torUntitled/paper_review_system/raw/dev/src/assets/img/image-20220104172351614.png)
 
-![image-20220104183207930](D:\work\web_aft\new_paper\paper_review_system\src\assets\img\image-20220104183207930.png)
+![image-20220104183207930](https://gitee.com/torUntitled/paper_review_system/raw/dev/src/assets/img/image-20220104183207930.png)
 
 --
 
@@ -112,7 +112,7 @@ npm run build
 
 ## Dependency-cruiser
 
-![dependencygraph](D:\work\web_aft\new_paper\paper_review_system\src\assets\svg\dependencygraph.svg)
+![dependencygraph](https://gitee.com/torUntitled/paper_review_system/raw/dev/src/assets/svg/dependencygraph.svg)
 
 ## 目录结构
 
