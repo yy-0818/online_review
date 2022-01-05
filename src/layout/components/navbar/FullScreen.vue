@@ -22,7 +22,7 @@
   <div class="btn-fullscreen" @click="handleFullScreen">
     <el-tooltip
       effect="light"
-      :content="fullscreen ? `取消全屏` : `全屏`"
+      :content="fullscreen ? '退出全屏' : '全屏'"
       placement="bottom"
     >
       <i class="el-icon-rank"></i>
@@ -49,6 +49,12 @@ export default {
   //     handleFullScreen,
   //   };
   // },
+
+  data() {
+    return {
+      fullscreen :false
+    }
+  },
 
   methods: {
     handleFullScreen() {
@@ -85,6 +91,6 @@ export default {
 .btn-fullscreen {
   transform: rotate(45deg);
   margin-top: 0;
-  font-size: 25px;
+  font-size: 22px;
 }
 </style>
