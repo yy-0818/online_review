@@ -202,6 +202,16 @@ export const constRoutes = [
       keepAlive: true,
     },
   },
+  {
+    path: "/forget",
+    name: "Forget",
+    component: () => import("@/views/Forget"),
+    meta: {
+      index: 3,
+      title: "重置密码",
+      keepAlive: true,
+    },
+  },
 
   {
     path: "/:catchAll(.*)",
@@ -222,7 +232,7 @@ const router = createRouter({
 
 // 限制某些页面禁止未登录访问
 // let limitPagePath = [];
-let writeList = ["/register"];
+let writeList = ["/register","/forget"];
 
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */
