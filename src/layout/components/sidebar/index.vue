@@ -46,8 +46,6 @@ export default {
         activeMenu: "",
         menuList: []
       }
-
-
     }
   },
   methods: {

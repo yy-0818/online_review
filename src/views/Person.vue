@@ -2,21 +2,21 @@
   <div style="padding:2%">
     <div id="app">
       <vue-particles
-              color="#409EFF"
-              :particleOpacity="0.7"
-              :particlesNumber="120"
-              shapeType="polygon"
-              :particleSize="4"
-              linesColor="#409EFF"
-              :linesWidth="1.5"
-              :lineLinked="true"
-              :lineOpacity="0.6"
-              :linesDistance="150"
-              :moveSpeed="3"
-              :hoverEffect="true"
-              hoverMode="grab"
-              :clickEffect="true"
-              clickMode="push"
+        color="#409EFF"
+        :particleOpacity="0.7"
+        :particlesNumber="120"
+        shapeType="polygon"
+        :particleSize="4"
+        linesColor="#409EFF"
+        :linesWidth="1.5"
+        :lineLinked="true"
+        :lineOpacity="0.6"
+        :linesDistance="150"
+        :moveSpeed="3"
+        :hoverEffect="true"
+        hoverMode="grab"
+        :clickEffect="true"
+        clickMode="push"
       >
       </vue-particles>
     </div>
@@ -25,22 +25,22 @@
         <el-form ref="form" :model="form" label-width="80px" size="mini">
           <el-form-item style="text-align: center" label-width="0">
             <el-upload
-                    class="avatar-uploader"
-                    action="/api/files/upload"
-                    :show-file-list="false"
-                    :on-success="handleAvatarSuccess"
+              class="avatar-uploader"
+              action="/api/files/upload"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
             >
               <img v-if="newAvatarUrl" :src="newAvatarUrl" class="avatar" />
               <img
-                      v-else
-                      :src="
-                form.avatarUrl === '/image/avatar.png'
-                  ? defaultAvatar
-                  : form.avatarUrl === undefined
-                  ? defaultAvatar
-                  : '/api' + form.avatarUrl
-              "
-                      class="avatar"
+                v-else
+                :src="
+                  form.avatarUrl === '/image/avatar.png'
+                    ? defaultAvatar
+                    : form.avatarUrl === undefined
+                    ? defaultAvatar
+                    : '/api' + form.avatarUrl
+                "
+                class="avatar"
               />
 
               <!-- <i v-else class="el-icon-plus avatar-uploader-icon"></i> -->
@@ -48,32 +48,36 @@
           </el-form-item>
           <el-form-item label="邮箱">
             <el-input
-                    class="el-form-item-d"
-                    v-model="form.email"
-                    disabled
+              class="el-form-item-d"
+              v-model="form.email"
+              disabled
             ></el-input>
           </el-form-item>
           <el-form-item label="姓名">
-            <el-input class="el-form-item-d" v-model="form.name" placeholder="请填写你的姓名"></el-input>
+            <el-input
+              class="el-form-item-d"
+              v-model="form.name"
+              placeholder="请填写你的姓名"
+            ></el-input>
           </el-form-item>
 
           <el-form-item label="密码">
             <el-input
-                    class="el-form-item-d"
-                    v-model="form.password"
-                    show-password
-                    placeholder="修改密码"
+              class="el-form-item-d"
+              v-model="form.password"
+              show-password
+              placeholder="修改密码"
             ></el-input>
           </el-form-item>
 
           <el-form-item label="角色">
             <el-select v-model="form.role" style="width:80%">
               <el-option
-                  v-for="item in roles"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                  disabled
+                v-for="item in roles"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+                disabled
               >
               </el-option>
             </el-select>
@@ -82,10 +86,11 @@
           <el-form-item label="研究方向">
             <el-select v-model="form.directionId" style="width:80%">
               <el-option
-                      v-for="item in directionIdOptions"
-                      :key="item.value"
-                      :label="item.name"
-                      :value="item.id"
+                v-for="item in directionIdOptions"
+                :key="item.value"
+                :label="item.name"
+                :value="item.id"
+                :disabled="item.label === '未选择'"
               >
               </el-option>
             </el-select>
@@ -94,11 +99,11 @@
           <el-form-item label="性别">
             <el-select v-model="form.gender" style="width:80%">
               <el-option
-                      v-for="item in genderOptions"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                      :disabled="item.value===0"
+                v-for="item in genderOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+                :disabled="item.value === 0"
               >
               </el-option>
             </el-select>
@@ -109,7 +114,6 @@
         </div>
       </el-card>
     </el-row>
-
   </div>
 </template>
 
@@ -144,7 +148,6 @@ export default {
         { value: 1, label: "男" },
         { value: 2, label: "女" },
         { value: 0, label: "未知" },
-
       ],
     };
   },
@@ -161,7 +164,7 @@ export default {
     },
     getDirections() {
       request.get("/direction").then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         this.directionIdOptions = res.data;
       });
     },
@@ -196,10 +199,9 @@ export default {
 </script>
 
 <style scoped>
-  #app{
-    position: fixed;
-  }
-
+#app{
+  position: fixed;
+}
 
 /* style="width: 28%; margin: 10% 30%" */
 .el-card {
