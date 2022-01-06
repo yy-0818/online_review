@@ -168,7 +168,7 @@ export default {
       this.$refs[form].resetFields();
     },
     forgetPassword(){
-      console.log(";;;;;;;")
+      // console.log(";;;;;;;")
       this.$router.push("/forget");
     },
     register() {

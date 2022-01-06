@@ -164,14 +164,14 @@ export default {
     },
     getDirections() {
       request.get("/direction").then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.directionIdOptions = res.data;
       });
     },
     update() {
       if (this.newAvatarUrl !== "") {
         let url = this.newAvatarUrl.replace("/api", "");
-        console.log(url);
+        // console.log(url);
         this.form.avatarUrl = url;
       }
       request.put("/user", this.form).then((res) => {
