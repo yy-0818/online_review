@@ -72,16 +72,22 @@
             <el-button style="width: 100%" type="primary" @click="register"
               >注册</el-button
             >
-            <el-form-item
-              ><el-button type="text" @click="$router.push('/login')"
-                >返回登录 >>
-              </el-button>
-              <el-button
-                style="padding-left:25vh"
-                type="text"
-                @click="resetForm('form')"
-                ><i class="el-icon-refresh"></i>重置</el-button
-              ></el-form-item
+            <el-form-item>
+              <el-row>
+                <el-col :span="20">
+                  <el-button type="text" @click="goBack"
+                  >返回登录 >>
+                  </el-button>
+                </el-col>
+                <el-col :span="4">
+                  <el-button
+                      type="text"
+                      @click="resetForm('form')"
+                  ><i class="el-icon-refresh"></i>重置</el-button
+                  >
+                </el-col>
+              </el-row>
+</el-form-item
             >
           </el-form-item>
         </el-form>
@@ -236,7 +242,7 @@ export default {
       }
     },
     goBack() {
-      this.$router.push("/register"); // 这里写上你要跳转的页面
+      this.$router.push("/login"); // 这里写上你要跳转的页面
     },
     register() {
       if (this.form.password !== this.form.confirm) {
