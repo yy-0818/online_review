@@ -91,22 +91,6 @@
             </template>
           </el-table-column>
 
-          <!-- <el-table-column prop="state" label="状态">
-            <template #default="scope">
-              <span v-if="scope.row.state === 0" style="color:#9a9b9c"
-                >未审核</span
-              >
-              <span v-if="scope.row.state === 1" style="color:#E6A23C"
-                >初审核通过</span
-              >
-              <span v-if="scope.row.state === 2" style="color:#F56C6C"
-                >初审未通过</span
-              >
-              <span v-if="scope.row.state === 3" style="color:#67C23A"
-                >通过</span
-              >
-            </template>
-          </el-table-column> -->
 
           <el-table-column label="操作" width="180">
             <template #default="scope">
@@ -238,7 +222,8 @@ export default {
       ],
       genderOptions: [
         { value: 1, label: "男" },
-        { value: 0, label: "女" },
+        { value: 2, label: "女" },
+        { value: 0, label: "未知" },
       ],
     };
   },
