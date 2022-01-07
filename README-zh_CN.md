@@ -24,7 +24,7 @@ gitee 地址： https://gitee.com/torUntitled/paper_review_system.git
 
 ## 相关项目
 
-![image-20220107103512188](https://gitee.com/torUntitled/images/raw/master/img/notes/image-20220107103512188.png)
+![image-20220107085038579](https://gitee.com/torUntitled/images/raw/master/img/notes/image-20220107085038579.png)
 
 --
 
@@ -47,8 +47,7 @@ npm run serve
 
 启动完成后会自动打开浏览器访问 [http://localhost:9876](http://localhost:9876/)， 你看到下面的页面就代表操作成功了
 
-![image-20220107085038579](https://gitee.com/torUntitled/images/raw/master/img/notes/image-20220107085038579.png)
-
+![login](https://gitee.com/torUntitled/images/raw/master/img/notes/login.png)
 
 ## 发布
 
