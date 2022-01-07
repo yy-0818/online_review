@@ -140,9 +140,9 @@ export default {
       directionIdOptions: [],
       roles: [
         { value: 1, label: "普通用户" },
-        { value: 2, label: "审核员" },
-        { value: 3, label: "管理员" },
-        { value: 4, label: "超级管理员" },
+        { value: 2, label: "初审" },
+        { value: 3, label: "审稿人" },
+        { value: 4, label: "终审" },
       ],
       genderOptions: [
         { value: 1, label: "男" },

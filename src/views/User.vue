@@ -69,9 +69,9 @@
           <el-table-column label="角色">
             <template #default="scope">
               <span v-show="scope.row.role === 1">普通用户</span>
-              <span v-show="scope.row.role === 2">审核员</span>
-              <span v-show="scope.row.role === 3">管理员</span>
-              <span v-show="scope.row.role === 4">超级管理员</span>
+              <span v-show="scope.row.role === 2">初审</span>
+              <span v-show="scope.row.role === 3">审稿人</span>
+              <span v-show="scope.row.role === 4">终审</span>
             </template>
           </el-table-column>
           <!-- <el-table-column prop="title" label="题目"> </el-table-column> -->
@@ -216,9 +216,9 @@ export default {
       directionIdOptions: [],
       roles: [
         { value: 1, label: "普通用户" },
-        { value: 2, label: "审核员" },
-        { value: 3, label: "管理员" },
-        { value: 4, label: "超级管理员" },
+        { value: 2, label: "初审" },
+        { value: 3, label: "审稿人" },
+        { value: 4, label: "终审" },
       ],
       genderOptions: [
         { value: 1, label: "男" },
