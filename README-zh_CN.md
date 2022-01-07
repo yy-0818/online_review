@@ -4,9 +4,11 @@
 
 ## 简介
 
-本架构使用的技术为：vue3(setup-script)+vite2+element-plus 的新一代的前端框架，It's fast!
+基于 [vue](https://github.com/vuejs/vue) 和 [element-plus](https://github.com/element-plus/element-plus)实现🎉：
 
-使用 eslint+prettier+gitHooks 格式和校验代码,提高代码规范性和开发效率
+本架构使用的技术为：vue3+vite2+element-plus 的新一代的前端框架，It's fast!
+
+使用 eslint格式校验代码,提高代码规范性和开发效率
 
 ## 更新日志
 
@@ -22,9 +24,7 @@ gitee 地址： https://gitee.com/torUntitled/paper_review_system.git
 
 ## 相关项目
 
-![image-20220104172351614](https://gitee.com/torUntitled/paper_review_system/raw/dev/src/assets/img/image-20220104172351614.png)
-
-![image-20220104183207930](https://gitee.com/torUntitled/paper_review_system/raw/dev/src/assets/img/image-20220104183207930.png)
+![image-20220107103512188](https://gitee.com/torUntitled/images/raw/master/img/notes/image-20220107103512188.png)
 
 --
 
@@ -45,7 +45,9 @@ npm install
 npm run serve
 ```
 
-浏览器访问 http://localhost:5001
+启动完成后会自动打开浏览器访问 [http://localhost:9876](http://localhost:9876/)， 你看到下面的页面就代表操作成功了
+
+![image-20220107085038579](https://gitee.com/torUntitled/images/raw/master/img/notes/image-20220107085038579.png)
 
 
 ## 发布
@@ -57,8 +59,6 @@ npm run build-serve
 # 构建生产环境
 npm run build
 ```
-
-## 
 
 ## 功能
 
@@ -77,12 +77,12 @@ npm run build
 - 全局功能
   #- 国际化多语言
   - 多种动态换肤
-  #- 动态侧边栏（支持多级路由嵌套）
-  #- 动态面包屑
   - 快捷导航(标签页)
   - Svg Sprite 图标(取消)
   - Screenfull全屏
   - 自适应收缩侧边栏
+  #- 动态侧边栏（支持多级路由嵌套）
+  #- 动态面包屑
 
 - 编辑器
   - 富文本
@@ -92,7 +92,12 @@ npm run build
   - pdf
   - word
   - zip等压缩包
-
+  
+- 邮件
+  - 注册账号邮件
+  - 审核邮件
+  #- 邮件提醒
+ 
 - 下载
   - 文件下载
 
@@ -110,9 +115,11 @@ npm run build
 >注：#- --暂未实现(等待后续开发)
 >
 
-## Dependency-cruiser
+## Dependency-cruiser 
 
-![dependencygraph](https://gitee.com/torUntitled/paper_review_system/raw/dev/src/assets/svg/dependencygraph.svg)
+![dependencygraph](https://gitee.com/torUntitled/images/raw/master/img/notes/dependencygraph.svg)
+
+> 项目依赖图
 
 ## 目录结构
 
@@ -133,8 +140,6 @@ npm run build
 │   ├── App.vue            # 入口页面
 │   ├── main.js            # 入口文件 加载组件 初始化等
 │   └── setting.js
-├── .eslintignore
-├── .eslintrc.js
 ├── babel.config.js
 ├── package-lock.json
 ├── package.json    
