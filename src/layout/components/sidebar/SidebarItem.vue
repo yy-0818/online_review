@@ -40,7 +40,7 @@ export default {
     }
   },
   created() {
-    console.log(this.reviewCount);
+    // console.log(this.reviewCount);
   },
   methods: {
     transZeroToNull(value) {
