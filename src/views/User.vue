@@ -716,13 +716,13 @@ export default {
             if (res.data === "OK") {
               this.$message({
                 type: "success",
-                message: "成功",
+                message: "修改成功",
               });
             } else {
               console.log(res);
               this.$message({
                 type: "error",
-                message: "失败",
+                message: "修改失败",
               });
               return false;
             }
