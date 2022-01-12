@@ -105,7 +105,7 @@ npm run build
 
 - 組件
   - 头像上传
-  - 拖拽Dialog
+  - Dialog
   - 验证码ValidCode
   - Message
 
