@@ -19,40 +19,41 @@
       <!--    搜索区域-->
       <div style="margin: 10px 0">
         <el-input
-          v-model="search"
-          placeholder="请输入关键字"
-          style="width: 20%"
-          clearable
+            v-model="search"
+            placeholder="请输入关键字"
+            style="width: 20%"
+            clearable
         ></el-input>
         <!-- <el-button style="margin-left: 5px" type="primary" @click="add"
           >新增</el-button -->
 
         <el-button type="primary" style="margin-left: 5px" @click="load"
-          ><i class="el-icon-search"></i>查询</el-button
+        ><i class="el-icon-search"></i>查询
+        </el-button
         >
       </div>
       <div>
         <el-table
-          v-fit-columns
-          v-loading="loading"
-          :data="tableData"
-          border
-          stripe
-          style="width: 100%"
-          tooltip-effect="dark"
-          :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
+            v-fit-columns
+            v-loading="loading"
+            :data="tableData"
+            border
+            stripe
+            style="width: 100%"
+            tooltip-effect="dark"
+            :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
         >
           <el-table-column
-            prop="id"
-            label="ID"
-            sortable
-            width="60"
-            align="center"
+              prop="id"
+              label="ID"
+              sortable
+              width="60"
+              align="center"
           ></el-table-column>
-          <el-table-column  label="姓名">
+          <el-table-column label="姓名">
             <template #default="scope">
-                  <span v-if="scope.row.name !== null">{{scope.row.name}}</span>
-                  <span v-else>未知</span>
+              <span v-if="scope.row.name !== null">{{ scope.row.name }}</span>
+              <span v-else>未知</span>
             </template>
           </el-table-column>
 
@@ -63,7 +64,7 @@
               <span v-show="scope.row.gender === 0">未知</span>
             </template>
           </el-table-column>
-          <el-table-column prop="email" label="邮箱"> </el-table-column>
+          <el-table-column prop="email" label="邮箱"></el-table-column>
 
           <el-table-column label="角色">
             <template #default="scope">
@@ -77,11 +78,11 @@
             <template #default="scope">
               <span v-show="scope.row.directionId === 1">区域风险评估与研究</span>
               <span v-show="scope.row.directionId === 2"
-                >数值模拟与云计算应用</span
+              >数值模拟与云计算应用</span
               >
               <span v-show="scope.row.directionId === 3">模型试验与现场研究</span>
               <span v-show="scope.row.directionId === 4"
-                >监测预警系统设计与开发</span
+              >监测预警系统设计与开发</span
               >
               <span v-show="scope.row.directionId === 5">算法模型研究</span>
               <span v-show="scope.row.directionId === 6">智能装备研发及应用</span>
@@ -93,26 +94,29 @@
           <el-table-column label="操作" width="300">
             <template #default="scope">
               <el-button
-                size="mini"
-                type="warning"
-                plain
-                @click="showPaper(scope.row)"
-                ><i class="el-icon-folder-opened"></i>查看上传文章</el-button
+                  size="mini"
+                  type="warning"
+                  plain
+                  @click="showPaper(scope.row)"
+              ><i class="el-icon-folder-opened"></i>查看上传文章
+              </el-button
               >
               <el-button
-                size="mini"
-                type="success"
-                plain
-                @click="handleEdit(scope.row)"
-                ><i class="el-icon-edit-outline"></i>编辑</el-button
+                  size="mini"
+                  type="success"
+                  plain
+                  @click="handleEdit(scope.row)"
+              ><i class="el-icon-edit-outline"></i>编辑
+              </el-button
               >
               <el-popconfirm
-                title="确定删除吗？"
-                @confirm="handleDelete(scope.row.id)"
+                  title="确定删除吗？"
+                  @confirm="handleDelete(scope.row.id)"
               >
                 <template #reference>
                   <el-button size="mini" type="danger"
-                    ><i class="el-icon-delete "></i>删除</el-button
+                  ><i class="el-icon-delete "></i>删除
+                  </el-button
                   >
                 </template>
               </el-popconfirm>
@@ -122,18 +126,18 @@
       </div>
       <div style="margin: 10px 0">
         <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          :page-sizes="[10, 15, 20]"
-          :page-size="pageSize"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="total"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            :page-sizes="[10, 15, 20]"
+            :page-size="pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="total"
         >
         </el-pagination>
       </div>
 
-      <el-dialog width="90%" v-model="dialogReview">
+      <el-dialog title="上传文章信息" width="90%" v-model="dialogReview">
         <el-table
             v-fit-columns
             v-loading="loading"
@@ -174,6 +178,9 @@
                 <el-form-item label="方向:">
                   <span>{{ showDirections(props.row) }}</span>
                 </el-form-item>
+                <el-form-item label="指导老师:">
+                  <span>{{ showPaperReviewers(props.row) }}</span>
+                </el-form-item>
 
                 <el-form-item label="上传时间:">
                   <span>{{ props.row.createTime }}</span>
@@ -182,13 +189,13 @@
             </template>
           </el-table-column>
 
-<!--          <el-table-column-->
-<!--              prop="id"-->
-<!--              label="ID"-->
-<!--              sortable-->
-<!--              width="60"-->
-<!--              align="center"-->
-<!--          ></el-table-column>-->
+          <!--          <el-table-column-->
+          <!--              prop="id"-->
+          <!--              label="ID"-->
+          <!--              sortable-->
+          <!--              width="60"-->
+          <!--              align="center"-->
+          <!--          ></el-table-column>-->
           <el-table-column label="文献类型" align="center" width="100px">
             <template #default="scope">
               <el-tag
@@ -239,6 +246,12 @@
             </template>
           </el-table-column>
 
+          <el-table-column label="指导老师" show-overflow-tooltip align="center">
+            <template #default="scope">
+              {{ showPaperReviewers(scope.row) }}
+            </template>
+          </el-table-column>
+
           <el-table-column
               prop="createTime"
               label="上传时间"
@@ -282,15 +295,15 @@
           </el-table-column>
 
 
-          <el-table-column label="操作" width="300">
+          <el-table-column label="操作" width="220">
             <template #default="scope">
-              <el-button
-                  size="mini"
-                  type="success"
-                  plain
-                  @click="previewOpen(scope.row)"
-              ><i class="el-icon-tickets"></i>预览
-              </el-button>
+<!--              <el-button-->
+<!--                  size="mini"-->
+<!--                  type="success"-->
+<!--                  plain-->
+<!--                  @click="previewOpen(scope.row)"-->
+<!--              ><i class="el-icon-tickets"></i>预览-->
+<!--              </el-button>-->
               <el-popconfirm
                   title="确定下载吗？"
                   @confirm="handleDownload(scope.row)"
@@ -303,10 +316,10 @@
               </el-popconfirm>
               <el-button
                   size="mini"
-                  type="success"
+                  type="primary"
                   plain
                   @click="previewOpen2(scope.row)"
-              ><i class="el-icon-tickets"></i>更换指定老师
+              ><i class="el-icon-guide"></i>更换指导老师
               </el-button>
             </template>
           </el-table-column>
@@ -318,9 +331,9 @@
         <el-form :model="form" label-width="120px">
           <el-form-item label="邮箱">
             <el-input
-              v-model="form.email"
-              style="width: 80%"
-              disabled
+                v-model="form.email"
+                style="width: 80%"
+                disabled
             ></el-input>
           </el-form-item>
           <el-form-item label="姓名">
@@ -330,11 +343,11 @@
           <el-form-item label="角色">
             <el-select v-model="form.role" style="width:80%">
               <el-option
-                v-for="item in roles"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-                :disabled="item.value===4"
+                  v-for="item in roles"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                  :disabled="item.value===4"
               >
               </el-option>
             </el-select>
@@ -343,10 +356,10 @@
           <el-form-item label="研究方向">
             <el-select v-model="form.directionId" style="width:80%">
               <el-option
-                v-for="item in directionIdOptions"
-                :key="item.value"
-                :label="item.name"
-                :value="item.id"
+                  v-for="item in directionIdOptions"
+                  :key="item.value"
+                  :label="item.name"
+                  :value="item.id"
               >
               </el-option>
             </el-select>
@@ -355,10 +368,10 @@
           <el-form-item label="性别">
             <el-select v-model="form.gender" style="width:80%">
               <el-option
-                v-for="item in genderOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                  v-for="item in genderOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
               >
               </el-option>
             </el-select>
@@ -371,6 +384,11 @@
           </span>
         </template>
       </el-dialog>
+
+      <el-dialog title="选择指导老师" v-model="reviewersVisible">
+
+      </el-dialog>
+
       <!-- 预览弹框 -->
       <el-dialog
           custom-class="previewDialog"
@@ -388,7 +406,7 @@
 <script>
 import request from "@/utils/request";
 import jsonpath from "jsonpath";
-import {Base64} from "js-base64";
+import { Base64 } from "js-base64";
 import download from "@/utils/download";
 // import Plugin from "@/v-fit-columns";
 
@@ -402,6 +420,7 @@ export default {
       dialogVisible: false, // 弹窗
       dialogReview: false,
       previewVisible: false,
+      reviewersVisible: false,
       search: "",
       currentPage: 1,
       pageSize: 10,
@@ -430,20 +449,20 @@ export default {
     load() {
       this.loading = true;
       request
-        .get("/user/all", {
-          params: {
-            pageNum: this.currentPage,
-            pageSize: this.pageSize,
-            search: this.search,
-          },
-        })
-        .then((res) => {
-          // console.log(res);
-          this.loading = false;
-          this.tableData = res.data.records;
-          // console.table(this.tableData);
-          this.total = res.data.total;
-        });
+          .get("/user/all", {
+            params: {
+              pageNum: this.currentPage,
+              pageSize: this.pageSize,
+              search: this.search,
+            },
+          })
+          .then((res) => {
+            // console.log(res);
+            this.loading = false;
+            this.tableData = res.data.records;
+            // console.table(this.tableData);
+            this.total = res.data.total;
+          });
     },
 
     // 方向
@@ -455,6 +474,17 @@ export default {
       const names = jsonpath.query(directions, "$..name");
       return names.join("，");
     },
+
+    showPaperReviewers(row){
+      let paperReviewers = row.paperReviewers
+      if (paperReviewers.length === 0) {
+        return "空";
+      }
+      const names = jsonpath.query(paperReviewers, "$..name");
+      return names.join("，");
+    },
+
+
     getDirections() {
       request.get("/direction").then((res) => {
         // console.log(res.data);
@@ -463,9 +493,9 @@ export default {
     },
     export() {
       location.href =
-        // "http://" + window.server.filesUploadUrl + ":8181/user/export";
-        // "/api" + "/files/editor/upload";
-        "";
+          // "http://" + window.server.filesUploadUrl + ":8181/user/export";
+          // "/api" + "/files/editor/upload";
+          "";
     },
     // add() {
     //   this.dialogVisible = true; // 显示弹窗
@@ -541,22 +571,22 @@ export default {
       // console.log(row.id)
       let id = row.id
       this.dialogReview = true
-        // this.loading = true;
-        request
-            .get("/paper/student/" + id, {
-              // params: {
-              //   pageNum: this.currentPage,
-              //   pageSize: this.pageSize,
-              //   search: this.search,
-              // },
-            })
-            .then((res) => {
-              console.log(res);
-              // this.loading = false;
-              this.tableDataStu = res.data.records;
-              // this.total = res.data.total;
-              console.table(res.data.records);
-            });
+      // this.loading = true;
+      request
+          .get("/paper/student/" + id, {
+            // params: {
+            //   pageNum: this.currentPage,
+            //   pageSize: this.pageSize,
+            //   search: this.search,
+            // },
+          })
+          .then((res) => {
+            // console.log(res);
+            // this.loading = false;
+            this.tableDataStu = res.data.records;
+            // this.total = res.data.total;
+            // console.table(res.data.records);
+          });
     },
     handleDelete(id) {
       // console.log(id);
@@ -594,7 +624,7 @@ export default {
         for (const key of file) {
           // console.log(key.typeOr);
           if (key.typeOr === 0) {
-            console.log(key.url);
+            // console.log(key.url);
             const filename = key.url.replace(
                 /^\/files\/([a-fA-F0-9]{32})_/,
                 ""
@@ -628,11 +658,14 @@ export default {
       }
     },
 
-    previewOpen2(){
+    previewOpen2() {
       this.$message({
-        type:"info",
-        message:"暂时不支持该功能,尽情期待(*^_^*)"
+        type: "info",
+        message: "暂时不支持该功能,尽情期待(*^_^*)"
       })
+
+      this.reviewersVisible = true
+
     },
 
 
@@ -674,8 +707,8 @@ export default {
 
 .previewDialog .el-dialog__body {
   /*.dj-dialog-body {*/
-    height: 90%;
-    padding: 0;
+  height: 90%;
+  padding: 0;
   /*}*/
 }
 </style>
