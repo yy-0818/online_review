@@ -19,10 +19,10 @@
       <!--    搜索区域-->
       <div style="margin: 10px 0">
         <el-input
-            v-model="search"
-            placeholder="请输入关键字"
-            style="width: 20%"
-            clearable
+          v-model="search"
+          placeholder="请输入关键字"
+          style="width: 20%"
+          clearable
         ></el-input>
         <!-- <el-button style="margin-left: 5px" type="primary" @click="add"
           >新增</el-button -->
@@ -34,21 +34,21 @@
       </div>
       <div>
         <el-table
-            v-fit-columns
-            v-loading="loading"
-            :data="tableData"
-            border
-            stripe
-            style="width: 100%"
-            tooltip-effect="dark"
-            :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
+          v-fit-columns
+          v-loading="loading"
+          :data="tableData"
+          border
+          stripe
+          style="width: 100%"
+          tooltip-effect="dark"
+          :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
         >
           <el-table-column
-              prop="id"
-              label="ID"
-              sortable
-              width="60"
-              align="center"
+            prop="id"
+            label="ID"
+            sortable
+            width="60"
+            align="center"
           ></el-table-column>
           <el-table-column label="姓名">
             <template #default="scope">
@@ -94,24 +94,24 @@
           <el-table-column label="操作" width="300">
             <template #default="scope">
               <el-button
-                  size="mini"
-                  type="warning"
-                  plain
-                  @click="showPaper(scope.row)"
+                size="mini"
+                type="warning"
+                plain
+                @click="showPaper(scope.row)"
               ><i class="el-icon-folder-opened"></i>查看上传文章
               </el-button
               >
               <el-button
-                  size="mini"
-                  type="success"
-                  plain
-                  @click="handleEdit(scope.row)"
+                size="mini"
+                type="success"
+                plain
+                @click="handleEdit(scope.row)"
               ><i class="el-icon-edit-outline"></i>编辑
               </el-button
               >
               <el-popconfirm
-                  title="确定删除吗？"
-                  @confirm="handleDelete(scope.row.id)"
+                title="确定删除吗？"
+                @confirm="handleDelete(scope.row.id)"
               >
                 <template #reference>
                   <el-button size="mini" type="danger"
@@ -126,27 +126,27 @@
       </div>
       <div style="margin: 10px 0">
         <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page="currentPage"
-            :page-sizes="[10, 15, 20]"
-            :page-size="pageSize"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="total"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-sizes="[10, 15, 20]"
+          :page-size="pageSize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total"
         >
         </el-pagination>
       </div>
 
       <el-dialog title="上传文章信息" width="90%" v-model="dialogReview">
         <el-table
-            v-fit-columns
-            v-loading="loading"
-            :data="tableDataStu"
-            border
-            stripe
-            style="width: 100%"
-            tooltip-effect="dark"
-            :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
+          v-fit-columns
+          v-loading="loading"
+          :data="tableDataStu"
+          border
+          stripe
+          style="width: 100%"
+          tooltip-effect="dark"
+          :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
         >
           <el-table-column type="expand">
             <template #default="props">
@@ -161,8 +161,8 @@
                   <span>{{ props.row.keyword }}</span>
                 </el-form-item>
                 <el-form-item
-                    v-show="props.row.keywordE != null"
-                    label="关键词(英):"
+                  v-show="props.row.keywordE != null"
+                  label="关键词(英):"
                 >
                   <span>{{ props.row.keywordE }}</span>
                 </el-form-item>
@@ -170,8 +170,8 @@
                   <span>{{ props.row.summary }}</span>
                 </el-form-item>
                 <el-form-item
-                    v-show="props.row.summaryEn != null"
-                    label="摘要(英):"
+                  v-show="props.row.summaryEn != null"
+                  label="摘要(英):"
                 >
                   <span>{{ props.row.summaryEn }}</span>
                 </el-form-item>
@@ -189,18 +189,18 @@
             </template>
           </el-table-column>
           <el-table-column
-              prop="id"
-              label="ID"
-              sortable
-              width="60"
-              align="center"
+            prop="id"
+            label="ID"
+            sortable
+            width="60"
+            align="center"
           ></el-table-column>
           <el-table-column label="文献类型" align="center" width="100px">
             <template #default="scope">
               <el-tag
-                  effect="dark"
-                  size="mini"
-                  :type="
+                effect="dark"
+                size="mini"
+                :type="
               scope.row.types === 0
                 ? 'primary'
                 : scope.row.types === 1
@@ -212,30 +212,30 @@
               >
                 {{
                   scope.row.types === 0
-                      ? "论文"
-                      : "未知" && scope.row.types === 1
-                          ? "专利"
-                          : "未知" && scope.row.state === 2
-                              ? "未知"
-                              : "报告"
+                    ? "论文"
+                    : "未知" && scope.row.types === 1
+                      ? "专利"
+                      : "未知" && scope.row.state === 2
+                        ? "未知"
+                        : "报告"
                 }}
               </el-tag>
             </template>
           </el-table-column>
 
           <el-table-column
-              prop="title"
-              label="题目"
-              show-overflow-tooltip
-              align="center"
+            prop="title"
+            label="题目"
+            show-overflow-tooltip
+            align="center"
           ></el-table-column>
 
           <el-table-column
-              prop="summary"
-              label="摘要"
-              tooltip-effect="light"
-              show-overflow-tooltip
-              align="center"
+            prop="summary"
+            label="摘要"
+            tooltip-effect="light"
+            show-overflow-tooltip
+            align="center"
           ></el-table-column>
 
 
@@ -252,19 +252,19 @@
           </el-table-column>
 
           <el-table-column
-              prop="createTime"
-              label="上传时间"
-              tooltip-effect="light"
-              show-overflow-tooltip
-              align="center"
-              sortable
+            prop="createTime"
+            label="上传时间"
+            tooltip-effect="light"
+            show-overflow-tooltip
+            align="center"
+            sortable
           ></el-table-column>
 
           <el-table-column label="审核状态" align="center">
             <template #default="scope">
               <el-tag
-                  size="medium"
-                  :type="
+                size="medium"
+                :type="
               scope.row.state === 1 ||
               scope.row.state === 3
                 ? 'primary'
@@ -276,18 +276,18 @@
             "
               >{{
                   scope.row.state === 1
-                      ? "初审通过"
-                      : "未审核" && scope.row.state === 2
-                          ? "一审未通过"
-                          : "未审核" && scope.row.state === 3
-                              ? "二审通过"
-                              : "未审核" && scope.row.state === 4
-                                  ? "二审未通过"
-                                  : "未审核" && scope.row.state === 5
-                                      ? "已归档"
-                                      : "未审核" && scope.row.state === 6
-                                          ? "终审未通过"
-                                          : "未审核"
+                    ? "初审通过"
+                    : "未审核" && scope.row.state === 2
+                      ? "一审未通过"
+                      : "未审核" && scope.row.state === 3
+                        ? "二审通过"
+                        : "未审核" && scope.row.state === 4
+                          ? "二审未通过"
+                          : "未审核" && scope.row.state === 5
+                            ? "已归档"
+                            : "未审核" && scope.row.state === 6
+                              ? "终审未通过"
+                              : "未审核"
                 }}
               </el-tag>
             </template>
@@ -304,8 +304,8 @@
               <!--              ><i class="el-icon-tickets"></i>预览-->
               <!--              </el-button>-->
               <el-popconfirm
-                  title="确定下载吗？"
-                  @confirm="handleDownload(scope.row)"
+                title="确定下载吗？"
+                @confirm="handleDownload(scope.row)"
               >
                 <template #reference>
                   <el-button size="mini" type="warning" plain
@@ -314,10 +314,10 @@
                 </template>
               </el-popconfirm>
               <el-button
-                  size="mini"
-                  type="primary"
-                  plain
-                  @click="previewOpen2(scope.row)"
+                size="mini"
+                type="primary"
+                plain
+                @click="previewOpen2(scope.row)"
               ><i class="el-icon-guide"></i>更换指导老师
               </el-button>
             </template>
@@ -330,9 +330,9 @@
         <el-form :model="form" label-width="120px">
           <el-form-item label="邮箱">
             <el-input
-                v-model="form.email"
-                style="width: 80%"
-                disabled
+              v-model="form.email"
+              style="width: 80%"
+              disabled
             ></el-input>
           </el-form-item>
           <el-form-item label="姓名">
@@ -342,11 +342,11 @@
           <el-form-item label="角色">
             <el-select v-model="form.role" style="width:80%">
               <el-option
-                  v-for="item in roles"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                  :disabled="item.value===4"
+                v-for="item in roles"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+                :disabled="item.value===4"
               >
               </el-option>
             </el-select>
@@ -355,10 +355,10 @@
           <el-form-item label="研究方向">
             <el-select v-model="form.directionId" style="width:80%">
               <el-option
-                  v-for="item in directionIdOptions"
-                  :key="item.value"
-                  :label="item.name"
-                  :value="item.id"
+                v-for="item in directionIdOptions"
+                :key="item.value"
+                :label="item.name"
+                :value="item.id"
               >
               </el-option>
             </el-select>
@@ -367,10 +367,10 @@
           <el-form-item label="性别">
             <el-select v-model="form.gender" style="width:80%">
               <el-option
-                  v-for="item in genderOptions"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
+                v-for="item in genderOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
               >
               </el-option>
             </el-select>
@@ -386,18 +386,18 @@
 
       <el-dialog width="30%" title="选择指导老师" v-model="reviewersVisible">
         <el-form
-            ref="form"
-            :model="form"
-            :rules="rulesPaper"
-            label-width="130px"
+          ref="form"
+          :model="form"
+          :rules="rulesPaper"
+          label-width="130px"
         >
           <el-form-item label="指导老师" prop="reviewerIds">
             <el-select multiple v-model="form.reviewerIds" placeholder="Select">
               <el-option
-                  v-for="item in tableDataThr"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id"
+                v-for="item in tableDataThr"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
               >
               </el-option>
             </el-select>
@@ -412,11 +412,11 @@
 
       <!-- 预览弹框 -->
       <el-dialog
-          custom-class="previewDialog"
-          title="预览"
-          :fullscreen="true"
-          v-model="previewVisible"
-          :before-close="previewClose"
+        custom-class="previewDialog"
+        title="预览"
+        :fullscreen="true"
+        v-model="previewVisible"
+        :before-close="previewClose"
       >
         <iframe class="el-iframe" :src="previewFileUrl" frameborder="0"></iframe>
       </el-dialog>
@@ -482,20 +482,20 @@ export default {
     load() {
       this.loading = true;
       request
-          .get("/user/all", {
-            params: {
-              pageNum: this.currentPage,
-              pageSize: this.pageSize,
-              search: this.search,
-            },
-          })
-          .then((res) => {
-            // console.log(res);
-            this.loading = false;
-            this.tableData = res.data.records;
-            // console.table(this.tableData);
-            this.total = res.data.total;
-          });
+        .get("/user/all", {
+          params: {
+            pageNum: this.currentPage,
+            pageSize: this.pageSize,
+            search: this.search,
+          },
+        })
+        .then((res) => {
+          // console.log(res);
+          this.loading = false;
+          this.tableData = res.data.records;
+          // console.table(this.tableData);
+          this.total = res.data.total;
+        });
     },
 
     // 方向
@@ -526,9 +526,9 @@ export default {
     },
     export() {
       location.href =
-          // "http://" + window.server.filesUploadUrl + ":8181/user/export";
-          // "/api" + "/files/editor/upload";
-          "";
+        // "http://" + window.server.filesUploadUrl + ":8181/user/export";
+        // "/api" + "/files/editor/upload";
+        "";
     },
     // add() {
     //   this.dialogVisible = true; // 显示弹窗
@@ -607,20 +607,20 @@ export default {
       this.currentUserId = id
       // this.loading = true;
       request
-          .get("/paper/student/" + id, {
-            // params: {
-            //   pageNum: this.currentPage,
-            //   pageSize: this.pageSize,
-            //   search: this.search,
-            // },
-          })
-          .then((res) => {
-            // console.log(res);
-            // this.loading = false;
-            this.tableDataStu = res.data.records;
-            // this.total = res.data.total;
-            // console.table(res.data.records);
-          });
+        .get("/paper/student/" + id, {
+          // params: {
+          //   pageNum: this.currentPage,
+          //   pageSize: this.pageSize,
+          //   search: this.search,
+          // },
+        })
+        .then((res) => {
+          // console.log(res);
+          // this.loading = false;
+          this.tableDataStu = res.data.records;
+          // this.total = res.data.total;
+          // console.table(res.data.records);
+        });
     },
     handleDelete(id) {
       // console.log(id);
@@ -659,8 +659,8 @@ export default {
           if (key.typeOr === 0) {
             // console.log(key.url);
             const filename = key.url.replace(
-                /^\/files\/([a-fA-F0-9]{32})_/,
-                ""
+              /^\/files\/([a-fA-F0-9]{32})_/,
+              ""
             );
             const fileSuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
             if (!filename || !fileSuffix) {
@@ -711,7 +711,10 @@ export default {
       this.$refs["form"].validate((valid) => {
         console.log(valid)
         if (valid) {
-          request.post("/paper/changeTeacher", { id: this.form.id, reviewerId: this.form.reviewerIds.join(",") }).then((res) => {
+          request.post("/paper/changeTeacher", {
+            id: this.form.id,
+            reviewerId: this.form.reviewerIds.join(",")
+          }).then((res) => {
             console.log(res);
             if (res.data === "OK") {
               this.$message({
@@ -731,10 +734,10 @@ export default {
           });
 
           request
-              .get("/paper/student/" + this.currentUserId)
-              .then((res) => {
-                this.tableDataStu = res.data.records;
-              });
+            .get("/paper/student/" + this.currentUserId)
+            .then((res) => {
+              this.tableDataStu = res.data.records;
+            });
 
           this.reviewersVisible = false
         }
@@ -754,8 +757,8 @@ export default {
             console.log(key.url);
             this.previewVisible = true;
             this.previewFileUrl =
-                "http://8.136.96.167:8012/onlinePreview?url=" +
-                encodeURIComponent(Base64.encode(this.fileApiURL + key.url));
+              "http://8.136.96.167:8012/onlinePreview?url=" +
+              encodeURIComponent(Base64.encode(this.fileApiURL + key.url));
             // console.log(this.previewFileUrl);
             // console.log(this.previewVisible);
           }

@@ -1,21 +1,21 @@
 <template>
   <div class="welcome-page" :style="imgSrc">
     <vue-particles
-        color="#409EFF"
-        :particleOpacity="0.7"
-        :particlesNumber="80"
-        shapeType="circle"
-        :particleSize="4"
-        linesColor="#409EFF"
-        :linesWidth="1"
-        :lineLinked="true"
-        :lineOpacity="0.4"
-        :linesDistance="150"
-        :moveSpeed="3"
-        :hoverEffect="true"
-        hoverMode="grab"
-        :clickEffect="true"
-        clickMode="push"
+      color="#409EFF"
+      :particleOpacity="0.7"
+      :particlesNumber="80"
+      shapeType="circle"
+      :particleSize="4"
+      linesColor="#409EFF"
+      :linesWidth="1"
+      :lineLinked="true"
+      :lineOpacity="0.4"
+      :linesDistance="150"
+      :moveSpeed="3"
+      :hoverEffect="true"
+      hoverMode="grab"
+      :clickEffect="true"
+      clickMode="push"
     >
     </vue-particles>
     <div class="main">
@@ -26,44 +26,45 @@
         <el-form ref="form" :model="form" size="normal" :rules="rules">
           <el-form-item prop="email">
             <el-input
-                prefix-icon="el-icon-user-solid"
-                v-model="form.email"
-                placeholder="请输入用户名(邮箱)"
+              prefix-icon="el-icon-user-solid"
+              v-model="form.email"
+              placeholder="请输入用户名(邮箱)"
             ></el-input>
           </el-form-item>
 
           <el-form-item prop="password">
             <el-input
-                prefix-icon="el-icon-lock"
-                v-model="form.password"
-                show-password
-                placeholder="请输入密码"
+              prefix-icon="el-icon-lock"
+              v-model="form.password"
+              show-password
+              placeholder="请输入密码"
             ></el-input>
           </el-form-item>
           <el-form-item prop="confirm">
             <el-input
-                prefix-icon="el-icon-lock"
-                v-model="form.confirm"
-                show-password
-                placeholder="请再输入密码"
+              prefix-icon="el-icon-lock"
+              v-model="form.confirm"
+              show-password
+              placeholder="请再输入密码"
             ></el-input>
           </el-form-item>
 
           <el-form-item prop="code">
             <div style="display: flex">
               <el-input
-                  prefix-icon="el-icon-key"
-                  v-model="form.code"
-                  style="width: 75%"
-                  placeholder="请输入验证码"
+                prefix-icon="el-icon-key"
+                v-model="form.code"
+                style="width: 75%"
+                placeholder="请输入验证码"
               ></el-input>
               <el-button
-                  style="margin-left: 15px"
-                  type="primary"
-                  @click="getCode"
-                  :class="{ 'disabled-style': btnDisable }"
-                  :disabled="btnDisable"
-              >{{ codeBtnWord }} ></el-button
+                style="margin-left: 15px"
+                type="primary"
+                @click="getCode"
+                :class="{ 'disabled-style': btnDisable }"
+                :disabled="btnDisable"
+              >{{ codeBtnWord }} >
+              </el-button
               >
             </div>
           </el-form-item>
@@ -79,12 +80,13 @@
                 </el-col>
                 <el-col :span="4">
                   <el-button
-                      type="text"
-                      @click="resetForm('form')"
-                  ><i class="el-icon-refresh"></i>重置</el-button>
+                    type="text"
+                    @click="resetForm('form')"
+                  ><i class="el-icon-refresh"></i>重置
+                  </el-button>
                 </el-col>
               </el-row>
-              </el-form-item>
+            </el-form-item>
           </el-form-item>
         </el-form>
       </el-card>
@@ -135,7 +137,7 @@ export default {
     return {
       imgSrc: {
         backgroundImage:
-            "url(https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/carousel/3.png)",
+          "url(https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/carousel/3.png)",
         // height: "100vh",
         // width: "100vw",
         backgroundRepeat: "no-repeat",
@@ -194,26 +196,26 @@ export default {
     getCode() {
       if (this.emailStyle()) {
         request
-            .post(`/api/sendEmail`, {
-              email: this.form.email,
-            })
-            .then((response) => {
-              // console.log(response);
-              if (response.status === 200) {
-                // console.log();
-                this.$message({
-                  type: "success",
-                  // message: response.msg + ", " + response.data,
-                  message: "验证码已发送，请稍候...",
-                });
-              }
-            })
-            .catch(() => {
+          .post(`/api/sendEmail`, {
+            email: this.form.email,
+          })
+          .then((response) => {
+            // console.log(response);
+            if (response.status === 200) {
+              // console.log();
               this.$message({
-                type: "error",
-                message: "请求超时，请检查网络连接",
+                type: "success",
+                // message: response.msg + ", " + response.data,
+                message: "验证码已发送，请稍候...",
               });
+            }
+          })
+          .catch(() => {
+            this.$message({
+              type: "error",
+              message: "请求超时，请检查网络连接",
             });
+          });
 
         let that = this;
         that.waitTime--;
@@ -251,26 +253,26 @@ export default {
       this.$refs["form"].validate((valid) => {
         if (valid) {
           request
-              .post("/user/changePassword", {
-                email: this.form.email,
-                password: this.form.password,
-                code: this.form.code,
-              })
-              .then((res) => {
-                console.log(res);
-                if (res.status === 200) {
-                  this.$message({
-                    type: "success",
-                    message: "修改成功",
-                  });
-                  this.$router.push("/login"); //登录成功之后进行页面的跳转，跳转到主页
-                } else {
-                  this.$message({
-                    type: "error",
-                    message: res.msg,
-                  });
-                }
-              });
+            .post("/user/changePassword", {
+              email: this.form.email,
+              password: this.form.password,
+              code: this.form.code,
+            })
+            .then((res) => {
+              console.log(res);
+              if (res.status === 200) {
+                this.$message({
+                  type: "success",
+                  message: "修改成功",
+                });
+                this.$router.push("/login"); //登录成功之后进行页面的跳转，跳转到主页
+              } else {
+                this.$message({
+                  type: "error",
+                  message: res.msg,
+                });
+              }
+            });
         }
       });
     },
@@ -315,6 +317,7 @@ export default {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .el-button.disabled-style {
   background-color: #eeeeee;
   color: #cccccc;

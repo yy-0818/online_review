@@ -63,14 +63,16 @@
                 @click="getCode"
                 :class="{ 'disabled-style': btnDisable }"
                 :disabled="btnDisable"
-                >{{ codeBtnWord }} ></el-button
+              >{{ codeBtnWord }} >
+              </el-button
               >
             </div>
           </el-form-item>
 
           <el-form-item>
             <el-button style="width: 100%" type="primary" @click="register"
-              >注册</el-button
+            >注册
+            </el-button
             >
             <el-form-item>
               <el-row>
@@ -81,13 +83,14 @@
                 </el-col>
                 <el-col :span="4">
                   <el-button
-                      type="text"
-                      @click="resetForm('form')"
-                  ><i class="el-icon-refresh"></i>重置</el-button
+                    type="text"
+                    @click="resetForm('form')"
+                  ><i class="el-icon-refresh"></i>重置
+                  </el-button
                   >
                 </el-col>
               </el-row>
-</el-form-item
+            </el-form-item
             >
           </el-form-item>
         </el-form>
@@ -328,6 +331,7 @@ export default {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .el-button.disabled-style {
   background-color: #eeeeee;
   color: #cccccc;

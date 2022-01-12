@@ -3,10 +3,10 @@
     <!-- 搜索区域-->
     <div style="margin: 10px 0">
       <el-input
-          v-model="search"
-          placeholder="请输入关键字"
-          style="width: 20%"
-          clearable
+        v-model="search"
+        placeholder="请输入关键字"
+        style="width: 20%"
+        clearable
       ></el-input>
 
       <el-button type="primary" style="margin-left: 5px" @click="load"
@@ -14,14 +14,14 @@
       </el-button>
     </div>
     <el-table
-        v-fit-columns
-        v-loading="loading"
-        :data="tableData"
-        border
-        stripe
-        style="width: 100%"
-        tooltip-effect="dark"
-        :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
+      v-fit-columns
+      v-loading="loading"
+      :data="tableData"
+      border
+      stripe
+      style="width: 100%"
+      tooltip-effect="dark"
+      :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
     >
       <el-table-column type="expand">
         <template #default="props">
@@ -36,8 +36,8 @@
               <span>{{ props.row.keyword }}</span>
             </el-form-item>
             <el-form-item
-                v-show="props.row.keywordE != null"
-                label="关键词(英):"
+              v-show="props.row.keywordE != null"
+              label="关键词(英):"
             >
               <span>{{ props.row.keywordE }}</span>
             </el-form-item>
@@ -45,8 +45,8 @@
               <span>{{ props.row.summary }}</span>
             </el-form-item>
             <el-form-item
-                v-show="props.row.summaryEn != null"
-                label="摘要(英):"
+              v-show="props.row.summaryEn != null"
+              label="摘要(英):"
             >
               <span>{{ props.row.summaryEn }}</span>
             </el-form-item>
@@ -65,18 +65,18 @@
       </el-table-column>
 
       <el-table-column
-          prop="id"
-          label="ID"
-          sortable
-          width="60"
-          align="center"
+        prop="id"
+        label="ID"
+        sortable
+        width="60"
+        align="center"
       ></el-table-column>
       <el-table-column label="文献类型" align="center" width="100px">
         <template #default="scope">
           <el-tag
-              effect="dark"
-              size="mini"
-              :type="
+            effect="dark"
+            size="mini"
+            :type="
               scope.row.types === 0
                 ? 'primary'
                 : scope.row.types === 1
@@ -88,30 +88,30 @@
           >
             {{
               scope.row.types === 0
-                  ? "论文"
-                  : "未知" && scope.row.types === 1
-                      ? "专利"
-                      : "未知" && scope.row.state === 2
-                          ? "未知"
-                          : "报告"
+                ? "论文"
+                : "未知" && scope.row.types === 1
+                  ? "专利"
+                  : "未知" && scope.row.state === 2
+                    ? "未知"
+                    : "报告"
             }}
           </el-tag>
         </template>
       </el-table-column>
 
       <el-table-column
-          prop="title"
-          label="题目"
-          show-overflow-tooltip
-          align="center"
+        prop="title"
+        label="题目"
+        show-overflow-tooltip
+        align="center"
       ></el-table-column>
 
       <el-table-column
-          prop="summary"
-          label="摘要"
-          tooltip-effect="light"
-          show-overflow-tooltip
-          align="center"
+        prop="summary"
+        label="摘要"
+        tooltip-effect="light"
+        show-overflow-tooltip
+        align="center"
       ></el-table-column>
 
 
@@ -129,18 +129,18 @@
 
 
       <el-table-column
-          prop="createTime"
-          label="上传时间"
-          tooltip-effect="light"
-          show-overflow-tooltip
-          align="center"
+        prop="createTime"
+        label="上传时间"
+        tooltip-effect="light"
+        show-overflow-tooltip
+        align="center"
       ></el-table-column>
 
       <el-table-column label="审核状态" align="center">
         <template #default="scope">
           <el-tag
-              size="medium"
-              :type="
+            size="medium"
+            :type="
               scope.row.state === 1 ||
               scope.row.state === 3
                 ? 'primary'
@@ -152,18 +152,18 @@
             "
           >{{
               scope.row.state === 1
-                  ? "初审通过"
-                  : "未审核" && scope.row.state === 2
-                      ? "一审未通过"
-                      : "未审核" && scope.row.state === 3
-                          ? "二审通过"
-                          : "未审核" && scope.row.state === 4
-                              ? "二审未通过"
-                              : "未审核" && scope.row.state === 5
-                                  ? "已归档"
-                                  : "未审核" && scope.row.state === 6
-                                      ? "终审未通过"
-                                      : "未审核"
+                ? "初审通过"
+                : "未审核" && scope.row.state === 2
+                  ? "一审未通过"
+                  : "未审核" && scope.row.state === 3
+                    ? "二审通过"
+                    : "未审核" && scope.row.state === 4
+                      ? "二审未通过"
+                      : "未审核" && scope.row.state === 5
+                        ? "已归档"
+                        : "未审核" && scope.row.state === 6
+                          ? "终审未通过"
+                          : "未审核"
             }}
           </el-tag>
         </template>
@@ -173,15 +173,15 @@
       <el-table-column label="操作" width="270">
         <template #default="scope">
           <el-button
-              size="mini"
-              type="success"
-              plain
-              @click="previewOpen(scope.row)"
+            size="mini"
+            type="success"
+            plain
+            @click="previewOpen(scope.row)"
           ><i class="el-icon-tickets"></i>预览
           </el-button>
           <el-popconfirm
-              title="确定下载吗？"
-              @confirm="handleDownload(scope.row)"
+            title="确定下载吗？"
+            @confirm="handleDownload(scope.row)"
           >
             <template #reference>
               <el-button size="mini" type="warning" plain
@@ -190,10 +190,10 @@
             </template>
           </el-popconfirm>
           <el-button
-              size="mini"
-              type="primary"
-              plain
-              @click="newUpload(scope.row)"
+            size="mini"
+            type="primary"
+            plain
+            @click="newUpload(scope.row)"
           ><i class="el-icon-upload"></i>上传
           </el-button>
         </template>
@@ -202,42 +202,42 @@
 
     <div style="margin: 20px 0">
       <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :page-sizes="[10, 20, 30, 40]"
-          :page-size="pageSize"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="total"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :page-sizes="[10, 20, 30, 40]"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
       >
       </el-pagination>
     </div>
 
     <!-- 上传弹窗 -->
     <el-dialog
-        title="请选择你要上传的文件"
-        v-model="dialogFormVisible"
-        :close-on-click-modal="false"
-        width="42.3%"
+      title="请选择你要上传的文件"
+      v-model="dialogFormVisible"
+      :close-on-click-modal="false"
+      width="42.3%"
     >
       <el-row>
         <el-card style="width:100vw;" shadow="hover">
           <div type="flex" justify="center" align="middle">
             <div>
               <el-upload
-                  drag
-                  ref="upload"
-                  class="upload-demo"
-                  :limit="limitNum"
-                  :action="fileApiURL + '/files/upload'"
-                  :on-preview="handlePreview"
-                  :on-remove="handleRemove"
-                  accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
-                  :file-list="fileList"
-                  :on-change="fileChange"
-                  :auto-upload="false"
-                  :on-exceed="exceedFile"
-                  :on-success="handleSuccess"
-                  :on-error="handleError"
+                drag
+                ref="upload"
+                class="upload-demo"
+                :limit="limitNum"
+                :action="fileApiURL + '/files/upload'"
+                :on-preview="handlePreview"
+                :on-remove="handleRemove"
+                accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
+                :file-list="fileList"
+                :on-change="fileChange"
+                :auto-upload="false"
+                :on-exceed="exceedFile"
+                :on-success="handleSuccess"
+                :on-error="handleError"
               >
                 <i class="el-icon-upload"></i>
 
@@ -255,14 +255,14 @@
               <br/>
 
               <div
-                  style="display: flex;justify-content: center;align-items: center;"
+                style="display: flex;justify-content: center;align-items: center;"
               >
                 <el-button
-                    size="small"
-                    type="primary"
-                    :disabled="isBtn"
-                    @click="submitUpload"
-                    plain
+                  size="small"
+                  type="primary"
+                  :disabled="isBtn"
+                  @click="submitUpload"
+                  plain
                 >立即上传<i class="el-icon-upload el-icon--right"></i
                 ></el-button>
               </div>
@@ -281,11 +281,11 @@
 
     <!-- 预览弹框 -->
     <el-dialog
-        custom-class="previewDialog"
-        title="预览"
-        :fullscreen="true"
-        v-model="previewVisible"
-        :before-close="previewClose"
+      custom-class="previewDialog"
+      title="预览"
+      :fullscreen="true"
+      v-model="previewVisible"
+      :before-close="previewClose"
     >
       <iframe class="el-iframe" :src="previewFileUrl" frameborder="0"></iframe>
     </el-dialog>
@@ -357,20 +357,20 @@ export default {
     load() {
       this.loading = true;
       request
-          .get("/paper/student/" + this.getUserId, {
-            params: {
-              pageNum: this.currentPage,
-              pageSize: this.pageSize,
-              search: this.search,
-            },
-          })
-          .then((res) => {
-            // console.log(res);
-            this.loading = false;
-            this.tableData = res.data.records;
-            this.total = res.data.total;
-            // console.table(res.data.records);
-          });
+        .get("/paper/student/" + this.getUserId, {
+          params: {
+            pageNum: this.currentPage,
+            pageSize: this.pageSize,
+            search: this.search,
+          },
+        })
+        .then((res) => {
+          // console.log(res);
+          this.loading = false;
+          this.tableData = res.data.records;
+          this.total = res.data.total;
+          // console.table(res.data.records);
+        });
     },
 
     // 方向
@@ -383,7 +383,7 @@ export default {
       return names.join("，");
     },
     // 指导老师
-    showPaperReviewers(row){
+    showPaperReviewers(row) {
       let paperReviewers = row.paperReviewers
       if (paperReviewers.length === 0) {
         return "空";
@@ -394,9 +394,9 @@ export default {
 
     export() {
       location.href =
-          // "http://" + window.server.filesUploadUrl + ":8181/user/export";
-          // "/api" + "/files/editor/upload";
-          "";
+        // "http://" + window.server.filesUploadUrl + ":8181/user/export";
+        // "/api" + "/files/editor/upload";
+        "";
     },
 
     //文件上传
@@ -431,8 +431,8 @@ export default {
 
     exceedFile(files, fileList) {
       this.$message.warning(
-          `只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length +
-          fileList.length} 个`
+        `只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length +
+        fileList.length} 个`
       );
     }, // 文件上传成功时的钩子
 
@@ -471,25 +471,25 @@ export default {
         return;
       }
       request
-          .post("/paper/saves/", {
-            id: this.formData.id,
-            url: this.formData.url,
-          })
-          .then((res) => {
-            console.log(res);
-            if (res.status === 200) {
-              this.$message({
-                type: "success",
-                message: "上传成功",
-              });
-              this.load(); // 刷新表格的数据
-            } else {
-              this.$message({
-                type: "error",
-                message: "请求超时",
-              });
-            }
-          });
+        .post("/paper/saves/", {
+          id: this.formData.id,
+          url: this.formData.url,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            this.$message({
+              type: "success",
+              message: "上传成功",
+            });
+            this.load(); // 刷新表格的数据
+          } else {
+            this.$message({
+              type: "error",
+              message: "请求超时",
+            });
+          }
+        });
 
       // console.log("dialog close");
       this.dialogFormVisible = false; // 关闭弹窗
@@ -522,8 +522,8 @@ export default {
         console.log(file[1].url)
         const key = file[1]
         const filename = key.url.replace(
-            /^\/files\/([a-fA-F0-9]{32})_/,
-            ""
+          /^\/files\/([a-fA-F0-9]{32})_/,
+          ""
         );
         const fileSuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
         if (!filename || !fileSuffix) {
@@ -573,8 +573,8 @@ export default {
             console.log(key.url);
             this.previewVisible = true;
             this.previewFileUrl =
-                "http://8.136.96.167:8012/onlinePreview?url=" +
-                encodeURIComponent(Base64.encode(this.fileApiURL + key.url));
+              "http://8.136.96.167:8012/onlinePreview?url=" +
+              encodeURIComponent(Base64.encode(this.fileApiURL + key.url));
             console.log(this.previewFileUrl);
             console.log(this.previewVisible);
           }

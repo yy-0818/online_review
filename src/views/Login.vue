@@ -56,22 +56,24 @@
           <el-form-item>
             <el-row>
               <el-button style="width: 100%" type="primary" @click="login"
-              >登 录</el-button
+              >登 录
+              </el-button
               >
               <el-col :span="16">
                 <el-button type="text" @click="forgetPassword">
                   忘记密码？
                 </el-button>
               </el-col>
-                <el-col :span="5" >
-                  <el-button type="text" @click="register">前往注册>> </el-button>
-                </el-col>
-                <el-col :span="3">
-                  <el-button
-                      type="text"
-                      @click="resetForm('form')"
-                  ><i class="el-icon-refresh "></i>重置</el-button>
-                </el-col>
+              <el-col :span="5">
+                <el-button type="text" @click="register">前往注册>></el-button>
+              </el-col>
+              <el-col :span="3">
+                <el-button
+                  type="text"
+                  @click="resetForm('form')"
+                ><i class="el-icon-refresh "></i>重置
+                </el-button>
+              </el-col>
 
             </el-row>
 
@@ -85,7 +87,7 @@
 <script>
 import request from "@/utils/request";
 import ValidCode from "@/components/ValidCode";
-import {setUser} from "@/utils/storage";
+import { setUser } from "@/utils/storage";
 
 export default {
   name: "Login",
@@ -102,7 +104,7 @@ export default {
         backgroundRepeat: "no-repeat",
         // backgroundSize: "cover",
       },
-      refreshNumber:0,
+      refreshNumber: 0,
 
       form: { role: "", email: "", password: "", },
 
@@ -136,7 +138,7 @@ export default {
             this.form.validCode.toLowerCase() !== this.validCode.toLowerCase()
           ) {
             this.$message.error("验证码错误");
-            this.refreshNumber +=1
+            this.refreshNumber += 1
             return;
           }
 
@@ -146,7 +148,7 @@ export default {
               password: this.form.password,
             })
             .then((res) => {
-              console.log(res);
+              // console.log(res);
               if (res.status === 200) {
                 this.$message({
                   type: "success",
@@ -167,7 +169,7 @@ export default {
     resetForm(form) {
       this.$refs[form].resetFields();
     },
-    forgetPassword(){
+    forgetPassword() {
       // console.log(";;;;;;;")
       this.$router.push("/forget");
     },

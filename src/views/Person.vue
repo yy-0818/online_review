@@ -30,7 +30,7 @@
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
             >
-              <img v-if="newAvatarUrl" :src="newAvatarUrl" class="avatar" />
+              <img v-if="newAvatarUrl" :src="newAvatarUrl" class="avatar"/>
               <img
                 v-else
                 :src="
@@ -135,7 +135,7 @@ export default {
         password: "",
         avatarUrl: "",
         directionId: "",
-        role:"",
+        role: "",
       },
       directionIdOptions: [],
       roles: [
@@ -199,7 +199,7 @@ export default {
 </script>
 
 <style scoped>
-#app{
+#app {
   position: fixed;
 }
 
@@ -209,6 +209,7 @@ export default {
   /* margin: 10% 30%; */
   margin: auto;
 }
+
 .el-form-item-d {
   width: 200px;
   width: 80%;

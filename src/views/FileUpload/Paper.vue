@@ -1,25 +1,25 @@
 <template>
-<div>
-  <div id="app">
-    <vue-particles
-            color="#409EFF"
-            :particleOpacity="0.7"
-            :particlesNumber="120"
-            shapeType="polygon"
-            :particleSize="4"
-            linesColor="#409EFF"
-            :linesWidth="1.5"
-            :lineLinked="true"
-            :lineOpacity="0.6"
-            :linesDistance="150"
-            :moveSpeed="3"
-            :hoverEffect="true"
-            hoverMode="grab"
-            :clickEffect="true"
-            clickMode="push"
-    >
-    </vue-particles>
-</div>
+  <div>
+    <div id="app">
+      <vue-particles
+        color="#409EFF"
+        :particleOpacity="0.7"
+        :particlesNumber="120"
+        shapeType="polygon"
+        :particleSize="4"
+        linesColor="#409EFF"
+        :linesWidth="1.5"
+        :lineLinked="true"
+        :lineOpacity="0.6"
+        :linesDistance="150"
+        :moveSpeed="3"
+        :hoverEffect="true"
+        hoverMode="grab"
+        :clickEffect="true"
+        clickMode="push"
+      >
+      </vue-particles>
+    </div>
     <el-row style="margin: 20px;" justify="center" align="middle">
       <el-card class="box-card" shadow="hover">
         <template #header>
@@ -150,14 +150,14 @@
             <!-- </el-row> -->
             <div style="text-align: center;margin-top: 30px;">
               <el-button type="info" plain @click="newUpload"
-                ><i class="el-icon-upload"></i>点击上传论文
+              ><i class="el-icon-upload"></i>点击上传论文
               </el-button>
 
               <el-button type="primary" plain @click="save"
-                ><i class="el-icon-position"></i>提交
+              ><i class="el-icon-position"></i>提交
               </el-button>
               <el-button type="success" plain @click="resetForm"
-                ><i class="el-icon-refresh"></i>重置
+              ><i class="el-icon-refresh"></i>重置
               </el-button>
             </div>
             <div class="div-el-button" align="center">
@@ -208,7 +208,7 @@
                 </div>
               </el-upload>
 
-              <br />
+              <br/>
 
               <div
                 style="display: flex;justify-content: center;align-items: center;"
@@ -219,7 +219,7 @@
                   :disabled="isBtn"
                   @click="submitUpload"
                   plain
-                  >上传至服务器<i class="el-icon-upload el-icon--right"></i
+                >上传至服务器<i class="el-icon-upload el-icon--right"></i
                 ></el-button>
               </div>
             </div>
@@ -252,7 +252,7 @@ export default {
       reviewerList: [],
       formPaper: {
         types: 0,  // 表单类型  0--论文；1--专利；2--报告
-        typeOr:0, //文件上传 类型  1为老师意见
+        typeOr: 0, //文件上传 类型  1为老师意见
         uploaderId: "",
         title: "",
         titleEn: "",
@@ -331,7 +331,7 @@ export default {
     exceedFile(files, fileList) {
       this.$message.warning(
         `只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length +
-          fileList.length} 个`
+        fileList.length} 个`
       );
     }, // 文件上传成功时的钩子
 
@@ -372,7 +372,7 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          if (res.status == 200) {
+          if (res.status === 200) {
             this.$message({
               type: "success",
               message: "上传成功",
@@ -422,8 +422,8 @@ export default {
           "i",
           { style: "color: teal" },
           "请先上传论文哟!" +
-            "\n" +
-            "注:上传压缩包文件时，最好有二级目录，否则可能会导致预览失败!"
+          "\n" +
+          "注:上传压缩包文件时，最好有二级目录，否则可能会导致预览失败!"
         ),
         offset: 50, //偏移
         // customClass: "notifyStyle", //自定义类
@@ -484,7 +484,7 @@ export default {
 </script>
 
 <style scoped>
-#app{
+#app {
   position: fixed;
 
 }
