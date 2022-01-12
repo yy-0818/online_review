@@ -188,14 +188,13 @@
               </el-form>
             </template>
           </el-table-column>
-
-          <!--          <el-table-column-->
-          <!--              prop="id"-->
-          <!--              label="ID"-->
-          <!--              sortable-->
-          <!--              width="60"-->
-          <!--              align="center"-->
-          <!--          ></el-table-column>-->
+          <el-table-column
+              prop="id"
+              label="ID"
+              sortable
+              width="60"
+              align="center"
+          ></el-table-column>
           <el-table-column label="文献类型" align="center" width="100px">
             <template #default="scope">
               <el-tag
@@ -297,13 +296,13 @@
 
           <el-table-column label="操作" width="220">
             <template #default="scope">
-<!--              <el-button-->
-<!--                  size="mini"-->
-<!--                  type="success"-->
-<!--                  plain-->
-<!--                  @click="previewOpen(scope.row)"-->
-<!--              ><i class="el-icon-tickets"></i>预览-->
-<!--              </el-button>-->
+              <!--              <el-button-->
+              <!--                  size="mini"-->
+              <!--                  type="success"-->
+              <!--                  plain-->
+              <!--                  @click="previewOpen(scope.row)"-->
+              <!--              ><i class="el-icon-tickets"></i>预览-->
+              <!--              </el-button>-->
               <el-popconfirm
                   title="确定下载吗？"
                   @confirm="handleDownload(scope.row)"
@@ -385,8 +384,30 @@
         </template>
       </el-dialog>
 
-      <el-dialog title="选择指导老师" v-model="reviewersVisible">
-
+      <el-dialog width="30%" title="选择指导老师" v-model="reviewersVisible">
+        <el-form
+            ref="form"
+            :model="form"
+            :rules="rulesPaper"
+            label-width="130px"
+        >
+          <el-form-item label="指导老师" prop="reviewerIds">
+            <el-select multiple v-model="form.reviewerIds" placeholder="Select">
+              <el-option
+                  v-for="item in tableDataThr"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <div style="text-align: center;margin-top: 30px;">
+          <el-button type="primary" plain @click="save"
+          ><i class="el-icon-position"></i>提交
+          </el-button>
+        </div>
       </el-dialog>
 
       <!-- 预览弹框 -->
@@ -416,7 +437,10 @@ export default {
   data() {
     return {
       loading: true,
-      form: {},
+      form: {
+        id: '',
+        reviewerIds: []
+      },
       dialogVisible: false, // 弹窗
       dialogReview: false,
       previewVisible: false,
@@ -427,7 +451,10 @@ export default {
       total: 0,
       tableData: [],
       tableDataStu: [],
+      tableDataThr: [],
       directionIdOptions: [],
+      currentUserId: "",
+
       roles: [
         { value: 1, label: "普通用户" },
         { value: 2, label: "初审" },
@@ -439,6 +466,12 @@ export default {
         { value: 2, label: "女" },
         { value: 0, label: "未知" },
       ],
+
+      rulesPaper: {
+        reviewerIds: [
+          { required: true, message: "请选择老师", trigger: "blur" },
+        ],
+      },
     };
   },
   created() {
@@ -475,7 +508,7 @@ export default {
       return names.join("，");
     },
 
-    showPaperReviewers(row){
+    showPaperReviewers(row) {
       let paperReviewers = row.paperReviewers
       if (paperReviewers.length === 0) {
         return "空";
@@ -571,6 +604,7 @@ export default {
       // console.log(row.id)
       let id = row.id
       this.dialogReview = true
+      this.currentUserId = id
       // this.loading = true;
       request
           .get("/paper/student/" + id, {
@@ -616,7 +650,6 @@ export default {
       this.load();
     },
 
-
     handleDownload(row) {
       const file = row.paperFiles;
       if (file.length !== 0) {
@@ -658,13 +691,54 @@ export default {
       }
     },
 
-    previewOpen2() {
-      this.$message({
-        type: "info",
-        message: "暂时不支持该功能,尽情期待(*^_^*)"
-      })
+    previewOpen2(row) {
+      // this.$message({
+      //   type: "info",
+      //   message: "暂时不支持该功能,尽情期待(*^_^*)"
+      // })
 
+      this.form.id = row.id
+      this.form.reviewerIds = jsonpath.query(row.paperReviewers, "$..id")
       this.reviewersVisible = true
+      request.post("/user/findAllTeacher").then((res) => {
+        // console.table(res.data)
+        this.tableDataThr = res.data
+
+      })
+    },
+
+    save() {
+      this.$refs["form"].validate((valid) => {
+        console.log(valid)
+        if (valid) {
+          request.post("/paper/changeTeacher", { id: this.form.id, reviewerId: this.form.reviewerIds.join(",") }).then((res) => {
+            console.log(res);
+            if (res.data === "OK") {
+              this.$message({
+                type: "success",
+                message: "成功",
+              });
+            } else {
+              console.log(res);
+              this.$message({
+                type: "error",
+                message: "失败",
+              });
+              return false;
+            }
+          }).catch((error) => {
+            console.log(error);
+          });
+
+          request
+              .get("/paper/student/" + this.currentUserId)
+              .then((res) => {
+                this.tableDataStu = res.data.records;
+              });
+
+          this.reviewersVisible = false
+        }
+      })
 
     },
 
