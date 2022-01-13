@@ -180,58 +180,6 @@
         </el-form-item>
       </el-form>
 
-      <el-row>
-        <el-card style="width:100vw;" shadow="hover">
-          <div type="flex" justify="center" align="middle">
-            <div>
-              <el-upload
-                drag
-                ref="upload"
-                class="upload-demo"
-                :limit="limitNum"
-                :action="fileApiURL + '/files/upload'"
-                :on-preview="handlePreview"
-                :on-remove="handleRemove"
-                accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
-                :file-list="fileList"
-                :on-change="fileChange"
-                :auto-upload="false"
-                :on-exceed="exceedFile"
-                :on-success="handleSuccess"
-                :on-error="handleError"
-              >
-                <i class="el-icon-upload"></i>
-
-                <div class="el-upload__text">
-                  将Order文件拖到此处，或
-
-                  <em>点击上传</em>
-                </div>
-
-                <div class="el-upload__tip">
-                  可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
-                </div>
-              </el-upload>
-
-              <br/>
-
-              <div
-                style="display: flex;justify-content: center;align-items: center;"
-              >
-                <el-button
-                  size="small"
-                  type="primary"
-                  :disabled="isBtn"
-                  @click="submitUpload"
-                  plain
-                >立即上传<i class="el-icon-upload el-icon--right"></i
-                ></el-button>
-              </div>
-            </div>
-          </div>
-        </el-card>
-      </el-row>
-
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="handleDele" type="primary">取 消</el-button>
@@ -532,6 +480,7 @@ export default {
         }
       });
       this.$refs["formdata"].resetFields();
+      this.$refs["upload"].clearFiles();
     },
     handleEdit(row) {
       // this.form = JSON.parse(JSON.stringify(row));
@@ -544,7 +493,6 @@ export default {
       // 取消弹窗并清空内容
       this.dialogFormVisible = false;
       this.$refs["formdata"].resetFields();
-      this.$refs["upload"].clearFiles();
     },
     handleDele2() {
       //退回弹窗
@@ -594,7 +542,6 @@ export default {
       });
 
       this.$refs["formdata"].resetFields();
-      this.$refs["upload"].clearFiles();
     },
 
     handleDownload(row) {

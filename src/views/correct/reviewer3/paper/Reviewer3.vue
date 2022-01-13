@@ -562,7 +562,6 @@ export default {
       // 取消弹窗并清空内容
       this.dialogFormVisible = false;
       this.$refs["formdata"].resetFields();
-      this.$refs["upload"].clearFiles();
     },
     handleDele2() {
       //退回弹窗
@@ -608,7 +607,6 @@ export default {
       });
 
       this.$refs["formdata"].resetFields();
-      this.$refs["upload"].clearFiles();
     },
 
     handleDownload(row) {
