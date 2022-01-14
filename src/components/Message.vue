@@ -70,7 +70,7 @@
             size="mini"
             type="primary"
             plain
-            @click="handleEdit(scope.row)"
+            @click="handleEdit(scope.row)" circle
             ><i class="el-icon-edit-outline"></i
           ></el-button>
           <el-popconfirm
@@ -78,7 +78,7 @@
             @confirm="handleDelete(scope.row.id)"
           >
             <template #reference>
-              <el-button size="mini" type="danger"
+              <el-button size="mini" type="danger" circle
                 ><i class="el-icon-delete "></i
               ></el-button>
             </template>
