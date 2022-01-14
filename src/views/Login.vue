@@ -55,7 +55,7 @@
 
           <el-form-item>
             <el-row>
-              <el-button style="width: 100%" type="primary" @click="login"
+              <el-button style="width: 100%" type="primary" v-loading="loading" @click="login"
               >登 录
               </el-button
               >
@@ -96,6 +96,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       imgSrc: {
         backgroundImage:
           "url(https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/carousel/3.png)",
@@ -141,7 +142,8 @@ export default {
             this.refreshNumber += 1
             return;
           }
-
+          this.loading = true
+          this.$message.success("Loading...")
           request
             .post("/user/login", {
               email: this.form.email,
