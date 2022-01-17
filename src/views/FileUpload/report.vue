@@ -268,7 +268,7 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          if (res.status == 200) {
+          if (res.status === 200) {
             this.$message({
               type: "success",
               message: "上传成功",
@@ -350,7 +350,7 @@ export default {
             return;
           }
           this.formReport.directionId = this.formReport.directionIds.join();
-          this.formReport.reviewerId = this.formReport.reviewerIds.join()+','+this.formReport.reviewerId;
+          this.formReport.reviewerId = this.formReport.reviewerIds.join()+','+this.formReport.reviewIds;
           request
             .post("/paper/save", this.formReport)
             .then((res) => {
@@ -361,10 +361,10 @@ export default {
                   message: "上传成功",
                 });
               } else {
-                console.log(res);
+                // console.log(res);
                 this.$message({
                   type: "error",
-                  message: res.msg,
+                  message: "服务器异常，请稍后尝试（。＾▽＾）",
                 });
                 return false;
               }

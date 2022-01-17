@@ -384,7 +384,7 @@
         </template>
       </el-dialog>
 
-      <el-dialog width="30%" title="选择指导老师" v-model="reviewersVisible">
+      <el-dialog width="30%" title="请选择指导老师" v-model="reviewersVisible">
         <el-form
           ref="form"
           :model="form"
