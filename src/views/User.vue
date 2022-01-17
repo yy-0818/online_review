@@ -411,15 +411,15 @@
       </el-dialog>
 
       <!-- 预览弹框 -->
-      <el-dialog
-        custom-class="previewDialog"
-        title="预览"
-        :fullscreen="true"
-        v-model="previewVisible"
-        :before-close="previewClose"
-      >
-        <iframe class="el-iframe" :src="previewFileUrl" frameborder="0"></iframe>
-      </el-dialog>
+<!--      <el-dialog-->
+<!--        custom-class="previewDialog"-->
+<!--        title="预览"-->
+<!--        :fullscreen="true"-->
+<!--        v-model="previewVisible"-->
+<!--        :before-close="previewClose"-->
+<!--      >-->
+<!--        <iframe class="el-iframe" :src="previewFileUrl" frameborder="0"></iframe>-->
+<!--      </el-dialog>-->
     </div>
   </el-scrollbar>
 </template>
