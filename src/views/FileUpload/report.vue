@@ -99,7 +99,23 @@
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col :span="8" :push="2">
+            <el-col :span="8">
+              <el-form-item label="初审" prop="reviewIds">
+                <el-select
+                  multiple
+                  v-model="formReport.reviewIds"
+                >
+                  <el-option
+                    v-for="item in reviewIdOptions"
+                    :key="item.value"
+                    :label="item.name"
+                    :value="item.id"
+                  >
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
               <el-form-item label="指导老师" prop="reviewerIds">
                 <el-select multiple v-model="formReport.reviewerIds">
                   <el-option
@@ -148,6 +164,7 @@ export default {
       fileApiURL: fileApiURL,
       directionIdOptions: [],
       reviewerIdOptions: [],
+      reviewIdOptions: [],
       reviewerList: [],
       labelPosition: "left",
       formReport: {
@@ -157,6 +174,7 @@ export default {
         url: "",
         directionIds: [],
         reviewerIds: [],
+        reviewIds: [],
       },
       limitNum: 1,
       fileList: [],
@@ -175,12 +193,16 @@ export default {
         reviewerIds: [
           { required: true, message: "请选择老师", trigger: "blur" },
         ],
+        reviewIds: [
+          { required: true, message: "请选择", trigger: "blur" },
+        ],
       },
     };
   },
 
   mounted() {
     this.getDirections();
+    this.getReviewerId()
   },
 
   methods: {
@@ -277,6 +299,12 @@ export default {
           this.reviewerList = res.data;
         });
     },
+    getReviewerId() {
+      request.get("/paper/firstTeacher").then((res) => {
+        // console.table(res.data);
+        this.reviewIdOptions = res.data;
+      });
+    },
 
     filterReviewer(directionId) {
       this.formReport.reviewerId = null;
@@ -322,7 +350,7 @@ export default {
             return;
           }
           this.formReport.directionId = this.formReport.directionIds.join();
-          this.formReport.reviewerId = this.formReport.reviewerIds.join();
+          this.formReport.reviewerId = this.formReport.reviewerIds.join()+','+this.formReport.reviewerId;
           request
             .post("/paper/save", this.formReport)
             .then((res) => {

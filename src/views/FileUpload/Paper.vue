@@ -132,6 +132,24 @@
                   </el-select>
                 </el-form-item>
               </el-col>
+
+              <el-col :span="8">
+                <el-form-item label="初审" prop="reviewIds">
+                  <el-select
+                    multiple
+                    v-model="formPaper.reviewIds"
+                  >
+                    <el-option
+                      v-for="item in reviewIdOptions"
+                      :key="item.value"
+                      :label="item.name"
+                      :value="item.id"
+                    >
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+
               <el-col :span="8">
                 <el-form-item label="指导老师" prop="reviewerIds">
                   <el-select multiple v-model="formPaper.reviewerIds">
@@ -249,6 +267,7 @@ export default {
       dialogFormVisible: false,
       directionIdOptions: [],
       reviewerIdOptions: [],
+      reviewIdOptions: [],
       reviewerList: [],
       formPaper: {
         types: 0,  // 表单类型  0--论文；1--专利；2--报告
@@ -263,6 +282,7 @@ export default {
         url: "",
         directionIds: [],
         reviewerIds: [],
+        reviewIds: [],
       },
       limitNum: 1, // 上传文件，同时允许上传的最大数
       fileList: [],
@@ -291,12 +311,16 @@ export default {
         reviewerIds: [
           { required: true, message: "请选择老师", trigger: "blur" },
         ],
+        reviewIds: [
+          { required: true, message: "请选择", trigger: "blur" },
+        ],
       },
     };
   },
 
   mounted() {
     this.getDirections();
+    this.getReviewerId()
     // this.getReviewers();
     // this.load();
   },
@@ -407,6 +431,13 @@ export default {
         });
     },
 
+    getReviewerId() {
+      request.get("/paper/firstTeacher").then((res) => {
+        // console.table(res.data);
+        this.reviewIdOptions = res.data;
+      });
+    },
+
     filterReviewer(directionId) {
       this.formPaper.reviewerId = null;
       // console.log(directionId);
@@ -451,7 +482,8 @@ export default {
             return;
           }
           this.formPaper.directionId = this.formPaper.directionIds.join();
-          this.formPaper.reviewerId = this.formPaper.reviewerIds.join();
+          this.formPaper.reviewerId = this.formPaper.reviewerIds.join()+','+this.formPaper.reviewIds;
+          // this.formPaper.reviewId = this.formPaper.reviewIds.join();
           request
             .post("/paper/save", this.formPaper)
             .then((res) => {
