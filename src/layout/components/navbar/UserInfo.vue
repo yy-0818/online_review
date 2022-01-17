@@ -6,12 +6,12 @@
         <el-avatar
           :size="30"
           :src="
-            form.avatarUrl === '@/assets/img/user.jpg'
-              ? defaultAvatar
-              : form.avatarUrl === undefined
-              ? defaultAvatar
-              : '/api' + form.avatarUrl
-          "
+              form.avatarUrl === '/image/avatar.png'
+                ? defaultAvatar
+                : form.avatarUrl === undefined
+                ? defaultAvatar
+                : '/api' + form.avatarUrl
+              "
           fit="scale-down"
         ></el-avatar>
       </span>

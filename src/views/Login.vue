@@ -23,7 +23,7 @@
         <div id="todo">
           欢迎登录
         </div>
-        <el-form ref="form" :model="form" size="normal" :rules="rules">
+        <el-form ref="form" :model="form" size="normal" :rules="rules" @keyup.enter.native="login">
           <el-form-item prop="email">
             <el-input
               prefix-icon="el-icon-user-solid"
@@ -51,27 +51,32 @@
               <ValidCode style="margin-left: 8px" @input="createValidCode" :refresh="refreshNumber"/>
             </div>
           </el-form-item>
-          <!-- <el-form-item prop="role">
-            <el-radio v-model="form.role" :label="3">管理员</el-radio>
-            <el-radio v-model="form.role" :label="2">审核员</el-radio>
-            <el-radio v-model="form.role" :label="1">普通用户</el-radio>
-          </el-form-item> -->
-          <el-form-item>
-            <el-button style="width: 100%" type="primary" @click="login"
-              >登 录</el-button
-            >
-          </el-form-item>
+
 
           <el-form-item>
             <el-row>
-              <el-button type="text" @click="register">前往注册 >> </el-button>
-              <el-button
-                style="padding-left:25vh"
-                type="text"
-                @click="resetForm('form')"
-                ><i class="el-icon-refresh"></i>重置</el-button
+              <el-button style="width: 100%" type="primary" v-loading="loading" @click="login"
+              >登 录
+              </el-button
               >
+              <el-col :span="16">
+                <el-button type="text" @click="forgetPassword">
+                  忘记密码？
+                </el-button>
+              </el-col>
+              <el-col :span="5">
+                <el-button type="text" @click="register">前往注册>></el-button>
+              </el-col>
+              <el-col :span="3">
+                <el-button
+                  type="text"
+                  @click="resetForm('form')"
+                ><i class="el-icon-refresh "></i>重置
+                </el-button>
+              </el-col>
+
             </el-row>
+
           </el-form-item>
         </el-form>
       </el-card>
@@ -82,7 +87,7 @@
 <script>
 import request from "@/utils/request";
 import ValidCode from "@/components/ValidCode";
-import {setUser} from "@/utils/storage";
+import { setUser } from "@/utils/storage";
 
 export default {
   name: "Login",
@@ -91,6 +96,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       imgSrc: {
         backgroundImage:
           "url(https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/carousel/3.png)",
@@ -99,14 +105,14 @@ export default {
         backgroundRepeat: "no-repeat",
         // backgroundSize: "cover",
       },
-      refreshNumber:0,
+      refreshNumber: 0,
 
-      form: { role: "", email: "", password: "" },
+      form: { role: "", email: "", password: "", },
 
       rules: {
         email: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
         password: [{ required: true, message: "请输入密码", trigger: "blur" }],
-        // role: [{ required: true, message: "请选择身份", trigger: "blur" }],
+
       },
       validCode: "",
     };
@@ -114,14 +120,10 @@ export default {
   created() {
     sessionStorage.removeItem("user");
 
-    // document.onkeydown=e=>{
-    //   let _key = window.event.keyCode;
-    //   if(_key == 13) {
-    //     this.selectEntered();
-    //   }
-    // }
   },
+
   methods: {
+
     // 接收验证码组件提交的 4位验证码
     createValidCode(data) {
       this.validCode = data;
@@ -137,17 +139,18 @@ export default {
             this.form.validCode.toLowerCase() !== this.validCode.toLowerCase()
           ) {
             this.$message.error("验证码错误");
-            this.refreshNumber +=1
+            this.refreshNumber += 1
             return;
           }
-
+          this.loading = true
+          this.$message.success("Loading...")
           request
             .post("/user/login", {
               email: this.form.email,
               password: this.form.password,
             })
             .then((res) => {
-              console.log(res);
+              // console.log(res);
               if (res.status === 200) {
                 this.$message({
                   type: "success",
@@ -168,9 +171,12 @@ export default {
     resetForm(form) {
       this.$refs[form].resetFields();
     },
-
+    forgetPassword() {
+      // console.log(";;;;;;;")
+      this.$router.push("/forget");
+    },
     register() {
-      console.log("=======");
+      // console.log("=======");
       this.$router.push("/register");
     },
   },
@@ -186,7 +192,6 @@ export default {
 .el-card:hover {
   margin-top: -5px;
 }  */
-
 .welcome-page {
   display: flex;
   width: 100%;
@@ -200,7 +205,7 @@ export default {
   background-color: #fff;
   border-radius: 20px;
   width: 400px;
-  height: 450px;
+  height: 400px;
   margin: auto;
   position: absolute;
   top: 0;

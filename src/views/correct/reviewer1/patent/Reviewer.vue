@@ -10,7 +10,7 @@
       ></el-input>
 
       <el-button type="primary" style="margin-left: 5px" @click="load"
-        ><i class="el-icon-search"></i>查询
+      ><i class="el-icon-search"></i>查询
       </el-button>
     </div>
     <el-table
@@ -23,13 +23,13 @@
       tooltip-effect="dark"
       :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
     >
-      <el-table-column
-        prop="id"
-        label="ID"
-        sortable
-        width="60"
-        align="center"
-      ></el-table-column>
+      <!--      <el-table-column-->
+      <!--        prop="id"-->
+      <!--        label="ID"-->
+      <!--        sortable-->
+      <!--        width="60"-->
+      <!--        align="center"-->
+      <!--      ></el-table-column>-->
 
       <el-table-column
         prop="title"
@@ -58,8 +58,8 @@
       <el-table-column label="审核状态" align="center">
         <template #default="scope">
           <el-tag
-              size="medium"
-              :type="
+            size="medium"
+            :type="
               scope.row.state === 1 ||
               scope.row.state === 3
                 ? 'primary'
@@ -71,18 +71,18 @@
             "
           >{{
               scope.row.state === 1
-                  ? "初审通过"
-                  : "未审核" && scope.row.state === 2
-                      ? "一审未通过"
-                      : "未审核" && scope.row.state === 3
-                          ? "二审通过"
-                          : "未审核" && scope.row.state === 4
-                              ? "二审未通过"
-                              : "未审核" && scope.row.state === 5
-                                  ? "已归档"
-                                  : "未审核" && scope.row.state === 6
-                                      ? "终审未通过"
-                                      : "未审核"
+                ? "初审通过"
+                : "未审核" && scope.row.state === 2
+                  ? "一审未通过"
+                  : "未审核" && scope.row.state === 3
+                    ? "二审通过"
+                    : "未审核" && scope.row.state === 4
+                      ? "二审未通过"
+                      : "未审核" && scope.row.state === 5
+                        ? "已归档"
+                        : "未审核" && scope.row.state === 6
+                          ? "终审未通过"
+                          : "未审核"
             }}
           </el-tag>
         </template>
@@ -95,7 +95,7 @@
             type="success"
             plain
             @click="previewOpen(scope.row)"
-            ><i class="el-icon-view"></i>预览
+          ><i class="el-icon-view"></i>预览
           </el-button>
 
           <el-popconfirm
@@ -104,7 +104,7 @@
           >
             <template #reference>
               <el-button size="mini" type="warning" plain
-                ><i class="el-icon-folder-add"></i>下载
+              ><i class="el-icon-folder-add"></i>下载
               </el-button>
             </template>
           </el-popconfirm>
@@ -114,11 +114,11 @@
             type="primary"
             plain
             @click="handleAdopt(scope.row)"
-            ><i class="el-icon-document-checked"></i>通过
+          ><i class="el-icon-document-checked"></i>通过
           </el-button>
 
           <el-button size="mini" type="danger" @click="handleEdit(scope.row)"
-            ><i class="el-icon-document-delete "></i>退回
+          ><i class="el-icon-document-delete "></i>退回
           </el-button>
         </template>
       </el-table-column>
@@ -179,57 +179,57 @@
           </el-input>
         </el-form-item>
 
-<!--        <el-row>-->
-<!--          <el-card style="width:100vw;" shadow="hover">-->
-<!--            <div type="flex" justify="center" align="middle">-->
-<!--              <div>-->
-<!--                <el-upload-->
-<!--                    drag-->
-<!--                    ref="upload"-->
-<!--                    class="upload-demo"-->
-<!--                    :limit="limitNum"-->
-<!--                    :action="fileApiURL + '/files/upload'"-->
-<!--                    :on-preview="handlePreview"-->
-<!--                    :on-remove="handleRemove"-->
-<!--                    accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"-->
-<!--                    :file-list="fileList"-->
-<!--                    :on-change="fileChange"-->
-<!--                    :auto-upload="false"-->
-<!--                    :on-exceed="exceedFile"-->
-<!--                    :on-success="handleSuccess"-->
-<!--                    :on-error="handleError"-->
-<!--                >-->
-<!--                  <i class="el-icon-upload"></i>-->
+        <!--        <el-row>-->
+        <!--          <el-card style="width:100vw;" shadow="hover">-->
+        <!--            <div type="flex" justify="center" align="middle">-->
+        <!--              <div>-->
+        <!--                <el-upload-->
+        <!--                    drag-->
+        <!--                    ref="upload"-->
+        <!--                    class="upload-demo"-->
+        <!--                    :limit="limitNum"-->
+        <!--                    :action="fileApiURL + '/files/upload'"-->
+        <!--                    :on-preview="handlePreview"-->
+        <!--                    :on-remove="handleRemove"-->
+        <!--                    accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"-->
+        <!--                    :file-list="fileList"-->
+        <!--                    :on-change="fileChange"-->
+        <!--                    :auto-upload="false"-->
+        <!--                    :on-exceed="exceedFile"-->
+        <!--                    :on-success="handleSuccess"-->
+        <!--                    :on-error="handleError"-->
+        <!--                >-->
+        <!--                  <i class="el-icon-upload"></i>-->
 
-<!--                  <div class="el-upload__text">-->
-<!--                    将Order文件拖到此处，或-->
+        <!--                  <div class="el-upload__text">-->
+        <!--                    将Order文件拖到此处，或-->
 
-<!--                    <em>点击上传</em>-->
-<!--                  </div>-->
+        <!--                    <em>点击上传</em>-->
+        <!--                  </div>-->
 
-<!--                  <div class="el-upload__tip">-->
-<!--                    可以上传PFD、Word、任意压缩包格式的文件，且不超过50M-->
-<!--                  </div>-->
-<!--                </el-upload>-->
+        <!--                  <div class="el-upload__tip">-->
+        <!--                    可以上传PFD、Word、任意压缩包格式的文件，且不超过50M-->
+        <!--                  </div>-->
+        <!--                </el-upload>-->
 
-<!--                <br />-->
+        <!--                <br />-->
 
-<!--                <div-->
-<!--                    style="display: flex;justify-content: center;align-items: center;"-->
-<!--                >-->
-<!--                  <el-button-->
-<!--                      size="small"-->
-<!--                      type="primary"-->
-<!--                      :disabled="isBtn"-->
-<!--                      @click="submitUpload"-->
-<!--                      plain-->
-<!--                  >立即上传<i class="el-icon-upload el-icon&#45;&#45;right"></i-->
-<!--                  ></el-button>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </el-card>-->
-<!--        </el-row>-->
+        <!--                <div-->
+        <!--                    style="display: flex;justify-content: center;align-items: center;"-->
+        <!--                >-->
+        <!--                  <el-button-->
+        <!--                      size="small"-->
+        <!--                      type="primary"-->
+        <!--                      :disabled="isBtn"-->
+        <!--                      @click="submitUpload"-->
+        <!--                      plain-->
+        <!--                  >立即上传<i class="el-icon-upload el-icon&#45;&#45;right"></i-->
+        <!--                  ></el-button>-->
+        <!--                </div>-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--          </el-card>-->
+        <!--        </el-row>-->
 
       </el-form>
 
@@ -288,20 +288,20 @@
             <div type="flex" justify="center" align="middle">
               <div>
                 <el-upload
-                    drag
-                    ref="upload"
-                    class="upload-demo"
-                    :limit="limitNum"
-                    :action="fileApiURL + '/files/upload'"
-                    :on-preview="handlePreview"
-                    :on-remove="handleRemove"
-                    accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
-                    :file-list="fileList"
-                    :on-change="fileChange"
-                    :auto-upload="false"
-                    :on-exceed="exceedFile"
-                    :on-success="handleSuccess"
-                    :on-error="handleError"
+                  drag
+                  ref="upload"
+                  class="upload-demo"
+                  :limit="limitNum"
+                  :action="fileApiURL + '/files/upload'"
+                  :on-preview="handlePreview"
+                  :on-remove="handleRemove"
+                  accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
+                  :file-list="fileList"
+                  :on-change="fileChange"
+                  :auto-upload="false"
+                  :on-exceed="exceedFile"
+                  :on-success="handleSuccess"
+                  :on-error="handleError"
                 >
                   <i class="el-icon-upload"></i>
 
@@ -316,17 +316,17 @@
                   </div>
                 </el-upload>
 
-                <br />
+                <br/>
 
                 <div
-                    style="display: flex;justify-content: center;align-items: center;"
+                  style="display: flex;justify-content: center;align-items: center;"
                 >
                   <el-button
-                      size="small"
-                      type="primary"
-                      :disabled="isBtn"
-                      @click="submitUpload"
-                      plain
+                    size="small"
+                    type="primary"
+                    :disabled="isBtn"
+                    @click="submitUpload"
+                    plain
                   >立即上传<i class="el-icon-upload el-icon--right"></i
                   ></el-button>
                 </div>
@@ -461,7 +461,7 @@ export default {
     exceedFile(files, fileList) {
       this.$message.warning(
         `只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length +
-          fileList.length} 个`
+        fileList.length} 个`
       );
     }, // 文件上传成功时的钩子
 
@@ -546,7 +546,6 @@ export default {
       // 取消弹窗并清空内容
       this.dialogFormVisible = false;
       this.$refs["formdata"].resetFields();
-      this.$refs["upload"].clearFiles();
     },
     handleDele2() {
       //退回弹窗
@@ -592,7 +591,6 @@ export default {
       });
 
       this.$refs["formdata"].resetFields();
-      this.$refs["upload"].clearFiles();
     },
 
     handleDownload(row) {
@@ -628,7 +626,7 @@ export default {
             });
           }
         }
-      }else {
+      } else {
         this.$message({
           type: "info",
           message: "未找到文件",

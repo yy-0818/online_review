@@ -100,7 +100,23 @@
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col :span="8" :push="2">
+            <el-col :span="8">
+              <el-form-item label="初审" prop="reviewIds">
+                <el-select
+                  multiple
+                  v-model="formPatent.reviewIds"
+                >
+                  <el-option
+                    v-for="item in reviewIdOptions"
+                    :key="item.value"
+                    :label="item.name"
+                    :value="item.id"
+                  >
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
               <el-form-item label="指导老师" prop="reviewerIds">
                 <el-select multiple v-model="formPatent.reviewerIds">
                   <el-option
@@ -122,13 +138,14 @@
               :disabled="isBtn"
               @click="submitUpload"
               plain
-              ><i class="el-icon-upload"></i>将文件上传至服务器</el-button
+            ><i class="el-icon-upload"></i>将文件上传至服务器
+            </el-button
             >
             <el-button type="primary" plain @click="save"
-              ><i class="el-icon-position"></i>提交
+            ><i class="el-icon-position"></i>提交
             </el-button>
             <el-button type="success" plain @click="resetForm"
-              ><i class="el-icon-refresh"></i>重置
+            ><i class="el-icon-refresh"></i>重置
             </el-button>
           </div>
         </el-form>
@@ -148,6 +165,7 @@ export default {
       fileApiURL: fileApiURL,
       directionIdOptions: [],
       reviewerIdOptions: [],
+      reviewIdOptions: [],
       reviewerList: [],
       labelPosition: "left",
       formPatent: {
@@ -157,6 +175,7 @@ export default {
         url: "",
         directionIds: [],
         reviewerIds: [],
+        reviewIds: [],
       },
       limitNum: 1,
       fileList: [],
@@ -175,12 +194,16 @@ export default {
         reviewerIds: [
           { required: true, message: "请选择老师", trigger: "blur" },
         ],
+        reviewIds: [
+          { required: true, message: "请选择", trigger: "blur" },
+        ],
       },
     };
   },
 
   mounted() {
     this.getDirections();
+    this.getReviewerId()
     // this.getReviewers();
     // this.load();
   },
@@ -214,7 +237,7 @@ export default {
     exceedFile(files, fileList) {
       this.$message.warning(
         `只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length +
-          fileList.length} 个`
+        fileList.length} 个`
       );
     }, // 文件上传成功时的钩子
 
@@ -251,7 +274,7 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          if (res.status == 200) {
+          if (res.status === 200) {
             this.$message({
               type: "success",
               message: "上传成功",
@@ -283,6 +306,13 @@ export default {
         });
     },
 
+    getReviewerId() {
+      request.get("/paper/firstTeacher").then((res) => {
+        // console.table(res.data);
+        this.reviewIdOptions = res.data;
+      });
+    },
+
     filterReviewer(directionId) {
       this.formPatent.reviewerId = null;
       // console.log(directionId);
@@ -298,8 +328,8 @@ export default {
           "i",
           { style: "color: teal" },
           "请先上传论文哟!" +
-            "\n" +
-            "注:上传压缩包文件时，最好有二级目录，否则可能会导致预览失败!"
+          "\n" +
+          "注:上传压缩包文件时，最好有二级目录，否则可能会导致预览失败!"
         ),
         offset: 50, //偏移
         // customClass: "notifyStyle", //自定义类
@@ -327,7 +357,7 @@ export default {
             return;
           }
           this.formPatent.directionId = this.formPatent.directionIds.join();
-          this.formPatent.reviewerId = this.formPatent.reviewerIds.join();
+          this.formPatent.reviewerId = this.formPatent.reviewerIds.join()+','+this.formPatent.reviewIds;
           request
             .post("/paper/save", this.formPatent)
             .then((res) => {

@@ -1,167 +1,169 @@
 <template>
-  <div >
+  <div>
     <div id="app">
       <vue-particles
-          color="#409EFF"
-          :particleOpacity="0.7"
-          :particlesNumber="120"
-          shapeType="polygon"
-          :particleSize="4"
-          linesColor="#409EFF"
-          :linesWidth="1.5"
-          :lineLinked="true"
-          :lineOpacity="0.6"
-          :linesDistance="150"
-          :moveSpeed="3"
-          :hoverEffect="true"
-          hoverMode="grab"
-          :clickEffect="true"
-          clickMode="push"
+        color="#409EFF"
+        :particleOpacity="0.7"
+        :particlesNumber="120"
+        shapeType="polygon"
+        :particleSize="4"
+        linesColor="#409EFF"
+        :linesWidth="1.5"
+        :lineLinked="true"
+        :lineOpacity="0.6"
+        :linesDistance="150"
+        :moveSpeed="3"
+        :hoverEffect="true"
+        hoverMode="grab"
+        :clickEffect="true"
+        clickMode="push"
       >
       </vue-particles>
     </div>
 
+    <div style="padding:2px">
       <Message></Message>
-
-  <div style="padding:2px">
-
-<!--    <div>-->
-<!--      &lt;!&ndash; type="card",卡片化,当页面宽度方向空间空余，但高度方向空间匮乏时，可使用卡片风格 &ndash;&gt;-->
-<!--      <el-carousel-->
-<!--        indicator-position="outside"-->
-<!--        :loop="true"-->
-<!--        :autoplay="true"-->
-<!--        :interval="5000"-->
-<!--        type="card"-->
-<!--        height="300px"-->
-<!--      >-->
-<!--        <el-carousel-item v-for="item in DataImgs" :key="item">-->
-<!--          &lt;!&ndash; <el-image style="width: 100%;height: 100%;" :src="url" :fit="fit">-->
-<!--          </el-image> &ndash;&gt;-->
-<!--          <div class="grid-content">-->
-<!--            <el-col :md="20" :offset="2">-->
-<!--              <div>-->
-<!--                <img :src="item.src" style="width: 100%;height: 100%;" />-->
-<!--                &lt;!&ndash; <p class="italictext">{{ item.txt }}</p>-->
-<!--                <span class="service">{{ item.txt2 }}</span> &ndash;&gt;-->
-<!--              </div>-->
-<!--            </el-col>-->
-<!--          </div>-->
-<!--        </el-carousel-item>-->
-<!--      </el-carousel>-->
-<!--    </div>-->
-    <el-row>
-      <el-col
-        :span="8"
-        v-for="(o, index) in 1"
-        :key="o"
-        :offset="index > 0 ? 1 : 0"
-      >
-        <el-card
-          style="margin-right: auto;"
-          :body-style="{ padding: '0px' }"
-          shadow="hover"
+      <!--    <div>-->
+      <!--      &lt;!&ndash; type="card",卡片化,当页面宽度方向空间空余，但高度方向空间匮乏时，可使用卡片风格 &ndash;&gt;-->
+      <!--      <el-carousel-->
+      <!--        indicator-position="outside"-->
+      <!--        :loop="true"-->
+      <!--        :autoplay="true"-->
+      <!--        :interval="5000"-->
+      <!--        type="card"-->
+      <!--        height="300px"-->
+      <!--      >-->
+      <!--        <el-carousel-item v-for="item in DataImgs" :key="item">-->
+      <!--          &lt;!&ndash; <el-image style="width: 100%;height: 100%;" :src="url" :fit="fit">-->
+      <!--          </el-image> &ndash;&gt;-->
+      <!--          <div class="grid-content">-->
+      <!--            <el-col :md="20" :offset="2">-->
+      <!--              <div>-->
+      <!--                <img :src="item.src" style="width: 100%;height: 100%;" />-->
+      <!--                &lt;!&ndash; <p class="italictext">{{ item.txt }}</p>-->
+      <!--                <span class="service">{{ item.txt2 }}</span> &ndash;&gt;-->
+      <!--              </div>-->
+      <!--            </el-col>-->
+      <!--          </div>-->
+      <!--        </el-carousel-item>-->
+      <!--      </el-carousel>-->
+      <!--    </div>-->
+      <el-row>
+        <el-col
+          :span="8"
+          v-for="(o, index) in 1"
+          :key="o"
+          :offset="index > 0 ? 1 : 0"
         >
-<!--          <img-->
-<!--            src="https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/img/fc.png"-->
-<!--            class="image"-->
-<!--          />-->
-          <img src="../assets/img/1.png" class="image" alt="">
-
-          <div style="padding: 14px;">
-            <a
-                href="http://8.136.96.167:8012/onlinePreview?url=aHR0cHM6Ly9wYXBlci1yZXZpZXctc3lzdGVtLTEyNTMzNDY2ODYuY29zLmFwLWd1YW5nemhvdS5teXFjbG91ZC5jb20vZG9jcy9FeHBsYW5hdGlvbi5kb2N4&officePreviewType=pdf"
-                target="_blank"
-              ><span>论文标准</span></a
-            >
-
-<!--            <div class="bottom clearfix">-->
-<!--              <time class="time">{{ currentDate }}</time>-->
-<!--              <el-button type="text" @click="open" class="button"-->
-<!--                >操作按钮-->
-<!--              </el-button>-->
-<!--            </div>-->
-          </div>
-        </el-card>
-      </el-col>
-      <el-col
-        :span="8"
-        v-for="(o, index) in 1"
-        :key="o"
-        :offset="index > 0 ? 1 : 0"
-      >
-        <el-card
-          style="margin-right: auto;"
-          :body-style="{ padding: '0px' }"
-          shadow="hover"
-        >
-<!--          <img-->
-<!--            src="https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/img/rl.png"-->
-<!--            class="image"-->
-<!--            alt=""-->
-<!--          />-->
-          <img src="../assets/img/2.png" class="image" alt="">
-          <div style="padding: 14px;">
-            <a
-              href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovL3BhcGVyLmx1bmF0aWMucmVuL2FwaS9maWxlcy83MGZjOTRmNTE0ZDU0ZTg2OTlkMGYwOTBiY2VkNWYxOV%2FmlofnjK7moIflh4YucGRm"
-              target="_blank"
-              ><span>文献标准</span></a
-            >
-<!--            <div class="bottom clearfix">-->
-<!--              <time class="time">{{ currentDate }}</time>-->
-<!--              <el-button type="text" @click="open2" class="button"-->
-<!--                >操作按钮-->
-<!--              </el-button>-->
-<!--            </div>-->
-          </div>
-        </el-card>
-      </el-col>
-      <el-col
-        :span="8"
-        v-for="(o, index) in 1"
-        :key="o"
-        :offset="index > 0 ? 1 : 0"
-      >
           <el-card
             style="margin-right: auto;"
             :body-style="{ padding: '0px' }"
             shadow="hover"
           >
-<!--            <img-->
-<!--              src="https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/img/hh.png"-->
-<!--              class="image"-->
-<!--              alt="夕阳"-->
-<!--            />-->
-
-            <img src="../assets/img/3.png" class="image" alt="">
+            <!--          <img-->
+            <!--            src="https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/img/fc.png"-->
+            <!--            class="image"-->
+            <!--          />-->
+            <img src="../assets/img/1.png" class="image" alt=""/>
 
             <div style="padding: 14px;">
-              <a href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovL3BhcGVyLmx1bmF0aWMucmVuL2FwaS9maWxlcy9kYzZhNjI5ZjkwN2I0NmY3YTdhNDRjNjZhY2NmMjJjZF%2FkuJPliKnmqKHmnb8ucGRm" target="_blank"><span>专利模板</span></a>
+              <a
+                href="http://8.136.96.167:8012/onlinePreview?url=aHR0cHM6Ly9wYXBlci1yZXZpZXctc3lzdGVtLTEyNTMzNDY2ODYuY29zLmFwLWd1YW5nemhvdS5teXFjbG91ZC5jb20vZG9jcy9FeHBsYW5hdGlvbi5kb2N4&officePreviewType=pdf"
+                target="_blank"
+              ><span>论文标准</span></a
+              >
 
-<!--              <div class="bottom clearfix">-->
-<!--                <time class="time">{{ currentDate }}</time>-->
-
-<!--                <el-button type="text" class="button" @click="open3"-->
-<!--                  >操作按钮-->
-<!--                </el-button>-->
-<!--              </div>-->
+              <!--            <div class="bottom clearfix">-->
+              <!--              <time class="time">{{ currentDate }}</time>-->
+              <!--              <el-button type="text" @click="open" class="button"-->
+              <!--                >操作按钮-->
+              <!--              </el-button>-->
+              <!--            </div>-->
             </div>
           </el-card>
-      </el-col>
-    </el-row>
-<!--    <Message></Message>-->
-  </div>
+        </el-col>
+        <el-col
+          :span="8"
+          v-for="(o, index) in 1"
+          :key="o"
+          :offset="index > 0 ? 1 : 0"
+        >
+          <el-card
+            style="margin-right: auto;"
+            :body-style="{ padding: '0px' }"
+            shadow="hover"
+          >
+            <!--          <img-->
+            <!--            src="https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/img/rl.png"-->
+            <!--            class="image"-->
+            <!--            alt=""-->
+            <!--          />-->
+            <img src="../assets/img/2.png" class="image" alt=""/>
+            <div style="padding: 14px;">
+              <a
+                href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovL3BhcGVyLmx1bmF0aWMucmVuL2FwaS9maWxlcy83MGZjOTRmNTE0ZDU0ZTg2OTlkMGYwOTBiY2VkNWYxOV%2FmlofnjK7moIflh4YucGRm"
+                target="_blank"
+              ><span>文献标准</span></a
+              >
+              <!--            <div class="bottom clearfix">-->
+              <!--              <time class="time">{{ currentDate }}</time>-->
+              <!--              <el-button type="text" @click="open2" class="button"-->
+              <!--                >操作按钮-->
+              <!--              </el-button>-->
+              <!--            </div>-->
+            </div>
+          </el-card>
+        </el-col>
+        <el-col
+          :span="8"
+          v-for="(o, index) in 1"
+          :key="o"
+          :offset="index > 0 ? 1 : 0"
+        >
+          <el-card
+            style="margin-right: auto;"
+            :body-style="{ padding: '0px' }"
+            shadow="hover"
+          >
+            <!--            <img-->
+            <!--              src="https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/img/hh.png"-->
+            <!--              class="image"-->
+            <!--              alt="夕阳"-->
+            <!--            />-->
+
+            <img src="../assets/img/3.png" class="image" alt=""/>
+
+            <div style="padding: 14px;">
+              <a
+                href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovL3BhcGVyLmx1bmF0aWMucmVuL2FwaS9maWxlcy9kYzZhNjI5ZjkwN2I0NmY3YTdhNDRjNjZhY2NmMjJjZF%2FkuJPliKnmqKHmnb8ucGRm"
+                target="_blank"
+              ><span>专利模板</span></a
+              >
+
+              <!--              <div class="bottom clearfix">-->
+              <!--                <time class="time">{{ currentDate }}</time>-->
+
+              <!--                <el-button type="text" class="button" @click="open3"-->
+              <!--                  >操作按钮-->
+              <!--                </el-button>-->
+              <!--              </div>-->
+            </div>
+          </el-card>
+        </el-col>
+      </el-row>
+      <!--    <Message></Message>-->
     </div>
+  </div>
 </template>
 
 <script>
 import request from "@/utils/request";
 import { h } from "@vue/runtime-core";
-import Message  from '@/components/Message.vue'
+import Message from "@/components/Message.vue";
 
 export default {
-  name:'App',
-  components:{Message},
+  name: "App",
+  components: { Message },
   data() {
     return {
       // imgSrc: {
@@ -169,7 +171,6 @@ export default {
       //       "url(https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/carousel/3.png)",
       //   backgroundRepeat: "no-repeat",
       // },
-
 
       fit: "cover",
       // imgs: ["img/1.jpg", "img/2.jpg", "img/3.jpg", "img/4.jpg", "img/5.jpg"],
@@ -212,26 +213,26 @@ export default {
     );
     console.log(
       " ......................阿弥陀佛......................\n" +
-        "                      _oo0oo_                      \n" +
-        "                     o8888888o                     \n" +
-        '                     88" . "88                     \n' +
-        "                     (| -_- |)                     \n" +
-        "                     0\\  =  /0                     \n" +
-        "                   ___/‘---’\\___                   \n" +
-        "                  .' \\|       |/ '.                 \n" +
-        "                 / \\\\|||  :  |||// \\                \n" +
-        "                / _||||| -卍-|||||_ \\               \n" +
-        "               |   | \\\\\\  -  /// |   |              \n" +
-        "               | \\_|  ''\\---/''  |_/ |              \n" +
-        "               \\  .-\\__  '-'  ___/-. /              \n" +
-        "             ___'. .'  /--.--\\  '. .'___            \n" +
-        '         ."" ‘<  ‘.___\\_<|>_/___.’>’ "".          \n' +
-        "       | | :  ‘- \\‘.;‘\\ _ /’;.’/ - ’ : | |        \n" +
-        "         \\  \\ ‘_.   \\_ __\\ /__ _/   .-’ /  /        \n" +
-        "    =====‘-.____‘.___ \\_____/___.-’___.-’=====     \n" +
-        "                       ‘=---=’                      \n" +
-        "                                                    \n" +
-        "....................佛祖保佑 ,永无BUG..................."
+      "                      _oo0oo_                      \n" +
+      "                     o8888888o                     \n" +
+      '                     88" . "88                     \n' +
+      "                     (| -_- |)                     \n" +
+      "                     0\\  =  /0                     \n" +
+      "                   ___/‘---’\\___                   \n" +
+      "                  .' \\|       |/ '.                 \n" +
+      "                 / \\\\|||  :  |||// \\                \n" +
+      "                / _||||| -卍-|||||_ \\               \n" +
+      "               |   | \\\\\\  -  /// |   |              \n" +
+      "               | \\_|  ''\\---/''  |_/ |              \n" +
+      "               \\  .-\\__  '-'  ___/-. /              \n" +
+      "             ___'. .'  /--.--\\  '. .'___            \n" +
+      '         ."" ‘<  ‘.___\\_<|>_/___.’>’ "".          \n' +
+      "       | | :  ‘- \\‘.;‘\\ _ /’;.’/ - ’ : | |        \n" +
+      "         \\  \\ ‘_.   \\_ __\\ /__ _/   .-’ /  /        \n" +
+      "    =====‘-.____‘.___ \\_____/___.-’___.-’=====     \n" +
+      "                       ‘=---=’                      \n" +
+      "                                                    \n" +
+      "....................佛祖保佑 ,永无BUG..................."
     );
   },
   methods: {
@@ -262,7 +263,7 @@ export default {
           "i",
           { style: "color: teal" },
           "Four short words sum up what has lifted most successful individuals above the crowd: a little bit more.\n" +
-            "成功的秘诀就是四个简单的字：多一点点。"
+          "成功的秘诀就是四个简单的字：多一点点。"
         ),
       });
     },
@@ -271,7 +272,6 @@ export default {
 </script>
 
 <style scoped>
-
 /*.welcome-page {*/
 /*  display: flex;*/
 /*  width: 100%;*/
@@ -358,14 +358,17 @@ a:link {
   color: #000;
   text-decoration: none;
 }
+
 a:visited {
   color: rgb(10, 160, 247);
   text-decoration: none;
 }
+
 a:hover {
   color: #00f;
   text-decoration: none;
 }
+
 /* a:active {
   color: #fff;
   text-decoration: none;

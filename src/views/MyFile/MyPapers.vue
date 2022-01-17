@@ -10,7 +10,7 @@
       ></el-input>
 
       <el-button type="primary" style="margin-left: 5px" @click="load"
-        >查询
+      >查询
       </el-button>
     </div>
     <el-table
@@ -53,6 +53,9 @@
             <el-form-item label="方向:">
               <span>{{ showDirections(props.row) }}</span>
             </el-form-item>
+            <el-form-item label="指导老师:">
+              <span>{{ showPaperReviewers(props.row) }}</span>
+            </el-form-item>
 
             <el-form-item label="上传时间:">
               <span>{{ props.row.createTime }}</span>
@@ -87,10 +90,10 @@
               scope.row.types === 0
                 ? "论文"
                 : "未知" && scope.row.types === 1
-                ? "专利"
-                : "未知" && scope.row.state === 2
-                ? "未知"
-                : "报告"
+                  ? "专利"
+                  : "未知" && scope.row.state === 2
+                    ? "未知"
+                    : "报告"
             }}
           </el-tag>
         </template>
@@ -102,21 +105,7 @@
         show-overflow-tooltip
         align="center"
       ></el-table-column>
-      <!-- <el-table-column
-        prop="titleEn"
-        label="题目(英)"
-        show-overflow-tooltip
-      ></el-table-column>
-      <el-table-column
-        prop="keyword"
-        label="关键词"
-        show-overflow-tooltip
-      ></el-table-column>
-      <el-table-column
-        prop="keywordEn"
-        label="关键词(英)"
-        show-overflow-tooltip
-      ></el-table-column> -->
+
       <el-table-column
         prop="summary"
         label="摘要"
@@ -124,11 +113,7 @@
         show-overflow-tooltip
         align="center"
       ></el-table-column>
-      <!-- <el-table-column
-        prop="summaryEn"
-        label="摘要(英)"
-        show-overflow-tooltip
-      ></el-table-column> -->
+
 
       <el-table-column label="方向" show-overflow-tooltip align="center">
         <template #default="scope">
@@ -136,19 +121,26 @@
         </template>
       </el-table-column>
 
+      <el-table-column label="指导老师" show-overflow-tooltip align="center">
+        <template #default="scope">
+          {{ showPaperReviewers(scope.row) }}
+        </template>
+      </el-table-column>
+
+
       <el-table-column
-          prop="createTime"
-          label="上传时间"
-          tooltip-effect="light"
-          show-overflow-tooltip
-          align="center"
+        prop="createTime"
+        label="上传时间"
+        tooltip-effect="light"
+        show-overflow-tooltip
+        align="center"
       ></el-table-column>
 
       <el-table-column label="审核状态" align="center">
         <template #default="scope">
           <el-tag
-              size="medium"
-              :type="
+            size="medium"
+            :type="
               scope.row.state === 1 ||
               scope.row.state === 3
                 ? 'primary'
@@ -160,18 +152,18 @@
             "
           >{{
               scope.row.state === 1
-                  ? "初审通过"
-                  : "未审核" && scope.row.state === 2
-                      ? "一审未通过"
-                      : "未审核" && scope.row.state === 3
-                          ? "二审通过"
-                          : "未审核" && scope.row.state === 4
-                              ? "二审未通过"
-                              : "未审核" && scope.row.state === 5
-                                  ? "已归档"
-                                  : "未审核" && scope.row.state === 6
-                                      ? "终审未通过"
-                                      : "未审核"
+                ? "初审通过"
+                : "未审核" && scope.row.state === 2
+                  ? "一审未通过"
+                  : "未审核" && scope.row.state === 3
+                    ? "二审通过"
+                    : "未审核" && scope.row.state === 4
+                      ? "二审未通过"
+                      : "未审核" && scope.row.state === 5
+                        ? "已归档"
+                        : "未审核" && scope.row.state === 6
+                          ? "终审未通过"
+                          : "未审核"
             }}
           </el-tag>
         </template>
@@ -185,7 +177,7 @@
             type="success"
             plain
             @click="previewOpen(scope.row)"
-            ><i class="el-icon-tickets"></i>预览
+          ><i class="el-icon-tickets"></i>预览
           </el-button>
           <el-popconfirm
             title="确定下载吗？"
@@ -193,7 +185,7 @@
           >
             <template #reference>
               <el-button size="mini" type="warning" plain
-                ><i class="el-icon-folder-add"></i>下载建议
+              ><i class="el-icon-folder-add"></i>下载建议
               </el-button>
             </template>
           </el-popconfirm>
@@ -202,7 +194,7 @@
             type="primary"
             plain
             @click="newUpload(scope.row)"
-            ><i class="el-icon-upload"></i>上传
+          ><i class="el-icon-upload"></i>上传
           </el-button>
         </template>
       </el-table-column>
@@ -260,7 +252,7 @@
                 </div>
               </el-upload>
 
-              <br />
+              <br/>
 
               <div
                 style="display: flex;justify-content: center;align-items: center;"
@@ -271,7 +263,7 @@
                   :disabled="isBtn"
                   @click="submitUpload"
                   plain
-                  >立即上传<i class="el-icon-upload el-icon--right"></i
+                >立即上传<i class="el-icon-upload el-icon--right"></i
                 ></el-button>
               </div>
             </div>
@@ -390,6 +382,16 @@ export default {
       const names = jsonpath.query(directions, "$..name");
       return names.join("，");
     },
+    // 指导老师
+    showPaperReviewers(row) {
+      let paperReviewers = row.paperReviewers
+      if (paperReviewers.length === 0) {
+        return "空";
+      }
+      const names = jsonpath.query(paperReviewers, "$..name");
+      return names.join("，");
+    },
+
     export() {
       location.href =
         // "http://" + window.server.filesUploadUrl + ":8181/user/export";
@@ -430,7 +432,7 @@ export default {
     exceedFile(files, fileList) {
       this.$message.warning(
         `只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length +
-          fileList.length} 个`
+        fileList.length} 个`
       );
     }, // 文件上传成功时的钩子
 
@@ -516,12 +518,12 @@ export default {
     handleDownload(row) {
       const file = row.paperFiles;
       console.log(file[1])
-      if(file[1] !== undefined){
+      if (file[1] !== undefined) {
         console.log(file[1].url)
         const key = file[1]
         const filename = key.url.replace(
-            /^\/files\/([a-fA-F0-9]{32})_/,
-            ""
+          /^\/files\/([a-fA-F0-9]{32})_/,
+          ""
         );
         const fileSuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
         if (!filename || !fileSuffix) {
@@ -542,10 +544,10 @@ export default {
         }).then((res) => {
           download(res, filename, fileSuffix);
         });
-      }else {
+      } else {
         this.$message({
-          type:"info",
-          message:"暂未找到任何文件"
+          type: "info",
+          message: "暂未找到任何文件"
         })
       }
     },

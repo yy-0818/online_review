@@ -1,7 +1,9 @@
 <template>
+
+
   <el-menu
       router
-      :default-active="activeMenu"
+      :default-active="data.activeMenu"
       :unique-opened="true"
       :mode="mode"
       :collapse="isCollapse && mode !== 'horizontal'"
@@ -9,22 +11,24 @@
   >
     <logo v-if="isShowLogo"></logo>
     <sidebar-item
-        v-for="item in menuList"
+        v-for="item in data.menuList"
         :key="item.menuId"
         :item="item"
         :collapse="collapse"
+        :review-count="reviewCount"
     ></sidebar-item>
   </el-menu>
+
 </template>
 
 <script>
-import {reactive, toRefs, computed, watch, onMounted, ref} from "vue";
-import {useStore} from "vuex";
 import Logo from "../Logo.vue";
 import SidebarItem from "./SidebarItem.vue";
 import {getTabs, getUser} from "@/utils/storage";
 import {setBreadcrumb} from "@/utils/storage";
 import {adminMenuList, auditorMenuList, studentMenuList, teacherMenuList} from "./menuList";
+import request from "@/utils/request";
+import store from "@/store";
 
 export default {
   components: {Logo, SidebarItem},
@@ -33,78 +37,77 @@ export default {
     showLogo: Boolean,
     collapse: Boolean,
   },
-  setup(props) {
-    const store = useStore();
-    const collapse = props.collapse;
-
-    const user = getUser()
-
-    let menuList = (user) => {
-      if (user.role === 1) {
-        return studentMenuList
-      } else if (user.role === 2) {
-        return teacherMenuList
-      } else if (user.role === 3) {
-        return auditorMenuList
-      } else if (user.role === 4) {
-        return adminMenuList
+  data() {
+    return {
+      user: getUser(),
+      tabs: getTabs(),
+      reviewCount: {},
+      data: {
+        activeMenu: "",
+        menuList: []
       }
     }
-
-    const data = reactive({
-      activeMenu: "",
-      menuList: menuList(user)
-    });
-
-    // 是否显示Logo
-    const isShowLogo = computed(() => {
-      return props.showLogo;
-    });
-
-    // 是否折叠菜单
-    const isCollapse = computed(() => {
-      if (props.collapse) {
-        return collapse;
-      } else {
-        return store.state.isCollapse;
-      }
-    });
-
-    const _tabs = getTabs();
-    _tabs.forEach((item) => {
-      if (item.active) data.activeMenu = item.id;
-    });
-
-    const _getParentMenu = (list, id) => {
+  },
+  methods: {
+    _getParentMenu(list, id) {
       for (let i in list) {
         if (list[i].menuId === id) {
           return [list[i]];
         }
         if (list[i].children) {
-          let node = _getParentMenu(list[i].children, id);
+          let node = this._getParentMenu(list[i].children, id);
           if (node !== undefined) {
             return node.concat(list[i]);
           }
         }
       }
-    };
-    setBreadcrumb(_getParentMenu(data.menuList, data.activeMenu));
-
-    watch(
-        () => store.state.activeMenu,
-        (value, old) => {
-          data.activeMenu = value;
-          setBreadcrumb(_getParentMenu(data.menuList, value));
-        }
-    );
-
-    const params = toRefs(data);
-    return {
-      ...params,
-      isShowLogo,
-      isCollapse,
-    };
+    },
+    async getReviewCount() {
+      const { data } = await request.post("/paper/red")
+      this.reviewCount = data
+    }
   },
+  computed: {
+    menuList() {
+      if (this.user.role === 1) {
+        return studentMenuList
+      } else if (this.user.role === 2) {
+        return teacherMenuList
+      } else if (this.user.role === 3) {
+        return auditorMenuList
+      } else if (this.user.role === 4) {
+        return adminMenuList
+      }
+    },
+    isShowLogo() {
+      return this.showLogo;
+    },
+    isCollapse() {
+      if (this.collapse) {
+        return this.collapse;
+      } else {
+        return store.state.isCollapse;
+      }
+    },
+  },
+  created() {
+    this.getReviewCount()
+    this.data.menuList = this.menuList
+    this.tabs.forEach((item) => {
+      if (item.active) this.data.activeMenu = item.id;
+    });
+
+    setBreadcrumb(this._getParentMenu(this.data.menuList, this.data.activeMenu));
+
+  },
+  watch: {
+    'store.state.activeMenu': function (value, old) {
+      this.data.activeMenu = value
+      setBreadcrumb(this._getParentMenu(this.data.menuList, value))
+    }
+
+  }
+
 };
 </script>
 

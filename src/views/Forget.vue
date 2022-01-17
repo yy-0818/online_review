@@ -21,7 +21,7 @@
     <div class="main">
       <el-card>
         <div id="todo">
-          欢迎注册
+          重置密码
         </div>
         <el-form ref="form" :model="form" size="normal" :rules="rules">
           <el-form-item prop="email">
@@ -70,14 +70,11 @@
           </el-form-item>
 
           <el-form-item>
-            <el-button style="width: 100%" type="primary" @click="register"
-            >注册
-            </el-button
-            >
+            <el-button style="width: 100%" type="primary" @click="forgetPassword">提交</el-button>
             <el-form-item>
               <el-row>
                 <el-col :span="20">
-                  <el-button type="text" @click="goBack"
+                  <el-button type="text" @click="$router.push('/login')"
                   >返回登录 >>
                   </el-button>
                 </el-col>
@@ -86,12 +83,10 @@
                     type="text"
                     @click="resetForm('form')"
                   ><i class="el-icon-refresh"></i>重置
-                  </el-button
-                  >
+                  </el-button>
                 </el-col>
               </el-row>
-            </el-form-item
-            >
+            </el-form-item>
           </el-form-item>
         </el-form>
       </el-card>
@@ -103,9 +98,9 @@
 import request from "@/utils/request";
 
 export default {
-  name: "Register",
+  name: "Forget",
   data() {
-    var checkEmail = (rule, value, callback) => {
+    const checkEmail = (rule, value, callback) => {
       const mailReg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
       if (!value) {
         return callback(new Error("邮箱不能为空"));
@@ -119,7 +114,7 @@ export default {
       }, 100);
     };
 
-    var validatePass = (rule, value, callback) => {
+    const validatePass = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"));
       } else {
@@ -129,7 +124,7 @@ export default {
         callback();
       }
     };
-    var validatePass2 = (rule, value, callback) => {
+    const validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
       } else if (value !== this.form.password) {
@@ -180,7 +175,7 @@ export default {
   methods: {
     // 控制获取验证码按钮是否可点击
     getCodeBtnDisable() {
-      if (this.waitTime == 61) {
+      if (this.waitTime === 61) {
         if (this.form.email) {
           this.false;
         }
@@ -206,7 +201,7 @@ export default {
           })
           .then((response) => {
             // console.log(response);
-            if (response.status == 200) {
+            if (response.status === 200) {
               // console.log();
               this.$message({
                 type: "success",
@@ -244,10 +239,10 @@ export default {
         });
       }
     },
-    goBack() {
-      this.$router.push("/login"); // 这里写上你要跳转的页面
-    },
-    register() {
+    // goBack() {
+    //   this.$router.push("/register"); // 这里写上你要跳转的页面
+    // },
+    forgetPassword() {
       if (this.form.password !== this.form.confirm) {
         this.$message({
           type: "error",
@@ -258,7 +253,7 @@ export default {
       this.$refs["form"].validate((valid) => {
         if (valid) {
           request
-            .post("/user/register", {
+            .post("/user/changePassword", {
               email: this.form.email,
               password: this.form.password,
               code: this.form.code,
@@ -268,7 +263,7 @@ export default {
               if (res.status === 200) {
                 this.$message({
                   type: "success",
-                  message: "注册成功",
+                  message: "修改成功",
                 });
                 this.$router.push("/login"); //登录成功之后进行页面的跳转，跳转到主页
               } else {
@@ -289,14 +284,7 @@ export default {
 </script>
 
 <style scoped>
-/* .el-card {
-  min-width: 380px;
-  margin-right: 20px;
-  transition: all 0.25s;
-}
-.el-card:hover {
-  margin-top: -5px;
-} */
+
 
 .welcome-page {
   display: flex;
@@ -304,8 +292,6 @@ export default {
   height: 100vh;
   overflow: hidden;
   background-size: 100% 100%;
-  /* background-size: cover; */
-  /* background: linear-gradient(90deg, #8dbed6, #2918c0); */
 }
 
 .main {
