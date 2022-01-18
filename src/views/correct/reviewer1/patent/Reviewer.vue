@@ -21,29 +21,62 @@
       stripe
       style="width: 100%"
       tooltip-effect="dark"
+      :highlight-current-row="true"
       :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
     >
-      <!--      <el-table-column-->
-      <!--        prop="id"-->
-      <!--        label="ID"-->
-      <!--        sortable-->
-      <!--        width="60"-->
-      <!--        align="center"-->
-      <!--      ></el-table-column>-->
+
+      <el-table-column type="expand">
+        <template #default="props">
+          <el-form label-position="left" class="demo-table-expand">
+            <el-form-item label="题目:">
+              <span>{{ props.row.title }}</span>
+            </el-form-item>
+            <el-form-item v-show="props.row.titleEn != null" label="题目(英):">
+              <span>{{ props.row.titleEn }}</span>
+            </el-form-item>
+            <el-form-item v-show="props.row.keyword != null" label="关键词:">
+              <span>{{ props.row.keyword }}</span>
+            </el-form-item>
+            <el-form-item
+              v-show="props.row.keywordEn != null"
+              label="关键词(英):"
+            >
+              <span>{{ props.row.keywordEn }}</span>
+            </el-form-item>
+            <el-form-item label="摘要:">
+              <span>{{ props.row.summary }}</span>
+            </el-form-item>
+            <el-form-item
+              v-show="props.row.summaryEn != null"
+              label="摘要(英):"
+            >
+              <span>{{ props.row.summaryEn }}</span>
+            </el-form-item>
+            <el-form-item label="方向:">
+              <span>{{ showDirections(props.row) }}</span>
+            </el-form-item>
+            <el-form-item label="上传时间:">
+              <span>{{ props.row.createTime }}</span>
+            </el-form-item>
+          </el-form>
+        </template>
+      </el-table-column>
 
       <el-table-column
         prop="title"
         label="题目"
+        align="center"
         show-overflow-tooltip
       ></el-table-column>
 
       <el-table-column
         prop="summary"
         label="摘要"
+        align="center"
         show-overflow-tooltip
       ></el-table-column>
 
-      <el-table-column label="方向" show-overflow-tooltip>
+      <el-table-column align="center" label="方向" show-overflow-tooltip>
         <template #default="scope">
           {{ showDirections(scope.row) }}
         </template>
@@ -52,6 +85,8 @@
       <el-table-column
         prop="user.name"
         label="作者"
+        width="80px"
+        align="center"
         show-overflow-tooltip
       ></el-table-column>
 
@@ -73,7 +108,7 @@
               scope.row.state === 1
                 ? "初审通过"
                 : "未审核" && scope.row.state === 2
-                  ? "一审未通过"
+                  ? "待修改"
                   : "未审核" && scope.row.state === 3
                     ? "二审通过"
                     : "未审核" && scope.row.state === 4

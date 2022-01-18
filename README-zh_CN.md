@@ -12,15 +12,15 @@
 
 ## 更新日志
 
+--
+
 ---
 
 ## 线上体验
 
-[Access address](http://paper.lunatic.ren/login)
-
 gitee 地址： https://gitee.com/torUntitled/paper_review_system.git
 
-国内体线上地址：http://paper.lunatic.ren/login
+[访问地址](http://paper.lunatic.ren/login)
 
 ## 相关项目
 
