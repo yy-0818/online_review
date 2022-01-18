@@ -21,6 +21,7 @@
       stripe
       style="width: 100%"
       tooltip-effect="dark"
+      :highlight-current-row="true"
       :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
     >
       <el-table-column type="expand">
@@ -29,24 +30,24 @@
             <el-form-item label="题目:">
               <span>{{ props.row.title }}</span>
             </el-form-item>
-            <el-form-item v-show="props.row.titleEn != null" label="题目(英):">
+            <el-form-item v-show="props.row.titleEn != null" label="Title:">
               <span>{{ props.row.titleEn }}</span>
             </el-form-item>
             <el-form-item v-show="props.row.keyword != null" label="关键词:">
               <span>{{ props.row.keyword }}</span>
             </el-form-item>
             <el-form-item
-              v-show="props.row.keywordE != null"
-              label="关键词(英):"
+              v-show="props.row.keywordEn != null"
+              label="Keyword:"
             >
-              <span>{{ props.row.keywordE }}</span>
+              <span>{{ props.row.keywordEn }}</span>
             </el-form-item>
             <el-form-item label="摘要:">
               <span>{{ props.row.summary }}</span>
             </el-form-item>
             <el-form-item
               v-show="props.row.summaryEn != null"
-              label="摘要(英):"
+              label="Summary:"
             >
               <span>{{ props.row.summaryEn }}</span>
             </el-form-item>
@@ -154,7 +155,7 @@
               scope.row.state === 1
                 ? "初审通过"
                 : "未审核" && scope.row.state === 2
-                  ? "一审未通过"
+                  ? "初审未通过"
                   : "未审核" && scope.row.state === 3
                     ? "二审通过"
                     : "未审核" && scope.row.state === 4
