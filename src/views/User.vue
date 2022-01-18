@@ -41,6 +41,7 @@
           stripe
           style="width: 100%"
           tooltip-effect="dark"
+          :highlight-current-row="true"
           :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
         >
           <el-table-column
@@ -154,24 +155,24 @@
                 <el-form-item label="题目:">
                   <span>{{ props.row.title }}</span>
                 </el-form-item>
-                <el-form-item v-show="props.row.titleEn != null" label="题目(英):">
+                <el-form-item v-show="props.row.titleEn != null" label="Title:">
                   <span>{{ props.row.titleEn }}</span>
                 </el-form-item>
                 <el-form-item v-show="props.row.keyword != null" label="关键词:">
                   <span>{{ props.row.keyword }}</span>
                 </el-form-item>
                 <el-form-item
-                  v-show="props.row.keywordE != null"
-                  label="关键词(英):"
+                  v-show="props.row.keywordEn != null"
+                  label="Keyword:"
                 >
-                  <span>{{ props.row.keywordE }}</span>
+                  <span>{{ props.row.keywordEn }}</span>
                 </el-form-item>
                 <el-form-item label="摘要:">
                   <span>{{ props.row.summary }}</span>
                 </el-form-item>
                 <el-form-item
                   v-show="props.row.summaryEn != null"
-                  label="摘要(英):"
+                  label="Summary:"
                 >
                   <span>{{ props.row.summaryEn }}</span>
                 </el-form-item>
@@ -185,6 +186,10 @@
                 <el-form-item label="上传时间:">
                   <span>{{ props.row.createTime }}</span>
                 </el-form-item>
+                <el-form-item label="ID">
+                  <span>{{props.row.id}}</span>
+                </el-form-item>
+
               </el-form>
             </template>
           </el-table-column>
@@ -294,15 +299,15 @@
           </el-table-column>
 
 
-          <el-table-column label="操作" width="220">
+          <el-table-column label="操作" width="300">
             <template #default="scope">
-              <!--              <el-button-->
-              <!--                  size="mini"-->
-              <!--                  type="success"-->
-              <!--                  plain-->
-              <!--                  @click="previewOpen(scope.row)"-->
-              <!--              ><i class="el-icon-tickets"></i>预览-->
-              <!--              </el-button>-->
+              <el-button
+                size="mini"
+                type="success"
+                plain
+                @click="previewOpen(scope.row)"
+              ><i class="el-icon-tickets"></i>预览
+              </el-button>
               <el-popconfirm
                 title="确定下载吗？"
                 @confirm="handleDownload(scope.row)"
@@ -410,16 +415,16 @@
         </div>
       </el-dialog>
 
-      <!-- 预览弹框 -->
-<!--      <el-dialog-->
-<!--        custom-class="previewDialog"-->
-<!--        title="预览"-->
-<!--        :fullscreen="true"-->
-<!--        v-model="previewVisible"-->
-<!--        :before-close="previewClose"-->
-<!--      >-->
-<!--        <iframe class="el-iframe" :src="previewFileUrl" frameborder="0"></iframe>-->
-<!--      </el-dialog>-->
+      <!--       预览弹框-->
+      <el-dialog
+        custom-class="previewDialog"
+        title="预览"
+        :fullscreen="true"
+        v-model="previewVisible"
+        :before-close="previewClose"
+      >
+        <iframe class="el-iframe" :src="previewFileUrl" frameborder="0"></iframe>
+      </el-dialog>
     </div>
   </el-scrollbar>
 </template>
@@ -745,16 +750,15 @@ export default {
 
     },
 
-
     // 预览事件
     previewOpen(data) {
       const file = data.paperFiles;
       if (file.length !== 0) {
-        console.log(file);
+        // console.log(file);
         for (const key of file) {
           // console.log(key.typeOr);
           if (key.typeOr === 0) {
-            console.log(key.url);
+            // console.log(key.url);
             this.previewVisible = true;
             this.previewFileUrl =
               "http://8.136.96.167:8012/onlinePreview?url=" +
@@ -775,7 +779,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .el-iframe {
   width: 100%;
   height: 100%;
@@ -788,4 +792,6 @@ export default {
   padding: 0;
   /*}*/
 }
+
+
 </style>
