@@ -1,4 +1,4 @@
-# 科研成果审核系统
+# Scientific Research Achievement Review System
 
 **English** | [中文](./README-zh_CN)
 
