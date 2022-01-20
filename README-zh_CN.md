@@ -10,10 +10,6 @@
 
 使用 eslint格式校验代码,提高代码规范性和开发效率
 
-## 更新日志
-
---
-
 ---
 
 ## 线上体验
@@ -95,7 +91,7 @@ npm run build
 - 邮件
   - 注册账号邮件
   - 审核邮件
-  #- 邮件提醒
+  - 邮件提醒
  
 - 上传
   - 文件上传
@@ -184,4 +180,5 @@ Modern browsers and Internet Explorer 11+.
 ## 维护者
 
 [YOU](https://gitee.com/torUntitled)
+
 
