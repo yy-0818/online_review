@@ -10,7 +10,7 @@
       ></el-input>
 
       <el-button type="primary" style="margin-left: 5px" @click="load"
-      ><i class="el-icon-search"></i>查询
+        ><i class="el-icon-search"></i>查询
       </el-button>
     </div>
     <el-table
@@ -35,19 +35,13 @@
             <el-form-item v-show="props.row.keyword != null" label="关键词:">
               <span>{{ props.row.keyword }}</span>
             </el-form-item>
-            <el-form-item
-              v-show="props.row.keywordEn != null"
-              label="Keyword:"
-            >
+            <el-form-item v-show="props.row.keywordEn != null" label="Keyword:">
               <span>{{ props.row.keywordEn }}</span>
             </el-form-item>
             <el-form-item label="摘要:">
               <span>{{ props.row.summary }}</span>
             </el-form-item>
-            <el-form-item
-              v-show="props.row.summaryEn != null"
-              label="Summary:"
-            >
+            <el-form-item v-show="props.row.summaryEn != null" label="Summary:">
               <span>{{ props.row.summaryEn }}</span>
             </el-form-item>
             <el-form-item label="方向:">
@@ -60,13 +54,13 @@
           </el-form>
         </template>
       </el-table-column>
-<!--      <el-table-column-->
-<!--        prop="id"-->
-<!--        label="ID"-->
-<!--        sortable-->
-<!--        width="60"-->
-<!--        align="center"-->
-<!--      ></el-table-column>-->
+      <!--      <el-table-column-->
+      <!--        prop="id"-->
+      <!--        label="ID"-->
+      <!--        sortable-->
+      <!--        width="60"-->
+      <!--        align="center"-->
+      <!--      ></el-table-column>-->
 
       <el-table-column
         prop="title"
@@ -101,29 +95,32 @@
           <el-tag
             size="medium"
             :type="
-              scope.row.state === 1 ||
-              scope.row.state === 3
+              scope.row.state === 1 || scope.row.state === 3
                 ? 'primary'
                 : scope.row.state === 0
                 ? 'info'
-                : scope.row.state === 4 || scope.row.state === 6 || scope.row.state === 2
+                : scope.row.state === 4 ||
+                  scope.row.state === 6 ||
+                  scope.row.state === 2
                 ? 'danger'
-                :scope.row.state === 5 ?'success':''
+                : scope.row.state === 5
+                ? 'success'
+                : ''
             "
-          >{{
+            >{{
               scope.row.state === 1
                 ? "初审通过"
                 : "未审核" && scope.row.state === 2
-                  ? "初审未通过"
-                  : "未审核" && scope.row.state === 3
-                    ? "二审通过"
-                    : "未审核" && scope.row.state === 4
-                      ? "待修改"
-                      : "未审核" && scope.row.state === 5
-                        ? "已归档"
-                        : "未审核" && scope.row.state === 6
-                          ? "终审未通过"
-                          : "未审核"
+                ? "初审未通过"
+                : "未审核" && scope.row.state === 3
+                ? "二审通过"
+                : "未审核" && scope.row.state === 4
+                ? "待修改"
+                : "未审核" && scope.row.state === 5
+                ? "已归档"
+                : "未审核" && scope.row.state === 6
+                ? "终审未通过"
+                : "未审核"
             }}
           </el-tag>
         </template>
@@ -136,7 +133,7 @@
             type="success"
             plain
             @click="previewOpen(scope.row)"
-          ><i class="el-icon-view"></i>预览
+            ><i class="el-icon-view"></i>预览
           </el-button>
 
           <el-popconfirm
@@ -145,7 +142,7 @@
           >
             <template #reference>
               <el-button size="mini" type="warning" plain
-              ><i class="el-icon-folder-add"></i>下载
+                ><i class="el-icon-folder-add"></i>下载
               </el-button>
             </template>
           </el-popconfirm>
@@ -155,11 +152,11 @@
             type="primary"
             plain
             @click="handleAdopt(scope.row)"
-          ><i class="el-icon-document-checked"></i>通过
+            ><i class="el-icon-document-checked"></i>通过
           </el-button>
 
           <el-button size="mini" type="danger" @click="handleEdit(scope.row)"
-          ><i class="el-icon-document-delete "></i>退回
+            ><i class="el-icon-document-delete "></i>退回
           </el-button>
         </template>
       </el-table-column>
@@ -219,8 +216,59 @@
           >
           </el-input>
         </el-form-item>
-      </el-form>
 
+        <el-row>
+          <el-card style="width:100vw;" shadow="hover">
+            <div type="flex" justify="center" align="middle">
+              <div>
+                <el-upload
+                  drag
+                  ref="upload"
+                  class="upload-demo"
+                  :limit="limitNum"
+                  :action="fileApiURL + '/files/upload'"
+                  :on-preview="handlePreview"
+                  :on-remove="handleRemove"
+                  accept=".pdf, .doc,.docx,.zip,.rar,.jar,.tar,.gzip"
+                  :file-list="fileList"
+                  :on-change="fileChange"
+                  :auto-upload="false"
+                  :on-exceed="exceedFile"
+                  :on-success="handleSuccess"
+                  :on-error="handleError"
+                >
+                  <i class="el-icon-upload"></i>
+
+                  <div class="el-upload__text">
+                    将Order文件拖到此处,或
+
+                    <em>点击上传</em>
+                  </div>
+
+                  <div class="el-upload__tip">
+                    可以上传PFD、Word、任意压缩包格式的文件,且不超过50M
+                  </div>
+                </el-upload>
+
+                <br />
+
+                <div
+                  style="display: flex;justify-content: center;align-items: center;"
+                >
+                  <el-button
+                    size="small"
+                    type="primary"
+                    :disabled="isBtn"
+                    @click="submitUpload"
+                    plain
+                    >立即上传<i class="el-icon-upload el-icon--right"></i
+                  ></el-button>
+                </div>
+              </div>
+            </div>
+          </el-card>
+        </el-row>
+      </el-form>
 
       <template #footer>
         <span class="dialog-footer">
@@ -295,17 +343,17 @@
                   <i class="el-icon-upload"></i>
 
                   <div class="el-upload__text">
-                    将Order文件拖到此处，或
+                    将Order文件拖到此处,或
 
                     <em>点击上传</em>
                   </div>
 
                   <div class="el-upload__tip">
-                    可以上传PFD、Word、任意压缩包格式的文件，且不超过50M
+                    可以上传PFD、Word、任意压缩包格式的文件,且不超过50M
                   </div>
                 </el-upload>
 
-                <br/>
+                <br />
 
                 <div
                   style="display: flex;justify-content: center;align-items: center;"
@@ -316,14 +364,13 @@
                     :disabled="isBtn"
                     @click="submitUpload"
                     plain
-                  >立即上传<i class="el-icon-upload el-icon--right"></i
+                    >立即上传<i class="el-icon-upload el-icon--right"></i
                   ></el-button>
                 </div>
               </div>
             </div>
           </el-card>
         </el-row>
-
       </el-form>
       <template #footer>
         <span class="dialog-footer">
@@ -450,7 +497,7 @@ export default {
     exceedFile(files, fileList) {
       this.$message.warning(
         `只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length +
-        fileList.length} 个`
+          fileList.length} 个`
       );
     }, // 文件上传成功时的钩子
 
