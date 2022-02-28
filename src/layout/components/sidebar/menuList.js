@@ -49,6 +49,7 @@ export const adminMenuList = [
     icon: "el-icon-folder-opened",
     children: [],
   },
+
   {
     menuId: "111",
     menuName: "成果上传",
@@ -58,6 +59,12 @@ export const adminMenuList = [
       {menuId: "report", menuName: "报告上传", icon: "el-icon-document", children: []},
       {menuId: "patent", menuName: "专利上传", icon: "el-icon-collection", children: []},
     ],
+  },
+  {
+    menuId: "ArchiveArticle",
+    menuName: "归档文章",
+    icon: "el-icon-folder-checked",
+    children: [],
   },
   {
     menuId: "222",
@@ -89,6 +96,7 @@ export const adminMenuList = [
       {menuId: "PatentReview3", menuName: "专利审核", icon: "el-icon-collection", children: []},
     ],
   },
+
   {
     menuId: "555",
     menuName: "系统管理",
@@ -128,6 +136,12 @@ export const studentMenuList = [
       {menuId: "patent", menuName: "专利上传", icon: "el-icon-collection", children: []},
     ],
   },
+  {
+    menuId: "ArchiveArticle",
+    menuName: "归档文章",
+    icon: "el-icon-folder-checked",
+    children: [],
+  },
 
 
 ]
@@ -160,6 +174,12 @@ export const auditorMenuList = [
       {menuId: "report", menuName: "报告上传", icon: "el-icon-document", children: []},
       {menuId: "patent", menuName: "专利上传", icon: "el-icon-collection", children: []},
     ],
+  },
+  {
+    menuId: "ArchiveArticle",
+    menuName: "归档文章",
+    icon: "el-icon-folder-checked",
+    children: [],
   },
   {
     menuId: "222",
@@ -230,6 +250,12 @@ export const teacherMenuList = [
       {menuId: "ReportReview1", menuName: "报告审核", icon: "el-icon-document", children: []},
       {menuId: "PatentReview1", menuName: "专利审核", icon: "el-icon-collection", children: []},
     ],
+  },
+  {
+    menuId: "ArchiveArticle",
+    menuName: "归档文章",
+    icon: "el-icon-folder-checked",
+    children: [],
   },
 
 ]
