@@ -175,6 +175,15 @@ export const constRoutes = [
           keepAlive: true,
         },
       },
+      {
+        path:"ArchiveArticle",
+        name:"ArchiveArticle",
+        component:() =>import("@/views/Archive/ArchiveArticle"),
+        meta: {
+          title:"归档文章",
+          keepAlive: true,
+        }
+      }
     ],
   },
   {
