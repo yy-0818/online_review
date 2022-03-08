@@ -122,6 +122,14 @@
         </template>
       </el-table-column>
 
+      <el-table-column
+        prop="user.name"
+        label="作者"
+        width="80px"
+        align="center"
+        show-overflow-tooltip
+      ></el-table-column>
+
       <el-table-column label="指导老师" show-overflow-tooltip align="center">
         <template #default="scope">
           {{ showPaperReviewers(scope.row) }}
@@ -250,7 +258,6 @@ export default {
       currentPage: 1,
       pageSize: 10,
       total: 0,
-      types: 0,
       tableData: [],
 
       previewFileUrl: "",
@@ -278,8 +285,14 @@ export default {
     load() {
       this.loading = true;
       request
-        .get(`/paper/findByTypesFourth?pageNum=${this.currentPage}&pageSize=${this.pageSize}&search=${this.search}`
-        )
+        // .get(`/paper/findByTypesFourth?pageNum=${this.currentPage}&pageSize=${this.pageSize}&search=${this.search}`)
+        .get("/paper/findByTypesFourth/", {
+          params: {
+            pageNum: this.currentPage,
+            pageSize: this.pageSize,
+            search: this.search,
+          },
+        })
         .then((res) => {
           // console.log(res);
           this.loading = false;
