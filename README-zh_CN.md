@@ -16,7 +16,7 @@
 
 gitee 地址： https://gitee.com/torUntitled/paper_review_system.git
 
-[访问地址](http://paper.lunatic.ren/login)
+[comment]: <> ([访问地址]&#40;http://paper.lunatic.ren/login&#41;)
 
 ## 相关项目
 

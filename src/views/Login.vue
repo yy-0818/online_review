@@ -152,10 +152,17 @@ export default {
             .then((res) => {
               // console.log(res);
               if (res.status === 200) {
-                this.$message({
-                  type: "success",
-                  message: "登录成功",
-                });
+                // this.$message({
+                //   type: "success",
+                //   message: "登录成功",
+                // });
+                this.$notify({
+                  title: '登录成功',
+                  message: `你好，欢迎回来！`,
+                  type: 'success',
+                  duration: '5000',
+                  offset: 100
+                })
                 setUser(res.data) // 缓存用户信息
                 this.$router.push("/"); //登录成功之后进行页面的跳转，跳转到主页
               } else {

@@ -20,7 +20,7 @@ Use eslint format to verify code to improve code standardization and development
 
 gitee address： https://gitee.com/torUntitled/paper_review_system.git
 
-[Access address](http://paper.lunatic.ren/login)
+[comment]: <> ([Access address]&#40;http://paper.lunatic.ren/login&#41;)
 
 ## Related items
 
