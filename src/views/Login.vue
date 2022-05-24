@@ -23,7 +23,13 @@
         <div id="todo">
           欢迎登录
         </div>
-        <el-form ref="form" :model="form" size="normal" :rules="rules" @keyup.enter.native="login">
+        <el-form
+          ref="form"
+          :model="form"
+          size="normal"
+          :rules="rules"
+          @keyup.enter.native="login"
+        >
           <el-form-item prop="email">
             <el-input
               prefix-icon="el-icon-user-solid"
@@ -48,17 +54,23 @@
                 style="width: 65%"
                 placeholder="请输入验证码"
               ></el-input>
-              <ValidCode style="margin-left: 8px" @input="createValidCode" :refresh="refreshNumber"/>
+              <ValidCode
+                style="margin-left: 8px"
+                @input="createValidCode"
+                :refresh="refreshNumber"
+              />
             </div>
           </el-form-item>
 
-
           <el-form-item>
             <el-row>
-              <el-button style="width: 100%" type="primary" v-loading="loading" @click="login"
-              >登 录
-              </el-button
-              >
+              <el-button
+                style="width: 100%"
+                type="primary"
+                v-loading="loading"
+                @click="login"
+                >登 录
+              </el-button>
               <el-col :span="16">
                 <el-button type="text" @click="forgetPassword">
                   忘记密码？
@@ -68,15 +80,11 @@
                 <el-button type="text" @click="register">前往注册>></el-button>
               </el-col>
               <el-col :span="3">
-                <el-button
-                  type="text"
-                  @click="resetForm('form')"
-                ><i class="el-icon-refresh "></i>重置
+                <el-button type="text" @click="resetForm('form')"
+                  ><i class="el-icon-refresh "></i>重置
                 </el-button>
               </el-col>
-
             </el-row>
-
           </el-form-item>
         </el-form>
       </el-card>
@@ -88,6 +96,7 @@
 import request from "@/utils/request";
 import ValidCode from "@/components/ValidCode";
 import { setUser } from "@/utils/storage";
+import { h } from "vue";
 
 export default {
   name: "Login",
@@ -107,23 +116,20 @@ export default {
       },
       refreshNumber: 0,
 
-      form: { role: "", email: "", password: "", },
+      form: { role: "", email: "", password: "" },
 
       rules: {
         email: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
         password: [{ required: true, message: "请输入密码", trigger: "blur" }],
-
       },
       validCode: "",
     };
   },
   created() {
     sessionStorage.removeItem("user");
-
   },
 
   methods: {
-
     // 接收验证码组件提交的 4位验证码
     createValidCode(data) {
       this.validCode = data;
@@ -139,31 +145,29 @@ export default {
             this.form.validCode.toLowerCase() !== this.validCode.toLowerCase()
           ) {
             this.$message.error("验证码错误");
-            this.refreshNumber += 1
+            this.refreshNumber += 1;
             return;
           }
-          this.loading = true
-          this.$message.success("Loading...")
+          this.loading = true;
+          // this.$message.success("Loading...");
           request
             .post("/user/login", {
               email: this.form.email,
               password: this.form.password,
             })
             .then((res) => {
-              // console.log(res);
               if (res.status === 200) {
                 // this.$message({
                 //   type: "success",
                 //   message: "登录成功",
                 // });
                 this.$notify({
-                  title: '登录成功',
-                  message: `你好，欢迎回来！`,
-                  type: 'success',
-                  duration: '5000',
-                  offset: 100
-                })
-                setUser(res.data) // 缓存用户信息
+                  title: "登录成功",
+                  message: h("i", { style: "color: teal" }, "你好，欢迎回来！"),
+                  duration: "5000",
+                  offset: 100,
+                });
+                setUser(res.data); // 缓存用户信息
                 this.$router.push("/"); //登录成功之后进行页面的跳转，跳转到主页
               } else {
                 this.$message({

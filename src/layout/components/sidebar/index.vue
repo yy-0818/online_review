@@ -1,37 +1,39 @@
 <template>
-
-
   <el-menu
-      router
-      :default-active="data.activeMenu"
-      :unique-opened="true"
-      :mode="mode"
-      :collapse="isCollapse && mode !== 'horizontal'"
-      :class="{ 'no-transition': isCollapse }"
+    router
+    :default-active="data.activeMenu"
+    :unique-opened="true"
+    :mode="mode"
+    :collapse="isCollapse && mode !== 'horizontal'"
+    :class="{ 'no-transition': isCollapse }"
   >
     <logo v-if="isShowLogo"></logo>
     <sidebar-item
-        v-for="item in data.menuList"
-        :key="item.menuId"
-        :item="item"
-        :collapse="collapse"
-        :review-count="reviewCount"
+      v-for="item in data.menuList"
+      :key="item.menuId"
+      :item="item"
+      :collapse="collapse"
+      :review-count="reviewCount"
     ></sidebar-item>
   </el-menu>
-
 </template>
 
 <script>
 import Logo from "../Logo.vue";
 import SidebarItem from "./SidebarItem.vue";
-import {getTabs, getUser} from "@/utils/storage";
-import {setBreadcrumb} from "@/utils/storage";
-import {adminMenuList, auditorMenuList, studentMenuList, teacherMenuList} from "./menuList";
+import { getTabs, getUser } from "@/utils/storage";
+import { setBreadcrumb } from "@/utils/storage";
+import {
+  adminMenuList,
+  auditorMenuList,
+  studentMenuList,
+  teacherMenuList,
+} from "./menuList";
 import request from "@/utils/request";
 import store from "@/store";
 
 export default {
-  components: {Logo, SidebarItem},
+  components: { Logo, SidebarItem },
   props: {
     mode: String,
     showLogo: Boolean,
@@ -44,9 +46,9 @@ export default {
       reviewCount: {},
       data: {
         activeMenu: "",
-        menuList: []
-      }
-    }
+        menuList: [],
+      },
+    };
   },
   methods: {
     _getParentMenu(list, id) {
@@ -63,20 +65,20 @@ export default {
       }
     },
     async getReviewCount() {
-      const { data } = await request.post("/paper/red")
-      this.reviewCount = data
-    }
+      const { data } = await request.post("/paper/red");
+      this.reviewCount = data;
+    },
   },
   computed: {
     menuList() {
       if (this.user.role === 1) {
-        return studentMenuList
+        return studentMenuList;
       } else if (this.user.role === 2) {
-        return teacherMenuList
+        return teacherMenuList;
       } else if (this.user.role === 3) {
-        return auditorMenuList
+        return auditorMenuList;
       } else if (this.user.role === 4) {
-        return adminMenuList
+        return adminMenuList;
       }
     },
     isShowLogo() {
@@ -91,23 +93,22 @@ export default {
     },
   },
   created() {
-    this.getReviewCount()
-    this.data.menuList = this.menuList
+    this.getReviewCount();
+    this.data.menuList = this.menuList;
     this.tabs.forEach((item) => {
       if (item.active) this.data.activeMenu = item.id;
     });
 
-    setBreadcrumb(this._getParentMenu(this.data.menuList, this.data.activeMenu));
-
+    setBreadcrumb(
+      this._getParentMenu(this.data.menuList, this.data.activeMenu)
+    );
   },
   watch: {
-    'store.state.activeMenu': function (value, old) {
-      this.data.activeMenu = value
-      setBreadcrumb(this._getParentMenu(this.data.menuList, value))
-    }
-
-  }
-
+    "store.state.activeMenu": function(value, old) {
+      this.data.activeMenu = value;
+      setBreadcrumb(this._getParentMenu(this.data.menuList, value));
+    },
+  },
 };
 </script>
 
