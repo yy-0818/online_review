@@ -2,32 +2,32 @@ const userRole = {
   student: 1,
   teacher: 2,
   auditor: 3,
-  admin: 4
-}
+  admin: 4,
+};
 
 function hasPermission(roles, menu) {
   if (menu.roles) {
-    return  menu.roles.includes(roles)
+    return menu.roles.includes(roles);
     // return roles.some((role) => menu.roles.includes(role))
   } else {
-    return true
+    return true;
   }
 }
 
 function filterAsyncRoutes(menus, roles) {
-  const res = []
+  const res = [];
 
   menus.forEach((menu) => {
-    const tmp = {...menu}
+    const tmp = { ...menu };
     if (hasPermission(roles, tmp)) {
       if (tmp.children) {
-        tmp.children = filterAsyncRoutes(tmp.children, roles)
+        tmp.children = filterAsyncRoutes(tmp.children, roles);
       }
-      res.push(tmp)
+      res.push(tmp);
     }
-  })
+  });
 
-  return res
+  return res;
 }
 
 export const adminMenuList = [
@@ -45,7 +45,7 @@ export const adminMenuList = [
   },
   {
     menuId: "MyPapers",
-    menuName: "我的文献",
+    menuName: "我的仓库",
     icon: "el-icon-folder-opened",
     children: [],
   },
@@ -55,9 +55,24 @@ export const adminMenuList = [
     menuName: "成果上传",
     icon: "el-icon-upload",
     children: [
-      {menuId: "paper", menuName: "论文上传", icon: "el-icon-tickets", children: []},
-      {menuId: "report", menuName: "报告上传", icon: "el-icon-document", children: []},
-      {menuId: "patent", menuName: "专利上传", icon: "el-icon-collection", children: []},
+      {
+        menuId: "paper",
+        menuName: "论文上传",
+        icon: "el-icon-tickets",
+        children: [],
+      },
+      {
+        menuId: "report",
+        menuName: "报告上传",
+        icon: "el-icon-document",
+        children: [],
+      },
+      {
+        menuId: "patent",
+        menuName: "专利上传",
+        icon: "el-icon-collection",
+        children: [],
+      },
     ],
   },
   {
@@ -71,9 +86,24 @@ export const adminMenuList = [
     menuName: "初审",
     icon: "el-icon-receiving",
     children: [
-      {menuId: "reviewer1", menuName: "论文审核", icon: "el-icon-tickets", children: []},
-      {menuId: "ReportReview1", menuName: "报告审核", icon: "el-icon-document", children: []},
-      {menuId: "PatentReview1", menuName: "专利审核", icon: "el-icon-collection", children: []},
+      {
+        menuId: "reviewer1",
+        menuName: "论文审核",
+        icon: "el-icon-tickets",
+        children: [],
+      },
+      {
+        menuId: "ReportReview1",
+        menuName: "报告审核",
+        icon: "el-icon-document",
+        children: [],
+      },
+      {
+        menuId: "PatentReview1",
+        menuName: "专利审核",
+        icon: "el-icon-collection",
+        children: [],
+      },
     ],
   },
   {
@@ -81,9 +111,24 @@ export const adminMenuList = [
     menuName: "二审",
     icon: "el-icon-files",
     children: [
-      {menuId: "reviewer2", menuName: "论文审核", icon: "el-icon-tickets", children: []},
-      {menuId: "ReportReview2", menuName: "报告审核", icon: "el-icon-document", children: []},
-      {menuId: "PatentReview2", menuName: "专利审核", icon: "el-icon-collection", children: []},
+      {
+        menuId: "reviewer2",
+        menuName: "论文审核",
+        icon: "el-icon-tickets",
+        children: [],
+      },
+      {
+        menuId: "ReportReview2",
+        menuName: "报告审核",
+        icon: "el-icon-document",
+        children: [],
+      },
+      {
+        menuId: "PatentReview2",
+        menuName: "专利审核",
+        icon: "el-icon-collection",
+        children: [],
+      },
     ],
   },
   {
@@ -91,9 +136,24 @@ export const adminMenuList = [
     menuName: "终审",
     icon: "el-icon-reading",
     children: [
-      {menuId: "reviewer3", menuName: "论文审核", icon: "el-icon-tickets", children: []},
-      {menuId: "ReportReview3", menuName: "报告审核", icon: "el-icon-document", children: []},
-      {menuId: "PatentReview3", menuName: "专利审核", icon: "el-icon-collection", children: []},
+      {
+        menuId: "reviewer3",
+        menuName: "论文审核",
+        icon: "el-icon-tickets",
+        children: [],
+      },
+      {
+        menuId: "ReportReview3",
+        menuName: "报告审核",
+        icon: "el-icon-document",
+        children: [],
+      },
+      {
+        menuId: "PatentReview3",
+        menuName: "专利审核",
+        icon: "el-icon-collection",
+        children: [],
+      },
     ],
   },
 
@@ -102,10 +162,15 @@ export const adminMenuList = [
     menuName: "系统管理",
     icon: "el-icon-setting",
     children: [
-      {menuId: "user", menuName: "用户管理", icon: "el-icon-user-solid", children: []},
+      {
+        menuId: "user",
+        menuName: "用户管理",
+        icon: "el-icon-user-solid",
+        children: [],
+      },
     ],
   },
-]
+];
 
 export const studentMenuList = [
   {
@@ -122,7 +187,7 @@ export const studentMenuList = [
   },
   {
     menuId: "MyPapers",
-    menuName: "我的文献",
+    menuName: "我的仓库",
     icon: "el-icon-folder-opened",
     children: [],
   },
@@ -131,9 +196,24 @@ export const studentMenuList = [
     menuName: "成果上传",
     icon: "el-icon-upload",
     children: [
-      {menuId: "paper", menuName: "论文上传", icon: "el-icon-tickets", children: []},
-      {menuId: "report", menuName: "报告上传", icon: "el-icon-document", children: []},
-      {menuId: "patent", menuName: "专利上传", icon: "el-icon-collection", children: []},
+      {
+        menuId: "paper",
+        menuName: "论文上传",
+        icon: "el-icon-tickets",
+        children: [],
+      },
+      {
+        menuId: "report",
+        menuName: "报告上传",
+        icon: "el-icon-document",
+        children: [],
+      },
+      {
+        menuId: "patent",
+        menuName: "专利上传",
+        icon: "el-icon-collection",
+        children: [],
+      },
     ],
   },
   {
@@ -142,9 +222,7 @@ export const studentMenuList = [
     icon: "el-icon-folder-checked",
     children: [],
   },
-
-
-]
+];
 
 export const auditorMenuList = [
   {
@@ -161,7 +239,7 @@ export const auditorMenuList = [
   },
   {
     menuId: "MyPapers",
-    menuName: "我的文献",
+    menuName: "我的仓库",
     icon: "el-icon-folder-opened",
     children: [],
   },
@@ -170,9 +248,24 @@ export const auditorMenuList = [
     menuName: "成果上传",
     icon: "el-icon-upload",
     children: [
-      {menuId: "paper", menuName: "论文上传", icon: "el-icon-tickets", children: []},
-      {menuId: "report", menuName: "报告上传", icon: "el-icon-document", children: []},
-      {menuId: "patent", menuName: "专利上传", icon: "el-icon-collection", children: []},
+      {
+        menuId: "paper",
+        menuName: "论文上传",
+        icon: "el-icon-tickets",
+        children: [],
+      },
+      {
+        menuId: "report",
+        menuName: "报告上传",
+        icon: "el-icon-document",
+        children: [],
+      },
+      {
+        menuId: "patent",
+        menuName: "专利上传",
+        icon: "el-icon-collection",
+        children: [],
+      },
     ],
   },
   {
@@ -186,9 +279,24 @@ export const auditorMenuList = [
     menuName: "初审",
     icon: "el-icon-receiving",
     children: [
-      {menuId: "reviewer1", menuName: "论文审核", icon: "el-icon-tickets", children: []},
-      {menuId: "ReportReview1", menuName: "报告审核", icon: "el-icon-document", children: []},
-      {menuId: "PatentReview1", menuName: "专利审核", icon: "el-icon-collection", children: []},
+      {
+        menuId: "reviewer1",
+        menuName: "论文审核",
+        icon: "el-icon-tickets",
+        children: [],
+      },
+      {
+        menuId: "ReportReview1",
+        menuName: "报告审核",
+        icon: "el-icon-document",
+        children: [],
+      },
+      {
+        menuId: "PatentReview1",
+        menuName: "专利审核",
+        icon: "el-icon-collection",
+        children: [],
+      },
     ],
   },
   {
@@ -196,9 +304,24 @@ export const auditorMenuList = [
     menuName: "二审",
     icon: "el-icon-files",
     children: [
-      {menuId: "reviewer2", menuName: "论文审核", icon: "el-icon-tickets", children: []},
-      {menuId: "ReportReview2", menuName: "报告审核", icon: "el-icon-document", children: []},
-      {menuId: "PatentReview2", menuName: "专利审核", icon: "el-icon-collection", children: []},
+      {
+        menuId: "reviewer2",
+        menuName: "论文审核",
+        icon: "el-icon-tickets",
+        children: [],
+      },
+      {
+        menuId: "ReportReview2",
+        menuName: "报告审核",
+        icon: "el-icon-document",
+        children: [],
+      },
+      {
+        menuId: "PatentReview2",
+        menuName: "专利审核",
+        icon: "el-icon-collection",
+        children: [],
+      },
     ],
   },
 
@@ -207,10 +330,15 @@ export const auditorMenuList = [
     menuName: "系统管理",
     icon: "el-icon-setting",
     children: [
-      {menuId: "user", menuName: "用户管理", icon: "el-icon-user-solid", children: []},
+      {
+        menuId: "user",
+        menuName: "用户管理",
+        icon: "el-icon-user-solid",
+        children: [],
+      },
     ],
   },
-]
+];
 
 export const teacherMenuList = [
   {
@@ -227,7 +355,7 @@ export const teacherMenuList = [
   },
   {
     menuId: "MyPapers",
-    menuName: "我的文献",
+    menuName: "我的仓库",
     icon: "el-icon-folder-opened",
     children: [],
   },
@@ -236,9 +364,24 @@ export const teacherMenuList = [
     menuName: "成果上传",
     icon: "el-icon-upload",
     children: [
-      {menuId: "paper", menuName: "论文上传", icon: "el-icon-tickets", children: []},
-      {menuId: "report", menuName: "报告上传", icon: "el-icon-document", children: []},
-      {menuId: "patent", menuName: "专利上传", icon: "el-icon-collection", children: []},
+      {
+        menuId: "paper",
+        menuName: "论文上传",
+        icon: "el-icon-tickets",
+        children: [],
+      },
+      {
+        menuId: "report",
+        menuName: "报告上传",
+        icon: "el-icon-document",
+        children: [],
+      },
+      {
+        menuId: "patent",
+        menuName: "专利上传",
+        icon: "el-icon-collection",
+        children: [],
+      },
     ],
   },
   {
@@ -246,9 +389,24 @@ export const teacherMenuList = [
     menuName: "初审",
     icon: "el-icon-receiving",
     children: [
-      {menuId: "reviewer1", menuName: "论文审核", icon: "el-icon-tickets", children: []},
-      {menuId: "ReportReview1", menuName: "报告审核", icon: "el-icon-document", children: []},
-      {menuId: "PatentReview1", menuName: "专利审核", icon: "el-icon-collection", children: []},
+      {
+        menuId: "reviewer1",
+        menuName: "论文审核",
+        icon: "el-icon-tickets",
+        children: [],
+      },
+      {
+        menuId: "ReportReview1",
+        menuName: "报告审核",
+        icon: "el-icon-document",
+        children: [],
+      },
+      {
+        menuId: "PatentReview1",
+        menuName: "专利审核",
+        icon: "el-icon-collection",
+        children: [],
+      },
     ],
   },
   {
@@ -257,5 +415,4 @@ export const teacherMenuList = [
     icon: "el-icon-folder-checked",
     children: [],
   },
-
-]
+];

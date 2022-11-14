@@ -1,10 +1,9 @@
-import {createRouter, createWebHistory} from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import Layout from "/src/layout/index.vue";
 import NProgress from "nprogress"; // progress bar
 import "nprogress/nprogress.css"; // progress bar style
 
 export const constRoutes = [
-
   {
     path: "/",
     name: "Layout",
@@ -40,7 +39,6 @@ export const constRoutes = [
           keepAlive: true,
         },
       },
-
 
       {
         path: "person",
@@ -79,8 +77,6 @@ export const constRoutes = [
         },
       },
 
-
-
       {
         path: "/reviewer1",
         name: "Reviewer1",
@@ -108,8 +104,6 @@ export const constRoutes = [
           keepAlive: true,
         },
       },
-
-
 
       {
         path: "reviewer2",
@@ -171,19 +165,19 @@ export const constRoutes = [
         name: "MyPaper",
         component: () => import("@/views/MyFile/MyPapers"),
         meta: {
-          title: "我的文献",
+          title: "我的仓库",
           keepAlive: true,
         },
       },
       {
-        path:"ArchiveArticle",
-        name:"ArchiveArticle",
-        component:() =>import("@/views/Archive/ArchiveArticle"),
+        path: "ArchiveArticle",
+        name: "ArchiveArticle",
+        component: () => import("@/views/Archive/ArchiveArticle"),
         meta: {
-          title:"归档文章",
+          title: "归档文章",
           keepAlive: true,
-        }
-      }
+        },
+      },
     ],
   },
   {
@@ -241,7 +235,7 @@ const router = createRouter({
 
 // 限制某些页面禁止未登录访问
 // let limitPagePath = [];
-let writeList = ["/register","/forget"];
+let writeList = ["/register", "/forget"];
 
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */
@@ -258,7 +252,7 @@ router.beforeEach((to, from, next) => {
     let userStr = sessionStorage.getItem("user") || "{}";
     let user = JSON.parse(userStr);
     if (to.path !== "/login" && !user.token) {
-      next({path: "/login"});
+      next({ path: "/login" });
       NProgress.done();
     } else {
       if (to.path === "/login" && user.token) {
