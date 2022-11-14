@@ -1,11 +1,11 @@
 <template>
   <div>
     <div id="app">
-      <vue-particles
+      <!-- <vue-particles
         color="#409EFF"
         :particleOpacity="0.7"
         :particlesNumber="120"
-        shapeType="polygon"
+        shapeType="circle"
         :particleSize="4"
         linesColor="#409EFF"
         :linesWidth="1.5"
@@ -18,11 +18,11 @@
         :clickEffect="true"
         clickMode="push"
       >
-      </vue-particles>
+      </vue-particles> -->
     </div>
 
     <div style="padding:2px">
-      <Message></Message>
+      <div style="min-height: 40vh;"><Message></Message></div>
       <!--    <div>-->
       <!--      &lt;!&ndash; type="card",卡片化,当页面宽度方向空间空余，但高度方向空间匮乏时，可使用卡片风格 &ndash;&gt;-->
       <!--      <el-carousel-->
@@ -64,13 +64,17 @@
             <!--            src="https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/img/fc.png"-->
             <!--            class="image"-->
             <!--          />-->
-            <img src="../assets/img/1.png" class="image" alt=""/>
+            <img
+              src="http://static.ivanlife.cn/img/wallhaven-l3z9rp_3840x2160.png"
+              class="image"
+              alt=""
+            />
 
             <div style="padding: 14px;">
               <a
-                href="http://8.136.96.167:8012/onlinePreview?url=aHR0cHM6Ly9wYXBlci1yZXZpZXctc3lzdGVtLTEyNTMzNDY2ODYuY29zLmFwLWd1YW5nemhvdS5teXFjbG91ZC5jb20vZG9jcy9FeHBsYW5hdGlvbi5kb2N4&officePreviewType=pdf"
+                href="http://blog.ivanlife.cn:8012/onlinePreview?url=aHR0cHM6Ly9wYXBlci1yZXZpZXctc3lzdGVtLTEyNTMzNDY2ODYuY29zLmFwLWd1YW5nemhvdS5teXFjbG91ZC5jb20vZG9jcy9FeHBsYW5hdGlvbi5kb2N4&officePreviewType=pdf"
                 target="_blank"
-              ><span>论文标准</span></a
+                ><span>论文标准</span></a
               >
 
               <!--            <div class="bottom clearfix">-->
@@ -98,12 +102,16 @@
             <!--            class="image"-->
             <!--            alt=""-->
             <!--          />-->
-            <img src="../assets/img/2.png" class="image" alt=""/>
+            <img
+              src="http://static.ivanlife.cn/img/wallhaven-9mogy1_1920x1080.png"
+              class="image"
+              alt=""
+            />
             <div style="padding: 14px;">
               <a
-                href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovL3BhcGVyLmx1bmF0aWMucmVuL2FwaS9maWxlcy83MGZjOTRmNTE0ZDU0ZTg2OTlkMGYwOTBiY2VkNWYxOV%2FmlofnjK7moIflh4YucGRm"
+                href="http://blog.ivanlife.cn:8012/onlinePreview?url=aHR0cDovL3BhcGVyLmx1bmF0aWMucmVuL2FwaS9maWxlcy83MGZjOTRmNTE0ZDU0ZTg2OTlkMGYwOTBiY2VkNWYxOV%2FmlofnjK7moIflh4YucGRm"
                 target="_blank"
-              ><span>文献标准</span></a
+                ><span>文献标准</span></a
               >
               <!--            <div class="bottom clearfix">-->
               <!--              <time class="time">{{ currentDate }}</time>-->
@@ -131,13 +139,17 @@
             <!--              alt="夕阳"-->
             <!--            />-->
 
-            <img src="../assets/img/3.png" class="image" alt=""/>
+            <img
+              src="http://static.ivanlife.cn/img/wallhaven-9mo7kw_1920x1080.png"
+              class="image"
+              alt=""
+            />
 
             <div style="padding: 14px;">
               <a
-                href="http://8.136.96.167:8012/onlinePreview?url=aHR0cDovL3BhcGVyLmx1bmF0aWMucmVuL2FwaS9maWxlcy9kYzZhNjI5ZjkwN2I0NmY3YTdhNDRjNjZhY2NmMjJjZF%2FkuJPliKnmqKHmnb8ucGRm"
+                href="http://blog.ivanlife.cn:8012/onlinePreview?url=aHR0cDovL3BhcGVyLmx1bmF0aWMucmVuL2FwaS9maWxlcy9kYzZhNjI5ZjkwN2I0NmY3YTdhNDRjNjZhY2NmMjJjZF%2FkuJPliKnmqKHmnb8ucGRm"
                 target="_blank"
-              ><span>专利模板</span></a
+                ><span>专利模板</span></a
               >
 
               <!--              <div class="bottom clearfix">-->
@@ -213,26 +225,26 @@ export default {
     );
     console.log(
       " ......................阿弥陀佛......................\n" +
-      "                      _oo0oo_                      \n" +
-      "                     o8888888o                     \n" +
-      '                     88" . "88                     \n' +
-      "                     (| -_- |)                     \n" +
-      "                     0\\  =  /0                     \n" +
-      "                   ___/‘---’\\___                   \n" +
-      "                  .' \\|       |/ '.                 \n" +
-      "                 / \\\\|||  :  |||// \\                \n" +
-      "                / _||||| -卍-|||||_ \\               \n" +
-      "               |   | \\\\\\  -  /// |   |              \n" +
-      "               | \\_|  ''\\---/''  |_/ |              \n" +
-      "               \\  .-\\__  '-'  ___/-. /              \n" +
-      "             ___'. .'  /--.--\\  '. .'___            \n" +
-      '         ."" ‘<  ‘.___\\_<|>_/___.’>’ "".          \n' +
-      "       | | :  ‘- \\‘.;‘\\ _ /’;.’/ - ’ : | |        \n" +
-      "         \\  \\ ‘_.   \\_ __\\ /__ _/   .-’ /  /        \n" +
-      "    =====‘-.____‘.___ \\_____/___.-’___.-’=====     \n" +
-      "                       ‘=---=’                      \n" +
-      "                                                    \n" +
-      "....................佛祖保佑 ,永无BUG..................."
+        "                      _oo0oo_                      \n" +
+        "                     o8888888o                     \n" +
+        '                     88" . "88                     \n' +
+        "                     (| -_- |)                     \n" +
+        "                     0\\  =  /0                     \n" +
+        "                   ___/‘---’\\___                   \n" +
+        "                  .' \\|       |/ '.                 \n" +
+        "                 / \\\\|||  :  |||// \\                \n" +
+        "                / _||||| -卍-|||||_ \\               \n" +
+        "               |   | \\\\\\  -  /// |   |              \n" +
+        "               | \\_|  ''\\---/''  |_/ |              \n" +
+        "               \\  .-\\__  '-'  ___/-. /              \n" +
+        "             ___'. .'  /--.--\\  '. .'___            \n" +
+        '         ."" ‘<  ‘.___\\_<|>_/___.’>’ "".          \n' +
+        "       | | :  ‘- \\‘.;‘\\ _ /’;.’/ - ’ : | |        \n" +
+        "         \\  \\ ‘_.   \\_ __\\ /__ _/   .-’ /  /        \n" +
+        "    =====‘-.____‘.___ \\_____/___.-’___.-’=====     \n" +
+        "                       ‘=---=’                      \n" +
+        "                                                    \n" +
+        "....................佛祖保佑 ,永无BUG..................."
     );
   },
   methods: {
@@ -263,7 +275,7 @@ export default {
           "i",
           { style: "color: teal" },
           "Four short words sum up what has lifted most successful individuals above the crowd: a little bit more.\n" +
-          "成功的秘诀就是四个简单的字：多一点点。"
+            "成功的秘诀就是四个简单的字：多一点点。"
         ),
       });
     },
