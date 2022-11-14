@@ -4,14 +4,15 @@
       <!-- <img src="@/assets/logo.png" alt="" /> -->
       <span>
         <el-avatar
-          :size="30"
+          @error="errorHandler"
+          :size="33"
           :src="
-              form.avatarUrl === '/image/avatar.png'
-                ? defaultAvatar
-                : form.avatarUrl === undefined
-                ? defaultAvatar
-                : '/api' + form.avatarUrl
-              "
+            form.avatarUrl === '/image/avatar.png'
+              ? defaultAvatar
+              : form.avatarUrl === undefined
+              ? defaultAvatar
+              : ' ' + form.avatarUrl
+          "
           fit="scale-down"
         ></el-avatar>
       </span>
@@ -31,15 +32,16 @@
 </template>
 
 <script>
+const errorHandler = () => true  //图片加载失败时的回退行为
 export default {
   data() {
     return {
       fullscreen: false,
-      defaultAvatar:
-        "https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/img/avatar.png",
+      defaultAvatar: "http://static.ivanlife.cn/imges/1.jpg",
       form: {
         name: "",
         avatarUrl: "",
+        dialogVisible: false, //控制大图预览
       },
     };
   },
