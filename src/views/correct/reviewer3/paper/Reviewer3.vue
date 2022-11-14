@@ -418,7 +418,7 @@
 import request from "@/utils/request";
 import { Base64 } from "js-base64";
 import download from "@/utils/download";
-import { fileApiURL } from "@/setting";
+import { fileApiURL, fileDownload } from "@/setting";
 import jsonpath from "jsonpath";
 
 export default {
@@ -654,13 +654,10 @@ export default {
         for (const key of file) {
           // console.log(key.typeOr);
           if (key.typeOr === 0) {
-            console.log(key.url);
-            const filename = key.url.replace(
-              /^\/files\/([a-fA-F0-9]{32})_/,
-              ""
-            );
-            const fileSuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
-            if (!filename || !fileSuffix) {
+            // console.log(key.url);
+            const fileName = key.url.replace(/^\/file\/([a-fA-F0-9]{32})_/, "");
+            const fileSuffix = fileName.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
+            if (!fileName || !fileSuffix) {
               this.$message({
                 type: "error",
                 message: "文件名或文件后缀错误，请检查文件!",
@@ -672,11 +669,11 @@ export default {
               message: "文件下载中, 请稍后...",
             });
             request({
-              url: key.url,
+              url: fileDownload + key.url,
               method: "get",
               responseType: "blob",
             }).then((res) => {
-              download(res, filename, fileSuffix);
+              download(res, fileName, fileSuffix);
             });
           }
         }
@@ -711,7 +708,7 @@ export default {
             // console.log(key.url);
             this.previewVisible = true;
             this.previewFileUrl =
-              "http://8.136.96.167:8012/onlinePreview?url=" +
+              "http://blog.ivanlife.cn:8012/onlinePreview?url=" +
               encodeURIComponent(Base64.encode(this.fileApiURL + key.url));
             console.log(this.previewFileUrl);
             console.log(this.previewVisible);
