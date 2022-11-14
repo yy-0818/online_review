@@ -30,7 +30,7 @@
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
             >
-              <img v-if="newAvatarUrl" :src="newAvatarUrl" class="avatar"/>
+              <img v-if="newAvatarUrl" :src="newAvatarUrl" class="avatar" />
               <img
                 v-else
                 :src="
@@ -38,7 +38,7 @@
                     ? defaultAvatar
                     : form.avatarUrl === undefined
                     ? defaultAvatar
-                    : '/api' + form.avatarUrl
+                    : ' ' + form.avatarUrl
                 "
                 class="avatar"
               />
@@ -119,13 +119,13 @@
 
 <script>
 import request from "@/utils/request";
+import { fileDownload } from "@/setting";
 
 export default {
   name: "Person",
   data() {
     return {
-      defaultAvatar:
-        "https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/img/avatar.png",
+      defaultAvatar: "http://static.ivanlife.cn/imges/1.jpg",
       newAvatarUrl: "", // tx: "上传头像",
       form: {
         id: "",
@@ -134,20 +134,20 @@ export default {
         gender: 0,
         password: "",
         avatarUrl: "",
-        directionId: "",
+        directionId: {},
         role: "",
       },
       directionIdOptions: [],
       roles: [
         { value: 1, label: "普通用户" },
-        { value: 2, label: "初审" },
-        { value: 3, label: "审稿人" },
-        { value: 4, label: "终审" },
+        { value: 2, label: "初审用户" },
+        { value: 3, label: "审稿用户" },
+        { value: 4, label: "超级管理员" },
       ],
       genderOptions: [
         { value: 1, label: "男" },
         { value: 2, label: "女" },
-        { value: 0, label: "未知" },
+        { value: 0, label: "保密" },
       ],
     };
   },
@@ -158,7 +158,7 @@ export default {
   },
   methods: {
     handleAvatarSuccess(res) {
-      this.newAvatarUrl = "/api" + res.data;
+      this.newAvatarUrl = fileDownload + res.data;
       this.$message.success("上传成功");
       // this.update()
     },
