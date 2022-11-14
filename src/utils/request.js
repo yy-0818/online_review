@@ -1,6 +1,6 @@
 import axios from "axios";
 import router from "@/router";
-import {message} from "@/utils/message";
+import { message } from "@/utils/message";
 
 const request = axios.create({
   baseURL: "/api",
@@ -8,7 +8,12 @@ const request = axios.create({
 });
 
 // 请求白名单，如果请求在白名单里面，将不会被拦截校验权限
-const whiteUrls = ["/user/login", "/user/register", "/api/sendEmail","/forget"];
+const whiteUrls = [
+  "/user/login",
+  "/user/register",
+  "/api/sendEmail",
+  "/forget",
+];
 
 // request 拦截器
 // 可以自请求发送前对请求做一些处理
@@ -23,10 +28,10 @@ request.interceptors.request.use(
       // 校验请求白名单
       if (!userJson) {
         message.error({
-          message:  'token过期，重新登录',
+          message: "token过期，重新登录",
           duration: 2 * 1000,
-          showClose: true
-        })
+          showClose: true,
+        });
         router.push("/login");
       } else {
         let user = JSON.parse(userJson);
@@ -65,10 +70,10 @@ request.interceptors.response.use(
     if (res.status === 10003) {
       console.error("token过期，重新登录");
       message.error({
-        message:  'token过期，重新登录',
+        message: "token过期，重新登录",
         duration: 2 * 1000,
-        showClose: true
-      })
+        showClose: true,
+      });
       router.push("/login");
     }
     return res;
