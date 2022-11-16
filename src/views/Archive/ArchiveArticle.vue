@@ -10,7 +10,7 @@
       ></el-input>
 
       <el-button type="primary" style="margin-left: 5px" @click="load"
-      >查询
+        >查询
       </el-button>
     </div>
     <el-table
@@ -36,19 +36,13 @@
             <el-form-item v-show="props.row.keyword != null" label="关键词:">
               <span>{{ props.row.keyword }}</span>
             </el-form-item>
-            <el-form-item
-              v-show="props.row.keywordEn != null"
-              label="Keyword:"
-            >
+            <el-form-item v-show="props.row.keywordEn != null" label="Keyword:">
               <span>{{ props.row.keywordEn }}</span>
             </el-form-item>
             <el-form-item label="摘要:">
               <span>{{ props.row.summary }}</span>
             </el-form-item>
-            <el-form-item
-              v-show="props.row.summaryEn != null"
-              label="Summary:"
-            >
+            <el-form-item v-show="props.row.summaryEn != null" label="Summary:">
               <span>{{ props.row.summaryEn }}</span>
             </el-form-item>
             <el-form-item label="方向:">
@@ -91,10 +85,10 @@
               scope.row.types === 0
                 ? "论文"
                 : "未知" && scope.row.types === 1
-                  ? "专利"
-                  : "未知" && scope.row.state === 2
-                    ? "未知"
-                    : "报告"
+                ? "专利"
+                : "未知" && scope.row.state === 2
+                ? "未知"
+                : "报告"
             }}
           </el-tag>
         </template>
@@ -114,7 +108,6 @@
         show-overflow-tooltip
         align="center"
       ></el-table-column>
-
 
       <el-table-column label="方向" show-overflow-tooltip align="center">
         <template #default="scope">
@@ -136,7 +129,6 @@
         </template>
       </el-table-column>
 
-
       <el-table-column
         prop="createTime"
         label="上传时间"
@@ -150,34 +142,36 @@
           <el-tag
             size="medium"
             :type="
-              scope.row.state === 1 ||
-              scope.row.state === 3
+              scope.row.state === 1 || scope.row.state === 3
                 ? 'primary'
                 : scope.row.state === 0
                 ? 'info'
-                : scope.row.state === 4 || scope.row.state === 6 || scope.row.state === 2
+                : scope.row.state === 4 ||
+                  scope.row.state === 6 ||
+                  scope.row.state === 2
                 ? 'danger'
-                :scope.row.state === 5 ?'success':''
+                : scope.row.state === 5
+                ? 'success'
+                : ''
             "
-          >{{
+            >{{
               scope.row.state === 1
                 ? "初审通过"
                 : "未审核" && scope.row.state === 2
-                  ? "初审未通过"
-                  : "未审核" && scope.row.state === 3
-                    ? "二审通过"
-                    : "未审核" && scope.row.state === 4
-                      ? "二审未通过"
-                      : "未审核" && scope.row.state === 5
-                        ? "已归档"
-                        : "未审核" && scope.row.state === 6
-                          ? "终审未通过"
-                          : "未审核"
+                ? "初审未通过"
+                : "未审核" && scope.row.state === 3
+                ? "二审通过"
+                : "未审核" && scope.row.state === 4
+                ? "二审未通过"
+                : "未审核" && scope.row.state === 5
+                ? "已归档"
+                : "未审核" && scope.row.state === 6
+                ? "终审未通过"
+                : "未审核"
             }}
           </el-tag>
         </template>
       </el-table-column>
-
 
       <el-table-column label="操作" width="180">
         <template #default="scope">
@@ -186,7 +180,7 @@
             type="success"
             plain
             @click="previewOpen(scope.row)"
-          ><i class="el-icon-tickets"></i>预览
+            ><i class="el-icon-tickets"></i>预览
           </el-button>
           <el-popconfirm
             title="确定下载吗？"
@@ -194,7 +188,7 @@
           >
             <template #reference>
               <el-button size="mini" type="warning" plain
-              ><i class="el-icon-folder-add"></i>下载
+                ><i class="el-icon-folder-add"></i>下载
               </el-button>
             </template>
           </el-popconfirm>
@@ -214,7 +208,6 @@
       </el-pagination>
     </div>
 
-
     <!-- 预览弹框 -->
     <el-dialog
       custom-class="previewDialog"
@@ -232,7 +225,7 @@
 import request from "@/utils/request";
 import { Base64 } from "js-base64";
 import download from "@/utils/download";
-import { fileApiURL } from "@/setting";
+import { fileApiURL, fileDownload } from "@/setting";
 import jsonpath from "jsonpath";
 
 export default {
@@ -278,9 +271,7 @@ export default {
   created() {
     this.load();
   },
-  computed: {
-
-  },
+  computed: {},
   methods: {
     load() {
       this.loading = true;
@@ -313,7 +304,7 @@ export default {
     },
     // 指导老师
     showPaperReviewers(row) {
-      let paperReviewers = row.paperReviewers
+      let paperReviewers = row.paperReviewers;
       if (paperReviewers.length === 0) {
         return "空";
       }
@@ -328,7 +319,6 @@ export default {
         "";
     },
 
-
     newUpload(row) {
       // this.form = JSON.parse(JSON.stringify(row));
       this.formData.id = row.id;
@@ -340,20 +330,15 @@ export default {
       this.$refs["uploadS"].clearFiles();
     },
 
-
-
     handleDownload(row) {
       const file = row.paperFiles;
-      console.log(file[0])
+      console.log(file[0]);
       if (file[0] !== undefined) {
-        console.log(file[0].url)
-        const key = file[0]
-        const filename = key.url.replace(
-          /^\/files\/([a-fA-F0-9]{32})_/,
-          ""
-        );
-        const fileSuffix = filename.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
-        if (!filename || !fileSuffix) {
+        // console.log(file[0].url);
+        const key = file[0];
+        const fileName = key.url.replace(/^\/file\/([a-fA-F0-9]{32})_/, "");
+        const fileSuffix = fileName.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
+        if (!fileName || !fileSuffix) {
           this.$message({
             type: "error",
             message: "文件名或文件后缀错误，请检查文件!",
@@ -365,17 +350,17 @@ export default {
           message: "文件下载中, 请耐心等待...",
         });
         request({
-          url: key.url,
+          url: fileDownload + key.url,
           method: "get",
           responseType: "blob",
         }).then((res) => {
-          download(res, filename, fileSuffix);
+          download(res, fileName, fileSuffix);
         });
       } else {
         this.$message({
           type: "info",
-          message: "暂未找到任何文件"
-        })
+          message: "暂未找到任何文件",
+        });
       }
     },
 
@@ -393,17 +378,17 @@ export default {
     previewOpen(data) {
       const file = data.paperFiles;
       if (file.length !== 0) {
-        console.log(file);
+        // console.log(file);
         for (const key of file) {
           // console.log(key.typeOr);
           if (key.typeOr === 0) {
-            console.log(key.url);
+            // console.log(key.url);
             this.previewVisible = true;
             this.previewFileUrl =
-              "http://8.136.96.167:8012/onlinePreview?url=" +
+              "http://blog.ivanlife.cn:8012/onlinePreview?url=" +
               encodeURIComponent(Base64.encode(this.fileApiURL + key.url));
-            console.log(this.previewFileUrl);
-            console.log(this.previewVisible);
+            // console.log(this.previewFileUrl);
+            // console.log(this.previewVisible);
           }
         }
       } else {
