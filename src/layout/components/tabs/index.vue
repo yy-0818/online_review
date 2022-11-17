@@ -132,7 +132,7 @@ export default {
     // 点击tab
     const handleTag = (obj) => {
       store.commit("getActiveMenu", obj.props.name);
-      // router.push({path:obj.props.name})
+      router.push({path:obj.props.name})
       setTabs(data.tabs, obj.props.name);
       judgeTabs();
     };

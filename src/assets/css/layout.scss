@@ -308,6 +308,7 @@
       &:hover:not(.is-disabled):focus,
       &:hover:not(.is-disabled):hover {
         color: #ffffff;
+        // color: #000000;
       }
     }
     .el-submenu__title {
@@ -318,6 +319,7 @@
       }
       &:hover {
         color: #ffffff;
+        // color: #000000;
       }
     }
   }

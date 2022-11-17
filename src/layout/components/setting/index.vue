@@ -81,6 +81,14 @@
         ></el-color-picker>
       </div>
       <el-divider>界面显示</el-divider>
+<!--      <div class="other-row">-->
+<!--        <span>显示logo</span>-->
+<!--        <el-switch-->
+<!--            v-model="showLogo"-->
+<!--            class="custom-switch"-->
+<!--            @change="changeSetting('ShowLogo', $event)"-->
+<!--        ></el-switch>-->
+<!--      </div>-->
       <div class="other-row">
         <span>面包屑</span>
         <el-switch
@@ -89,25 +97,26 @@
           @change="changeSetting('showBreadcrumb', $event)"
         ></el-switch>
       </div>
-<!--      <div class="other-row">-->
-<!--        <span>导航页</span>-->
-<!--        <el-switch-->
-<!--          v-model="showTabs"-->
-<!--          class="custom-switch"-->
-<!--          @change="changeSetting('showTabs', $event)"-->
-<!--        ></el-switch>-->
-<!--      </div>-->
+      <div class="other-row">
+        <span>导航页</span>
+        <el-switch
+          v-model="showTabs"
+          class="custom-switch"
+          @change="changeSetting('showTabs', $event)"
+        ></el-switch>
+      </div>
     </div>
     <el-button class="draw-save" @click="close">保存</el-button>
   </el-drawer>
 </template>
 
 <script>
-import { reactive, toRefs, onMounted } from "vue";
+import {reactive, toRefs, onMounted, computed} from "vue";
 import { useStore } from "vuex";
 import { _data, _changeSetting, _getThemes } from "./index.js";
 import { ElMessage } from "element-plus";
 export default {
+
   setup() {
     const data = reactive(_data);
     const store = useStore();
@@ -117,6 +126,7 @@ export default {
     const showDraw = () => (data.drawer = true);
     const changeSetting = (type, value) => {
       _changeSetting({ type, value, store, data });
+      // console.log(type,value)
     };
     const params = toRefs(data);
     // const close = () => (data.drawer = false);
@@ -127,11 +137,13 @@ export default {
         type: "success",
       });
     }
+
     return {
       ...params,
       showDraw,
       changeSetting,
       close,
+
     };
   },
 };

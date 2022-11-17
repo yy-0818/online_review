@@ -35,7 +35,8 @@ export const getThemes = () => {
     ? JSON.parse(result)
     : {
       showBreadcrumb: true,
-      showTabs: false
+      showTabs: false,
+        showLogo:true
     }
   return result
 }

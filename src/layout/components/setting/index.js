@@ -50,6 +50,7 @@ export const _data = {
   ],
   showBreadcrumb: true,
   showTabs: false,
+  showLogo:true
 };
 
 // 主题切换
@@ -102,6 +103,11 @@ export const _getThemes = (params) => {
   toggleClass({
     flag: themes.nightMode,
     cls: "night-mode",
+  });
+  toggleClass({
+    flag: themes.showLogo,
+    dom: ".el-logo",
+    cls: "is-show",
   });
   toggleClass({
     flag: themes.showBreadcrumb,
