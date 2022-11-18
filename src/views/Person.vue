@@ -1,128 +1,134 @@
 <template>
-  <div style="padding:2%">
-    <div id="app">
-      <vue-particles
-        color="#409EFF"
-        :particleOpacity="0.7"
-        :particlesNumber="120"
-        shapeType="polygon"
-        :particleSize="4"
-        linesColor="#409EFF"
-        :linesWidth="1.5"
-        :lineLinked="true"
-        :lineOpacity="0.6"
-        :linesDistance="150"
-        :moveSpeed="3"
-        :hoverEffect="true"
-        hoverMode="grab"
-        :clickEffect="true"
-        clickMode="push"
-      >
-      </vue-particles>
-    </div>
-    <el-row>
-      <el-card class="el-card" shadow="hover">
-        <el-form ref="form" :model="form" label-width="80px" size="mini">
-          <el-form-item style="text-align: center" label-width="0">
-            <el-upload
-              class="avatar-uploader"
-              action="/api/files/upload"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-            >
-              <img v-if="newAvatarUrl" :src="newAvatarUrl" class="avatar" />
-              <img
-                v-else
-                :src="
+    <div style="padding:2%" >
+      <div id="app">
+        <!--      <vue-particles-->
+        <!--        color="#409EFF"-->
+        <!--        :particleOpacity="0.7"-->
+        <!--        :particlesNumber="120"-->
+        <!--        shapeType="polygon"-->
+        <!--        :particleSize="4"-->
+        <!--        linesColor="#409EFF"-->
+        <!--        :linesWidth="1.5"-->
+        <!--        :lineLinked="true"-->
+        <!--        :lineOpacity="0.6"-->
+        <!--        :linesDistance="150"-->
+        <!--        :moveSpeed="3"-->
+        <!--        :hoverEffect="true"-->
+        <!--        hoverMode="grab"-->
+        <!--        :clickEffect="true"-->
+        <!--        clickMode="push"-->
+        <!--      >-->
+        <!--      </vue-particles>-->
+        <Bgcanvas />
+      </div>
+      <el-row >
+        <el-card class="el-card" shadow="hover">
+          <el-form ref="form" :model="form" label-width="80px" size="mini">
+            <el-form-item style="text-align: center" label-width="0">
+              <el-upload
+                  class="avatar-uploader"
+                  action="/api/files/upload"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+              >
+                <img v-if="newAvatarUrl" :src="newAvatarUrl" class="avatar" />
+                <img
+                    v-else
+                    :src="
                   form.avatarUrl === '/image/avatar.png'
                     ? defaultAvatar
                     : form.avatarUrl === undefined
                     ? defaultAvatar
                     : ' ' + form.avatarUrl
                 "
-                class="avatar"
-              />
+                    class="avatar"
+                />
 
-              <!-- <i v-else class="el-icon-plus avatar-uploader-icon"></i> -->
-            </el-upload>
-          </el-form-item>
-          <el-form-item label="邮箱">
-            <el-input
-              class="el-form-item-d"
-              v-model="form.email"
-              disabled
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="姓名">
-            <el-input
-              class="el-form-item-d"
-              v-model="form.name"
-              placeholder="请填写你的姓名"
-            ></el-input>
-          </el-form-item>
+                <!-- <i v-else class="el-icon-plus avatar-uploader-icon"></i> -->
+              </el-upload>
+            </el-form-item>
+            <el-form-item label="邮箱">
+              <el-input
+                  class="el-form-item-d"
+                  v-model="form.email"
+                  disabled
+              ></el-input>
+            </el-form-item>
+            <el-form-item label="姓名">
+              <el-input
+                  class="el-form-item-d"
+                  v-model="form.name"
+                  placeholder="请填写你的姓名"
+              ></el-input>
+            </el-form-item>
 
-          <el-form-item label="密码">
-            <el-input
-              class="el-form-item-d"
-              v-model="form.password"
-              show-password
-              placeholder="修改密码"
-            ></el-input>
-          </el-form-item>
+            <el-form-item label="密码">
+              <el-input
+                  class="el-form-item-d"
+                  v-model="form.password"
+                  show-password
+                  placeholder="修改密码"
+              ></el-input>
+            </el-form-item>
 
-          <el-form-item label="角色">
-            <el-select v-model="form.role" style="width:80%">
-              <el-option
-                v-for="item in roles"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-                disabled
-              >
-              </el-option>
-            </el-select>
-          </el-form-item>
+            <el-form-item label="角色">
+              <el-select v-model="form.role" style="width:80%">
+                <el-option
+                    v-for="item in roles"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                    disabled
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
 
-          <el-form-item label="研究方向">
-            <el-select v-model="form.directionId" style="width:80%">
-              <el-option
-                v-for="item in directionIdOptions"
-                :key="item.value"
-                :label="item.name"
-                :value="item.id"
-                :disabled="item.label === '未选择'"
-              >
-              </el-option>
-            </el-select>
-          </el-form-item>
+            <el-form-item label="研究方向">
+              <el-select v-model="form.directionId" style="width:80%">
+                <el-option
+                    v-for="item in directionIdOptions"
+                    :key="item.value"
+                    :label="item.name"
+                    :value="item.id"
+                    :disabled="item.label === '未选择'"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
 
-          <el-form-item label="性别">
-            <el-select v-model="form.gender" style="width:80%">
-              <el-option
-                v-for="item in genderOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-                :disabled="item.value === 0"
-              >
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-form>
-        <div style="text-align: center">
-          <el-button type="primary" @click="update">保存</el-button>
-        </div>
-      </el-card>
-    </el-row>
-  </div>
+            <el-form-item label="性别">
+              <el-select v-model="form.gender" style="width:80%">
+                <el-option
+                    v-for="item in genderOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.value === 0"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-form>
+          <div style="text-align: center">
+            <el-button type="primary" @click="update">保存</el-button>
+          </div>
+        </el-card>
+      </el-row>
+    </div>
 </template>
 
 <script>
 import request from "@/utils/request";
 import { fileDownload } from "@/setting";
+import Bgcanvas from "@/components/Bgcanvas";
+
 
 export default {
   name: "Person",
+  components:{
+    Bgcanvas
+  },
   data() {
     return {
       defaultAvatar: "http://static.ivanlife.cn/imges/1.jpg",
@@ -211,7 +217,7 @@ export default {
 }
 
 .el-form-item-d {
-  width: 200px;
+  /*width: 200px;*/
   width: 80%;
 }
 
@@ -238,8 +244,10 @@ export default {
 }
 
 .avatar {
-  width: 178px;
-  height: 178px;
+  width: 200px;
+  height: 200px;
   display: block;
+  border-radius: 100px;
 }
+
 </style>
