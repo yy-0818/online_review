@@ -4,32 +4,33 @@
 
 ## 简介
 
-基于 [vue](https://github.com/vuejs/vue) 和 [element-plus](https://github.com/element-plus/element-plus)实现🎉：
+基于 [vue](https://github.com/vuejs/vue) 和 [element-plus](https://github.com/element-plus/element-plus)实现 🎉：
 
 本架构使用的技术为：vue3+vite2+element-plus 的新一代的前端框架，It's fast!
 
-使用 eslint格式校验代码,提高代码规范性和开发效率
+使用 eslint 格式校验代码,提高代码规范性和开发效率
 
 ---
 
 ## 线上体验
 
-gitee 地址： https://gitee.com/torUntitled/paper_review_system.git
+前端地址：https://github.com/yy-0818/online_review.git
+
+后端地址：https://github.com/yy-0818/online_review_server.git
 
 [comment]: <> ([访问地址]&#40;http://paper.lunatic.ren/login&#41;)
 
 ## 相关项目
 
-![image-20220107085038579](https://gitee.com/torUntitled/images/raw/master/img/notes/image-20220107085038579.png)
+![image-20221114002933821](http://static.ivanlife.cn//imges/image-20221114002933821.png)
 
 --
-
 
 ## 构建步骤
 
 ```bash
 # 克隆项目
-git clone https://gitee.com/torUntitled/paper_review_system.git
+git clone https://github.com/yy-0818/online_review.git
 
 # 进入项目目录
 cd  paper_review_system
@@ -43,7 +44,7 @@ npm run serve
 
 启动完成后会自动打开浏览器访问 [http://localhost:9876](http://localhost:9876/)， 你看到下面的页面就代表操作成功了
 
-![login](https://gitee.com/torUntitled/images/raw/master/img/notes/login.png)
+![image-20221118225259477](http://static.ivanlife.cn//imges/image-20221118225259477.png)
 
 ## 发布
 
@@ -76,8 +77,8 @@ npm run build
   - Svg Sprite 图标(取消)
   - Screenfull全屏
   - 自适应收缩侧边栏
-  #- 动态侧边栏（支持多级路由嵌套）
-  #- 动态面包屑
+  - 动态侧边栏（支持多级路由嵌套）
+  - 动态面包屑
 
 - 编辑器
   - 富文本
@@ -87,7 +88,7 @@ npm run build
   - pdf
   - word
   - zip等压缩包
-  
+
 - 邮件
   - 注册账号邮件
   - 审核邮件
@@ -95,7 +96,7 @@ npm run build
  
 - 上传
   - 文件上传
- 
+
 - 下载
   - 文件下载
 
@@ -107,13 +108,13 @@ npm run build
   - Dialog
   - 验证码ValidCode
   - Message
+  - Download
 
 ```
 
->注：#- --暂未实现(等待后续开发)
->
+> 注：#- --暂未实现(等待后续开发)
 
-## Dependency-cruiser 
+## Dependency-cruiser
 
 ![dependencygraph](https://gitee.com/torUntitled/images/raw/master/img/notes/dependencygraph.svg)
 
@@ -126,7 +127,7 @@ npm run build
 │   ├── static
 │   │   └── config.js
 │   ├── favicon.ico
-│   └── index.html         
+│   └── index.html
 ├── src                    # 源代码
 │   ├── assets             # 主题 字体等静态资源
 │   ├── components         # 全局公用组件
@@ -140,45 +141,39 @@ npm run build
 │   └── setting.js
 ├── babel.config.js
 ├── package-lock.json
-├── package.json    
+├── package.json
 ├── README-zh_CN.md
 ├── vue.config.js
 └── webpack.config.js
 ```
 
-
-
 ## Git 贡献提交规范
 
-  - `feat` 增加新功能
-  - `fix` 修复问题/BUG
-  - `style` 代码风格相关无影响运行结果的
-  - `perf` 优化/性能提升
-  - `refactor` 重构
-  - `revert` 撤销修改
-  - `test` 测试相关
-  - `docs` 文档/注释
-  - `chore` 依赖更新/脚手架配置修改等
-  - `workflow` 工作流改进
-  - `ci` 持续集成
-  - `types` 类型定义文件更改
-  - `wip` 开发中
-
-
+- `feat` 增加新功能
+- `fix` 修复问题/BUG
+- `style` 代码风格相关无影响运行结果的
+- `perf` 优化/性能提升
+- `refactor` 重构
+- `revert` 撤销修改
+- `test` 测试相关
+- `docs` 文档/注释
+- `chore` 依赖更新/脚手架配置修改等
+- `workflow` 工作流改进
+- `ci` 持续集成
+- `types` 类型定义文件更改
+- `wip` 开发中
 
 ## 浏览器支持
 
-注意：vue3不在支持IE浏览器
+注意：vue3 不在支持 IE 浏览器
 Modern browsers and Internet Explorer 11+.
 
 ## Browsers support
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari-ios/safari-ios_48x48.png" alt="iOS Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>iOS Safari |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| IE11, Edge                                                   | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| IE11, Edge                                                                                                                                                                                                      | last 2 versions                                                                                                                                                                                                   | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                                               |
 
 ## 维护者
 
-[YOU](https://gitee.com/torUntitled)
-
-
+[yy-0818](https://github.com/yy-0818)

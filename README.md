@@ -1,6 +1,6 @@
 # Scientific Research Achievement Review System
 
-**English** | [中文](./README-zh_CN)
+**English** | [中文](./README-zh_CN.md)
 
 ## Introduction
 
@@ -18,22 +18,21 @@ Use eslint format to verify code to improve code standardization and development
 
 ## Online experience
 
-gitee address： https://gitee.com/torUntitled/paper_review_system.git
+github address： https://github.com/yy-0818/online_review.git
 
 [comment]: <> ([Access address]&#40;http://paper.lunatic.ren/login&#41;)
 
 ## Related items
 
-![image-20220107085038579](https://gitee.com/torUntitled/images/raw/master/img/notes/image-20220107085038579.png)
+![image-20221114002933821](http://static.ivanlife.cn//imges/image-20221114002933821.png)
 
 --
-
 
 ## Build step
 
 ```bash
 # Clone project
-git clone https://gitee.com/torUntitled/paper_review_system.git
+git clone https://github.com/yy-0818/online_review.git
 
 # Enter the project directory
 cd  paper_review_system
@@ -47,7 +46,7 @@ npm run serve
 
 After the startup is completed, the browser will be automatically opened to access [http://localhost:9876](http://localhost:9876/). If you see the following page, it means the operation is successful.🎈
 
-![login](https://gitee.com/torUntitled/images/raw/master/img/notes/login.png)
+![image-20221118225259477](http://static.ivanlife.cn//imges/image-20221118225259477.png)
 
 ## Release
 
@@ -80,8 +79,8 @@ npm run build
    - Svg Sprite Icon (Cancel)
    - Screenfull full screen
    - Adaptive shrink sidebar
-   #- Dynamic sidebar (supports multi-level routing nesting)
-   #- Dynamic breadcrumbs
+   - Dynamic sidebar (supports multi-level routing nesting)
+   - Dynamic breadcrumbs
 
 - editor
    - Rich text
@@ -91,15 +90,15 @@ npm run build
    - pdf
    -word
    - Compressed packages such as zip
-  
+
 - mail
    - registered account email
    - Review emails
-   #- email alert
- 
+   - email alert
+
 - upload
    - File Upload
- 
+
 - download
    - file download
 
@@ -110,12 +109,13 @@ npm run build
    - Avatar upload
    - Dialog
    - ValidCode
-   -Message
+   - Message
+   - Download
 ```
 
->Note: #- -- not implemented yet (waiting for subsequent development)
+> Note: #- -- not implemented yet (waiting for subsequent development)
 
-## Dependency-cruiser 
+## Dependency-cruiser
 
 ![dependencygraph](https://gitee.com/torUntitled/images/raw/master/img/notes/dependencygraph.svg)
 
@@ -128,7 +128,7 @@ npm run build
 │   ├── static
 │   │   └── config.js
 │   ├── favicon.ico
-│   └── index.html         
+│   └── index.html
 ├── src                    # source code
 │   ├── assets             # Static resources such as themes and fonts
 │   ├── components         # Global Common Components
@@ -142,31 +142,27 @@ npm run build
 │   └── setting.js
 ├── babel.config.js
 ├── package-lock.json
-├── package.json    
+├── package.json
 ├── README-zh_CN.md
 ├── vue.config.js
 └── webpack.config.js
 ```
 
+## Git Contribution submission specification
 
-
-## Git   Contribution submission specification
-
-  - `feat` Add new features
-  - `fix`  Fix problems/bugs
-  - `style` Code style related without affecting the running result
-  - `perf` Optimization/Performance Improvement
-  - `refactor` refactor
-  - `revert` revert
-  - `test` test
-  - `docs` Documentation/Notes
-  - `chore` Dependency updates/scaffolding configuration modifications, etc.
-  - `workflow` Workflow Improvements
-  - `ci` Continuous Integration
-  - `types` Type definition file changes
-  - `wip` In development
-
-
+- `feat` Add new features
+- `fix` Fix problems/bugs
+- `style` Code style related without affecting the running result
+- `perf` Optimization/Performance Improvement
+- `refactor` refactor
+- `revert` revert
+- `test` test
+- `docs` Documentation/Notes
+- `chore` Dependency updates/scaffolding configuration modifications, etc.
+- `workflow` Workflow Improvements
+- `ci` Continuous Integration
+- `types` Type definition file changes
+- `wip` In development
 
 ## Browser support
 
@@ -176,10 +172,9 @@ Modern browsers and Internet Explorer 11+.
 ## Browsers support
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari-ios/safari-ios_48x48.png" alt="iOS Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>iOS Safari |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| IE11, Edge                                                   | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| IE11, Edge                                                                                                                                                                                                      | last 2 versions                                                                                                                                                                                                   | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                                               |
 
 ## Maintainer
 
-[YOU](https://gitee.com/torUntitled)
-
+[yy-0818](https://github.com/yy-0818)
