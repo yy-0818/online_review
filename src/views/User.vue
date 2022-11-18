@@ -340,6 +340,23 @@
 
       <el-dialog title="用户信息" v-model="dialogVisible" width="30%">
         <el-form :model="form" label-width="120px">
+
+          <el-form-item style="text-align: center">
+            <el-avatar
+                :src="
+            form.avatarUrl === '/image/avatar.png'
+              ? defaultAvatar
+              : form.avatarUrl === undefined
+              ? defaultAvatar
+              : ' ' + form.avatarUrl
+          "
+                alt="头像"
+                fit="scale-down"
+                shape="square"
+                class="avatar"
+            ></el-avatar>
+          </el-form-item>
+
           <el-form-item label="邮箱">
             <el-input
               v-model="form.email"
@@ -460,6 +477,7 @@ export default {
         id: "",
         reviewerIds: [],
       },
+      defaultAvatar: "http://static.ivanlife.cn/imges/1.jpg",
       dialogVisible: false, // 弹窗
       dialogReview: false,
       previewVisible: false,
@@ -509,7 +527,7 @@ export default {
           },
         })
         .then((res) => {
-          // console.log(res);
+          console.log(res);
           this.loading = false;
           this.tableData = res.data.records;
           // console.table(this.tableData);
@@ -790,7 +808,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .el-iframe {
   width: 100%;
   height: 100%;
@@ -802,5 +820,12 @@ export default {
   height: 90%;
   padding: 0;
   /*}*/
+}
+
+.avatar {
+  width: 175px;
+  height: 175px;
+  display: block;
+  border-radius: 15px;
 }
 </style>
