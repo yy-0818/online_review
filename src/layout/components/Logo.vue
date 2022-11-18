@@ -1,7 +1,7 @@
 <template>
   <div class="el-logo">
     <!-- <img src="@/assets/logo.png" alt="" /> -->
-    <img src="http://static.ivanlife.cn//imges/lo.png" alt="" />
+    <img src="http://static.ivanlife.cn/imges/title.png" alt="logo" />
     <span class="title" :class="{ 'is-hide': isHideTitle }">在线审核系统</span>
   </div>
 </template>
