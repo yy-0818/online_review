@@ -14,13 +14,11 @@
         clearable
       ></el-input>
       <el-button type="primary" style="margin-left: 8px" @click="add"
-      ><i class="el-icon-upload2 "></i>新增
-      </el-button
-      >
+        ><i class="el-icon-upload2 "></i>新增
+      </el-button>
       <el-button type="primary" style="margin-left: 6px" @click="load"
-      ><i class="el-icon-search"></i>查询
-      </el-button
-      >
+        ><i class="el-icon-search"></i>查询
+      </el-button>
     </div>
     <el-table
       v-loading="loading"
@@ -36,7 +34,12 @@
 
       <!--      >-->
       <el-table-column prop="id" label="ID" sortable></el-table-column>
-      <el-table-column prop="time" label="时间" :formatter="dateFormat" sortable></el-table-column>
+      <el-table-column
+        prop="time"
+        label="时间"
+        :formatter="dateFormat"
+        sortable
+      ></el-table-column>
       <el-table-column prop="title" label="标题"></el-table-column>
       <el-table-column prop="author" label="作者"></el-table-column>
 
@@ -47,27 +50,24 @@
             type="success"
             plain
             @click="details(scope.row)"
-          ><i class="el-icon-tickets"></i>详情
-          </el-button
-          >
+            ><i class="el-icon-tickets"></i>详情
+          </el-button>
           <el-button
             size="mini"
             type="primary"
             plain
             @click="handleEdit(scope.row)"
-          ><i class="el-icon-edit-outline"></i>编辑
-          </el-button
-          >
+            ><i class="el-icon-edit-outline"></i>编辑
+          </el-button>
           <el-popconfirm
-            v-if="this.formData.role===3 || this.formData.role===4 "
+            v-if="this.formData.role === 3 || this.formData.role === 4"
             title="确定删除吗？"
             @confirm="handleDelete(scope.row.id)"
           >
             <template #reference>
               <el-button size="mini" type="danger"
-              ><i class="el-icon-delete "></i>删除
-              </el-button
-              >
+                ><i class="el-icon-delete "></i>删除
+              </el-button>
             </template>
           </el-popconfirm>
         </template>
@@ -121,13 +121,14 @@
 <script>
 import E from "wangeditor";
 import request from "@/utils/request";
-import moment from 'moment'
+import moment from "moment";
+import fileDownload from "@/setting";
 
 let editor;
 
 export default {
   name: "News",
-  components: {},
+  components: {fileDownload},
   data() {
     return {
       loading: true,
@@ -167,17 +168,13 @@ export default {
   //   },
   // },
 
-
   methods: {
     dateFormat(row, column) {
-
       let date = row[column.property];
-      if (date === null || date === '' || date === undefined) {
-
-        return ''
+      if (date === null || date === "" || date === undefined) {
+        return "";
       } else {
-
-        return moment(date).format("YYYY-MM-DD HH:mm:ss")
+        return moment(date).format("YYYY-MM-DD HH:mm:ss");
       }
     },
     getDirections() {
@@ -262,7 +259,7 @@ export default {
               console.log("customInsert", result);
 
               // insertImgFn 可把图片插入到编辑器，传入图片 src ，执行函数即可
-              insertImgFn("/api" + result.data[0].url);
+              insertImgFn( fileDownload + result.data[0].url);
             },
           };
           editor.create();
@@ -297,7 +294,7 @@ export default {
         let userStr = sessionStorage.getItem("user") || "{}";
         let user = JSON.parse(userStr);
         this.form.author = user.name;
-        console.log(this.form.author);
+        // console.log(this.form.author);
         request.post("/news", this.form).then((res) => {
           console.log(res);
           if (res.status === 200) {
@@ -312,7 +309,6 @@ export default {
               message: res.msg,
             });
           }
-
           this.dialogVisible = false; // 关闭弹窗
         });
       }
@@ -365,8 +361,6 @@ export default {
       this.load();
     },
   },
-
-
 };
 </script>
 

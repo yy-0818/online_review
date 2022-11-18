@@ -70,7 +70,8 @@
             size="mini"
             type="primary"
             plain
-            @click="handleEdit(scope.row)" circle
+            @click="handleEdit(scope.row)"
+            circle
             ><i class="el-icon-edit-outline"></i
           ></el-button>
           <el-popconfirm
@@ -111,7 +112,6 @@
         </el-form-item>
 
         <div id="div1"></div>
-
       </el-form>
       <template #footer>
         <span class="dialog-footer">
@@ -244,7 +244,7 @@ export default {
               console.log("customInsert", result);
 
               // insertImgFn 可把图片插入到编辑器，传入图片 src ，执行函数即可
-              insertImgFn("/api" + result.data[0].url);
+              insertImgFn("http://static.ivanlife.cn" + result.data[0].url);
             },
           };
           editor.create();
