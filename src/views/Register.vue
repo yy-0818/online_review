@@ -1,23 +1,24 @@
 <template>
   <div class="welcome-page" :style="imgSrc">
-    <vue-particles
-      color="#409EFF"
-      :particleOpacity="0.7"
-      :particlesNumber="80"
-      shapeType="circle"
-      :particleSize="4"
-      linesColor="#409EFF"
-      :linesWidth="1"
-      :lineLinked="true"
-      :lineOpacity="0.4"
-      :linesDistance="150"
-      :moveSpeed="3"
-      :hoverEffect="true"
-      hoverMode="grab"
-      :clickEffect="true"
-      clickMode="push"
-    >
-    </vue-particles>
+    <vue-particles />
+<!--    <vue-particles-->
+<!--      color="#409EFF"-->
+<!--      :particleOpacity="0.7"-->
+<!--      :particlesNumber="80"-->
+<!--      shapeType="circle"-->
+<!--      :particleSize="4"-->
+<!--      linesColor="#409EFF"-->
+<!--      :linesWidth="1"-->
+<!--      :lineLinked="true"-->
+<!--      :lineOpacity="0.4"-->
+<!--      :linesDistance="150"-->
+<!--      :moveSpeed="3"-->
+<!--      :hoverEffect="true"-->
+<!--      hoverMode="grab"-->
+<!--      :clickEffect="true"-->
+<!--      clickMode="push"-->
+<!--    >-->
+<!--    </vue-particles>-->
     <div class="main">
       <el-card>
         <div id="todo">
@@ -142,7 +143,7 @@ export default {
     return {
       imgSrc: {
         backgroundImage:
-          "url(https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/carousel/3.png)",
+            "url(http://static.ivanlife.cn//imges/wallhaven-bg.png)",
         // height: "100vh",
         // width: "100vw",
         backgroundRepeat: "no-repeat",

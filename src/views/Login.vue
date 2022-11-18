@@ -1,25 +1,29 @@
 <template>
   <div class="welcome-page" :style="imgSrc">
-    <vue-particles
-      color="#409EFF"
-      :particleOpacity="0.7"
-      :particlesNumber="80"
-      shapeType="circle"
-      :particleSize="4"
-      linesColor="#409EFF"
-      :linesWidth="1"
-      :lineLinked="true"
-      :lineOpacity="0.4"
-      :linesDistance="150"
-      :moveSpeed="3"
-      :hoverEffect="true"
-      hoverMode="grab"
-      :clickEffect="true"
-      clickMode="push"
-    >
-    </vue-particles>
+<!--    <vue-particles-->
+<!--      color="#409EFF"-->
+<!--      :particleOpacity="0.7"-->
+<!--      :particlesNumber="80"-->
+<!--      shapeType="circle"-->
+<!--      :particleSize="4"-->
+<!--      linesColor="#409EFF"-->
+<!--      :linesWidth="1"-->
+<!--      :lineLinked="true"-->
+<!--      :lineOpacity="0.4"-->
+<!--      :linesDistance="150"-->
+<!--      :moveSpeed="3"-->
+<!--      :hoverEffect="true"-->
+<!--      hoverMode="grab"-->
+<!--      :clickEffect="true"-->
+<!--      clickMode="remove"-->
+<!--    >-->
+<!--    </vue-particles>-->
+<!--    <div>-->
+<!--      <Bgcanvas />-->
+<!--    </div>-->
+    <vue-particles />
     <div class="main">
-      <el-card>
+      <el-card shadow="hover">
         <div id="todo">
           欢迎登录
         </div>
@@ -97,6 +101,7 @@ import request from "@/utils/request";
 import ValidCode from "@/components/ValidCode";
 import { setUser } from "@/utils/storage";
 import { h } from "vue";
+// import Bgcanvas from "@/components/Bgcanvas";
 
 export default {
   name: "Login",
@@ -108,8 +113,7 @@ export default {
       loading: false,
       imgSrc: {
         backgroundImage:
-          "url(https://paper-review-system-1253346686.cos.ap-guangzhou.myqcloud.com/carousel/3.png)",
-        // height: "100vh",
+        "url(http://static.ivanlife.cn//imges/wallhaven-bg.png)",
         // width: "100vw",
         backgroundRepeat: "no-repeat",
         // backgroundSize: "cover",
@@ -170,9 +174,25 @@ export default {
                 setUser(res.data); // 缓存用户信息
                 this.$router.push("/"); //登录成功之后进行页面的跳转，跳转到主页
               } else {
+                const that = this;
+                setTimeout(function() {
+                  that.loading = false;
+                }, 1000);
+                // this.loading = false;
                 this.$message({
                   type: "error",
                   message: res.msg,
+                });
+                this.$notify({
+                  title: "警告",
+                  type: "error",
+                  message: h(
+                    "i",
+                    { style: "color: teal" },
+                    "失败过多会导致账号暂时封禁"
+                  ),
+                  duration: "5000",
+                  offset: 100,
                 });
               }
             });
@@ -195,28 +215,29 @@ export default {
 </script>
 
 <style scoped>
-/* .el-card {
-  min-width: 380px;
-  margin-right: 20px;
- transition: all 0.25s;
+.el-card {
+  max-width: 420px;
+  max-height: 420px;
+  /* margin-right: 20px; */
+
+  transition: all 0.25s;
 }
-.el-card:hover {
+/* .el-card:hover {
   margin-top: -5px;
-}  */
+} */
 .welcome-page {
   display: flex;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   overflow: hidden;
   background-size: 100% 100%;
 }
 
 .main {
-  /* text-align: center; 让div内部文字居中 */
   background-color: #fff;
   border-radius: 20px;
-  width: 400px;
-  height: 400px;
+  width: 410px;
+  height: 410px;
   margin: auto;
   position: absolute;
   top: 0;
