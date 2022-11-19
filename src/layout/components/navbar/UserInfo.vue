@@ -4,7 +4,6 @@
       <!-- <img src="@/assets/logo.png" alt="" /> -->
       <span>
         <el-avatar
-          @error="errorHandler"
           :size="33"
           :src="
             form.avatarUrl === '/image/avatar.png'
@@ -14,6 +13,7 @@
               : ' ' + form.avatarUrl
           "
           fit="scale-down"
+          style="padding-right: 5px"
         ></el-avatar>
       </span>
       <span style="padding-left:8px">{{ form.name }}</span>
