@@ -37,7 +37,6 @@
           v-loading="loading"
           :data="tableData"
           border
-          stripe
           style="width: 100%"
           tooltip-effect="dark"
           :highlight-current-row="true"
@@ -145,7 +144,6 @@
           v-loading="loading"
           :data="tableDataStu"
           border
-          stripe
           style="width: 100%"
           tooltip-effect="dark"
           :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
@@ -464,7 +462,7 @@ import request from "@/utils/request";
 import jsonpath from "jsonpath";
 import { Base64 } from "js-base64";
 import download from "@/utils/download";
-import { fileDownload } from "@/setting";
+import { fileApiURL, fileDownload } from "@/setting";
 // import Plugin from "@/v-fit-columns";
 
 export default {
@@ -477,6 +475,7 @@ export default {
         id: "",
         reviewerIds: [],
       },
+      fileApiURL: fileApiURL,
       defaultAvatar: "http://static.ivanlife.cn/imges/1.jpg",
       dialogVisible: false, // 弹窗
       dialogReview: false,
@@ -494,14 +493,14 @@ export default {
 
       roles: [
         { value: 1, label: "普通用户" },
-        { value: 2, label: "初审" },
-        { value: 3, label: "审稿人" },
-        { value: 4, label: "终审" },
+        { value: 2, label: "初审用户" },
+        { value: 3, label: "审稿用户" },
+        { value: 4, label: "超级管理员" },
       ],
       genderOptions: [
         { value: 1, label: "男" },
         { value: 2, label: "女" },
-        { value: 0, label: "未知" },
+        { value: 0, label: "保密" },
       ],
 
       rulesPaper: {
@@ -690,11 +689,11 @@ export default {
     handleDownload(row) {
       const file = row.paperFiles;
       if (file.length !== 0) {
-        console.log(file);
+        // console.log(file);
         for (const key of file) {
           // console.log(key.typeOr);
           if (key.typeOr === 0) {
-            // console.log(key.url);
+            console.log(key.url);
             const fileName = key.url.replace(/^\/file\/([a-fA-F0-9]{32})_/, "");
             const fileSuffix = fileName.match(/\.([0-9a-z]+)(?:[\?#]|$)/i)[1];
             // console.log(fileName);
@@ -792,6 +791,7 @@ export default {
             this.previewFileUrl =
               "http://blog.ivanlife.cn:8012/onlinePreview?url=" +
               encodeURIComponent(Base64.encode(this.fileApiURL + key.url));
+            console.log(this.fileApiURL + key.url);
             // console.log(this.previewFileUrl);
             // console.log(this.previewVisible);
           }

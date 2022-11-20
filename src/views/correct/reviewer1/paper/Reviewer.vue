@@ -18,7 +18,6 @@
       v-loading="loading"
       :data="tableData"
       border
-      stripe
       style="width: 100%"
       tooltip-effect="dark"
       :highlight-current-row="true"
@@ -411,7 +410,7 @@
 import request from "@/utils/request";
 import { Base64 } from "js-base64";
 import download from "@/utils/download";
-import { fileApiURL, fileDownload } from "@/setting";
+import { fileApiURL, fileDownload,fileViewApiURL } from "@/setting";
 import jsonpath from "jsonpath";
 
 export default {
@@ -420,6 +419,7 @@ export default {
   data() {
     return {
       fileApiURL: fileApiURL,
+      fileViewApiURL:fileViewApiURL,
       loading: true,
       limitNum: 1,
       formdata: {
@@ -698,13 +698,14 @@ export default {
         for (const key of file) {
           // console.log(key.typeOr);
           if (key.typeOr === 0) {
-            // console.log(key.url);
+            console.log(key.url);
             this.previewVisible = true;
             this.previewFileUrl =
               "http://blog.ivanlife.cn:8012/onlinePreview?url=" +
-              encodeURIComponent(Base64.encode(this.fileApiURL + key.url));
+              encodeURIComponent(Base64.encode(this.fileViewApiURL + key.url));
             // console.log(this.previewFileUrl);
             // console.log(this.previewVisible);
+            // console.log(this.fileApiURL + key.url);
           }
         }
       } else {
