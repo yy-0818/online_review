@@ -24,7 +24,6 @@
       v-loading="loading"
       :data="tableData"
       border
-      stripe
       style="width: 100%"
       :header-cell-style="{ background: '#FFF5EE', color: '#1C1C1C' }"
     >
