@@ -14,11 +14,12 @@
 .night-mode {
   --navbarThemeColor: #1f1f1f;
   --navbarColor: #ffffff;
-  --sidebarThemeColor: #1f1f1f;
-  --contentBgColor: #000000;
+  --sidebarThemeColor: #1D1D1D;
+  --contentBgColor: #1D1D1D;
   --border-color: #303030;
   --el-border-color-base: #303030;
   --el-border-color-light: #303030;
+  --el-color-white:#ffffff //覆盖白色对话框
 }
 
 $systemTheme: var(--systemThemeColor);
