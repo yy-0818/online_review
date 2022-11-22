@@ -72,9 +72,9 @@
 
             <div style="padding: 14px;">
               <a
-                href="http://blog.ivanlife.cn:8012/onlinePreview?url=aHR0cHM6Ly9wYXBlci1yZXZpZXctc3lzdGVtLTEyNTMzNDY2ODYuY29zLmFwLWd1YW5nemhvdS5teXFjbG91ZC5jb20vZG9jcy9FeHBsYW5hdGlvbi5kb2N4&officePreviewType=pdf"
+                href="http://blog.ivanlife.cn:8012/onlinePreview?url=aHR0cDovL3N0YXRpYy5pdmFubGlmZS5jbi9maWxlL2IzZDM0YWZmZjg0YzQ5NGI4ZmUyODVkYTY1ZTBjZTBjX%2BWcqOe6v%2BWuoeaguOezu%2Be7n%2BW8gOWPkeaWh%2Bahoy5kb2M%3D"
                 target="_blank"
-                ><span>论文标准</span></a
+                ><span>开发文档</span></a
               >
 
               <!--            <div class="bottom clearfix">-->
@@ -109,9 +109,9 @@
             />
             <div style="padding: 14px;">
               <a
-                href="http://blog.ivanlife.cn:8012/onlinePreview?url=aHR0cDovL3BhcGVyLmx1bmF0aWMucmVuL2FwaS9maWxlcy83MGZjOTRmNTE0ZDU0ZTg2OTlkMGYwOTBiY2VkNWYxOV%2FmlofnjK7moIflh4YucGRm"
+                href="http://blog.ivanlife.cn:8012/onlinePreview?url=aHR0cDovL3N0YXRpYy5pdmFubGlmZS5jbi9maWxlL2M0NzFiMGMxNGFlYTQ2NTI5Y2MwYTRlMGYwNzA5ODhhX%2BWcqOe6v%2BWuoeaguOezu%2Be7n%2BS9nOWTgeeugOS7iy5kb2N4"
                 target="_blank"
-                ><span>文献标准</span></a
+                ><span>作品简介</span></a
               >
               <!--            <div class="bottom clearfix">-->
               <!--              <time class="time">{{ currentDate }}</time>-->
@@ -147,9 +147,9 @@
 
             <div style="padding: 14px;">
               <a
-                href="http://blog.ivanlife.cn:8012/onlinePreview?url=aHR0cDovL3BhcGVyLmx1bmF0aWMucmVuL2FwaS9maWxlcy9kYzZhNjI5ZjkwN2I0NmY3YTdhNDRjNjZhY2NmMjJjZF%2FkuJPliKnmqKHmnb8ucGRm"
+                href="http://localhost:9876/home"
                 target="_blank"
-                ><span>专利模板</span></a
+                ><span>广告招租</span></a
               >
 
               <!--              <div class="bottom clearfix">-->
